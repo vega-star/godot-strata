@@ -1,0 +1,45 @@
+[gd_scene load_steps=6 format=3 uid="uid://b7d5rmrbmprps"]
+
+[ext_resource type="Script" path="res://scripts/parallax_movement/far_bg.gd" id="1_aa4xc"]
+[ext_resource type="Texture2D" uid="uid://d0xety1ri8oe0" path="res://assets/textures/prototypes/passing_test_bg.png" id="2_vkmen"]
+[ext_resource type="Script" path="res://scripts/parallax_movement/closer_montains.gd" id="3_mvolg"]
+[ext_resource type="Texture2D" uid="uid://d2u4ngxnf3vdw" path="res://assets/textures/prototypes/passing_test_firstp_bg.png" id="4_xn3gk"]
+[ext_resource type="Script" path="res://scripts/parallax_movement/closer_ground.gd" id="5_asrha"]
+
+[node name="ParallaxBackground" type="ParallaxBackground"]
+
+[node name="Background_03" type="ParallaxLayer" parent="."]
+motion_mirroring = Vector2(940, 0)
+script = ExtResource("1_aa4xc")
+
+[node name="far_bg" type="Sprite2D" parent="Background_03"]
+show_behind_parent = true
+scale = Vector2(1, 1.00185)
+texture = ExtResource("2_vkmen")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 0, 960, 540)
+
+[node name="Ground_02" type="ParallaxLayer" parent="."]
+motion_mirroring = Vector2(1185, 0)
+script = ExtResource("3_mvolg")
+
+[node name="closer_montains" type="Sprite2D" parent="Ground_02"]
+position = Vector2(-9, 411)
+scale = Vector2(1.24051, 0.731958)
+texture = ExtResource("4_xn3gk")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 0, 790, 194)
+
+[node name="Ground_01" type="ParallaxLayer" parent="."]
+motion_mirroring = Vector2(1185, 0)
+script = ExtResource("5_asrha")
+
+[node name="closer_ground" type="Sprite2D" parent="Ground_01"]
+position = Vector2(-3, 453)
+scale = Vector2(1.5, 0.5)
+texture = ExtResource("4_xn3gk")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 0, 790, 194)

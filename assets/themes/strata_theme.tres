@@ -1,0 +1,7 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://b1a5sjt2xibwo"]
+
+[ext_resource type="FontFile" uid="uid://dwtntl5rvhwgr" path="res://assets/themes/CRYSRG__.TTF" id="1_yj1ah"]
+
+[resource]
+default_font = ExtResource("1_yj1ah")
+default_font_size = 20

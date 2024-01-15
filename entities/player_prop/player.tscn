@@ -1,0 +1,35 @@
+[gd_scene load_steps=6 format=3 uid="uid://biim58k38oa7h"]
+
+[ext_resource type="Script" path="res://scripts/player.gd" id="1_hermy"]
+[ext_resource type="Texture2D" uid="uid://d17joid7wop0b" path="res://assets/textures/prototypes/player_test_sprite.png" id="2_wkttr"]
+[ext_resource type="PackedScene" uid="uid://bdfaybp4djcn2" path="res://components/status/HealthComponent.tscn" id="3_pgpvp"]
+[ext_resource type="PackedScene" uid="uid://c3atqdge540t0" path="res://components/status/HitboxComponent.tscn" id="4_4k865"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_akku0"]
+size = Vector2(50, 50)
+
+[node name="Player" type="CharacterBody2D" groups=["player"]]
+collision_mask = 10
+script = ExtResource("1_hermy")
+speed = 2000
+
+[node name="BasicHitbox" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_akku0")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_wkttr")
+
+[node name="Muzzle" type="Marker2D" parent="."]
+position = Vector2(45, 0)
+
+[node name="HealthComponent" parent="." instance=ExtResource("3_pgpvp")]
+max_health = 3
+
+[node name="HitboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("4_4k865")]
+collision_mask = 10
+health_component = NodePath("../HealthComponent")
+
+[node name="PlayerHitbox" type="CollisionPolygon2D" parent="HitboxComponent"]
+polygon = PackedVector2Array(-25, -25, 25, -25, 25, 25, -25, 25)
+
+[connection signal="health_change" from="HealthComponent" to="." method="_on_health_component_health_change"]
