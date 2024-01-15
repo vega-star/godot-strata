@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_hermy"]
 [ext_resource type="Texture2D" uid="uid://d17joid7wop0b" path="res://assets/textures/prototypes/player_test_sprite.png" id="2_wkttr"]
-[ext_resource type="PackedScene" uid="uid://bdfaybp4djcn2" path="res://components/status/HealthComponent.tscn" id="3_pgpvp"]
-[ext_resource type="PackedScene" uid="uid://c3atqdge540t0" path="res://components/status/HitboxComponent.tscn" id="4_4k865"]
+[ext_resource type="PackedScene" uid="uid://bdfaybp4djcn2" path="res://components/status/health_component.tscn" id="3_pgpvp"]
+[ext_resource type="PackedScene" uid="uid://c3atqdge540t0" path="res://components/status/hitbox_component.tscn" id="4_vxsth"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_akku0"]
 size = Vector2(50, 50)
@@ -25,7 +25,7 @@ position = Vector2(45, 0)
 [node name="HealthComponent" parent="." instance=ExtResource("3_pgpvp")]
 max_health = 3
 
-[node name="HitboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("4_4k865")]
+[node name="HitboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("4_vxsth")]
 collision_mask = 10
 health_component = NodePath("../HealthComponent")
 

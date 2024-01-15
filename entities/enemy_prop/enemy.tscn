@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" path="res://scripts/enemy.gd" id="1_uscle"]
 [ext_resource type="Texture2D" uid="uid://dq4s3s0h3le1a" path="res://assets/textures/prototypes/enemy_test_sprite.png" id="2_npmfq"]
-[ext_resource type="PackedScene" uid="uid://bdfaybp4djcn2" path="res://components/status/HealthComponent.tscn" id="3_r8fkk"]
-[ext_resource type="PackedScene" uid="uid://c3atqdge540t0" path="res://components/status/HitboxComponent.tscn" id="4_js4fs"]
+[ext_resource type="PackedScene" uid="uid://bdfaybp4djcn2" path="res://components/status/health_component.tscn" id="3_r8fkk"]
+[ext_resource type="PackedScene" uid="uid://c3atqdge540t0" path="res://components/status/hitbox_component.tscn" id="4_js4fs"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tq5bo"]
 size = Vector2(50, 50)

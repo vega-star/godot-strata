@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/default_laser.gd" id="1_24mmu"]
 [ext_resource type="Texture2D" uid="uid://31icy2h0jvvm" path="res://assets/textures/prototypes/player_projectile.png" id="2_2w7lh"]
-[ext_resource type="PackedScene" uid="uid://c3atqdge540t0" path="res://components/status/HitboxComponent.tscn" id="3_5k8xg"]
+[ext_resource type="PackedScene" uid="uid://c3atqdge540t0" path="res://components/status/hitbox_component.tscn" id="3_5k8xg"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jewc2"]
 radius = 4.0

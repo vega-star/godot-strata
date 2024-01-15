@@ -7,10 +7,8 @@ var laser_scene:PackedScene = load("res://entities/projectiles/default_laser.tsc
 @onready var muzzle = $Muzzle
 
 # Movement
-@export var acceleration = 1.05
-@export var initial_speed = 20
-@export var max_speed = 500
-@export var speed = 0
+@export var max_speed = 700
+@export var speed = 100
 
 # Weaponry
 var shoot_cooldown := false
@@ -39,7 +37,6 @@ func _physics_process(_delta):
 	if speed >= max_speed:
 		velocity = direction * max_speed
 	else:
-		speed += initial_speed * acceleration
 		velocity = direction * speed
 	# print("Current speed: {0} | Current HP: {1}".format({0:velocity, 1:health_component.current_health}))
 	move_and_slide()
