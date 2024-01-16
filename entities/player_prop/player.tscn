@@ -11,7 +11,6 @@ size = Vector2(50, 50)
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 collision_mask = 10
 script = ExtResource("1_hermy")
-speed = 2000
 
 [node name="BasicHitbox" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_akku0")
