@@ -1,20 +1,22 @@
 class_name Player extends CharacterBody2D
 
-# Laser
+# Signals
 signal laser_shot(laser_scene, location)
 signal health_change(previous_value, new_value)
-var laser_scene:PackedScene = load("res://entities/projectiles/default_laser.tscn") # without ':PackedScene' the entire scene corrupts and cannot be loaded, be careful!
-@onready var muzzle = $Muzzle
 
 # Movement
-@export var max_speed = 500
+@export var max_speed : float = 500
 @export var initial_speed : float = 1.5
 @export var speed : float = initial_speed
 @export var acceleration = 1.1
+@export var deadzone = 0.25
 
 # Weaponry
 var shoot_cooldown := false
 @export var default_laser_rof = 0.15
+	# Laser
+var laser_scene:PackedScene = load("res://entities/projectiles/default_laser.tscn") # without ':PackedScene' the entire scene corrupts and cannot be loaded, be careful!
+@onready var muzzle = $Muzzle
 
 # Status
 signal player_killed
@@ -35,15 +37,13 @@ func _process(_delta):
 			shoot_cooldown = false
 
 func _physics_process(_delta):
-	var direction = Input.get_vector("move_left", "move_right", "move_up", "move_down", 0.25)
+	var direction = Input.get_vector("move_left", "move_right", "move_up", "move_down", deadzone)
 	if speed >= max_speed:
 		velocity = direction * max_speed
-	elif direction == Vector2.ZERO:
-		speed = initial_speed
 	else:
 		speed += speed * acceleration
 		velocity = direction * speed
-	print("Current speed: {0} | Current HP: {1}".format({0:velocity, 1:health_component.current_health}))
+	# print("Current speed: {0} | Current HP: {1}".format({0:velocity, 1:health_component.current_health}))
 	move_and_slide()
 	
 	global_position = global_position.clamp(Vector2.ZERO,get_viewport_rect().size)

@@ -1,12 +1,16 @@
-[gd_scene load_steps=3 format=3 uid="uid://c57wqqly7v4m2"]
+[gd_scene load_steps=3 format=3 uid="uid://chy6yrcopxpke"]
 
-[ext_resource type="Script" path="res://scripts/ui/hud_overlay.gd" id="1_r7gtw"]
+[ext_resource type="Script" path="res://scripts/ui/ui_overlay.gd" id="1_p401e"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_usxa2"]
 font_size = 36
 
-[node name="UIOverlay" type="Node2D"]
-top_level = true
+[node name="UIOverlay" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_p401e")
 
 [node name="UILayer" type="CanvasLayer" parent="."]
 layer = 10
@@ -18,7 +22,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_r7gtw")
+metadata/_edit_use_anchors_ = true
 
 [node name="HP" type="Label" parent="UILayer/HUD"]
 layout_mode = 1
@@ -26,3 +30,4 @@ offset_right = 237.0
 offset_bottom = 47.0
 text = "HP"
 label_settings = SubResource("LabelSettings_usxa2")
+metadata/_edit_use_anchors_ = true

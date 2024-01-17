@@ -2,7 +2,7 @@ extends Node2D
 
 @onready var player_spawn_pos = $PlayerSpawnPos
 @onready var laser_container = $LaserContainer
-@onready var hud = $UIOverlay/UILayer/HUD
+@onready var hud = $UIOverlay
 @onready var player_health_component = $Player/HealthComponent
 @onready var gameoverscreen = $GameOver
 @onready var player = get_tree().get_first_node_in_group("player")
@@ -28,5 +28,5 @@ func _on_player_killed():
 	await get_tree().create_timer(1.5).timeout
 	gameoverscreen.visible = true
 
-func _on_player_health_change(_previous_value, new_value): # Update HP right after change, better optimized than querying constantly in _process state
+func _on_player_health_change(_previous_value, new_value): # Update HP right only after change
 	hud.hp = new_value

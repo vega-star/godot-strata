@@ -1,6 +1,6 @@
 # Godot Strata
 
-Prototype game in Godot 4.2+ made to test and learn firsthand how to make scripts, integrate modular composition, and use various nodes. Its purpose is to have a great variety of mechanisms and commented info to reinforce my knowledge in certain aspects and to serve as a foundation for people wanting to learn Godot as well! This game will also be uploaded in [itch.io](itch.io) after completion, but this version will be always here *and open source*.
+Prototype game in Godot 4.2+ made to test and learn firsthand how to make scripts, integrate modular composition, and use various nodes. Its purpose is to have a great variety of mechanisms and commented info to reinforce my knowledge in certain aspects and to serve as a foundation for people wanting to learn Godot as well! This game will also be uploaded in [itch.io](http://itch.io) after completion, but this version will be always here *and open source*.
 
 Strata is a __*experimental* simple horizontal sidescrolling shooter with further roguelike elements__ to spice things up. This is my first game, so most of its contents are based on tutorials and the official Godot documentation, and I'll try to address every source in each section. The game should contain a hierarchy of simple scripts:
 
@@ -25,4 +25,4 @@ Strata is a __*experimental* simple horizontal sidescrolling shooter with furthe
     * Game over screen
     * Keybinding menu
 
-After completion, this repository will also bear a <kbd>.pdf</kbd> file where each detail, issue, and solution will be registered. After gathering more experience both in Godot and overall game design, it is **highly** probable that I'll redo some aspects of the game, but I'll also surely document the differences and explain the reason behind them.
+After completion, this repository will also bear a <kbd>.pdf</kbd> file where each detail, issue, and solution should be registered. After gathering more experience both in Godot and overall game design, it is **highly** probable that I'll redo some aspects of the game in another project, but I'll also surely document the differences and explain the reason behind them.

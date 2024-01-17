@@ -1,31 +1,26 @@
 [gd_scene load_steps=7 format=3 uid="uid://q5ddnm20kbtu"]
 
 [ext_resource type="Script" path="res://scripts/strata_scene.gd" id="1_wreqo"]
-[ext_resource type="PackedScene" uid="uid://c57wqqly7v4m2" path="res://components/ui/ui_overlay_component.tscn" id="2_jrqoq"]
-[ext_resource type="PackedScene" uid="uid://dnf50r83tkwx3" path="res://components/ui/game_over_component.tscn" id="3_4a52s"]
 [ext_resource type="PackedScene" uid="uid://bgta6ocyf3gel" path="res://entities/enemy_prop/enemy_spawner.tscn" id="4_2j8t1"]
 [ext_resource type="PackedScene" uid="uid://biim58k38oa7h" path="res://entities/player_prop/player.tscn" id="5_4q2cg"]
+[ext_resource type="PackedScene" uid="uid://chy6yrcopxpke" path="res://components/ui/ui_overlay.tscn" id="5_pxyto"]
 [ext_resource type="PackedScene" uid="uid://b7d5rmrbmprps" path="res://scenes/parallax_template.tscn" id="6_11sbf"]
+[ext_resource type="PackedScene" uid="uid://70mnen3idkqt" path="res://components/ui/game_over.tscn" id="6_mp7p5"]
 
 [node name="StrataScene" type="Node2D"]
+light_mask = 2
+visibility_layer = 2
 script = ExtResource("1_wreqo")
 metadata/_edit_horizontal_guides_ = [540.0]
 metadata/_edit_vertical_guides_ = [960.0]
 
-[node name="UIOverlay" parent="." instance=ExtResource("2_jrqoq")]
-
-[node name="GameOver" parent="." instance=ExtResource("3_4a52s")]
-visible = false
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-
 [node name="EnemySpawner" parent="." instance=ExtResource("4_2j8t1")]
+light_mask = 2
+visibility_layer = 2
 
 [node name="MainCamera" type="Camera2D" parent="."]
 position = Vector2(-137, 82)
+enabled = false
 limit_left = 0
 limit_top = 0
 limit_right = 960
@@ -33,9 +28,13 @@ limit_bottom = 540
 limit_smoothed = true
 
 [node name="PlayerSpawnPos" type="Marker2D" parent="."]
+light_mask = 2
+visibility_layer = 2
 position = Vector2(185, 237)
 
 [node name="Player" parent="." instance=ExtResource("5_4q2cg")]
+light_mask = 2
+visibility_layer = 2
 position = Vector2(-137, 82)
 
 [node name="CameraConnection" type="RemoteTransform2D" parent="Player"]
@@ -45,6 +44,10 @@ remote_path = NodePath("../../MainCamera")
 speed_factor = 2.0
 
 [node name="LaserContainer" type="Node2D" parent="."]
+
+[node name="UIOverlay" parent="." instance=ExtResource("5_pxyto")]
+
+[node name="GameOver" parent="." instance=ExtResource("6_mp7p5")]
 
 [connection signal="health_change" from="Player" to="." method="_on_player_health_change"]
 [connection signal="player_killed" from="Player" to="." method="_on_player_killed"]
