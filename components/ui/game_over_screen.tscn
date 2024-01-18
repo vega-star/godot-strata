@@ -1,0 +1,91 @@
+[gd_scene load_steps=5 format=3 uid="uid://70mnen3idkqt"]
+
+[ext_resource type="Script" path="res://scripts/ui/game_over_process.gd" id="1_6c2kr"]
+[ext_resource type="Theme" uid="uid://b1a5sjt2xibwo" path="res://assets/themes/strata_theme.tres" id="1_oxe1g"]
+[ext_resource type="LabelSettings" uid="uid://dqqjjg0mh3bhh" path="res://assets/themes/strata_font.tres" id="3_0ahpm"]
+[ext_resource type="PackedScene" uid="uid://l3nrofdqijr6" path="res://components/ui/statistics_data.tscn" id="4_50ftq"]
+
+[node name="GameOverScreen" type="CanvasLayer"]
+script = ExtResource("1_6c2kr")
+
+[node name="DimBlack" type="ColorRect" parent="."]
+show_behind_parent = true
+light_mask = 4
+visibility_layer = 4
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.388235)
+
+[node name="GameOverPanel" type="PanelContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Backpanel" type="Panel" parent="GameOverPanel"]
+light_mask = 4
+visibility_layer = 4
+custom_minimum_size = Vector2(390, 324)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("1_oxe1g")
+
+[node name="Screen" type="MarginContainer" parent="GameOverPanel"]
+layout_mode = 2
+
+[node name="TitleBox" type="VBoxContainer" parent="GameOverPanel/Screen"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="GameOver Text" type="Label" parent="GameOverPanel/Screen/TitleBox"]
+layout_mode = 2
+theme = ExtResource("1_oxe1g")
+text = "Game Over"
+label_settings = ExtResource("3_0ahpm")
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
+[node name="LayoutBox" type="HBoxContainer" parent="GameOverPanel/Screen/TitleBox"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="TextBox" type="VBoxContainer" parent="GameOverPanel/Screen/TitleBox/LayoutBox"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+alignment = 1
+
+[node name="Panel" type="Panel" parent="GameOverPanel/Screen/TitleBox/LayoutBox/TextBox"]
+light_mask = 4
+visibility_layer = 4
+custom_minimum_size = Vector2(180, 200)
+layout_mode = 2
+theme = ExtResource("1_oxe1g")
+
+[node name="ExitButton" type="Button" parent="GameOverPanel/Screen/TitleBox/LayoutBox/TextBox"]
+layout_mode = 2
+theme = ExtResource("1_oxe1g")
+text = "EXIT"
+
+[node name="RetryButton" type="Button" parent="GameOverPanel/Screen/TitleBox/LayoutBox/TextBox"]
+z_as_relative = false
+layout_mode = 2
+theme = ExtResource("1_oxe1g")
+text = "RETRY"
+
+[node name="StatisticsList" parent="GameOverPanel/Screen/TitleBox/LayoutBox" instance=ExtResource("4_50ftq")]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+
+[connection signal="pressed" from="GameOverPanel/Screen/TitleBox/LayoutBox/TextBox/ExitButton" to="." method="_on_exit_button_pressed"]
+[connection signal="pressed" from="GameOverPanel/Screen/TitleBox/LayoutBox/TextBox/RetryButton" to="." method="_on_retry_button_pressed"]

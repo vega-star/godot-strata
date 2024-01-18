@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://l3nrofdqijr6"]
+
+[ext_resource type="FontFile" uid="uid://dwtntl5rvhwgr" path="res://assets/themes/CRYSRG__.TTF" id="1_rflp4"]
+
+[sub_resource type="Theme" id="Theme_vvt77"]
+default_font = ExtResource("1_rflp4")
+default_font_size = 12
+
+[node name="StatisticsList" type="ItemList"]
+offset_right = 141.0
+offset_bottom = 227.0
+theme = SubResource("Theme_vvt77")
+allow_search = false
+item_count = 2
+item_0/text = ""
+item_1/text = "Enemies killed:"
