@@ -6,7 +6,6 @@
 
 [node name="ParallaxTemplate" type="ParallaxBackground"]
 script = ExtResource("1_7u43o")
-speed_factor = 1.0
 
 [node name="L_03" type="ParallaxLayer" parent="."]
 motion_mirroring = Vector2(940, 0)
