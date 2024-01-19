@@ -3,7 +3,22 @@
 [ext_resource type="Script" path="res://scripts/ui/pause_menu.gd" id="1_nu21q"]
 [ext_resource type="Theme" uid="uid://b1a5sjt2xibwo" path="res://assets/themes/strata_theme.tres" id="2_k8a1f"]
 
-[node name="Pause Menu" type="Control"]
+[node name="Pause Menu Layer" type="CanvasLayer"]
+process_mode = 3
+layer = 10
+script = ExtResource("1_nu21q")
+
+[node name="ReturnPrompt" type="ConfirmationDialog" parent="."]
+title = ""
+initial_position = 1
+size = Vector2i(200, 80)
+min_size = Vector2i(100, 50)
+theme = ExtResource("2_k8a1f")
+ok_button_text = "YES"
+dialog_text = "RETURN TO MENU?"
+cancel_button_text = "NO"
+
+[node name="PauseMenu" type="Control" parent="."]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15
@@ -11,9 +26,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_nu21q")
 
-[node name="ButtonsContainer" type="VBoxContainer" parent="."]
+[node name="ButtonsContainer" type="VBoxContainer" parent="PauseMenu"]
 process_mode = 3
 layout_mode = 1
 anchors_preset = 8
@@ -27,9 +41,10 @@ offset_right = 144.0
 offset_bottom = 120.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("2_k8a1f")
 alignment = 1
 
-[node name="UnpauseButton" type="Button" parent="ButtonsContainer"]
+[node name="UnpauseButton" type="Button" parent="PauseMenu/ButtonsContainer"]
 layout_mode = 2
 focus_neighbor_top = NodePath("../ReturnMenuButton")
 focus_neighbor_bottom = NodePath("../OptionsButton")
@@ -37,21 +52,21 @@ theme = ExtResource("2_k8a1f")
 text = "UNPAUSE
 "
 
-[node name="OptionsButton" type="Button" parent="ButtonsContainer"]
+[node name="OptionsButton" type="Button" parent="PauseMenu/ButtonsContainer"]
 layout_mode = 2
 focus_neighbor_top = NodePath("../UnpauseButton")
 focus_neighbor_bottom = NodePath("../ReturnMenuButton")
 theme = ExtResource("2_k8a1f")
 text = "OPTIONS"
 
-[node name="ReturnMenuButton" type="Button" parent="ButtonsContainer"]
+[node name="ReturnMenuButton" type="Button" parent="PauseMenu/ButtonsContainer"]
 layout_mode = 2
 focus_neighbor_top = NodePath("../OptionsButton")
 focus_neighbor_bottom = NodePath("../UnpauseButton")
 theme = ExtResource("2_k8a1f")
-text = "RETURN
-"
+text = "MAIN MENU"
 
-[connection signal="pressed" from="ButtonsContainer/UnpauseButton" to="." method="_on_unpause_button_pressed"]
-[connection signal="pressed" from="ButtonsContainer/OptionsButton" to="." method="_on_options_button_pressed"]
-[connection signal="pressed" from="ButtonsContainer/ReturnMenuButton" to="." method="_on_return_menu_button_pressed"]
+[connection signal="confirmed" from="ReturnPrompt" to="." method="_on_confirmation_dialog_confirmed"]
+[connection signal="pressed" from="PauseMenu/ButtonsContainer/UnpauseButton" to="." method="_on_unpause_button_pressed"]
+[connection signal="pressed" from="PauseMenu/ButtonsContainer/OptionsButton" to="." method="_on_options_button_pressed"]
+[connection signal="pressed" from="PauseMenu/ButtonsContainer/ReturnMenuButton" to="." method="_on_return_menu_button_pressed"]

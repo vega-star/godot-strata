@@ -74,12 +74,14 @@ theme = ExtResource("1_oxe1g")
 
 [node name="MenuButton" type="Button" parent="GameOverPanel/Screen/TitleBox/LayoutBox/TextBox"]
 layout_mode = 2
+focus_neighbor_bottom = NodePath("../RetryButton")
 theme = ExtResource("1_oxe1g")
 text = "MAIN MENU"
 
 [node name="RetryButton" type="Button" parent="GameOverPanel/Screen/TitleBox/LayoutBox/TextBox"]
 z_as_relative = false
 layout_mode = 2
+focus_neighbor_top = NodePath("../MenuButton")
 theme = ExtResource("1_oxe1g")
 text = "RETRY"
 

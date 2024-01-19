@@ -1,11 +1,12 @@
-extends Control
+extends CanvasLayer
 
 # | Pause Menu
 
-var pause_state : bool = false
+@export var pause_state : bool = false
+@onready var return_prompt = $ReturnPrompt
 
 func _ready():
-	$ButtonsContainer/UnpauseButton.grab_focus()
+	$PauseMenu/ButtonsContainer/UnpauseButton.grab_focus()
 
 func _process(_delta):
 	if Input.is_action_just_pressed("pause") and pause_state == false:
@@ -18,10 +19,17 @@ func _process(_delta):
 		hide()
 
 func _on_unpause_button_pressed():
-	pass # Replace with function body.
+	get_tree().paused = false
+	pause_state = false
+	hide()
 
 func _on_options_button_pressed():
 	pass # Replace with function body.
 
 func _on_return_menu_button_pressed():
+	return_prompt.visible = true
+
+func _on_confirmation_dialog_confirmed():
+	get_tree().paused = false
+	pause_state = false
 	get_tree().change_scene_to_file("res://scenes/main_menu.tscn")

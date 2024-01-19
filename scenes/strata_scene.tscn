@@ -45,29 +45,22 @@ remote_path = NodePath("../../MainCamera")
 
 [node name="LaserContainer" type="Node2D" parent="."]
 
-[node name="UIOverlay" parent="." instance=ExtResource("5_pxyto")]
+[node name="UILayer" type="CanvasLayer" parent="."]
+
+[node name="UIOverlay" parent="UILayer" instance=ExtResource("5_pxyto")]
 z_as_relative = false
 clip_contents = true
 offset_right = 0.0
 offset_bottom = 0.0
 
 [node name="GameOver" parent="." instance=ExtResource("6_mp7p5")]
+process_mode = 3
 layer = 10
 visible = false
 follow_viewport_enabled = true
 
-[node name="Pause Menu" parent="." instance=ExtResource("7_o80nl")]
+[node name="Pause Menu Layer" parent="." instance=ExtResource("7_o80nl")]
 visible = false
-anchors_preset = 0
-anchor_right = 0.0
-anchor_bottom = 0.0
-offset_left = 480.0
-offset_top = 366.0
-offset_right = 480.0
-offset_bottom = 366.0
-grow_horizontal = 1
-grow_vertical = 1
-metadata/_edit_use_anchors_ = true
 
 [connection signal="health_change" from="Player" to="." method="_on_player_health_change"]
 [connection signal="player_killed" from="Player" to="GameOver" method="_on_player_killed"]

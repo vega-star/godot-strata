@@ -2,7 +2,7 @@ extends Node2D
 
 @onready var player_spawn_pos = $PlayerSpawnPos
 @onready var laser_container = $LaserContainer
-@onready var hud = $UIOverlay
+@onready var hud = $UILayer/UIOverlay
 @onready var player_health_component = $Player/HealthComponent
 @onready var gameoverscreen = $GameOver
 @onready var player = get_tree().get_first_node_in_group("player")
