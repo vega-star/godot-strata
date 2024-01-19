@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://l3nrofdqijr6" path="res://components/ui/statistics_data.tscn" id="4_50ftq"]
 
 [node name="GameOverScreen" type="CanvasLayer"]
+process_mode = 1
 script = ExtResource("1_8ouiq")
 
 [node name="DimBlack" type="ColorRect" parent="."]

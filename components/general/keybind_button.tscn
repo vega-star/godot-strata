@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://cb1ygvja2x1ty"]
+
+[ext_resource type="Script" path="res://components/general/keybind_button.gd" id="1_dx471"]
+
+[node name="UP_button" type="Button"]
+custom_minimum_size = Vector2(60, 0)
+focus_mode = 0
+theme_override_font_sizes/font_size = 50
+script = ExtResource("1_dx471")

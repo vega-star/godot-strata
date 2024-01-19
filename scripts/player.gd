@@ -31,7 +31,7 @@ func die(): # Emits player_killed signal
 		queue_free()
 
 func _process(delta): # Frequent listener for input with delay (weapons, items, etc.)
-	if Input.is_action_pressed("shoot_primary"):
+	if Input.is_action_pressed("shoot"):
 		if !shoot_cooldown:
 			shoot_cooldown = true
 			shoot_primary()

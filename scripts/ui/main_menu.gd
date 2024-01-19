@@ -9,7 +9,7 @@ func _on_start_button_pressed(): # StartButton
 	get_tree().change_scene_to_file("res://scenes/strata_scene.tscn")
 
 func _on_options_button_pressed(): # OptionsButton
-	pass # Replace with function body.
+	Options.visible = true
 
 func _on_quit_button_pressed(): # QuitButton
 	get_tree().quit()

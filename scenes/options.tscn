@@ -1,14 +1,180 @@
-[gd_scene format=3 uid="uid://duws3qk7e45vs"]
+[gd_scene load_steps=4 format=3 uid="uid://duws3qk7e45vs"]
+
+[ext_resource type="Script" path="res://components/general/keybinding_controller.gd" id="1_hjbun"]
+[ext_resource type="Theme" uid="uid://b1a5sjt2xibwo" path="res://assets/themes/strata_theme.tres" id="1_yjy47"]
+[ext_resource type="PackedScene" uid="uid://cb1ygvja2x1ty" path="res://components/general/keybind_button.tscn" id="3_iy2y2"]
 
 [node name="Options" type="CanvasLayer"]
+process_mode = 3
+layer = 100
+visible = false
+script = ExtResource("1_hjbun")
 
 [node name="OptionsControl" type="Control" parent="."]
 layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="VSplitContainer" type="VSplitContainer" parent="OptionsControl"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="ConfigContainer" type="HSplitContainer" parent="OptionsControl"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ConfigPanel" type="Panel" parent="OptionsControl/ConfigContainer"]
+custom_minimum_size = Vector2(320, 0)
+layout_mode = 2
+
+[node name="Options" type="Label" parent="OptionsControl/ConfigContainer/ConfigPanel"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -65.0
+offset_right = 65.0
+offset_bottom = 54.0
+grow_horizontal = 2
+theme = ExtResource("1_yjy47")
+theme_override_font_sizes/font_size = 40
+text = "Options
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
+[node name="BindGrid" type="GridContainer" parent="OptionsControl/ConfigContainer"]
+layout_direction = 1
+layout_mode = 2
+size_flags_vertical = 4
+theme = ExtResource("1_yjy47")
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 6
+columns = 2
+
+[node name="UP" type="Label" parent="OptionsControl/ConfigContainer/BindGrid"]
+layout_mode = 2
+theme = ExtResource("1_yjy47")
+theme_override_font_sizes/font_size = 45
+text = "Up"
+uppercase = true
+
+[node name="UP_B" parent="OptionsControl/ConfigContainer/BindGrid" instance=ExtResource("3_iy2y2")]
+layout_mode = 2
+theme_override_font_sizes/font_size = 45
+keybind = "move_up"
+
+[node name="DOWN" type="Label" parent="OptionsControl/ConfigContainer/BindGrid"]
+layout_mode = 2
+theme = ExtResource("1_yjy47")
+theme_override_font_sizes/font_size = 45
+text = "Down"
+uppercase = true
+
+[node name="DOWN_B" parent="OptionsControl/ConfigContainer/BindGrid" instance=ExtResource("3_iy2y2")]
+layout_mode = 2
+theme_override_font_sizes/font_size = 45
+keybind = "move_down"
+
+[node name="LEFT" type="Label" parent="OptionsControl/ConfigContainer/BindGrid"]
+layout_mode = 2
+theme = ExtResource("1_yjy47")
+theme_override_font_sizes/font_size = 45
+text = "Left"
+uppercase = true
+
+[node name="LEFT_B" parent="OptionsControl/ConfigContainer/BindGrid" instance=ExtResource("3_iy2y2")]
+layout_mode = 2
+theme_override_font_sizes/font_size = 45
+keybind = "move_left"
+
+[node name="RIGHT" type="Label" parent="OptionsControl/ConfigContainer/BindGrid"]
+layout_mode = 2
+theme = ExtResource("1_yjy47")
+theme_override_font_sizes/font_size = 45
+text = "Right"
+uppercase = true
+
+[node name="RIGHT_B" parent="OptionsControl/ConfigContainer/BindGrid" instance=ExtResource("3_iy2y2")]
+layout_mode = 2
+theme_override_font_sizes/font_size = 45
+keybind = "move_right"
+
+[node name="PAUSE" type="Label" parent="OptionsControl/ConfigContainer/BindGrid"]
+layout_mode = 2
+theme = ExtResource("1_yjy47")
+theme_override_font_sizes/font_size = 45
+text = "Pause"
+uppercase = true
+
+[node name="PAUSE_B" parent="OptionsControl/ConfigContainer/BindGrid" instance=ExtResource("3_iy2y2")]
+layout_mode = 2
+theme_override_font_sizes/font_size = 45
+keybind = "pause"
+
+[node name="SHOOT" type="Label" parent="OptionsControl/ConfigContainer/BindGrid"]
+layout_mode = 2
+theme = ExtResource("1_yjy47")
+theme_override_font_sizes/font_size = 45
+text = "Shoot"
+uppercase = true
+
+[node name="SHOOT_B" parent="OptionsControl/ConfigContainer/BindGrid" instance=ExtResource("3_iy2y2")]
+layout_mode = 2
+theme_override_font_sizes/font_size = 45
+keybind = "shoot"
+
+[node name="BOMB" type="Label" parent="OptionsControl/ConfigContainer/BindGrid"]
+layout_mode = 2
+theme = ExtResource("1_yjy47")
+theme_override_font_sizes/font_size = 45
+text = "Bomb"
+uppercase = true
+
+[node name="BOMB_B" parent="OptionsControl/ConfigContainer/BindGrid" instance=ExtResource("3_iy2y2")]
+layout_mode = 2
+theme_override_font_sizes/font_size = 45
+keybind = "bomb"
+
+[node name="RESET" type="Label" parent="OptionsControl/ConfigContainer/BindGrid"]
+layout_mode = 2
+theme = ExtResource("1_yjy47")
+theme_override_font_sizes/font_size = 45
+text = "REset"
+uppercase = true
+
+[node name="RESET_B" parent="OptionsControl/ConfigContainer/BindGrid" instance=ExtResource("3_iy2y2")]
+layout_mode = 2
+theme_override_font_sizes/font_size = 45
+keybind = "reset"
+
+[node name="ExitMenu" type="Button" parent="OptionsControl"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -55.0
+offset_top = 15.0
+offset_right = -15.0
+offset_bottom = 57.0
+grow_horizontal = 0
+theme = ExtResource("1_yjy47")
+theme_override_font_sizes/font_size = 30
+text = "X"
+
+[node name="ExitCheck" type="ConfirmationDialog" parent="."]
+title = "EXIT"
+initial_position = 1
+size = Vector2i(200, 80)
+theme = ExtResource("1_yjy47")
+ok_button_text = "Save"
+dialog_text = "  Save keybinds?"
+
+[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
+[connection signal="pressed" from="OptionsControl/ExitMenu" to="." method="_on_exit_menu_pressed"]
+[connection signal="canceled" from="ExitCheck" to="." method="_on_exit_check_canceled"]
+[connection signal="confirmed" from="ExitCheck" to="." method="_on_exit_check_confirmed"]

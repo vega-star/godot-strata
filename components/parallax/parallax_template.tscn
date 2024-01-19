@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://b7d5rmrbmprps"]
 
-[ext_resource type="Script" path="res://scripts/parallax_movement/centralized_parallax_movement.gd" id="1_7u43o"]
+[ext_resource type="Script" path="res://components/parallax/centralized_parallax_movement.gd" id="1_7u43o"]
 [ext_resource type="Texture2D" uid="uid://d0xety1ri8oe0" path="res://assets/textures/prototypes/passing_test_bg.png" id="2_vkmen"]
 [ext_resource type="Texture2D" uid="uid://d2u4ngxnf3vdw" path="res://assets/textures/prototypes/passing_test_firstp_bg.png" id="4_xn3gk"]
 

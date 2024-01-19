@@ -13,7 +13,7 @@ func _process(_delta):
 		get_tree().paused = true
 		pause_state = true
 		show()
-	elif Input.is_action_just_pressed("pause") and pause_state == true:
+	elif Input.is_action_just_pressed("pause") or Input.is_action_just_pressed("quit") and pause_state == true:
 		get_tree().paused = false
 		pause_state = false
 		hide()
