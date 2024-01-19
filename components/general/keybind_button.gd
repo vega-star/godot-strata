@@ -6,6 +6,7 @@ var do_set = false
 
 func _pressed():
 	text = ""
+	Options.settings_changed = true
 	do_set = true
 
 func _input(event):
@@ -21,11 +22,9 @@ func _input(event):
 			text = OS.get_keycode_string(event.keycode)
 			# | Update the key_dict with the keycode function
 			Options.key_dict[keybind] = event.keycode
-			# | Save the dict to json
-			Options.save_keys()
 			# | Stop keybind process
 			do_set = false
 
-# Learned from a tutorial from Rungeon, some parts had to be rewritten due to changes in Godot 4.2
+# Foundation learned from a tutorial from Rungeon, most parts had to be rewritten due to changes in Godot 4.2 and new functions were added
 # Source: https://www.youtube.com/watch?v=WHGHevwhXCQ
 # Github: https://github.com/trolog/godotKeybindingTutorial

@@ -29,3 +29,5 @@ The game should contain a hierarchy of simple scripts:
   * Keybinding menu
 
 After completion, this repository will also bear a *__.pdf__* file where each detail, issue, and solution should be registered. After gathering more experience both in Godot and overall game design, it is __highly__ probable that I'll redo some aspects of the game in another project, but I'll also surely document the differences and explain the reason behind them.
+
+The first horizontal slice will already contain a playable game with raw assets and functioning code. It's expected that the code becomes more complex through time and refinement, so the first release will remain as the main branch of this repository. A secondary branch will be created to contain the complete game.

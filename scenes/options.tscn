@@ -1,13 +1,18 @@
-[gd_scene load_steps=4 format=3 uid="uid://duws3qk7e45vs"]
+[gd_scene load_steps=6 format=3 uid="uid://duws3qk7e45vs"]
 
-[ext_resource type="Script" path="res://components/general/keybinding_controller.gd" id="1_hjbun"]
+[ext_resource type="Script" path="res://components/general/options_controller.gd" id="1_hjbun"]
 [ext_resource type="Theme" uid="uid://b1a5sjt2xibwo" path="res://assets/themes/strata_theme.tres" id="1_yjy47"]
 [ext_resource type="PackedScene" uid="uid://cb1ygvja2x1ty" path="res://components/general/keybind_button.tscn" id="3_iy2y2"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ebb5w"]
+bg_color = Color(0.207843, 0.207843, 0.207843, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n6jky"]
+bg_color = Color(0.160784, 0.160784, 0.160784, 0.815686)
 
 [node name="Options" type="CanvasLayer"]
 process_mode = 3
 layer = 100
-visible = false
 script = ExtResource("1_hjbun")
 
 [node name="OptionsControl" type="Control" parent="."]
@@ -25,12 +30,15 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/separation = 0
+theme_override_constants/minimum_grab_thickness = 0
 
 [node name="ConfigPanel" type="Panel" parent="OptionsControl/ConfigContainer"]
 custom_minimum_size = Vector2(320, 0)
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ebb5w")
 
-[node name="Options" type="Label" parent="OptionsControl/ConfigContainer/ConfigPanel"]
+[node name="OptionsTitle" type="Label" parent="OptionsControl/ConfigContainer/ConfigPanel"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -47,107 +55,228 @@ horizontal_alignment = 1
 vertical_alignment = 1
 uppercase = true
 
-[node name="BindGrid" type="GridContainer" parent="OptionsControl/ConfigContainer"]
-layout_direction = 1
+[node name="OptionsButtons" type="VBoxContainer" parent="OptionsControl/ConfigContainer/ConfigPanel"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -32.0
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 5
+alignment = 1
+
+[node name="VolumeContainer" type="VBoxContainer" parent="OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons"]
+custom_minimum_size = Vector2(0, 130)
 layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="MasterVol" type="Label" parent="OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons/VolumeContainer"]
+layout_mode = 2
+theme = ExtResource("1_yjy47")
+text = "MASTER VOLUME"
+horizontal_alignment = 1
+
+[node name="Volume_Slider" type="HSlider" parent="OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons/VolumeContainer/MasterVol"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 1.217
+anchor_right = 0.5
+anchor_bottom = 1.217
+offset_left = -150.0
+offset_top = -8.491
+offset_right = 150.0
+offset_bottom = 7.509
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MusicVol" type="Label" parent="OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons/VolumeContainer"]
+layout_mode = 2
+theme = ExtResource("1_yjy47")
+text = "MUSIC VOLUME
+"
+horizontal_alignment = 1
+
+[node name="Volume_Slider" type="HSlider" parent="OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons/VolumeContainer/MusicVol"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 1.217
+anchor_right = 0.5
+anchor_bottom = 1.217
+offset_left = -150.0
+offset_top = -8.491
+offset_right = 150.0
+offset_bottom = 7.509
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MusicVol2" type="Label" parent="OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons/VolumeContainer"]
+layout_mode = 2
+theme = ExtResource("1_yjy47")
+text = "SOUND EFFECT VOLUME"
+horizontal_alignment = 1
+
+[node name="Volume_Slider" type="HSlider" parent="OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons/VolumeContainer/MusicVol2"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 1.217
+anchor_right = 0.5
+anchor_bottom = 1.217
+offset_left = -150.0
+offset_top = -8.491
+offset_right = 150.0
+offset_bottom = 7.509
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ToggleFiring" type="CheckButton" parent="OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons"]
+layout_mode = 2
+theme = ExtResource("1_yjy47")
+text = "TOGGLE FIRING"
+alignment = 1
+
+[node name="Photosens_Mode2" type="CheckButton" parent="OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons"]
+layout_mode = 2
+theme = ExtResource("1_yjy47")
+text = "PHOTOSENSIBILITY MODE"
+alignment = 1
+
+[node name="ResetDefKeybind" type="Button" parent="OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons"]
+layout_mode = 2
+theme = ExtResource("1_yjy47")
+text = "RESET DEFAULT BINDS"
+
+[node name="Binds" type="Panel" parent="OptionsControl/ConfigContainer"]
+custom_minimum_size = Vector2(320, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_n6jky")
+
+[node name="BindGrid" type="GridContainer" parent="OptionsControl/ConfigContainer/Binds"]
+layout_direction = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -92.5
+offset_top = -217.0
+offset_right = 92.5
+offset_bottom = 217.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
 size_flags_vertical = 4
 theme = ExtResource("1_yjy47")
 theme_override_constants/h_separation = 10
 theme_override_constants/v_separation = 6
 columns = 2
 
-[node name="UP" type="Label" parent="OptionsControl/ConfigContainer/BindGrid"]
+[node name="UP" type="Label" parent="OptionsControl/ConfigContainer/Binds/BindGrid"]
 layout_mode = 2
 theme = ExtResource("1_yjy47")
 theme_override_font_sizes/font_size = 45
 text = "Up"
 uppercase = true
 
-[node name="UP_B" parent="OptionsControl/ConfigContainer/BindGrid" instance=ExtResource("3_iy2y2")]
+[node name="UP_B" parent="OptionsControl/ConfigContainer/Binds/BindGrid" instance=ExtResource("3_iy2y2")]
+custom_minimum_size = Vector2(140, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 45
 keybind = "move_up"
 
-[node name="DOWN" type="Label" parent="OptionsControl/ConfigContainer/BindGrid"]
+[node name="DOWN" type="Label" parent="OptionsControl/ConfigContainer/Binds/BindGrid"]
 layout_mode = 2
 theme = ExtResource("1_yjy47")
 theme_override_font_sizes/font_size = 45
 text = "Down"
 uppercase = true
 
-[node name="DOWN_B" parent="OptionsControl/ConfigContainer/BindGrid" instance=ExtResource("3_iy2y2")]
+[node name="DOWN_B" parent="OptionsControl/ConfigContainer/Binds/BindGrid" instance=ExtResource("3_iy2y2")]
+custom_minimum_size = Vector2(140, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 45
 keybind = "move_down"
 
-[node name="LEFT" type="Label" parent="OptionsControl/ConfigContainer/BindGrid"]
+[node name="LEFT" type="Label" parent="OptionsControl/ConfigContainer/Binds/BindGrid"]
 layout_mode = 2
 theme = ExtResource("1_yjy47")
 theme_override_font_sizes/font_size = 45
 text = "Left"
 uppercase = true
 
-[node name="LEFT_B" parent="OptionsControl/ConfigContainer/BindGrid" instance=ExtResource("3_iy2y2")]
+[node name="LEFT_B" parent="OptionsControl/ConfigContainer/Binds/BindGrid" instance=ExtResource("3_iy2y2")]
+custom_minimum_size = Vector2(140, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 45
 keybind = "move_left"
 
-[node name="RIGHT" type="Label" parent="OptionsControl/ConfigContainer/BindGrid"]
+[node name="RIGHT" type="Label" parent="OptionsControl/ConfigContainer/Binds/BindGrid"]
 layout_mode = 2
 theme = ExtResource("1_yjy47")
 theme_override_font_sizes/font_size = 45
 text = "Right"
 uppercase = true
 
-[node name="RIGHT_B" parent="OptionsControl/ConfigContainer/BindGrid" instance=ExtResource("3_iy2y2")]
+[node name="RIGHT_B" parent="OptionsControl/ConfigContainer/Binds/BindGrid" instance=ExtResource("3_iy2y2")]
+custom_minimum_size = Vector2(140, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 45
 keybind = "move_right"
 
-[node name="PAUSE" type="Label" parent="OptionsControl/ConfigContainer/BindGrid"]
+[node name="PAUSE" type="Label" parent="OptionsControl/ConfigContainer/Binds/BindGrid"]
 layout_mode = 2
 theme = ExtResource("1_yjy47")
 theme_override_font_sizes/font_size = 45
 text = "Pause"
 uppercase = true
 
-[node name="PAUSE_B" parent="OptionsControl/ConfigContainer/BindGrid" instance=ExtResource("3_iy2y2")]
+[node name="PAUSE_B" parent="OptionsControl/ConfigContainer/Binds/BindGrid" instance=ExtResource("3_iy2y2")]
+custom_minimum_size = Vector2(140, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 45
 keybind = "pause"
 
-[node name="SHOOT" type="Label" parent="OptionsControl/ConfigContainer/BindGrid"]
+[node name="SHOOT" type="Label" parent="OptionsControl/ConfigContainer/Binds/BindGrid"]
 layout_mode = 2
 theme = ExtResource("1_yjy47")
 theme_override_font_sizes/font_size = 45
 text = "Shoot"
 uppercase = true
 
-[node name="SHOOT_B" parent="OptionsControl/ConfigContainer/BindGrid" instance=ExtResource("3_iy2y2")]
+[node name="SHOOT_B" parent="OptionsControl/ConfigContainer/Binds/BindGrid" instance=ExtResource("3_iy2y2")]
+custom_minimum_size = Vector2(140, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 45
 keybind = "shoot"
 
-[node name="BOMB" type="Label" parent="OptionsControl/ConfigContainer/BindGrid"]
+[node name="BOMB" type="Label" parent="OptionsControl/ConfigContainer/Binds/BindGrid"]
 layout_mode = 2
 theme = ExtResource("1_yjy47")
 theme_override_font_sizes/font_size = 45
 text = "Bomb"
 uppercase = true
 
-[node name="BOMB_B" parent="OptionsControl/ConfigContainer/BindGrid" instance=ExtResource("3_iy2y2")]
+[node name="BOMB_B" parent="OptionsControl/ConfigContainer/Binds/BindGrid" instance=ExtResource("3_iy2y2")]
+custom_minimum_size = Vector2(140, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 45
 keybind = "bomb"
 
-[node name="RESET" type="Label" parent="OptionsControl/ConfigContainer/BindGrid"]
+[node name="RESET" type="Label" parent="OptionsControl/ConfigContainer/Binds/BindGrid"]
 layout_mode = 2
 theme = ExtResource("1_yjy47")
 theme_override_font_sizes/font_size = 45
 text = "REset"
 uppercase = true
 
-[node name="RESET_B" parent="OptionsControl/ConfigContainer/BindGrid" instance=ExtResource("3_iy2y2")]
+[node name="RESET_B" parent="OptionsControl/ConfigContainer/Binds/BindGrid" instance=ExtResource("3_iy2y2")]
+custom_minimum_size = Vector2(140, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 45
 keybind = "reset"
@@ -174,7 +303,17 @@ theme = ExtResource("1_yjy47")
 ok_button_text = "Save"
 dialog_text = "  Save keybinds?"
 
+[node name="ResetBinds" type="ConfirmationDialog" parent="."]
+title = "CONFIRM"
+initial_position = 1
+size = Vector2i(251, 80)
+theme = ExtResource("1_yjy47")
+ok_button_text = "Confirm"
+dialog_text = "Reset default keybinds?"
+
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
+[connection signal="pressed" from="OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons/ResetDefKeybind" to="." method="_on_reset_default_keybinds_button"]
 [connection signal="pressed" from="OptionsControl/ExitMenu" to="." method="_on_exit_menu_pressed"]
 [connection signal="canceled" from="ExitCheck" to="." method="_on_exit_check_canceled"]
 [connection signal="confirmed" from="ExitCheck" to="." method="_on_exit_check_confirmed"]
+[connection signal="confirmed" from="ResetBinds" to="." method="_on_reset_default_keybinds"]
