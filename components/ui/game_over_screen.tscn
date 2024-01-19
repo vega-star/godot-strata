@@ -72,10 +72,10 @@ custom_minimum_size = Vector2(180, 200)
 layout_mode = 2
 theme = ExtResource("1_oxe1g")
 
-[node name="ExitButton" type="Button" parent="GameOverPanel/Screen/TitleBox/LayoutBox/TextBox"]
+[node name="MenuButton" type="Button" parent="GameOverPanel/Screen/TitleBox/LayoutBox/TextBox"]
 layout_mode = 2
 theme = ExtResource("1_oxe1g")
-text = "EXIT"
+text = "MAIN MENU"
 
 [node name="RetryButton" type="Button" parent="GameOverPanel/Screen/TitleBox/LayoutBox/TextBox"]
 z_as_relative = false
@@ -87,5 +87,5 @@ text = "RETRY"
 custom_minimum_size = Vector2(200, 200)
 layout_mode = 2
 
-[connection signal="pressed" from="GameOverPanel/Screen/TitleBox/LayoutBox/TextBox/ExitButton" to="." method="_on_exit_button_pressed"]
+[connection signal="pressed" from="GameOverPanel/Screen/TitleBox/LayoutBox/TextBox/MenuButton" to="." method="_on_exit_button_pressed"]
 [connection signal="pressed" from="GameOverPanel/Screen/TitleBox/LayoutBox/TextBox/RetryButton" to="." method="_on_retry_button_pressed"]

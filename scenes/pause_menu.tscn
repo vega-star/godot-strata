@@ -1,0 +1,57 @@
+[gd_scene load_steps=3 format=3 uid="uid://be4idvqpl0pds"]
+
+[ext_resource type="Script" path="res://scripts/ui/pause_menu.gd" id="1_nu21q"]
+[ext_resource type="Theme" uid="uid://b1a5sjt2xibwo" path="res://assets/themes/strata_theme.tres" id="2_k8a1f"]
+
+[node name="Pause Menu" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_nu21q")
+
+[node name="ButtonsContainer" type="VBoxContainer" parent="."]
+process_mode = 3
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -144.0
+offset_top = -120.0
+offset_right = 144.0
+offset_bottom = 120.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="UnpauseButton" type="Button" parent="ButtonsContainer"]
+layout_mode = 2
+focus_neighbor_top = NodePath("../ReturnMenuButton")
+focus_neighbor_bottom = NodePath("../OptionsButton")
+theme = ExtResource("2_k8a1f")
+text = "UNPAUSE
+"
+
+[node name="OptionsButton" type="Button" parent="ButtonsContainer"]
+layout_mode = 2
+focus_neighbor_top = NodePath("../UnpauseButton")
+focus_neighbor_bottom = NodePath("../ReturnMenuButton")
+theme = ExtResource("2_k8a1f")
+text = "OPTIONS"
+
+[node name="ReturnMenuButton" type="Button" parent="ButtonsContainer"]
+layout_mode = 2
+focus_neighbor_top = NodePath("../OptionsButton")
+focus_neighbor_bottom = NodePath("../UnpauseButton")
+theme = ExtResource("2_k8a1f")
+text = "RETURN
+"
+
+[connection signal="pressed" from="ButtonsContainer/UnpauseButton" to="." method="_on_unpause_button_pressed"]
+[connection signal="pressed" from="ButtonsContainer/OptionsButton" to="." method="_on_options_button_pressed"]
+[connection signal="pressed" from="ButtonsContainer/ReturnMenuButton" to="." method="_on_return_menu_button_pressed"]

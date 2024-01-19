@@ -22,7 +22,9 @@ func _on_retry_button_pressed(): # Recieves signal from 'RetryButton', reloads t
 	get_tree().reload_current_scene()
 
 func _on_exit_button_pressed(): # Recieves signal from 'ExitButton', closes the game immediately
-	get_tree().quit()
+	get_tree().change_scene_to_file("res://scenes/strata_scene.tscn")
+	
+	# get_tree().quit()
 	# This probably isn't ideal for browser games, and it could contain a conditional to send state to 'main menu' instead
 
 # The node order of this scene is highly inspired by a video from jmbiv, the link for it is below:

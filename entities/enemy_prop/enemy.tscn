@@ -24,7 +24,7 @@ shape = SubResource("RectangleShape2D_tq5bo")
 position = Vector2(130, 0)
 
 [node name="HealthComponent" parent="." instance=ExtResource("3_r8fkk")]
-max_health = 1
+max_health = 5
 
 [node name="HitboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("4_js4fs")]
 collision_layer = 2
