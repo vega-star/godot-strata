@@ -2,11 +2,15 @@ extends Control
 
 @onready var transition_controller = $ScreenTransition
 @onready var transition_time = transition_controller.fade_time
+@onready var project_version = ProjectSettings.get_setting("application/config/version")
+@onready var version_label = $VersionLabel
 
 # | Main Menu
 
 func _ready():
 	$ButtonsContainer/StartButton.grab_focus()
+	version_label.text = "ALPHA v%s" % project_version
+	
 	transition_controller.fade('in')
 	await get_tree().create_timer(transition_time).timeout
 	transition_controller.visible = false

@@ -60,7 +60,6 @@ offset_right = 242.0
 offset_bottom = -7.0
 grow_vertical = 0
 theme = ExtResource("2_r4pjr")
-text = "VERSION 0.1 - Prototype"
 
 [node name="GitHubLink" type="Button" parent="."]
 layout_mode = 1

@@ -38,10 +38,10 @@ metadata/_edit_use_anchors_ = true
 
 [node name="HP_Container" type="TextureRect" parent="UILayer/HUD"]
 layout_mode = 0
-offset_left = 9.0
-offset_top = 7.0
-offset_right = 35.0
-offset_bottom = 33.0
+offset_left = 3.0
+offset_top = 3.0
+offset_right = 29.0
+offset_bottom = 29.0
 texture = SubResource("CompressedTexture2D_o8xuo")
 expand_mode = 1
 stretch_mode = 1
