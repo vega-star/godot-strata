@@ -16,11 +16,11 @@ script = ExtResource("1_24mmu")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_2w7lh")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="SelfProjectileBox" type="CollisionShape2D" parent="."]
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_jewc2")
 
-[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+[node name="OutsideScreenCheck" type="VisibleOnScreenNotifier2D" parent="."]
 position = Vector2(-67, 0)
 scale = Vector2(0.3, 0.55)
 
@@ -28,9 +28,9 @@ scale = Vector2(0.3, 0.55)
 collision_layer = 4
 collision_mask = 10
 
-[node name="DefaultLaserHitbox" type="CollisionShape2D" parent="HitboxComponent"]
-rotation = -3.14159
+[node name="SelfProjectileBox" type="CollisionShape2D" parent="HitboxComponent"]
+rotation = -1.5708
 shape = SubResource("CapsuleShape2D_jewc2")
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
-[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
+[connection signal="screen_exited" from="OutsideScreenCheck" to="." method="_on_outside_screen_check_exit_detected"]

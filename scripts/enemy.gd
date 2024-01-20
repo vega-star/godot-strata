@@ -10,7 +10,7 @@ func _physics_process(delta):
 
 func _on_area_entered(body):
 	if body is HitboxComponent:
-		var hitbox : HitboxComponent = body
+		# var hitbox : HitboxComponent = body
 		
 		body.generate_damage(contact_damage)
 		self_hitbox.generate_damage(contact_damage)

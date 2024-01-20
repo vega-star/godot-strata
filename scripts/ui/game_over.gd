@@ -11,7 +11,7 @@ func _on_player_killed(): # Toggles node visibiliy, as well as quit and reset fu
 	self.visible = true
 	player_killed_status = true
 
-func _input(event : InputEvent): # Able us to use hotkeys instead of clicking the buttons, but should only work when this node is active
+func _input(_event): # Able us to use hotkeys instead of clicking the buttons, but should only work when this node is active
 	if player_killed_status == true:
 		if Input.is_action_just_pressed("quit"):
 			_on_exit_button_pressed()

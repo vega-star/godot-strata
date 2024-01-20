@@ -58,3 +58,9 @@ func shoot_secondary(): # Equipped weapon in secondary.
 
 func _on_health_component_health_change(previous_value, new_value): # Relaying signal
 	health_change.emit(previous_value, new_value)
+
+# Most code is based on tutorial video from Kaan Alpar, and it's a great tutorial detailing steps of building a fully complete game. 
+# Some parts that I've written are closely similar, while some others are literally the same line of code. 
+# It helped me a lot when I begun this project and had no prior experience on Godot.
+# It's awesome for learning, if you're reading this to learn, go check it out:
+# Source: https://www.youtube.com/watch?v=QoNukqpolS8

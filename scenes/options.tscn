@@ -13,6 +13,7 @@ bg_color = Color(0.160784, 0.160784, 0.160784, 0.815686)
 [node name="Options" type="CanvasLayer"]
 process_mode = 3
 layer = 100
+visible = false
 script = ExtResource("1_hjbun")
 
 [node name="OptionsControl" type="Control" parent="."]
@@ -31,11 +32,13 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 0
-theme_override_constants/minimum_grab_thickness = 0
+dragger_visibility = 2
 
 [node name="ConfigPanel" type="Panel" parent="OptionsControl/ConfigContainer"]
 custom_minimum_size = Vector2(320, 0)
 layout_mode = 2
+focus_neighbor_right = NodePath("../Binds")
+focus_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_ebb5w")
 
 [node name="OptionsTitle" type="Label" parent="OptionsControl/ConfigContainer/ConfigPanel"]
@@ -71,6 +74,7 @@ alignment = 1
 [node name="VolumeContainer" type="VBoxContainer" parent="OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons"]
 custom_minimum_size = Vector2(0, 130)
 layout_mode = 2
+size_flags_vertical = 4
 theme_override_constants/separation = 12
 
 [node name="MasterVol" type="Label" parent="OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons/VolumeContainer"]
@@ -78,8 +82,26 @@ layout_mode = 2
 theme = ExtResource("1_yjy47")
 text = "MASTER VOLUME"
 horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="Volume_Slider" type="HSlider" parent="OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons/VolumeContainer/MasterVol"]
+[node name="Master_Toggle" type="CheckButton" parent="OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons/VolumeContainer/MasterVol"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -44.0
+offset_top = -12.0
+offset_bottom = 12.0
+grow_horizontal = 0
+grow_vertical = 2
+focus_neighbor_left = NodePath("../Master_Slider")
+focus_neighbor_right = NodePath("../../../../../Binds/BindGrid/LEFT_B")
+focus_neighbor_bottom = NodePath("../Master_Slider")
+button_pressed = true
+
+[node name="Master_Slider" type="HSlider" parent="OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons/VolumeContainer/MasterVol"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.5
@@ -92,6 +114,11 @@ offset_right = 150.0
 offset_bottom = 7.509
 grow_horizontal = 2
 grow_vertical = 2
+focus_neighbor_top = NodePath("../Master_Toggle")
+focus_neighbor_bottom = NodePath("../../MusicVol/Music_Toggle")
+value = 50.0
+rounded = true
+allow_greater = true
 
 [node name="MusicVol" type="Label" parent="OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons/VolumeContainer"]
 layout_mode = 2
@@ -100,7 +127,25 @@ text = "MUSIC VOLUME
 "
 horizontal_alignment = 1
 
-[node name="Volume_Slider" type="HSlider" parent="OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons/VolumeContainer/MusicVol"]
+[node name="Music_Toggle" type="CheckButton" parent="OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons/VolumeContainer/MusicVol"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -44.0
+offset_top = -12.0
+offset_bottom = 12.0
+grow_horizontal = 0
+grow_vertical = 2
+focus_neighbor_left = NodePath("../Music_Slider")
+focus_neighbor_top = NodePath("../../MasterVol/Master_Slider")
+focus_neighbor_right = NodePath("../../../../../Binds/BindGrid/LEFT_B")
+focus_neighbor_bottom = NodePath("../Music_Slider")
+button_pressed = true
+
+[node name="Music_Slider" type="HSlider" parent="OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons/VolumeContainer/MusicVol"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.5
@@ -113,14 +158,37 @@ offset_right = 150.0
 offset_bottom = 7.509
 grow_horizontal = 2
 grow_vertical = 2
+focus_neighbor_top = NodePath("../Music_Toggle")
+focus_neighbor_bottom = NodePath("../../SoundEffectVol/Effect_Toggle")
+value = 50.0
+rounded = true
+allow_greater = true
 
-[node name="MusicVol2" type="Label" parent="OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons/VolumeContainer"]
+[node name="SoundEffectVol" type="Label" parent="OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons/VolumeContainer"]
 layout_mode = 2
 theme = ExtResource("1_yjy47")
 text = "SOUND EFFECT VOLUME"
 horizontal_alignment = 1
 
-[node name="Volume_Slider" type="HSlider" parent="OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons/VolumeContainer/MusicVol2"]
+[node name="Effect_Toggle" type="CheckButton" parent="OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons/VolumeContainer/SoundEffectVol"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -44.0
+offset_top = -12.0
+offset_bottom = 12.0
+grow_horizontal = 0
+grow_vertical = 2
+focus_neighbor_left = NodePath("../Effect_Slider")
+focus_neighbor_top = NodePath("../../MusicVol/Music_Slider")
+focus_neighbor_right = NodePath("../../../../../Binds/BindGrid/RIGHT_B")
+focus_neighbor_bottom = NodePath("../Effect_Slider")
+button_pressed = true
+
+[node name="Effect_Slider" type="HSlider" parent="OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons/VolumeContainer/SoundEffectVol"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.5
@@ -133,23 +201,37 @@ offset_right = 150.0
 offset_bottom = 7.509
 grow_horizontal = 2
 grow_vertical = 2
+focus_neighbor_top = NodePath("../Effect_Toggle")
+focus_neighbor_bottom = NodePath("../../../ToggleFiring")
+value = 50.0
+rounded = true
+allow_greater = true
 
 [node name="ToggleFiring" type="CheckButton" parent="OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons"]
 layout_mode = 2
+focus_neighbor_top = NodePath("../VolumeContainer/SoundEffectVol/Effect_Slider")
+focus_neighbor_right = NodePath("../../../Binds/BindGrid/PAUSE_B")
+focus_neighbor_bottom = NodePath("../Photosens_Mode")
 theme = ExtResource("1_yjy47")
 text = "TOGGLE FIRING"
 alignment = 1
 
-[node name="Photosens_Mode2" type="CheckButton" parent="OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons"]
+[node name="Photosens_Mode" type="CheckButton" parent="OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons"]
 layout_mode = 2
+focus_neighbor_top = NodePath("../ToggleFiring")
+focus_neighbor_right = NodePath("../../../Binds/BindGrid/SHOOT_B")
+focus_neighbor_bottom = NodePath("../ResetDefKeybind")
 theme = ExtResource("1_yjy47")
 text = "PHOTOSENSIBILITY MODE"
 alignment = 1
 
 [node name="ResetDefKeybind" type="Button" parent="OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons"]
 layout_mode = 2
+focus_neighbor_top = NodePath("../Photosens_Mode")
+focus_neighbor_right = NodePath("../../../Binds/BindGrid/BOMB_B")
 theme = ExtResource("1_yjy47")
-text = "RESET DEFAULT BINDS"
+theme_override_colors/font_hover_color = Color(1, 0.12549, 0.0862745, 1)
+text = "RESET DEFAULT KEYBINDS"
 
 [node name="Binds" type="Panel" parent="OptionsControl/ConfigContainer"]
 custom_minimum_size = Vector2(320, 0)
@@ -187,6 +269,11 @@ uppercase = true
 [node name="UP_B" parent="OptionsControl/ConfigContainer/Binds/BindGrid" instance=ExtResource("3_iy2y2")]
 custom_minimum_size = Vector2(140, 0)
 layout_mode = 2
+focus_neighbor_left = NodePath("../../../ConfigPanel/OptionsButtons/VolumeContainer/MasterVol/Master_Toggle")
+focus_neighbor_right = NodePath("../../../../ExitMenu")
+focus_neighbor_bottom = NodePath("../DOWN_B")
+focus_next = NodePath("../DOWN_B")
+focus_mode = 2
 theme_override_font_sizes/font_size = 45
 keybind = "move_up"
 
@@ -200,6 +287,13 @@ uppercase = true
 [node name="DOWN_B" parent="OptionsControl/ConfigContainer/Binds/BindGrid" instance=ExtResource("3_iy2y2")]
 custom_minimum_size = Vector2(140, 0)
 layout_mode = 2
+focus_neighbor_left = NodePath("../../../ConfigPanel/OptionsButtons/VolumeContainer/MusicVol/Music_Toggle")
+focus_neighbor_top = NodePath("../UP_B")
+focus_neighbor_right = NodePath("../../../../ExitMenu")
+focus_neighbor_bottom = NodePath("../LEFT_B")
+focus_next = NodePath("../LEFT_B")
+focus_previous = NodePath("../UP_B")
+focus_mode = 2
 theme_override_font_sizes/font_size = 45
 keybind = "move_down"
 
@@ -213,6 +307,12 @@ uppercase = true
 [node name="LEFT_B" parent="OptionsControl/ConfigContainer/Binds/BindGrid" instance=ExtResource("3_iy2y2")]
 custom_minimum_size = Vector2(140, 0)
 layout_mode = 2
+focus_neighbor_left = NodePath("../../../ConfigPanel/OptionsButtons/VolumeContainer/MasterVol/Master_Toggle")
+focus_neighbor_top = NodePath("../DOWN_B")
+focus_neighbor_bottom = NodePath("../RIGHT_B")
+focus_next = NodePath("../RIGHT_B")
+focus_previous = NodePath("../DOWN_B")
+focus_mode = 2
 theme_override_font_sizes/font_size = 45
 keybind = "move_left"
 
@@ -226,6 +326,12 @@ uppercase = true
 [node name="RIGHT_B" parent="OptionsControl/ConfigContainer/Binds/BindGrid" instance=ExtResource("3_iy2y2")]
 custom_minimum_size = Vector2(140, 0)
 layout_mode = 2
+focus_neighbor_left = NodePath("../../../ConfigPanel/OptionsButtons/VolumeContainer/SoundEffectVol/Effect_Toggle")
+focus_neighbor_top = NodePath("../LEFT_B")
+focus_neighbor_bottom = NodePath("../PAUSE_B")
+focus_next = NodePath("../PAUSE_B")
+focus_previous = NodePath("../LEFT_B")
+focus_mode = 2
 theme_override_font_sizes/font_size = 45
 keybind = "move_right"
 
@@ -239,6 +345,12 @@ uppercase = true
 [node name="PAUSE_B" parent="OptionsControl/ConfigContainer/Binds/BindGrid" instance=ExtResource("3_iy2y2")]
 custom_minimum_size = Vector2(140, 0)
 layout_mode = 2
+focus_neighbor_left = NodePath("../../../ConfigPanel/OptionsButtons/ToggleFiring")
+focus_neighbor_top = NodePath("../RIGHT_B")
+focus_neighbor_bottom = NodePath("../SHOOT_B")
+focus_next = NodePath("../SHOOT_B")
+focus_previous = NodePath("../RIGHT_B")
+focus_mode = 2
 theme_override_font_sizes/font_size = 45
 keybind = "pause"
 
@@ -252,6 +364,12 @@ uppercase = true
 [node name="SHOOT_B" parent="OptionsControl/ConfigContainer/Binds/BindGrid" instance=ExtResource("3_iy2y2")]
 custom_minimum_size = Vector2(140, 0)
 layout_mode = 2
+focus_neighbor_left = NodePath("../../../ConfigPanel/OptionsButtons/Photosens_Mode")
+focus_neighbor_top = NodePath("../PAUSE_B")
+focus_neighbor_bottom = NodePath("../BOMB_B")
+focus_next = NodePath("../BOMB_B")
+focus_previous = NodePath("../PAUSE_B")
+focus_mode = 2
 theme_override_font_sizes/font_size = 45
 keybind = "shoot"
 
@@ -265,6 +383,12 @@ uppercase = true
 [node name="BOMB_B" parent="OptionsControl/ConfigContainer/Binds/BindGrid" instance=ExtResource("3_iy2y2")]
 custom_minimum_size = Vector2(140, 0)
 layout_mode = 2
+focus_neighbor_left = NodePath("../../../ConfigPanel/OptionsButtons/ResetDefKeybind")
+focus_neighbor_top = NodePath("../SHOOT_B")
+focus_neighbor_bottom = NodePath("../RESET_B")
+focus_next = NodePath("../RESET_B")
+focus_previous = NodePath("../SHOOT_B")
+focus_mode = 2
 theme_override_font_sizes/font_size = 45
 keybind = "bomb"
 
@@ -278,6 +402,10 @@ uppercase = true
 [node name="RESET_B" parent="OptionsControl/ConfigContainer/Binds/BindGrid" instance=ExtResource("3_iy2y2")]
 custom_minimum_size = Vector2(140, 0)
 layout_mode = 2
+focus_neighbor_left = NodePath("../../../ConfigPanel/OptionsButtons/ResetDefKeybind")
+focus_neighbor_top = NodePath("../BOMB_B")
+focus_previous = NodePath("../BOMB_B")
+focus_mode = 2
 theme_override_font_sizes/font_size = 45
 keybind = "reset"
 
@@ -291,11 +419,12 @@ offset_top = 15.0
 offset_right = -15.0
 offset_bottom = 57.0
 grow_horizontal = 0
+focus_neighbor_left = NodePath("../ConfigContainer/Binds/BindGrid/UP_B")
 theme = ExtResource("1_yjy47")
 theme_override_font_sizes/font_size = 30
 text = "X"
 
-[node name="ExitCheck" type="ConfirmationDialog" parent="."]
+[node name="ExitCheck" type="ConfirmationDialog" parent="OptionsControl"]
 title = "EXIT"
 initial_position = 1
 size = Vector2i(200, 80)
@@ -303,7 +432,7 @@ theme = ExtResource("1_yjy47")
 ok_button_text = "Save"
 dialog_text = "  Save keybinds?"
 
-[node name="ResetBinds" type="ConfirmationDialog" parent="."]
+[node name="ResetBinds" type="ConfirmationDialog" parent="OptionsControl"]
 title = "CONFIRM"
 initial_position = 1
 size = Vector2i(251, 80)
@@ -314,6 +443,6 @@ dialog_text = "Reset default keybinds?"
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
 [connection signal="pressed" from="OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons/ResetDefKeybind" to="." method="_on_reset_default_keybinds_button"]
 [connection signal="pressed" from="OptionsControl/ExitMenu" to="." method="_on_exit_menu_pressed"]
-[connection signal="canceled" from="ExitCheck" to="." method="_on_exit_check_canceled"]
-[connection signal="confirmed" from="ExitCheck" to="." method="_on_exit_check_confirmed"]
-[connection signal="confirmed" from="ResetBinds" to="." method="_on_reset_default_keybinds"]
+[connection signal="canceled" from="OptionsControl/ExitCheck" to="." method="_on_exit_check_canceled"]
+[connection signal="confirmed" from="OptionsControl/ExitCheck" to="." method="_on_exit_check_confirmed"]
+[connection signal="confirmed" from="OptionsControl/ResetBinds" to="." method="_on_reset_default_keybinds"]

@@ -1,7 +1,7 @@
 extends Node2D
 
 @onready var player_spawn_pos = $PlayerSpawnPos
-@onready var laser_container = $LaserContainer
+@onready var laser_container = $ProjectileContainer
 @onready var hud = $UILayer/UIOverlay
 @onready var player_health_component = $Player/HealthComponent
 @onready var gameoverscreen = $GameOver

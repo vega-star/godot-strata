@@ -4,26 +4,21 @@
 
 [node name="EnemySpawner" type="Node2D"]
 script = ExtResource("1_q4eeh")
-
-[node name="SpawnPositions" type="Node2D" parent="."]
-
-[node name="SpawnPosition_01" type="Marker2D" parent="SpawnPositions"]
-position = Vector2(959, 459)
-
-[node name="SpawnPosition_02" type="Marker2D" parent="SpawnPositions"]
-position = Vector2(959, 366)
-
-[node name="SpawnPosition_03" type="Marker2D" parent="SpawnPositions"]
-position = Vector2(959, 265)
-
-[node name="SpawnPosition_04" type="Marker2D" parent="SpawnPositions"]
-position = Vector2(960, 160)
-
-[node name="SpawnPosition_05" type="Marker2D" parent="SpawnPositions"]
-position = Vector2(960, 70)
+metadata/_edit_horizontal_guides_ = [266.0]
 
 [node name="SpawnTimer" type="Timer" parent="."]
 wait_time = 1.5
 autostart = true
+
+[node name="SpawnArea" type="ReferenceRect" parent="."]
+offset_left = 1036.0
+offset_top = 47.0
+offset_right = 1116.0
+offset_bottom = 485.0
+
+[node name="SpecificSpawnPos" type="Node2D" parent="."]
+
+[node name="CenterSpawnPos" type="Marker2D" parent="SpecificSpawnPos"]
+position = Vector2(1074, 266)
 
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]

@@ -2,15 +2,17 @@ extends Node2D
 
 var enemy_load = load("res://entities/enemy_prop/enemy.tscn")
 var spawn_positions = null
+@onready var spawn_area = $SpawnArea
 
 func _ready():
 	randomize()
-	spawn_positions = $SpawnPositions.get_children()
 
 func spawn_enemy():
-	var index = randi() % spawn_positions.size()
 	var enemy = enemy_load.instantiate()
-	enemy.global_position = spawn_positions[index].global_position
+	
+	var rand_position = spawn_area.position + Vector2(randf() * spawn_area.size.x, randf() * spawn_area.size.y)
+	
+	enemy.global_position = rand_position
 	add_child(enemy)
 
 func _on_spawn_timer_timeout():

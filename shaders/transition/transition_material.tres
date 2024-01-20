@@ -1,0 +1,9 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://dsb0m7uftq00y"]
+
+[ext_resource type="Shader" path="res://shaders/transition/diamond-based-screen-transition.gdshader" id="1_lydbn"]
+
+[resource]
+shader = ExtResource("1_lydbn")
+shader_parameter/progress = 0.0
+shader_parameter/diamondPixelSize = 40.0
+shader_parameter/color = Color(0, 0, 0, 1)

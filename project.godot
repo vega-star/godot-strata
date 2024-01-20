@@ -25,19 +25,24 @@ Options="*res://scenes/options.tscn"
 
 [display]
 
-window/size/viewport_width=960
+window/size/viewport_width=384
 window/size/viewport_height=540
-window/stretch/mode="canvas_items"
+window/stretch/mode="viewport"
 
 [file_customization]
 
 folder_colors={
 "res://assets/": "blue",
 "res://components/": "purple",
-"res://entities/": "yellow",
-"res://scenes/": "red",
-"res://scripts/": "green"
+"res://entities/": "orange",
+"res://scenes/": "yellow",
+"res://scripts/": "green",
+"res://shaders/": "pink"
 }
+
+[gui]
+
+fonts/enabled=false
 
 [input]
 
@@ -102,5 +107,8 @@ quit={
 
 [rendering]
 
+textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
+2d/snap/snap_2d_transforms_to_pixel=true
+2d/snap/snap_2d_vertices_to_pixel=true
