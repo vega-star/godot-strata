@@ -1,11 +1,14 @@
 extends CanvasLayer
 
-var keybind_file_path = "res://components/keybinding_reg.json"
-var config_file = ConfigFile.new()
-var config_file_load = config_file.load("user://game_config.cfg") 
+signal options_changed
 
-@export var firing_is_toggle : bool = false
-@export var debug : bool = true
+var keybind_file_path = "res://components/keybinding_reg.json"
+
+const config_file_path = "user://config.cfg"
+var config_file = ConfigFile.new()
+var config_file_load = config_file.load(config_file_path) 
+
+@export var debug : bool = false
 
 var default_key_dict : Dictionary = {
 	"move_up":4194320,
@@ -33,13 +36,13 @@ func _ready():
 		var current_photosens_state = config_file.get_value("MAIN_OPTIONS","PHOTOSENS_MODE")
 		if current_photosens_state == true: $OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons/Photosens_Mode.button_pressed = true
 		
-		config_file.save("user://game_config.cfg")
+		config_file.save(config_file_path)
 	else: 
 		printerr("CONFIG FILE NOT FOUND | GENERATING DEFAULT VALUES")
 		config_file.set_value("MAIN_OPTIONS","PHOTOSENS_MODE", false)
 		config_file.set_value("MAIN_OPTIONS","TOGGLE_FIRE", false)
 		
-		config_file.save("user://game_config.cfg")
+		config_file.save(config_file_path)
 
 func _exit(): # Clean temporary data and reset signal
 	Options.visible = false
@@ -162,13 +165,15 @@ func _on_toggle_firing_pressed():
 	var button_status = bool($OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons/ToggleFiring.button_pressed)
 	if debug == true: print(button_status)
 	config_file.set_value("MAIN_OPTIONS","TOGGLE_FIRE",button_status)
-	config_file.save("user://game_config.cfg")
+	config_file.save(config_file_path)
+	options_changed.emit()
 
 func _on_photosens_mode_pressed():
 	var button_status = bool($OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons/Photosens_Mode.button_pressed)
 	if debug == true: print(button_status)
 	config_file.set_value("MAIN_OPTIONS","PHOTOSENS_MODE",button_status)
-	config_file.save("user://game_config.cfg")
+	config_file.save(config_file_path)
+	options_changed.emit()
 
 # Foundation learned from a tutorial from Rungeon, most parts had to be rewritten due to changes in Godot 4.2 and new functions were added
 # Source: https://www.youtube.com/watch?v=WHGHevwhXCQ

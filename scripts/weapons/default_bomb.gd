@@ -2,15 +2,15 @@ extends Area2D
 
 signal bomb_exploded()
 
+const base_rate_of_fire : float = 150
+@export var debug : bool = false
 @export var initial_projectile_speed = 800
 @export var projectile_slow_rate = 0.05
 @export var projectile_damage : int = 10
 @export var explosion_size : Vector2 = Vector2(20,20)
 @export var explosion_delay : float = 2
 @export var can_damage_player : bool = false
-var self_damage_mitigation : int = 10 
-
-@export var debug : bool = false
+@export var self_damage_mitigation : int = 10 
 
 var projectile_speed : int = initial_projectile_speed
 var exploded_status : bool = false

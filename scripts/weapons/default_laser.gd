@@ -1,5 +1,6 @@
 extends Area2D
 
+const base_rate_of_fire : float = 20
 @export var projectile_speed = 1300
 @export var projectile_damage = 1
 @export var explosion_damage = 10
@@ -17,8 +18,7 @@ func _on_outside_screen_check_exit_detected():
 
 func _on_hitbox_area_entered(area):
 	if area is HitboxComponent:
-		# var hitbox : HitboxComponent = area	
-		# area.generate_damage(projectile_damage)
+		area.generate_damage(projectile_damage)
 		enemy_pass_count += 1
 		if enemy_pass_count == enemy_pass_limit:
 			queue_free()

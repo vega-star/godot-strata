@@ -12,7 +12,8 @@ size = Vector2(50, 50)
 collision_mask = 10
 script = ExtResource("1_hermy")
 
-[node name="BasicHitbox" type="CollisionShape2D" parent="."]
+[node name="SelfHitbox" type="CollisionShape2D" parent="."]
+visible = false
 shape = SubResource("RectangleShape2D_akku0")
 disabled = true
 
