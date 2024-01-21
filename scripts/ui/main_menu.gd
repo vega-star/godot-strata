@@ -9,7 +9,7 @@ extends Control
 
 func _ready():
 	$ButtonsContainer/StartButton.grab_focus()
-	version_label.text = "ALPHA v%s" % project_version
+	version_label.text = "v%s" % project_version
 	
 	transition_controller.fade('in')
 	await get_tree().create_timer(transition_time).timeout

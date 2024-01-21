@@ -52,7 +52,7 @@ autoplay = "FADE"
 
 [node name="Shader" type="MeshInstance2D" parent="."]
 material = SubResource("ShaderMaterial_751yf")
-position = Vector2(479.75, 269.75)
+position = Vector2(480.534, 271.007)
 rotation = -3.14159
-scale = Vector2(960.5, 540.5)
+scale = Vector2(965.85, 546.792)
 mesh = SubResource("QuadMesh_6sq6t")

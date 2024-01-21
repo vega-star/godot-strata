@@ -1,11 +1,13 @@
 {
 	"bomb": 88,
-	"move_down": 4194322,
-	"move_left": 4194319,
-	"move_right": 4194321,
-	"move_up": 4194320,
+	"dash": 32,
+	"move_down": 83,
+	"move_left": 65,
+	"move_right": 68,
+	"move_up": 87,
 	"pause": 4194305,
 	"quit": 81,
 	"reset": 82,
+	"roll": 4194328,
 	"shoot": 90
 }

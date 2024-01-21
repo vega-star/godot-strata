@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://c1q12be6jjyek"]
 
-[ext_resource type="Script" path="res://scripts/default_laser.gd" id="1_24mmu"]
+[ext_resource type="Script" path="res://scripts/weapons/default_laser.gd" id="1_24mmu"]
 [ext_resource type="Texture2D" uid="uid://31icy2h0jvvm" path="res://assets/textures/prototypes/player_projectile.png" id="2_2w7lh"]
 [ext_resource type="PackedScene" uid="uid://c3atqdge540t0" path="res://components/status/hitbox_component.tscn" id="3_5k8xg"]
 
@@ -16,9 +16,11 @@ script = ExtResource("1_24mmu")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_2w7lh")
 
-[node name="SelfProjectileBox" type="CollisionShape2D" parent="."]
+[node name="SelfHitbox" type="CollisionShape2D" parent="."]
+visible = false
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_jewc2")
+disabled = true
 
 [node name="OutsideScreenCheck" type="VisibleOnScreenNotifier2D" parent="."]
 position = Vector2(-67, 0)
@@ -32,5 +34,5 @@ collision_mask = 10
 rotation = -1.5708
 shape = SubResource("CapsuleShape2D_jewc2")
 
-[connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="screen_exited" from="OutsideScreenCheck" to="." method="_on_outside_screen_check_exit_detected"]
+[connection signal="area_entered" from="HitboxComponent" to="." method="_on_hitbox_area_entered"]

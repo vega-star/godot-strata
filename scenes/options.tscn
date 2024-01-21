@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://duws3qk7e45vs"]
+[gd_scene load_steps=7 format=3 uid="uid://duws3qk7e45vs"]
 
 [ext_resource type="Script" path="res://components/general/options_controller.gd" id="1_hjbun"]
 [ext_resource type="Theme" uid="uid://b1a5sjt2xibwo" path="res://assets/themes/strata_theme.tres" id="1_yjy47"]
 [ext_resource type="PackedScene" uid="uid://cb1ygvja2x1ty" path="res://components/general/keybind_button.tscn" id="3_iy2y2"]
+[ext_resource type="Theme" uid="uid://fmibt6brra62" path="res://assets/themes/monospace_vt323.tres" id="4_aufuu"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ebb5w"]
 bg_color = Color(0.207843, 0.207843, 0.207843, 1)
@@ -97,7 +98,7 @@ offset_bottom = 12.0
 grow_horizontal = 0
 grow_vertical = 2
 focus_neighbor_left = NodePath("../Master_Slider")
-focus_neighbor_right = NodePath("../../../../../Binds/BindGrid/LEFT_B")
+focus_neighbor_right = NodePath("../../../../../Binds/BindGrids/BindGridLeft/UP_B")
 focus_neighbor_bottom = NodePath("../Master_Slider")
 button_pressed = true
 
@@ -141,7 +142,7 @@ grow_horizontal = 0
 grow_vertical = 2
 focus_neighbor_left = NodePath("../Music_Slider")
 focus_neighbor_top = NodePath("../../MasterVol/Master_Slider")
-focus_neighbor_right = NodePath("../../../../../Binds/BindGrid/LEFT_B")
+focus_neighbor_right = NodePath("../../../../../Binds/BindGrids/BindGridLeft/DOWN_B")
 focus_neighbor_bottom = NodePath("../Music_Slider")
 button_pressed = true
 
@@ -184,7 +185,7 @@ grow_horizontal = 0
 grow_vertical = 2
 focus_neighbor_left = NodePath("../Effect_Slider")
 focus_neighbor_top = NodePath("../../MusicVol/Music_Slider")
-focus_neighbor_right = NodePath("../../../../../Binds/BindGrid/RIGHT_B")
+focus_neighbor_right = NodePath("../../../../../Binds/BindGrids/BindGridLeft/DOWN_B")
 focus_neighbor_bottom = NodePath("../Effect_Slider")
 button_pressed = true
 
@@ -210,7 +211,7 @@ allow_greater = true
 [node name="ToggleFiring" type="CheckButton" parent="OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons"]
 layout_mode = 2
 focus_neighbor_top = NodePath("../VolumeContainer/SoundEffectVol/Effect_Slider")
-focus_neighbor_right = NodePath("../../../Binds/BindGrid/PAUSE_B")
+focus_neighbor_right = NodePath("../../../Binds/BindGrids/BindGridLeft/LEFT_B")
 focus_neighbor_bottom = NodePath("../Photosens_Mode")
 theme = ExtResource("1_yjy47")
 text = "TOGGLE FIRING"
@@ -219,7 +220,7 @@ alignment = 1
 [node name="Photosens_Mode" type="CheckButton" parent="OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons"]
 layout_mode = 2
 focus_neighbor_top = NodePath("../ToggleFiring")
-focus_neighbor_right = NodePath("../../../Binds/BindGrid/SHOOT_B")
+focus_neighbor_right = NodePath("../../../Binds/BindGrids/BindGridLeft/RIGHT_B")
 focus_neighbor_bottom = NodePath("../ResetDefKeybind")
 theme = ExtResource("1_yjy47")
 text = "PHOTOSENSIBILITY MODE"
@@ -228,7 +229,7 @@ alignment = 1
 [node name="ResetDefKeybind" type="Button" parent="OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons"]
 layout_mode = 2
 focus_neighbor_top = NodePath("../Photosens_Mode")
-focus_neighbor_right = NodePath("../../../Binds/BindGrid/BOMB_B")
+focus_neighbor_right = NodePath("../../../Binds/BindGrids/BindGridLeft/PAUSE_B")
 theme = ExtResource("1_yjy47")
 theme_override_colors/font_hover_color = Color(1, 0.12549, 0.0862745, 1)
 text = "RESET DEFAULT KEYBINDS"
@@ -238,20 +239,23 @@ custom_minimum_size = Vector2(320, 0)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_n6jky")
 
-[node name="BindGrid" type="GridContainer" parent="OptionsControl/ConfigContainer/Binds"]
-layout_direction = 1
+[node name="BindGrids" type="HBoxContainer" parent="OptionsControl/ConfigContainer/Binds"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -92.5
+offset_left = -134.5
 offset_top = -217.0
-offset_right = 92.5
+offset_right = 134.5
 offset_bottom = 217.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="BindGridLeft" type="GridContainer" parent="OptionsControl/ConfigContainer/Binds/BindGrids"]
+layout_direction = 1
+layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme = ExtResource("1_yjy47")
@@ -259,155 +263,214 @@ theme_override_constants/h_separation = 10
 theme_override_constants/v_separation = 6
 columns = 2
 
-[node name="UP" type="Label" parent="OptionsControl/ConfigContainer/Binds/BindGrid"]
+[node name="UP" type="Label" parent="OptionsControl/ConfigContainer/Binds/BindGrids/BindGridLeft"]
 layout_mode = 2
 theme = ExtResource("1_yjy47")
 theme_override_font_sizes/font_size = 45
 text = "Up"
 uppercase = true
 
-[node name="UP_B" parent="OptionsControl/ConfigContainer/Binds/BindGrid" instance=ExtResource("3_iy2y2")]
+[node name="UP_B" parent="OptionsControl/ConfigContainer/Binds/BindGrids/BindGridLeft" instance=ExtResource("3_iy2y2")]
 custom_minimum_size = Vector2(140, 0)
 layout_mode = 2
-focus_neighbor_left = NodePath("../../../ConfigPanel/OptionsButtons/VolumeContainer/MasterVol/Master_Toggle")
-focus_neighbor_right = NodePath("../../../../ExitMenu")
+focus_neighbor_left = NodePath("../../../../ConfigPanel/OptionsButtons/VolumeContainer/MasterVol/Master_Toggle")
+focus_neighbor_right = NodePath("../../BindGridRight/DASH_B")
 focus_neighbor_bottom = NodePath("../DOWN_B")
 focus_next = NodePath("../DOWN_B")
+focus_previous = NodePath("../../../../ConfigPanel/OptionsButtons/VolumeContainer/MasterVol/Master_Slider")
 focus_mode = 2
+theme = ExtResource("4_aufuu")
 theme_override_font_sizes/font_size = 45
 keybind = "move_up"
 
-[node name="DOWN" type="Label" parent="OptionsControl/ConfigContainer/Binds/BindGrid"]
+[node name="DOWN" type="Label" parent="OptionsControl/ConfigContainer/Binds/BindGrids/BindGridLeft"]
 layout_mode = 2
 theme = ExtResource("1_yjy47")
 theme_override_font_sizes/font_size = 45
 text = "Down"
 uppercase = true
 
-[node name="DOWN_B" parent="OptionsControl/ConfigContainer/Binds/BindGrid" instance=ExtResource("3_iy2y2")]
+[node name="DOWN_B" parent="OptionsControl/ConfigContainer/Binds/BindGrids/BindGridLeft" instance=ExtResource("3_iy2y2")]
 custom_minimum_size = Vector2(140, 0)
 layout_mode = 2
-focus_neighbor_left = NodePath("../../../ConfigPanel/OptionsButtons/VolumeContainer/MusicVol/Music_Toggle")
+focus_neighbor_left = NodePath("../../../../ConfigPanel/OptionsButtons/VolumeContainer/MusicVol/Music_Toggle")
 focus_neighbor_top = NodePath("../UP_B")
-focus_neighbor_right = NodePath("../../../../ExitMenu")
+focus_neighbor_right = NodePath("../../BindGridRight/ROLL_B")
 focus_neighbor_bottom = NodePath("../LEFT_B")
 focus_next = NodePath("../LEFT_B")
 focus_previous = NodePath("../UP_B")
 focus_mode = 2
+theme = ExtResource("4_aufuu")
 theme_override_font_sizes/font_size = 45
 keybind = "move_down"
 
-[node name="LEFT" type="Label" parent="OptionsControl/ConfigContainer/Binds/BindGrid"]
+[node name="LEFT" type="Label" parent="OptionsControl/ConfigContainer/Binds/BindGrids/BindGridLeft"]
 layout_mode = 2
 theme = ExtResource("1_yjy47")
 theme_override_font_sizes/font_size = 45
 text = "Left"
 uppercase = true
 
-[node name="LEFT_B" parent="OptionsControl/ConfigContainer/Binds/BindGrid" instance=ExtResource("3_iy2y2")]
+[node name="LEFT_B" parent="OptionsControl/ConfigContainer/Binds/BindGrids/BindGridLeft" instance=ExtResource("3_iy2y2")]
 custom_minimum_size = Vector2(140, 0)
 layout_mode = 2
-focus_neighbor_left = NodePath("../../../ConfigPanel/OptionsButtons/VolumeContainer/MasterVol/Master_Toggle")
+focus_neighbor_left = NodePath("../../../../ConfigPanel/OptionsButtons/ToggleFiring")
 focus_neighbor_top = NodePath("../DOWN_B")
+focus_neighbor_right = NodePath("../../BindGridRight/RESET_B")
 focus_neighbor_bottom = NodePath("../RIGHT_B")
 focus_next = NodePath("../RIGHT_B")
 focus_previous = NodePath("../DOWN_B")
 focus_mode = 2
+theme = ExtResource("4_aufuu")
 theme_override_font_sizes/font_size = 45
 keybind = "move_left"
 
-[node name="RIGHT" type="Label" parent="OptionsControl/ConfigContainer/Binds/BindGrid"]
+[node name="RIGHT" type="Label" parent="OptionsControl/ConfigContainer/Binds/BindGrids/BindGridLeft"]
 layout_mode = 2
 theme = ExtResource("1_yjy47")
 theme_override_font_sizes/font_size = 45
 text = "Right"
 uppercase = true
 
-[node name="RIGHT_B" parent="OptionsControl/ConfigContainer/Binds/BindGrid" instance=ExtResource("3_iy2y2")]
+[node name="RIGHT_B" parent="OptionsControl/ConfigContainer/Binds/BindGrids/BindGridLeft" instance=ExtResource("3_iy2y2")]
 custom_minimum_size = Vector2(140, 0)
 layout_mode = 2
-focus_neighbor_left = NodePath("../../../ConfigPanel/OptionsButtons/VolumeContainer/SoundEffectVol/Effect_Toggle")
+focus_neighbor_left = NodePath("../../../../ConfigPanel/OptionsButtons/Photosens_Mode")
 focus_neighbor_top = NodePath("../LEFT_B")
+focus_neighbor_right = NodePath("../../BindGridRight/SHOOT_B")
 focus_neighbor_bottom = NodePath("../PAUSE_B")
 focus_next = NodePath("../PAUSE_B")
 focus_previous = NodePath("../LEFT_B")
 focus_mode = 2
+theme = ExtResource("4_aufuu")
 theme_override_font_sizes/font_size = 45
 keybind = "move_right"
 
-[node name="PAUSE" type="Label" parent="OptionsControl/ConfigContainer/Binds/BindGrid"]
+[node name="PAUSE" type="Label" parent="OptionsControl/ConfigContainer/Binds/BindGrids/BindGridLeft"]
 layout_mode = 2
 theme = ExtResource("1_yjy47")
 theme_override_font_sizes/font_size = 45
 text = "Pause"
 uppercase = true
 
-[node name="PAUSE_B" parent="OptionsControl/ConfigContainer/Binds/BindGrid" instance=ExtResource("3_iy2y2")]
+[node name="PAUSE_B" parent="OptionsControl/ConfigContainer/Binds/BindGrids/BindGridLeft" instance=ExtResource("3_iy2y2")]
 custom_minimum_size = Vector2(140, 0)
 layout_mode = 2
-focus_neighbor_left = NodePath("../../../ConfigPanel/OptionsButtons/ToggleFiring")
+focus_neighbor_left = NodePath("../../../../ConfigPanel/OptionsButtons/ResetDefKeybind")
 focus_neighbor_top = NodePath("../RIGHT_B")
-focus_neighbor_bottom = NodePath("../SHOOT_B")
-focus_next = NodePath("../SHOOT_B")
+focus_neighbor_bottom = NodePath("../../BindGridRight/SHOOT_B")
+focus_next = NodePath("../../BindGridRight/DASH_B")
 focus_previous = NodePath("../RIGHT_B")
 focus_mode = 2
+theme = ExtResource("4_aufuu")
 theme_override_font_sizes/font_size = 45
 keybind = "pause"
 
-[node name="SHOOT" type="Label" parent="OptionsControl/ConfigContainer/Binds/BindGrid"]
+[node name="BindGridRight" type="GridContainer" parent="OptionsControl/ConfigContainer/Binds/BindGrids"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+columns = 2
+
+[node name="DASH" type="Label" parent="OptionsControl/ConfigContainer/Binds/BindGrids/BindGridRight"]
 layout_mode = 2
 theme = ExtResource("1_yjy47")
 theme_override_font_sizes/font_size = 45
-text = "Shoot"
+text = "DASH"
 uppercase = true
 
-[node name="SHOOT_B" parent="OptionsControl/ConfigContainer/Binds/BindGrid" instance=ExtResource("3_iy2y2")]
+[node name="DASH_B" parent="OptionsControl/ConfigContainer/Binds/BindGrids/BindGridRight" instance=ExtResource("3_iy2y2")]
 custom_minimum_size = Vector2(140, 0)
 layout_mode = 2
-focus_neighbor_left = NodePath("../../../ConfigPanel/OptionsButtons/Photosens_Mode")
-focus_neighbor_top = NodePath("../PAUSE_B")
-focus_neighbor_bottom = NodePath("../BOMB_B")
-focus_next = NodePath("../BOMB_B")
-focus_previous = NodePath("../PAUSE_B")
+focus_neighbor_left = NodePath("../../BindGridLeft/UP_B")
+focus_neighbor_top = NodePath("../../../../../ExitMenu")
+focus_neighbor_right = NodePath("../../../../../ExitMenu")
+focus_neighbor_bottom = NodePath("../ROLL_B")
+focus_next = NodePath("../ROLL_B")
+focus_previous = NodePath("../../BindGridLeft/PAUSE_B")
 focus_mode = 2
+theme = ExtResource("4_aufuu")
 theme_override_font_sizes/font_size = 45
-keybind = "shoot"
+keybind = "dash"
 
-[node name="BOMB" type="Label" parent="OptionsControl/ConfigContainer/Binds/BindGrid"]
+[node name="ROLL" type="Label" parent="OptionsControl/ConfigContainer/Binds/BindGrids/BindGridRight"]
 layout_mode = 2
 theme = ExtResource("1_yjy47")
 theme_override_font_sizes/font_size = 45
-text = "Bomb"
+text = "ROLL
+"
 uppercase = true
 
-[node name="BOMB_B" parent="OptionsControl/ConfigContainer/Binds/BindGrid" instance=ExtResource("3_iy2y2")]
+[node name="ROLL_B" parent="OptionsControl/ConfigContainer/Binds/BindGrids/BindGridRight" instance=ExtResource("3_iy2y2")]
 custom_minimum_size = Vector2(140, 0)
 layout_mode = 2
-focus_neighbor_left = NodePath("../../../ConfigPanel/OptionsButtons/ResetDefKeybind")
-focus_neighbor_top = NodePath("../SHOOT_B")
+focus_neighbor_left = NodePath("../../BindGridLeft/DOWN_B")
+focus_neighbor_top = NodePath("../DASH_B")
 focus_neighbor_bottom = NodePath("../RESET_B")
-focus_next = NodePath("../RESET_B")
-focus_previous = NodePath("../SHOOT_B")
+focus_next = NodePath(".")
+focus_previous = NodePath("../DASH_B")
 focus_mode = 2
+theme = ExtResource("4_aufuu")
 theme_override_font_sizes/font_size = 45
-keybind = "bomb"
+keybind = "roll"
 
-[node name="RESET" type="Label" parent="OptionsControl/ConfigContainer/Binds/BindGrid"]
+[node name="RESET" type="Label" parent="OptionsControl/ConfigContainer/Binds/BindGrids/BindGridRight"]
 layout_mode = 2
 theme = ExtResource("1_yjy47")
 theme_override_font_sizes/font_size = 45
 text = "REset"
 uppercase = true
 
-[node name="RESET_B" parent="OptionsControl/ConfigContainer/Binds/BindGrid" instance=ExtResource("3_iy2y2")]
+[node name="RESET_B" parent="OptionsControl/ConfigContainer/Binds/BindGrids/BindGridRight" instance=ExtResource("3_iy2y2")]
 custom_minimum_size = Vector2(140, 0)
 layout_mode = 2
-focus_neighbor_left = NodePath("../../../ConfigPanel/OptionsButtons/ResetDefKeybind")
-focus_neighbor_top = NodePath("../BOMB_B")
+focus_neighbor_left = NodePath("../../BindGridLeft/LEFT_B")
+focus_neighbor_top = NodePath("../ROLL_B")
+focus_neighbor_bottom = NodePath("../SHOOT_B")
+focus_next = NodePath("../SHOOT_B")
 focus_previous = NodePath("../BOMB_B")
 focus_mode = 2
+theme = ExtResource("4_aufuu")
 theme_override_font_sizes/font_size = 45
 keybind = "reset"
+
+[node name="SHOOT" type="Label" parent="OptionsControl/ConfigContainer/Binds/BindGrids/BindGridRight"]
+layout_mode = 2
+theme = ExtResource("1_yjy47")
+theme_override_font_sizes/font_size = 45
+text = "Shoot"
+uppercase = true
+
+[node name="SHOOT_B" parent="OptionsControl/ConfigContainer/Binds/BindGrids/BindGridRight" instance=ExtResource("3_iy2y2")]
+custom_minimum_size = Vector2(140, 0)
+layout_mode = 2
+focus_neighbor_left = NodePath("../../BindGridLeft/RIGHT_B")
+focus_neighbor_top = NodePath("../RESET_B")
+focus_neighbor_bottom = NodePath("../BOMB_B")
+focus_next = NodePath("../BOMB_B")
+focus_previous = NodePath("../RESET_B")
+focus_mode = 2
+theme = ExtResource("4_aufuu")
+theme_override_font_sizes/font_size = 45
+keybind = "shoot"
+
+[node name="BOMB" type="Label" parent="OptionsControl/ConfigContainer/Binds/BindGrids/BindGridRight"]
+layout_mode = 2
+theme = ExtResource("1_yjy47")
+theme_override_font_sizes/font_size = 45
+text = "Bomb"
+uppercase = true
+
+[node name="BOMB_B" parent="OptionsControl/ConfigContainer/Binds/BindGrids/BindGridRight" instance=ExtResource("3_iy2y2")]
+custom_minimum_size = Vector2(140, 0)
+layout_mode = 2
+focus_neighbor_left = NodePath("../../BindGridLeft/PAUSE_B")
+focus_neighbor_top = NodePath("../SHOOT_B")
+focus_previous = NodePath("../SHOOT_B")
+focus_mode = 2
+theme = ExtResource("4_aufuu")
+theme_override_font_sizes/font_size = 45
+keybind = "bomb"
 
 [node name="ExitMenu" type="Button" parent="OptionsControl"]
 layout_mode = 1
@@ -419,7 +482,8 @@ offset_top = 15.0
 offset_right = -15.0
 offset_bottom = 57.0
 grow_horizontal = 0
-focus_neighbor_left = NodePath("../ConfigContainer/Binds/BindGrid/UP_B")
+focus_neighbor_left = NodePath("../ConfigContainer/Binds/BindGrids/BindGridRight/DASH_B")
+focus_neighbor_bottom = NodePath("../ConfigContainer/Binds/BindGrids/BindGridRight/DASH_B")
 theme = ExtResource("1_yjy47")
 theme_override_font_sizes/font_size = 30
 text = "X"
@@ -441,6 +505,8 @@ ok_button_text = "Confirm"
 dialog_text = "Reset default keybinds?"
 
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
+[connection signal="pressed" from="OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons/ToggleFiring" to="." method="_on_toggle_firing_pressed"]
+[connection signal="pressed" from="OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons/Photosens_Mode" to="." method="_on_photosens_mode_pressed"]
 [connection signal="pressed" from="OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons/ResetDefKeybind" to="." method="_on_reset_default_keybinds_button"]
 [connection signal="pressed" from="OptionsControl/ExitMenu" to="." method="_on_exit_menu_pressed"]
 [connection signal="canceled" from="OptionsControl/ExitCheck" to="." method="_on_exit_check_canceled"]

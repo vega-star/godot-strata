@@ -1,0 +1,72 @@
+[gd_scene load_steps=8 format=3 uid="uid://cfa5ir4b58fq8"]
+
+[ext_resource type="Script" path="res://scripts/weapons/default_bomb.gd" id="1_ckq4a"]
+[ext_resource type="Texture2D" uid="uid://31icy2h0jvvm" path="res://assets/textures/prototypes/player_projectile.png" id="2_c2hcs"]
+[ext_resource type="PackedScene" uid="uid://c3atqdge540t0" path="res://components/status/hitbox_component.tscn" id="3_5s5eh"]
+[ext_resource type="Texture2D" uid="uid://dt1xcc7ykfdhp" path="res://assets/textures/prototypes/explosion_area.png" id="3_iiabf"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_jpsuv"]
+lifetime_randomness = 0.58
+particle_flag_disable_z = true
+emission_shape_scale = Vector3(10, 10, 1)
+emission_shape = 1
+emission_sphere_radius = 5.0
+angle_max = 191.3
+direction = Vector3(0, 0, 0)
+initial_velocity_min = 1.0
+initial_velocity_max = 1.0
+gravity = Vector3(0, 0, 0)
+scale_min = 10.0
+scale_max = 30.0
+scale_over_velocity_max = 10.0
+turbulence_noise_strength = 6.18
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_oan53"]
+radius = 7.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1g5hp"]
+radius = 7.0
+
+[node name="DefaultBomb" type="Area2D"]
+collision_layer = 4
+collision_mask = 10
+script = ExtResource("1_ckq4a")
+can_damage_player = true
+
+[node name="BombProjectileSprite" type="Sprite2D" parent="."]
+position = Vector2(5.96046e-08, 0)
+scale = Vector2(0.27, 1.12)
+texture = ExtResource("2_c2hcs")
+
+[node name="BombExplosionSprite" type="Sprite2D" parent="."]
+visible = false
+scale = Vector2(0.047, 0.047)
+texture = ExtResource("3_iiabf")
+
+[node name="BombExplosionParticles" type="GPUParticles2D" parent="."]
+emitting = false
+process_material = SubResource("ParticleProcessMaterial_jpsuv")
+
+[node name="ProjectileRadius" type="CollisionShape2D" parent="."]
+visible = false
+modulate = Color(0.686275, 0, 0.164706, 1)
+rotation = 1.5708
+shape = SubResource("CircleShape2D_oan53")
+disabled = true
+debug_color = Color(0, 0.6, 0.701961, 0.419608)
+
+[node name="OutsideScreenCheck" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(-193, 0)
+scale = Vector2(0.3, 0.55)
+
+[node name="HitboxComponent" parent="." instance=ExtResource("3_5s5eh")]
+collision_layer = 4
+collision_mask = 10
+
+[node name="SelfProjectileBox" type="CollisionShape2D" parent="HitboxComponent"]
+rotation = -1.5708
+shape = SubResource("CircleShape2D_1g5hp")
+
+[connection signal="bomb_exploded" from="." to="." method="_bomb_exploded"]
+[connection signal="screen_exited" from="OutsideScreenCheck" to="." method="_on_outside_screen_check_exit_detected"]
+[connection signal="area_entered" from="HitboxComponent" to="." method="_on_hitbox_area_entered"]

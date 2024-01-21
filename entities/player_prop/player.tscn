@@ -14,6 +14,7 @@ script = ExtResource("1_hermy")
 
 [node name="BasicHitbox" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_akku0")
+disabled = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_wkttr")
