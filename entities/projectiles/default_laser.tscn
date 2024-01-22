@@ -1,20 +1,27 @@
-[gd_scene load_steps=5 format=3 uid="uid://c1q12be6jjyek"]
+[gd_scene load_steps=6 format=3 uid="uid://c1q12be6jjyek"]
 
 [ext_resource type="Script" path="res://scripts/weapons/default_laser.gd" id="1_24mmu"]
-[ext_resource type="Texture2D" uid="uid://31icy2h0jvvm" path="res://assets/textures/prototypes/player_projectile.png" id="2_2w7lh"]
+[ext_resource type="Texture2D" uid="uid://c868sysa766fa" path="res://assets/textures/projectiles/default-laser.png" id="2_lky23"]
 [ext_resource type="PackedScene" uid="uid://c3atqdge540t0" path="res://components/status/hitbox_component.tscn" id="3_5k8xg"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jewc2"]
 radius = 4.0
-height = 46.0
+height = 20.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_43gnj"]
+radius = 2.0
+height = 36.0
 
 [node name="DefaultLaser" type="Area2D"]
 collision_layer = 4
 collision_mask = 10
 script = ExtResource("1_24mmu")
+projectile_speed = 700
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_2w7lh")
+[node name="LaserSprite" type="Sprite2D" parent="."]
+rotation = 1.5708
+scale = Vector2(0.397513, 1)
+texture = ExtResource("2_lky23")
 
 [node name="SelfHitbox" type="CollisionShape2D" parent="."]
 visible = false
@@ -32,7 +39,7 @@ collision_mask = 10
 
 [node name="SelfProjectileBox" type="CollisionShape2D" parent="HitboxComponent"]
 rotation = -1.5708
-shape = SubResource("CapsuleShape2D_jewc2")
+shape = SubResource("CapsuleShape2D_43gnj")
 
 [connection signal="screen_exited" from="OutsideScreenCheck" to="." method="_on_outside_screen_check_exit_detected"]
 [connection signal="area_entered" from="HitboxComponent" to="." method="_on_hitbox_area_entered"]

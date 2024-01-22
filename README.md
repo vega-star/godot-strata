@@ -14,9 +14,10 @@ The working game currently has:
   * Health component
 * Player character
   * Smooth movement using lerp function
-  * Primary fire action - Light weapons like lasers, miniguns, etc.
-  * Secondary fire action - Heavy weapons like bombs, rockets, etc.
+  * Primary fire action - Light weapons like lasers, miniguns, etc. Low damage but fast and limitless.
+  * Secondary fire action - Heavy weapons like bombs, rockets, etc. They are limited by the use of ammo.
   * Dash action
+  * Roll action
   * Reactive health bar
 * Threat manager
   * Spawner controller
@@ -27,8 +28,8 @@ The working game currently has:
 
 Planned features are:
 
+* UI and artistic identity
 * Toggleable photosensitivy mode
-* Roll action
 
 * Roguelike elements and items
 * Stages and route map

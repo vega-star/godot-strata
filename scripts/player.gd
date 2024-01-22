@@ -11,7 +11,7 @@ var primary_fire_toggled = false
 
 # Signals
 signal fire_primary(primary_projectile_scene, location) # Sends a signal to spawn projectile, as well as the coordinates of player from which the projectile should spawn relative to
-signal fire_secondary(secondary_projectile_scene, location) # Also sends signal to spawn projectile as similar to primary
+signal fire_secondary(secondary_projectile_scene, location, secondary_ammo) # Also sends signal to spawn projectile as similar to primary
 signal health_change(previous_value, new_value) # Notifies health change for a variety of other nodes
 signal player_killed # I'm sure that's not what you want to send
 
@@ -30,16 +30,21 @@ var roll_cooldown : bool = false
 @export var roll_cooldown_timer : float = 120
 
 # Weaponry
-@onready var muzzle = $Muzzle
+@onready var muzzle = $Muzzles/MuzzleStraight
+@export var secondary_ammo : int = 8
 
 var primary_projectile_scene : PackedScene = load("res://entities/projectiles/default_laser.tscn")
 var secondary_projectile_scene : PackedScene = load("res://entities/projectiles/default_bomb.tscn")
 
-@export var primary_fire_rof : float = primary_projectile_scene.instantiate().base_rate_of_fire
-@export var secondary_fire_rof : float = secondary_projectile_scene.instantiate().base_rate_of_fire
+@export var primary_rof_buff : float = 1
+@export var secondary_rof_buff : float = 1
+var primary_fire_rof : float = primary_projectile_scene.instantiate().base_rate_of_fire * primary_rof_buff
+var secondary_fire_rof : float = secondary_projectile_scene.instantiate().base_rate_of_fire * secondary_rof_buff
 
 var primary_fire_cooldown : bool = false
 var secondary_fire_cooldown : bool = false
+
+var shot_direction : float = 0
 
 # Status
 @onready var health_component = $HealthComponent
@@ -58,12 +63,17 @@ func _process(delta): # Frequent listener for input with delay (weapons, items, 
 		if Input.is_action_pressed("shoot"):
 			shoot_loop(delta)
 	
-	if Input.is_action_pressed("bomb"):
-		if !secondary_fire_cooldown:
-			secondary_fire_cooldown = true
-			shoot_secondary()
-			await get_tree().create_timer(secondary_fire_rof * delta).timeout
-			secondary_fire_cooldown = false
+	if Input.is_action_just_pressed("bomb"):
+		if secondary_ammo >= 1:
+			if !secondary_fire_cooldown:
+				if debug == true: print("Bomb launched! %d ammo left" % int(secondary_ammo - 1))
+				secondary_fire_cooldown = true
+				shoot_secondary()
+				await get_tree().create_timer(secondary_fire_rof * delta).timeout
+				secondary_fire_cooldown = false
+				secondary_ammo -= 1
+		else:
+			if debug == true: print("No ammo left!")
 	
 	if Input.is_action_just_pressed("roll"):
 		if !roll_cooldown:
@@ -71,12 +81,12 @@ func _process(delta): # Frequent listener for input with delay (weapons, items, 
 			roll_cooldown = true
 			
 			$HitboxComponent/PlayerHitbox.disabled = true
-			$Sprite2D.modulate.a = 0.5
+			$PlayerSprite.modulate.a = 0.5
 			
 			await get_tree().create_timer(roll_cooldown_timer * delta).timeout
 			
 			$HitboxComponent/PlayerHitbox.disabled = false
-			$Sprite2D.modulate.a = 1
+			$PlayerSprite.modulate.a = 1
 			
 			roll_cooldown = false
 		pass
@@ -116,7 +126,7 @@ func shoot_primary(): # Equipped weapon in primary.
 	fire_primary.emit(primary_projectile_scene, muzzle.global_position)
 
 func shoot_secondary(): # Equipped weapon in secondary. 
-	fire_secondary.emit(secondary_projectile_scene, muzzle.global_position)
+	fire_secondary.emit(secondary_projectile_scene, muzzle.global_position, secondary_ammo)
 
 func _on_health_component_health_change(previous_value, new_value): # Relaying signal
 	health_change.emit(previous_value, new_value)

@@ -1,7 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://be4idvqpl0pds"]
+[gd_scene load_steps=6 format=3 uid="uid://be4idvqpl0pds"]
 
 [ext_resource type="Script" path="res://scripts/ui/pause_menu.gd" id="1_nu21q"]
 [ext_resource type="Theme" uid="uid://b1a5sjt2xibwo" path="res://assets/themes/strata_theme.tres" id="2_k8a1f"]
+[ext_resource type="Texture2D" uid="uid://bl66ij78aurfm" path="res://assets/textures/static/gear_icon_outline.png" id="3_ekcmr"]
+[ext_resource type="Texture2D" uid="uid://nsnw7fqu4cml" path="res://assets/textures/static/gear_icon.png" id="4_f5q06"]
+[ext_resource type="BitMap" uid="uid://dngmj6m7g1uu4" path="res://assets/textures/static/gear_icon_bitmap.bmp" id="5_eoeko"]
 
 [node name="Pause Menu Layer" type="CanvasLayer"]
 process_mode = 3
@@ -47,26 +50,34 @@ alignment = 1
 [node name="UnpauseButton" type="Button" parent="PauseMenu/ButtonsContainer"]
 layout_mode = 2
 focus_neighbor_top = NodePath("../ReturnMenuButton")
-focus_neighbor_bottom = NodePath("../OptionsButton")
 theme = ExtResource("2_k8a1f")
 text = "UNPAUSE
 "
 
-[node name="OptionsButton" type="Button" parent="PauseMenu/ButtonsContainer"]
-layout_mode = 2
-focus_neighbor_top = NodePath("../UnpauseButton")
-focus_neighbor_bottom = NodePath("../ReturnMenuButton")
-theme = ExtResource("2_k8a1f")
-text = "OPTIONS"
-
 [node name="ReturnMenuButton" type="Button" parent="PauseMenu/ButtonsContainer"]
 layout_mode = 2
-focus_neighbor_top = NodePath("../OptionsButton")
 focus_neighbor_bottom = NodePath("../UnpauseButton")
 theme = ExtResource("2_k8a1f")
 text = "MAIN MENU"
 
+[node name="ConfigButton" type="TextureButton" parent="."]
+show_behind_parent = true
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -92.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = 92.0
+grow_horizontal = 0
+focus_neighbor_left = NodePath("../ButtonsContainer/StartButton")
+texture_normal = ExtResource("3_ekcmr")
+texture_pressed = ExtResource("3_ekcmr")
+texture_hover = ExtResource("4_f5q06")
+texture_click_mask = ExtResource("5_eoeko")
+stretch_mode = 6
+
 [connection signal="confirmed" from="ReturnPrompt" to="." method="_on_confirmation_dialog_confirmed"]
 [connection signal="pressed" from="PauseMenu/ButtonsContainer/UnpauseButton" to="." method="_on_unpause_button_pressed"]
-[connection signal="pressed" from="PauseMenu/ButtonsContainer/OptionsButton" to="." method="_on_options_button_pressed"]
 [connection signal="pressed" from="PauseMenu/ButtonsContainer/ReturnMenuButton" to="." method="_on_return_menu_button_pressed"]
+[connection signal="pressed" from="ConfigButton" to="." method="_on_config_button_pressed"]

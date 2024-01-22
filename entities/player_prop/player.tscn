@@ -1,12 +1,33 @@
-[gd_scene load_steps=6 format=3 uid="uid://biim58k38oa7h"]
+[gd_scene load_steps=7 format=3 uid="uid://biim58k38oa7h"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_hermy"]
-[ext_resource type="Texture2D" uid="uid://d17joid7wop0b" path="res://assets/textures/prototypes/player_test_sprite.png" id="2_wkttr"]
+[ext_resource type="Texture2D" uid="uid://vnytxah5yagv" path="res://assets/textures/entities/player/hunter-prototype.png" id="2_3w5hk"]
 [ext_resource type="PackedScene" uid="uid://bdfaybp4djcn2" path="res://components/status/health_component.tscn" id="3_pgpvp"]
 [ext_resource type="PackedScene" uid="uid://c3atqdge540t0" path="res://components/status/hitbox_component.tscn" id="4_vxsth"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_akku0"]
 size = Vector2(50, 50)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_r8qsk"]
+lifetime_randomness = 0.25
+particle_flag_disable_z = true
+emission_shape = 6
+emission_ring_axis = Vector3(0, 20, 1)
+emission_ring_height = 1.0
+emission_ring_radius = 1.0
+emission_ring_inner_radius = 0.0
+angle_min = -15.0
+angle_max = 15.0
+velocity_pivot = Vector3(-1000, 0, 0)
+direction = Vector3(-1000, 0, 0)
+spread = 5.0
+initial_velocity_min = 500.0
+initial_velocity_max = 1000.0
+gravity = Vector3(-250, 0, 0)
+radial_accel_min = -10.0
+radial_accel_max = 20.0
+scale_min = 5.0
+scale_max = 10.0
 
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 collision_mask = 10
@@ -17,20 +38,35 @@ visible = false
 shape = SubResource("RectangleShape2D_akku0")
 disabled = true
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_wkttr")
+[node name="PlayerSprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_3w5hk")
 
-[node name="Muzzle" type="Marker2D" parent="."]
-position = Vector2(45, 0)
+[node name="Muzzles" type="Node2D" parent="."]
+
+[node name="MuzzleStraight" type="Marker2D" parent="Muzzles"]
+position = Vector2(52, 2)
+
+[node name="MuzzleUp" type="Marker2D" parent="Muzzles"]
+position = Vector2(34, -35)
+
+[node name="MuzzleDown" type="Marker2D" parent="Muzzles"]
+position = Vector2(34, 35)
 
 [node name="HealthComponent" parent="." instance=ExtResource("3_pgpvp")]
-max_health = 3
+max_health = 10
 
 [node name="HitboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("4_vxsth")]
 collision_mask = 10
 health_component = NodePath("../HealthComponent")
 
 [node name="PlayerHitbox" type="CollisionPolygon2D" parent="HitboxComponent"]
-polygon = PackedVector2Array(-25, -25, 25, -25, 25, 25, -25, 25)
+polygon = PackedVector2Array(-34, -17, 34, 2, -3, 8, -30, 23, -36, 21, -17, 5, -33, 0, -24, -5)
+
+[node name="ThrustTail" type="GPUParticles2D" parent="."]
+position = Vector2(-22, 1)
+process_material = SubResource("ParticleProcessMaterial_r8qsk")
+lifetime = 1.5
+speed_scale = 3.0
+collision_base_size = 0.0
 
 [connection signal="health_change" from="HealthComponent" to="." method="_on_health_component_health_change"]

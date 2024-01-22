@@ -1,16 +1,66 @@
-[gd_scene load_steps=8 format=3 uid="uid://cfa5ir4b58fq8"]
+[gd_scene load_steps=15 format=3 uid="uid://cfa5ir4b58fq8"]
 
 [ext_resource type="Script" path="res://scripts/weapons/default_bomb.gd" id="1_ckq4a"]
-[ext_resource type="Texture2D" uid="uid://31icy2h0jvvm" path="res://assets/textures/prototypes/player_projectile.png" id="2_c2hcs"]
+[ext_resource type="Texture2D" uid="uid://ct2linm7ktxsv" path="res://assets/textures/projectiles/default-projectile.png" id="2_2gqfx"]
 [ext_resource type="PackedScene" uid="uid://c3atqdge540t0" path="res://components/status/hitbox_component.tscn" id="3_5s5eh"]
 [ext_resource type="Texture2D" uid="uid://dt1xcc7ykfdhp" path="res://assets/textures/prototypes/explosion_area.png" id="3_iiabf"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dm1ni"]
+atlas = ExtResource("2_2gqfx")
+region = Rect2(0, 0, 22, 22)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8espl"]
+atlas = ExtResource("2_2gqfx")
+region = Rect2(22, 0, 22, 22)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_spo5c"]
+atlas = ExtResource("2_2gqfx")
+region = Rect2(44, 0, 22, 22)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2x6op"]
+atlas = ExtResource("2_2gqfx")
+region = Rect2(66, 0, 22, 22)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vddqt"]
+atlas = ExtResource("2_2gqfx")
+region = Rect2(88, 0, 22, 22)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q6sxq"]
+atlas = ExtResource("2_2gqfx")
+region = Rect2(110, 0, 22, 22)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ni17j"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dm1ni")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8espl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_spo5c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2x6op")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vddqt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q6sxq")
+}],
+"loop": true,
+"name": &"default",
+"speed": 20.0
+}]
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_jpsuv"]
 lifetime_randomness = 0.58
 particle_flag_disable_z = true
 emission_shape_scale = Vector3(10, 10, 1)
-emission_shape = 1
-emission_sphere_radius = 5.0
+emission_shape = 2
+emission_sphere_radius = 17.0
 angle_max = 191.3
 direction = Vector3(0, 0, 0)
 initial_velocity_min = 1.0
@@ -32,10 +82,10 @@ collision_layer = 4
 collision_mask = 10
 script = ExtResource("1_ckq4a")
 
-[node name="BombProjectileSprite" type="Sprite2D" parent="."]
-position = Vector2(5.96046e-08, 0)
-scale = Vector2(0.27, 1.12)
-texture = ExtResource("2_c2hcs")
+[node name="BombProjectileSprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_ni17j")
+autoplay = "default"
+frame_progress = 0.68585
 
 [node name="BombExplosionSprite" type="Sprite2D" parent="."]
 visible = false
@@ -44,6 +94,7 @@ texture = ExtResource("3_iiabf")
 
 [node name="BombExplosionParticles" type="GPUParticles2D" parent="."]
 emitting = false
+amount = 15
 process_material = SubResource("ParticleProcessMaterial_jpsuv")
 
 [node name="ProjectileRadius" type="CollisionShape2D" parent="."]

@@ -1,9 +1,12 @@
-[gd_scene load_steps=5 format=3 uid="uid://70mnen3idkqt"]
+[gd_scene load_steps=8 format=3 uid="uid://70mnen3idkqt"]
 
 [ext_resource type="Script" path="res://scripts/ui/game_over.gd" id="1_8ouiq"]
 [ext_resource type="Theme" uid="uid://b1a5sjt2xibwo" path="res://assets/themes/strata_theme.tres" id="1_oxe1g"]
 [ext_resource type="LabelSettings" uid="uid://dqqjjg0mh3bhh" path="res://assets/themes/strata_font.tres" id="3_0ahpm"]
 [ext_resource type="PackedScene" uid="uid://l3nrofdqijr6" path="res://components/ui/statistics_data.tscn" id="4_50ftq"]
+[ext_resource type="Texture2D" uid="uid://bl66ij78aurfm" path="res://assets/textures/static/gear_icon_outline.png" id="5_u1mwt"]
+[ext_resource type="Texture2D" uid="uid://nsnw7fqu4cml" path="res://assets/textures/static/gear_icon.png" id="6_6l212"]
+[ext_resource type="BitMap" uid="uid://dngmj6m7g1uu4" path="res://assets/textures/static/gear_icon_bitmap.bmp" id="7_5c3mt"]
 
 [node name="GameOverScreen" type="CanvasLayer"]
 process_mode = 1
@@ -90,5 +93,22 @@ text = "RETRY"
 custom_minimum_size = Vector2(200, 200)
 layout_mode = 2
 
+[node name="ConfigButton" type="TextureButton" parent="."]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -92.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = 92.0
+grow_horizontal = 0
+focus_neighbor_left = NodePath("../ButtonsContainer/StartButton")
+texture_normal = ExtResource("5_u1mwt")
+texture_pressed = ExtResource("5_u1mwt")
+texture_hover = ExtResource("6_6l212")
+texture_click_mask = ExtResource("7_5c3mt")
+stretch_mode = 6
+
 [connection signal="pressed" from="GameOverPanel/Screen/TitleBox/LayoutBox/TextBox/MenuButton" to="." method="_on_exit_button_pressed"]
 [connection signal="pressed" from="GameOverPanel/Screen/TitleBox/LayoutBox/TextBox/RetryButton" to="." method="_on_retry_button_pressed"]
+[connection signal="pressed" from="ConfigButton" to="." method="_on_config_button_pressed"]

@@ -5,5 +5,5 @@
 [resource]
 shader = ExtResource("1_lydbn")
 shader_parameter/progress = 0.0
-shader_parameter/diamondPixelSize = 40.0
+shader_parameter/diamondPixelSize = 60.0
 shader_parameter/color = Color(0, 0, 0, 1)

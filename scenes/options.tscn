@@ -72,10 +72,44 @@ grow_vertical = 2
 theme_override_constants/separation = 5
 alignment = 1
 
+[node name="ScreenMode" type="Label" parent="OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+text = "SCREEN"
+horizontal_alignment = 1
+
+[node name="ScreenModeMenu" type="OptionButton" parent="OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons/ScreenMode"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -160.0
+offset_top = -31.0
+offset_right = 160.0
+grow_horizontal = 2
+grow_vertical = 0
+focus_neighbor_right = NodePath("../../../../Binds/BindGrids/BindGridLeft/UP_B")
+focus_neighbor_bottom = NodePath("../../VolumeContainer/MasterVol/Master_Slider")
+item_count = 5
+selected = 0
+popup/item_0/text = "WINDOWED"
+popup/item_0/id = 0
+popup/item_1/text = "BORDERLESS WINDOWED"
+popup/item_1/id = 1
+popup/item_2/text = "MAXIMIZED"
+popup/item_2/id = 2
+popup/item_3/text = "FULLSCREEN"
+popup/item_3/id = 3
+popup/item_4/text = "EXCLUSIVE FULLSCREEN"
+popup/item_4/id = 4
+
 [node name="VolumeContainer" type="VBoxContainer" parent="OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons"]
-custom_minimum_size = Vector2(0, 130)
+custom_minimum_size = Vector2(0, 115)
 layout_mode = 2
 size_flags_vertical = 4
+size_flags_stretch_ratio = 0.0
 theme_override_constants/separation = 12
 
 [node name="MasterVol" type="Label" parent="OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons/VolumeContainer"]
@@ -98,6 +132,7 @@ offset_bottom = 12.0
 grow_horizontal = 0
 grow_vertical = 2
 focus_neighbor_left = NodePath("../Master_Slider")
+focus_neighbor_top = NodePath("../../../ScreenMode/ScreenModeMenu")
 focus_neighbor_right = NodePath("../../../../../Binds/BindGrids/BindGridLeft/UP_B")
 focus_neighbor_bottom = NodePath("../Master_Slider")
 button_pressed = true
@@ -273,7 +308,7 @@ uppercase = true
 [node name="UP_B" parent="OptionsControl/ConfigContainer/Binds/BindGrids/BindGridLeft" instance=ExtResource("3_iy2y2")]
 custom_minimum_size = Vector2(140, 0)
 layout_mode = 2
-focus_neighbor_left = NodePath("../../../../ConfigPanel/OptionsButtons/VolumeContainer/MasterVol/Master_Toggle")
+focus_neighbor_left = NodePath("../../../../ConfigPanel/OptionsButtons/ScreenMode/ScreenModeMenu")
 focus_neighbor_right = NodePath("../../BindGridRight/DASH_B")
 focus_neighbor_bottom = NodePath("../DOWN_B")
 focus_next = NodePath("../DOWN_B")
@@ -504,7 +539,8 @@ theme = ExtResource("1_yjy47")
 ok_button_text = "Confirm"
 dialog_text = "Reset default keybinds?"
 
-[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
+[connection signal="visibility_changed" from="." to="." method="_on_options_visibility_changed"]
+[connection signal="item_selected" from="OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons/ScreenMode/ScreenModeMenu" to="." method="_on_screen_mode_selected"]
 [connection signal="pressed" from="OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons/ToggleFiring" to="." method="_on_toggle_firing_pressed"]
 [connection signal="pressed" from="OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons/Photosens_Mode" to="." method="_on_photosens_mode_pressed"]
 [connection signal="pressed" from="OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons/ResetDefKeybind" to="." method="_on_reset_default_keybinds_button"]

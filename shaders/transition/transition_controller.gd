@@ -10,4 +10,3 @@ func fade(mode):
 		animation_node.play('FADE')
 	if mode == 'out' or mode == 'OUT':
 		animation_node.play_backwards('FADE')
-

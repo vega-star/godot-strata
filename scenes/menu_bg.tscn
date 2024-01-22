@@ -1,0 +1,46 @@
+[gd_scene load_steps=7 format=3 uid="uid://c8sis2bmuopvk"]
+
+[ext_resource type="Script" path="res://scripts/ui/menu_bg_controller.gd" id="1_kla7a"]
+[ext_resource type="Texture2D" uid="uid://bg8usjc38mrhe" path="res://assets/textures/parallax/main_menu/menu-overlay_sketch.png" id="2_qwil2"]
+[ext_resource type="Texture2D" uid="uid://1k4gi336jku" path="res://assets/textures/parallax/waterbg.png" id="2_rije7"]
+[ext_resource type="Texture2D" uid="uid://jwsvyrfmcb3o" path="res://assets/textures/parallax/main_menu/menu-overlay_door_left.png" id="3_32pro"]
+[ext_resource type="Texture2D" uid="uid://ceni4dheg8o7t" path="res://assets/textures/parallax/main_menu/menu-overlay_door_right.png" id="4_k1fik"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_xilwv"]
+
+[node name="MenuBG" type="CanvasLayer"]
+layer = -50
+script = ExtResource("1_kla7a")
+
+[node name="SketchOverlay" type="Sprite2D" parent="."]
+position = Vector2(480, 270)
+texture = ExtResource("2_qwil2")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+visible = false
+
+[node name="MainParallax" type="ParallaxBackground" parent="."]
+
+[node name="Sea" type="ParallaxLayer" parent="MainParallax"]
+motion_mirroring = Vector2(0, 540)
+
+[node name="SeaSprite" type="Sprite2D" parent="MainParallax/Sea"]
+position = Vector2(208, 0)
+texture = ExtResource("2_rije7")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 0, 540, 540)
+
+[node name="PointLight2D" type="PointLight2D" parent="MainParallax"]
+position = Vector2(479.125, 239.375)
+scale = Vector2(95.75, 43.25)
+color = Color(1, 0.419608, 0.415686, 1)
+texture = SubResource("PlaceholderTexture2D_xilwv")
+
+[node name="DoorLeft" type="Sprite2D" parent="MainParallax"]
+position = Vector2(366, 270)
+texture = ExtResource("3_32pro")
+
+[node name="DoorRight" type="Sprite2D" parent="MainParallax"]
+position = Vector2(601, 270)
+texture = ExtResource("4_k1fik")

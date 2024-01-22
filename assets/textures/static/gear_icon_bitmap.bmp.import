@@ -1,0 +1,16 @@
+[remap]
+
+importer="bitmap"
+type="BitMap"
+uid="uid://dngmj6m7g1uu4"
+path="res://.godot/imported/gear_icon_bitmap.bmp-f3bf86525870ed243a8070f9d358ef7e.res"
+
+[deps]
+
+source_file="res://assets/textures/static/gear_icon_bitmap.bmp"
+dest_files=["res://.godot/imported/gear_icon_bitmap.bmp-f3bf86525870ed243a8070f9d358ef7e.res"]
+
+[params]
+
+create_from=0
+threshold=0.5

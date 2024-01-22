@@ -31,6 +31,9 @@ var settings_changed : bool = false
 func _ready():
 	load_keys()
 	if config_file_load == OK: # Config file generator and loader checker
+		DisplayServer.window_set_mode(config_file.get_value("MAIN_OPTIONS","WINDOW_MODE"))
+		# DisplayServer.window_set_min_size(config_file.get_value("MAIN_OPTIONS","MINIMUM_WINDOW_SIZE"))
+		
 		var current_toggle_state = config_file.get_value("MAIN_OPTIONS","TOGGLE_FIRE")
 		if current_toggle_state == true: $OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons/ToggleFiring.button_pressed = true
 		var current_photosens_state = config_file.get_value("MAIN_OPTIONS","PHOTOSENS_MODE")
@@ -39,6 +42,8 @@ func _ready():
 		config_file.save(config_file_path)
 	else: 
 		printerr("CONFIG FILE NOT FOUND | GENERATING DEFAULT VALUES")
+		config_file.set_value("MAIN_OPTIONS","WINDOW_MODE", "WINDOW_MODE_WINDOWED")
+		config_file.set_value("MAIN_OPTIONS","MINIMUM_WINDOW_SIZE", Vector2(480,270))
 		config_file.set_value("MAIN_OPTIONS","PHOTOSENS_MODE", false)
 		config_file.set_value("MAIN_OPTIONS","TOGGLE_FIRE", false)
 		
@@ -47,8 +52,6 @@ func _ready():
 func _exit(): # Clean temporary data and reset signal
 	Options.visible = false
 	settings_changed = false
-	# Sets focus back to a node control above in tree \/
-	# $Options_Control.find_prev_valid_focus().grab_focus()
 
 # OPTIONS MENU FUNCTIONS
 
@@ -67,11 +70,12 @@ func _on_reset_default_keybinds_button(): # Prompt to reset keybindings, prevent
 func _on_reset_default_keybinds(): # Reloads keys after redefining key_dict
 	delete_old_keys()
 	key_dict = default_key_dict
-	setup_keys()
-	_on_visibility_changed()
+	for key in key_dict:
+		setup_keys()
+	_on_options_visibility_changed()
 	save_keys()
 
-func _on_visibility_changed(): 
+func _on_options_visibility_changed(): 
 	# | Converts keycode physical elements from key_dict to their respectives string labels, abling players to visualize which keys are currently bound to what.
 	# I already know there's a efficient way to automate these attributions in the case other buttons are added, but I need to prioritize other elements first, so that's it for now
 	if Options.visible == true:
@@ -175,7 +179,24 @@ func _on_photosens_mode_pressed():
 	config_file.save(config_file_path)
 	options_changed.emit()
 
+func _on_screen_mode_selected(index):
+	var window_modes = { # Reason behind this weird dict: https://docs.godotengine.org/en/stable/classes/class_displayserver.html#enum-displayserver-windowmode
+		0:0, # WINDOWED
+		1:0, # WINDOWED + BORDERLESS
+		2:2, # MAXIMIZED
+		3:3, # FULLSCREEN
+		4:4  # EXCLUSIVE FULLSCREEN
+	}
+	if index == 1:
+		DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS,true)
+	else:
+		DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS,false)
+	DisplayServer.window_set_mode(window_modes[index])
+	config_file.set_value("MAIN_OPTIONS","WINDOW_MODE",window_modes[index])
+	print(window_modes[index])
+	config_file.save(config_file_path)
+
+
 # Foundation learned from a tutorial from Rungeon, most parts had to be rewritten due to changes in Godot 4.2 and new functions were added
 # Source: https://www.youtube.com/watch?v=WHGHevwhXCQ
 # Github: https://github.com/trolog/godotKeybindingTutorial
-

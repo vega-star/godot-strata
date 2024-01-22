@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dodonxatfl1f2"
-path="res://.godot/imported/github-icon.png-c3b7120d53a89b0405c39fd8acdd2ccc.ctex"
+uid="uid://b1rs03b4u842e"
+path="res://.godot/imported/strata_cursor.png-ac4fc7ab2e5b9a504f7cbd89e0f2f4ee.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/textures/static/github-icon.png"
-dest_files=["res://.godot/imported/github-icon.png-c3b7120d53a89b0405c39fd8acdd2ccc.ctex"]
+source_file="res://assets/textures/static/strata_cursor.png"
+dest_files=["res://.godot/imported/strata_cursor.png-ac4fc7ab2e5b9a504f7cbd89e0f2f4ee.ctex"]
 
 [params]
 

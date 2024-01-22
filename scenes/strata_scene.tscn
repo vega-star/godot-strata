@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://biim58k38oa7h" path="res://entities/player_prop/player.tscn" id="5_4q2cg"]
 [ext_resource type="PackedScene" uid="uid://chy6yrcopxpke" path="res://components/ui/ui_overlay.tscn" id="5_pxyto"]
 [ext_resource type="PackedScene" uid="uid://b7d5rmrbmprps" path="res://components/parallax/parallax_template.tscn" id="6_11sbf"]
-[ext_resource type="PackedScene" uid="uid://70mnen3idkqt" path="res://components/ui/game_over_screen.tscn" id="6_mp7p5"]
+[ext_resource type="PackedScene" uid="uid://70mnen3idkqt" path="res://scenes/game_over_screen.tscn" id="6_mp7p5"]
 [ext_resource type="PackedScene" uid="uid://be4idvqpl0pds" path="res://scenes/pause_menu.tscn" id="7_o80nl"]
 [ext_resource type="PackedScene" uid="uid://cx3klkrk3nesh" path="res://shaders/transition/transition_scene.tscn" id="8_rsgwl"]
 
@@ -15,6 +15,11 @@ visibility_layer = 2
 script = ExtResource("1_wreqo")
 metadata/_edit_horizontal_guides_ = [540.0]
 metadata/_edit_vertical_guides_ = [960.0]
+
+[node name="ScreenTransitionLayer" type="CanvasLayer" parent="."]
+layer = 50
+
+[node name="ScreenTransition" parent="ScreenTransitionLayer" instance=ExtResource("8_rsgwl")]
 
 [node name="EnemySpawner" parent="." instance=ExtResource("4_2j8t1")]
 light_mask = 2
@@ -47,6 +52,7 @@ remote_path = NodePath("../../MainCamera")
 [node name="ProjectileContainer" type="Node2D" parent="."]
 
 [node name="UILayer" type="CanvasLayer" parent="."]
+layer = 5
 
 [node name="UIOverlay" parent="UILayer" instance=ExtResource("5_pxyto")]
 z_as_relative = false
@@ -54,19 +60,15 @@ clip_contents = true
 offset_right = 0.0
 offset_bottom = 0.0
 
+[node name="PauseMenuLayer" parent="." instance=ExtResource("7_o80nl")]
+layer = 15
+visible = false
+
 [node name="GameOver" parent="." instance=ExtResource("6_mp7p5")]
 process_mode = 3
-layer = 10
+layer = 15
 visible = false
 follow_viewport_enabled = true
-
-[node name="PauseMenuLayer" parent="." instance=ExtResource("7_o80nl")]
-visible = false
-
-[node name="ScreenTransitionLayer" type="CanvasLayer" parent="."]
-layer = 5
-
-[node name="ScreenTransition" parent="ScreenTransitionLayer" instance=ExtResource("8_rsgwl")]
 
 [connection signal="health_change" from="Player" to="." method="_on_player_health_change"]
 [connection signal="player_killed" from="Player" to="GameOver" method="_on_player_killed"]

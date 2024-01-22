@@ -28,7 +28,7 @@ func _process(_delta):
 func _on_unpause_button_pressed():
 	unpause()
 
-func _on_options_button_pressed():
+func _on_config_button_pressed():
 	Options.visible = true
 
 func _on_return_menu_button_pressed():
