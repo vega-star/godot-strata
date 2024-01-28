@@ -13,9 +13,10 @@ var primary_fire_toggled = false
 signal fire_primary(primary_projectile_scene, location) # Sends a signal to spawn projectile, as well as the coordinates of player from which the projectile should spawn relative to
 signal fire_secondary(secondary_projectile_scene, location, secondary_ammo) # Also sends signal to spawn projectile as similar to primary
 signal health_change(previous_value, new_value) # Notifies health change for a variety of other nodes
-signal player_killed # I'm sure that's not what you want to send
+signal player_killed # Self explanatory
 
 # Movement
+var direction : Vector2 = Vector2.ZERO
 @export var speed : float = 400
 @export var max_speed_factor : float = 2
 @export var acceleration = 1.1
@@ -30,7 +31,8 @@ var roll_cooldown : bool = false
 @export var roll_cooldown_timer : float = 120
 
 # Weaponry
-@onready var muzzle = $Muzzles/MuzzleStraight
+@onready var muzzle = $Muzzles/MuzzleRightWing
+@onready var left_wing_muzzle = $Muzzles/MuzzleLeftWing
 @export var secondary_ammo : int = 8
 
 var primary_projectile_scene : PackedScene = load("res://entities/projectiles/default_laser.tscn")
@@ -48,6 +50,7 @@ var shot_direction : float = 0
 
 # Status
 @onready var health_component = $HealthComponent
+@onready var animation_tree = $PlayerAnimationTree
 
 func _ready():
 	if config_load != OK: printerr("Config file not found | Impossible to gather crucial data, will crash the game")
@@ -81,18 +84,20 @@ func _process(delta): # Frequent listener for input with delay (weapons, items, 
 			roll_cooldown = true
 			
 			$HitboxComponent/PlayerHitbox.disabled = true
-			$PlayerSprite.modulate.a = 0.5
+			$HunterSprites/HunterIdleSprite.modulate.a = 0.5
 			
 			await get_tree().create_timer(roll_cooldown_timer * delta).timeout
 			
 			$HitboxComponent/PlayerHitbox.disabled = false
-			$PlayerSprite.modulate.a = 1
+			$HunterSprites/HunterIdleSprite.modulate.a = 1
 			
 			roll_cooldown = false
 		pass
+	
+	update_animation_state()
 
 func _physics_process(delta): # General movement function
-	var direction = Input.get_vector("move_left", "move_right", "move_up", "move_down", deadzone)
+	direction = Input.get_vector("move_left", "move_right", "move_up", "move_down", deadzone)
 	velocity = velocity.lerp(direction * speed, 0.1) # Thanks DeeRaghooGames for blessing me with this secret sauce: https://www.youtube.com/watch?v=KadtbetXTGc
 	
 	if Input.is_action_just_pressed("dash") and dash_cooldown == false:
@@ -109,6 +114,24 @@ func _physics_process(delta): # General movement function
 	
 	global_position = global_position.clamp(Vector2.ZERO,get_viewport_rect().size) # Clamps player position inside screen size
 
+func update_animation_state(): # Learned from Chris Tutorials | source: https://www.youtube.com/watch?v=WrMORzl3g1U
+	if direction == Vector2.ZERO:
+		animation_tree["parameters/conditions/idle"] = true
+		animation_tree["parameters/conditions/moving"] = false
+	else:
+		animation_tree["parameters/conditions/idle"] = false
+		animation_tree["parameters/conditions/moving"] = true
+	
+	if Input.is_action_just_pressed("roll") and roll_cooldown == true:
+		print('Roll animation')
+	else:
+		animation_tree["parameters/conditions/on_roll"] = false
+		pass
+	
+	animation_tree["parameters/Idle/blend_position"] = direction
+	animation_tree["parameters/Moving/blend_position"] = direction
+	animation_tree["parameters/Roll/blend_position"] = direction
+
 func die(): # Emits player_killed signal
 	if health_component.current_health <= 0:
 		print("Player killed status fired")
@@ -118,12 +141,12 @@ func die(): # Emits player_killed signal
 func shoot_loop(delta):
 	if !primary_fire_cooldown:
 		primary_fire_cooldown = true
-		shoot_primary()
+		shoot_primary(muzzle.global_position)
 		await get_tree().create_timer(primary_fire_rof * delta).timeout
 		primary_fire_cooldown = false
 
-func shoot_primary(): # Equipped weapon in primary.
-	fire_primary.emit(primary_projectile_scene, muzzle.global_position)
+func shoot_primary(muzzle_position): # Equipped weapon in primary.
+	fire_primary.emit(primary_projectile_scene, muzzle_position)
 
 func shoot_secondary(): # Equipped weapon in secondary. 
 	fire_secondary.emit(secondary_projectile_scene, muzzle.global_position, secondary_ammo)
@@ -138,6 +161,6 @@ func _on_config_changed():
 
 # Most code is based on tutorial video from Kaan Alpar, and it's a great tutorial detailing steps of building a fully complete game. 
 # Some parts that I've written are closely similar, while some others are literally the same line of code. 
-# It helped me a lot when I begun this project and had no prior experience on Godot.
+# It helped me a lot when I begun this project for I had no prior experience on Godot.
 # It's awesome for learning, if you're reading this to learn, go check it out:
 # Source: https://www.youtube.com/watch?v=QoNukqpolS8

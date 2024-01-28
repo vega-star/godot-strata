@@ -25,16 +25,15 @@ The working game currently has:
 * Graphics
   * Fade-in and fade-out transition with shader and scene controller
   * Scalable menus snapped to screen center
+  * UI and artistic identity
+  * Cutscenes and animated sprites
 
 Planned features are:
-
-* UI and artistic identity
 * Toggleable photosensitivy mode
 
 * Roguelike elements and items
 * Stages and route map
 * Simple inventory management and equipment
-* Cutscenes and advanced animation
 * Enemies variety and boss fights
 * Variety of weapons and maybe starter characters
 * Final goal and game end
