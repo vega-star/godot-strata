@@ -1,0 +1,114 @@
+[gd_scene load_steps=8 format=3 uid="uid://cfq87xm1oai3e"]
+
+[ext_resource type="Script" path="res://scripts/ui/game_over.gd" id="1_0vv6w"]
+[ext_resource type="Theme" uid="uid://b1a5sjt2xibwo" path="res://assets/themes/strata_theme.tres" id="2_dc0tk"]
+[ext_resource type="LabelSettings" uid="uid://dqqjjg0mh3bhh" path="res://assets/themes/strata_font.tres" id="3_kgbvt"]
+[ext_resource type="PackedScene" uid="uid://l3nrofdqijr6" path="res://components/ui/statistics_data.tscn" id="4_ypesp"]
+[ext_resource type="Texture2D" uid="uid://bl66ij78aurfm" path="res://assets/textures/static/gear_icon_outline.png" id="5_64dtd"]
+[ext_resource type="Texture2D" uid="uid://nsnw7fqu4cml" path="res://assets/textures/static/gear_icon.png" id="6_wt4ow"]
+[ext_resource type="BitMap" uid="uid://dngmj6m7g1uu4" path="res://assets/textures/static/gear_icon_bitmap.bmp" id="7_leimq"]
+
+[node name="GameOverScreen" type="CanvasLayer"]
+process_mode = 1
+script = ExtResource("1_0vv6w")
+
+[node name="DimBlack" type="ColorRect" parent="."]
+show_behind_parent = true
+light_mask = 4
+visibility_layer = 4
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.388235)
+
+[node name="GameOverPanel" type="PanelContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Backpanel" type="Panel" parent="GameOverPanel"]
+light_mask = 4
+visibility_layer = 4
+custom_minimum_size = Vector2(390, 324)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("2_dc0tk")
+
+[node name="Screen" type="MarginContainer" parent="GameOverPanel"]
+layout_mode = 2
+
+[node name="TitleBox" type="VBoxContainer" parent="GameOverPanel/Screen"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="GameOver Text" type="Label" parent="GameOverPanel/Screen/TitleBox"]
+layout_mode = 2
+theme = ExtResource("2_dc0tk")
+text = "STAGE COMPLETED"
+label_settings = ExtResource("3_kgbvt")
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
+[node name="LayoutBox" type="HBoxContainer" parent="GameOverPanel/Screen/TitleBox"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="TextBox" type="VBoxContainer" parent="GameOverPanel/Screen/TitleBox/LayoutBox"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+alignment = 1
+
+[node name="Panel" type="Panel" parent="GameOverPanel/Screen/TitleBox/LayoutBox/TextBox"]
+light_mask = 4
+visibility_layer = 4
+custom_minimum_size = Vector2(180, 200)
+layout_mode = 2
+theme = ExtResource("2_dc0tk")
+
+[node name="MenuButton" type="Button" parent="GameOverPanel/Screen/TitleBox/LayoutBox/TextBox"]
+layout_mode = 2
+focus_neighbor_bottom = NodePath("../RetryButton")
+theme = ExtResource("2_dc0tk")
+text = "MAIN MENU"
+
+[node name="RetryButton" type="Button" parent="GameOverPanel/Screen/TitleBox/LayoutBox/TextBox"]
+z_as_relative = false
+layout_mode = 2
+focus_neighbor_top = NodePath("../MenuButton")
+theme = ExtResource("2_dc0tk")
+text = "RETRY"
+
+[node name="StatisticsList" parent="GameOverPanel/Screen/TitleBox/LayoutBox" instance=ExtResource("4_ypesp")]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+
+[node name="ConfigButton" type="TextureButton" parent="."]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -92.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = 92.0
+grow_horizontal = 0
+focus_neighbor_left = NodePath("../ButtonsContainer/StartButton")
+texture_normal = ExtResource("5_64dtd")
+texture_pressed = ExtResource("5_64dtd")
+texture_hover = ExtResource("6_wt4ow")
+texture_click_mask = ExtResource("7_leimq")
+stretch_mode = 6
+
+[connection signal="pressed" from="GameOverPanel/Screen/TitleBox/LayoutBox/TextBox/MenuButton" to="." method="_on_exit_button_pressed"]
+[connection signal="pressed" from="GameOverPanel/Screen/TitleBox/LayoutBox/TextBox/RetryButton" to="." method="_on_retry_button_pressed"]
+[connection signal="pressed" from="ConfigButton" to="." method="_on_config_button_pressed"]

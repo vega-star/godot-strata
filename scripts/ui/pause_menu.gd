@@ -4,8 +4,6 @@ extends CanvasLayer
 
 @export var pause_state : bool = false
 @onready var return_prompt = $ReturnPrompt
-@onready var screen_transition = $"../ScreenTransitionLayer/ScreenTransition"
-@onready var fade_time = screen_transition.fade_time
 
 func pause():
 	$PauseMenu/ButtonsContainer/UnpauseButton.grab_focus()

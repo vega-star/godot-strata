@@ -35,22 +35,25 @@ shader_parameter/color = null
 
 [sub_resource type="QuadMesh" id="QuadMesh_6sq6t"]
 
-[node name="ScreenTransition" type="Control"]
+[node name="ScreenTransitionLayer" type="CanvasLayer"]
+layer = 50
+script = ExtResource("1_4hvhs")
+
+[node name="ScreenTransition" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_4hvhs")
 
-[node name="FadeAnimation" type="AnimationPlayer" parent="."]
+[node name="FadeAnimation" type="AnimationPlayer" parent="ScreenTransition"]
 libraries = {
 "": SubResource("AnimationLibrary_hmutx")
 }
 autoplay = "FADE"
 
-[node name="Shader" type="MeshInstance2D" parent="."]
+[node name="Shader" type="MeshInstance2D" parent="ScreenTransition"]
 material = SubResource("ShaderMaterial_751yf")
 position = Vector2(480.534, 271.007)
 rotation = -3.14159

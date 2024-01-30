@@ -1,6 +1,6 @@
-extends Control
+extends CanvasLayer
 
-@onready var animation_node = $FadeAnimation
+@onready var animation_node = $ScreenTransition/FadeAnimation
 @onready var fade_time : float = animation_node.current_animation_length
 
 signal fade_output(mode)

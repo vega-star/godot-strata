@@ -1,10 +1,11 @@
-[gd_scene load_steps=52 format=3 uid="uid://biim58k38oa7h"]
+[gd_scene load_steps=60 format=3 uid="uid://biim58k38oa7h"]
 
-[ext_resource type="Script" path="res://scripts/player.gd" id="1_hermy"]
+[ext_resource type="Script" path="res://scripts/main/player.gd" id="1_hermy"]
 [ext_resource type="Texture2D" uid="uid://vnytxah5yagv" path="res://assets/textures/entities/player/hunter-prototype.png" id="2_3w5hk"]
 [ext_resource type="Texture2D" uid="uid://b50x6eywaqegb" path="res://assets/textures/entities/player/hunter-prototype-going-down.png" id="3_d8sh1"]
 [ext_resource type="PackedScene" uid="uid://bdfaybp4djcn2" path="res://components/status/health_component.tscn" id="3_pgpvp"]
 [ext_resource type="Texture2D" uid="uid://b2ddbdydchxd7" path="res://assets/textures/entities/player/hunter-prototype-going-up.png" id="4_13q8e"]
+[ext_resource type="Texture2D" uid="uid://cfunenyj7oh7e" path="res://assets/textures/entities/player/hunter-prototype-going-forward.png" id="4_i3hs0"]
 [ext_resource type="PackedScene" uid="uid://c3atqdge540t0" path="res://components/status/hitbox_component.tscn" id="4_vxsth"]
 
 [sub_resource type="Animation" id="Animation_vhpe5"]
@@ -110,6 +111,34 @@ tracks/3/keys = {
 "values": [Vector2(51, 6), Vector2(36, -16)]
 }
 
+[sub_resource type="Animation" id="Animation_6gnbr"]
+resource_name = "going_forward"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HunterSprites/HunterPrototype:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"going_forward"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("HunterSprites/HunterPrototype:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7]
+}
+
 [sub_resource type="Animation" id="Animation_ku113"]
 resource_name = "going_up"
 length = 0.4
@@ -169,12 +198,14 @@ tracks/1/keys = {
 _data = {
 "RESET": SubResource("Animation_vhpe5"),
 "going_down": SubResource("Animation_q7sbk"),
+"going_forward": SubResource("Animation_6gnbr"),
 "going_up": SubResource("Animation_ku113"),
 "idle": SubResource("Animation_jto3f")
 }
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_dmg1m"]
-animation = &"idle"
+animation = &"going_forward"
+play_mode = 1
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_hw62u"]
 animation = &"going_down"
@@ -185,7 +216,7 @@ animation = &"going_up"
 play_mode = 1
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_b4wag"]
-animation = &"idle"
+animation = &"going_forward"
 
 [sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_mamx3"]
 blend_point_0/node = SubResource("AnimationNodeAnimation_dmg1m")
@@ -201,21 +232,14 @@ blend_point_3/pos = Vector2(1, 0)
 animation = &"going_up"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_v37dr"]
-animation = &"idle"
+animation = &"going_forward"
+play_mode = 1
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_rm1r8"]
 animation = &"going_down"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_gjnvx"]
-animation = &"idle"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_vpa57"]
-animation = &"going_down"
-play_mode = 1
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ygknp"]
-animation = &"going_up"
-play_mode = 1
+animation = &"going_forward"
 
 [sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_6187s"]
 blend_point_0/node = SubResource("AnimationNodeAnimation_lx46n")
@@ -226,10 +250,8 @@ blend_point_2/node = SubResource("AnimationNodeAnimation_rm1r8")
 blend_point_2/pos = Vector2(0, 1)
 blend_point_3/node = SubResource("AnimationNodeAnimation_gjnvx")
 blend_point_3/pos = Vector2(1, 0)
-blend_point_4/node = SubResource("AnimationNodeAnimation_vpa57")
-blend_point_4/pos = Vector2(0, 0.3)
-blend_point_5/node = SubResource("AnimationNodeAnimation_ygknp")
-blend_point_5/pos = Vector2(0, -0.3)
+blend_mode = 1
+sync = true
 
 [sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_b27ii"]
 
@@ -308,6 +330,38 @@ region = Rect2(480, 0, 80, 80)
 atlas = ExtResource("3_d8sh1")
 region = Rect2(560, 0, 80, 80)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_lxp54"]
+atlas = ExtResource("4_i3hs0")
+region = Rect2(0, 0, 80, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_14oxk"]
+atlas = ExtResource("4_i3hs0")
+region = Rect2(80, 0, 80, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7y1mm"]
+atlas = ExtResource("4_i3hs0")
+region = Rect2(160, 0, 80, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3bfvo"]
+atlas = ExtResource("4_i3hs0")
+region = Rect2(240, 0, 80, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qcy5q"]
+atlas = ExtResource("4_i3hs0")
+region = Rect2(320, 0, 80, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_glkcs"]
+atlas = ExtResource("4_i3hs0")
+region = Rect2(400, 0, 80, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p7rnk"]
+atlas = ExtResource("4_i3hs0")
+region = Rect2(480, 0, 80, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_717q0"]
+atlas = ExtResource("4_i3hs0")
+region = Rect2(560, 0, 80, 80)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_e3cro"]
 atlas = ExtResource("4_13q8e")
 region = Rect2(0, 0, 80, 80)
@@ -370,6 +424,35 @@ animations = [{
 "loop": false,
 "name": &"going_down",
 "speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lxp54")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_14oxk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7y1mm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3bfvo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qcy5q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_glkcs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p7rnk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_717q0")
+}],
+"loop": true,
+"name": &"going_forward",
+"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -444,7 +527,7 @@ parameters/conditions/idle = false
 parameters/conditions/moving = false
 parameters/conditions/on_roll = false
 parameters/Idle/blend_position = Vector2(-0.00169396, -0.00229883)
-parameters/Moving/blend_position = Vector2(-0.000564635, 0.00343645)
+parameters/Moving/blend_position = Vector2(-0.000564635, 0.0103092)
 parameters/Roll/blend_position = Vector2(0, 0)
 
 [node name="SelfHitbox" type="CollisionShape2D" parent="."]
@@ -496,4 +579,5 @@ lifetime = 1.5
 speed_scale = 3.0
 collision_base_size = 0.0
 
+[connection signal="lock_controls" from="." to="." method="_on_lock_controls"]
 [connection signal="health_change" from="HealthComponent" to="." method="_on_health_component_health_change"]

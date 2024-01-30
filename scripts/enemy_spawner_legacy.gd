@@ -3,9 +3,11 @@ extends Node2D
 var enemy_load = load("res://entities/enemy_prop/enemy.tscn")
 var spawn_positions = null
 @onready var spawn_area = $SpawnArea
+@export var is_randomized : bool = true
 
 func _ready():
 	randomize()
+
 
 func spawn_enemy():
 	var enemy = enemy_load.instantiate()

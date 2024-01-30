@@ -6,7 +6,10 @@ signal exit_button_pressed()
 @export var active_timeout = 1.5
 var player_killed_status : bool = false
 
+@onready var stage_timer = $"../StageTimer"
+
 func _on_player_killed(): # Toggles node visibiliy, as well as quit and reset functions.
+	stage_timer.paused = true # Pauses stage timer
 	await get_tree().create_timer(active_timeout).timeout
 	self.visible = true
 	$GameOverPanel/Screen/TitleBox/LayoutBox/TextBox/MenuButton.grab_focus()

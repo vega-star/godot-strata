@@ -7,6 +7,7 @@ class_name Player
 var config = ConfigFile.new()
 var config_load = config.load("user://config.cfg")
 @onready var toggle_mode = config.get_value("MAIN_OPTIONS","TOGGLE_FIRE")
+# @onready var deadzone = config.get_value("MAIN_OPTIONS","DEADZONE") | TO DO
 var primary_fire_toggled = false
 
 # Signals
@@ -14,9 +15,11 @@ signal fire_primary(primary_projectile_scene, location) # Sends a signal to spaw
 signal fire_secondary(secondary_projectile_scene, location, secondary_ammo) # Also sends signal to spawn projectile as similar to primary
 signal health_change(previous_value, new_value) # Notifies health change for a variety of other nodes
 signal player_killed # Self explanatory
+signal lock_controls # Useful for cutscenes, animations, or similar
 
 # Movement
-var direction : Vector2 = Vector2.ZERO
+@onready var is_control_locked : bool = false
+@onready var direction : Vector2 = Vector2.ZERO
 @export var speed : float = 400
 @export var max_speed_factor : float = 2
 @export var acceleration = 1.1
@@ -46,8 +49,6 @@ var secondary_fire_rof : float = secondary_projectile_scene.instantiate().base_r
 var primary_fire_cooldown : bool = false
 var secondary_fire_cooldown : bool = false
 
-var shot_direction : float = 0
-
 # Status
 @onready var health_component = $HealthComponent
 @onready var animation_tree = $PlayerAnimationTree
@@ -69,14 +70,14 @@ func _process(delta): # Frequent listener for input with delay (weapons, items, 
 	if Input.is_action_just_pressed("bomb"):
 		if secondary_ammo >= 1:
 			if !secondary_fire_cooldown:
-				if debug == true: print("Bomb launched! %d ammo left" % int(secondary_ammo - 1))
+				if debug: print("Bomb launched! %d ammo left" % int(secondary_ammo - 1))
 				secondary_fire_cooldown = true
 				shoot_secondary()
 				await get_tree().create_timer(secondary_fire_rof * delta).timeout
 				secondary_fire_cooldown = false
 				secondary_ammo -= 1
 		else:
-			if debug == true: print("No ammo left!")
+			if debug: print("No ammo left!")
 	
 	if Input.is_action_just_pressed("roll"):
 		if !roll_cooldown:
@@ -97,7 +98,8 @@ func _process(delta): # Frequent listener for input with delay (weapons, items, 
 	update_animation_state()
 
 func _physics_process(delta): # General movement function
-	direction = Input.get_vector("move_left", "move_right", "move_up", "move_down", deadzone)
+	if is_control_locked == false:
+		direction = Input.get_vector("move_left", "move_right", "move_up", "move_down", deadzone)
 	velocity = velocity.lerp(direction * speed, 0.1) # Thanks DeeRaghooGames for blessing me with this secret sauce: https://www.youtube.com/watch?v=KadtbetXTGc
 	
 	if Input.is_action_just_pressed("dash") and dash_cooldown == false:
@@ -112,7 +114,10 @@ func _physics_process(delta): # General movement function
 	velocity *= 1.0 - (air_friction * delta)
 	move_and_slide()
 	
-	global_position = global_position.clamp(Vector2.ZERO,get_viewport_rect().size) # Clamps player position inside screen size
+	# global_position = global_position.clamp(Vector2.ZERO,get_viewport_rect().size) # Clamps player position inside screen size
+	
+	var limit_below = Vector2(get_viewport_rect().size.x - 30, get_viewport_rect().size.y - 40)
+	global_position = global_position.clamp(Vector2.ZERO,limit_below)
 
 func update_animation_state(): # Learned from Chris Tutorials | source: https://www.youtube.com/watch?v=WrMORzl3g1U
 	if direction == Vector2.ZERO:
@@ -157,7 +162,11 @@ func _on_health_component_health_change(previous_value, new_value): # Relaying s
 func _on_config_changed():
 	config_load = config.load("user://config.cfg")
 	toggle_mode = config.get_value("MAIN_OPTIONS","TOGGLE_FIRE")
-	if debug == true: print("Toggled firing mode is: %s" % toggle_mode)
+	if debug: print("Toggled firing mode is: %s" % toggle_mode)
+
+func _on_lock_controls(): # Control lock switch
+	if is_control_locked: is_control_locked = true
+	else: is_control_locked = false
 
 # Most code is based on tutorial video from Kaan Alpar, and it's a great tutorial detailing steps of building a fully complete game. 
 # Some parts that I've written are closely similar, while some others are literally the same line of code. 

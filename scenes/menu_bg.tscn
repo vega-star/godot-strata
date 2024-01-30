@@ -17,9 +17,6 @@ self_modulate = Color(1, 1, 1, 0.27451)
 position = Vector2(480, 270)
 texture = ExtResource("2_qwil2")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-visible = false
-
 [node name="MainParallax" type="ParallaxBackground" parent="."]
 
 [node name="Sea" type="ParallaxLayer" parent="MainParallax"]

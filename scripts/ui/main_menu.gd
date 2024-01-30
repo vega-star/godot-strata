@@ -1,6 +1,6 @@
 extends Control
 
-@onready var transition_controller = $ScreenTransition
+@onready var transition_controller = $ScreenTransitionLayer
 @onready var transition_time = transition_controller.fade_time
 @onready var project_version = ProjectSettings.get_setting("application/config/version")
 @onready var version_label = $VersionLabel

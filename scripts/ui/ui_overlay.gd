@@ -59,8 +59,9 @@ var bomb_counter_frame_defined : bool = false
 			$UILayer/HUD/Bomb_Short_Container.position.x = 9 + $UILayer/Bomb_Count_Frame/Bomb_Module.position.x + $UILayer/Bomb_Count_Frame/Bomb_Module.size.x
 
 @onready var stage_progress = $UILayer/HUD/StageProgressBar:
-	set(value):
-		stage_progress.value = value
+	set(progress_value):
+		stage_progress.value = progress_value
 
-func _ready():
-	pass
+@onready var stage_start_time = $UILayer/HUD/StageProgressBar:
+	set(start_time):
+		stage_progress.max_value = start_time

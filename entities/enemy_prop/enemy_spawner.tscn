@@ -1,9 +1,9 @@
 [gd_scene load_steps=2 format=3 uid="uid://bgta6ocyf3gel"]
 
-[ext_resource type="Script" path="res://scripts/enemy_spawner.gd" id="1_q4eeh"]
+[ext_resource type="Script" path="res://scripts/enemy_spawner_legacy.gd" id="1_4bfbl"]
 
 [node name="EnemySpawner" type="Node2D"]
-script = ExtResource("1_q4eeh")
+script = ExtResource("1_4bfbl")
 metadata/_edit_horizontal_guides_ = [266.0]
 
 [node name="SpawnTimer" type="Timer" parent="."]
@@ -17,6 +17,12 @@ offset_right = 1116.0
 offset_bottom = 485.0
 
 [node name="SpecificSpawnPos" type="Node2D" parent="."]
+
+[node name="BottomSpawnPos" type="Marker2D" parent="SpecificSpawnPos"]
+position = Vector2(1074, 485)
+
+[node name="TopSpawnPos" type="Marker2D" parent="SpecificSpawnPos"]
+position = Vector2(1074, 47)
 
 [node name="CenterSpawnPos" type="Marker2D" parent="SpecificSpawnPos"]
 position = Vector2(1074, 266)

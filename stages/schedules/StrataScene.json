@@ -1,0 +1,32 @@
+{
+    "event": {
+        "event_title": "spawn_enemy",
+        "event_description": "Simple single_enemy spawn",
+        "event_timestamp": 10,
+        "entity": "striker_1"
+        },
+    "event": {
+        "event_title": "spawn_enemy",
+        "event_description": "Simple single_enemy spawn",
+        "event_timestamp": 20,
+        "entity": "striker_1"
+    },
+    "event": {
+        "event_title": "spawn_enemy",
+        "event_description": "Simple single_enemy spawn",
+        "event_timestamp": 30,
+        "entity": "striker_1"
+    },
+    "event": {
+        "event_title": "spawn_enemy",
+        "event_description": "Simple single_enemy spawn",
+        "event_timestamp": 40,
+        "entity": "striker_1"
+    },
+    "event": {
+        "event_title": "spawn_enemy",
+        "event_description": "Simple single_enemy spawn",
+        "event_timestamp": 50,
+        "entity": "striker_1"
+    }
+}

@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://chy6yrcopxpke"]
+[gd_scene load_steps=15 format=3 uid="uid://chy6yrcopxpke"]
 
 [ext_resource type="Script" path="res://scripts/ui/ui_overlay.gd" id="1_p401e"]
 [ext_resource type="Texture2D" uid="uid://bx8a4x8fucb07" path="res://assets/textures/ui/hpbar_start.png" id="2_dqcqq"]
@@ -12,6 +12,12 @@
 [ext_resource type="Texture2D" uid="uid://djgencw01vh4w" path="res://assets/textures/ui/hp_shortcell.png" id="9_hb16e"]
 [ext_resource type="Texture2D" uid="uid://cr05l5hn2goi1" path="res://assets/textures/ui/progress_bar.png" id="10_noxrv"]
 [ext_resource type="Texture2D" uid="uid://dlc8w5v1xh6r0" path="res://assets/textures/ui/bomb_shortcell_filled.png" id="11_tygwk"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8ekdw"]
+bg_color = Color(0.647059, 0.647059, 0.647059, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3gdvb"]
+bg_color = Color(0.203922, 0.227451, 0.227451, 1)
 
 [node name="UIOverlay" type="Control"]
 layout_mode = 3
@@ -141,10 +147,6 @@ texture = ExtResource("11_tygwk")
 expand_mode = 1
 stretch_mode = 1
 
-[node name="ProgressBarFrame" type="Sprite2D" parent="UILayer/HUD"]
-position = Vector2(480, 531)
-texture = ExtResource("10_noxrv")
-
 [node name="StageProgressBar" type="ProgressBar" parent="UILayer/HUD"]
 layout_mode = 1
 anchors_preset = -1
@@ -153,9 +155,18 @@ anchor_top = 0.981
 anchor_right = 0.508
 anchor_bottom = 0.981
 offset_left = -450.68
-offset_top = -4.74005
+offset_top = -4.73999
 offset_right = 451.32
-offset_bottom = 5.25995
+offset_bottom = 5.26001
 grow_horizontal = 2
 grow_vertical = 0
+theme_override_constants/outline_size = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_8ekdw")
+theme_override_styles/fill = SubResource("StyleBoxFlat_3gdvb")
+value = 50.0
+fill_mode = 1
 show_percentage = false
+
+[node name="ProgressBarFrame" type="Sprite2D" parent="UILayer/HUD"]
+position = Vector2(480, 531)
+texture = ExtResource("10_noxrv")
