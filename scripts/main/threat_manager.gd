@@ -25,8 +25,6 @@ func _ready():
 	print("res://stages/schedules/%s.json" % current_stage)
 	# var load_stage_schedule = FileAccess.open("res://stages/schedules/%s" % current_stage, FileAccess.READ)
 	
-	
-	
 	if debug:
 		threat_generator.debug = true
 		print("ThreatManager located in %s with debug active" % current_stage)
@@ -37,6 +35,8 @@ func _ready():
 			call_threat(allowed_enemies[1])
 			await get_tree().create_timer(1.5).timeout
 			call_threat("striker_swarm_1", true)
+			await get_tree().create_timer(1.5).timeout
+			call_threat("striker_swarm_2", true)
 			print("Remaining stage time: %f" % schedule_time)
 
 func _process(delta):
