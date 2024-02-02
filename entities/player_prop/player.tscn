@@ -294,6 +294,7 @@ states/Roll/node = SubResource("AnimationNodeBlendSpace2D_b27ii")
 states/Roll/position = Vector2(797, 253)
 states/Start/position = Vector2(211, 253)
 transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_fhq33"), "Idle", "Moving", SubResource("AnimationNodeStateMachineTransition_ful8n"), "Moving", "Idle", SubResource("AnimationNodeStateMachineTransition_qp7un"), "Moving", "Roll", SubResource("AnimationNodeStateMachineTransition_sooeb"), "Roll", "Moving", SubResource("AnimationNodeStateMachineTransition_pt480"), "Roll", "Idle", SubResource("AnimationNodeStateMachineTransition_intxe"), "Idle", "Roll", SubResource("AnimationNodeStateMachineTransition_hljvu")]
+graph_offset = Vector2(-122, 57)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_akku0"]
 size = Vector2(50, 50)
@@ -526,7 +527,7 @@ anim_player = NodePath("../HunterSprites/HunterPrototype/HunterAnimation")
 parameters/conditions/idle = false
 parameters/conditions/moving = false
 parameters/conditions/on_roll = false
-parameters/Idle/blend_position = Vector2(-0.00169396, -0.00229883)
+parameters/Idle/blend_position = Vector2(0.00169396, 0.00529099)
 parameters/Moving/blend_position = Vector2(-0.000564635, 0.0103092)
 parameters/Roll/blend_position = Vector2(0, 0)
 

@@ -1,0 +1,81 @@
+{
+    "event_001": {
+        "event_type": "random_period",
+        "event_description": "Starts an specific period in-game. Requires 'set_timer = true' so it will only resume other sequences after its completion.",
+        "event_properties": {
+            "set_timer": true,
+            "spawn_interval": 1.5
+        },
+        "event_timer": {
+            "pause_stage_timer": false,
+            "timer_period": 30.0
+        }
+    },
+    "event_002": {
+        "event_type": "spawn_sequence",
+        "event_description": "Spawns a selected sequence of enemies. Also uses 'set_timer' as to keep a clean visual of the sequence without random enemies.",
+        "event_properties": {
+            "set_timer": true,
+            "enemies": ["striker_1","striker_swarm_1","striker_swarm_1"],
+            "sequence_cooldown": 2
+        },
+        "event_timer": {
+            "pause_stage_timer": false,
+            "timer_period": 10.0
+        }
+    },
+    "event_005": {
+        "event_type": "spawn_miniboss",
+        "event_description": "Spawns a mini boss. Can pause stage timer if required, and only resumes when it recieves a signal from the enemy.",
+        "event_properties": {
+            "set_timer": true,
+            "miniboss": "vanguard_1"
+        },
+        "event_timer": {
+            "timer_period": 5.0
+        }
+    },
+    "event_006": {
+        "event_type": "random_period",
+        "event_description": "Replica of event_001 to execute in another period of the stage. Probably will be repeated a lot",
+        "event_properties": {
+            "set_timer": true,
+            "spawn_interval": 1.0
+        },
+        "event_timer": {
+            "pause_stage_timer": false,
+            "timer_period": 40.0
+        }
+    },
+    "event_008": {
+        "event_type": "spawn_sequence",
+        "event_description": "Spawns another selected sequence of enemies.",
+        "event_properties": {
+            "set_timer": true,
+            "enemies": ["striker_swarm_2","striker_swarm_2","striker_swarm_2","striker_swarm_2","striker_swarm_2"],
+            "sequence_cooldown": 2
+        },
+        "event_timer": {
+            "pause_stage_timer": false,
+            "timer_period": 10
+        }
+    },
+    "event_009": {
+        "event_type": "period",
+        "event_description": "Acts as a smooth filler between previous events and the final boss. Doesn't need a 'timer_period' as the timer gets the needed values from the StageTimer itself",
+        "event_properties": {
+            "set_period": "filler",
+            "stop_before": 5.0,
+            "set_timer": false
+        }
+    },
+    "event_010": {
+        "event_type": "spawn_boss",
+        "event_description": "Always stops time, acts as a great threat to be overcome during stage. Can be final or not. Has the power to change certain aspects of the scene itself.",
+        "event_properties": {
+            "set_timer": false,
+            "boss": "aegis_1",
+            "is_final_boss": true
+        }
+    }
+}

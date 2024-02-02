@@ -1,11 +1,15 @@
 extends Control
 
+# Path variables
+
+@onready var stage_progress_bar = $UILayer/HUD/StageProgressBar
+
+# HUD Constructor Values
+
 @export var limit_normal_hp_slots = 3
 @export var limit_normal_bomb_slots = 5
-
-var hp_cell_size : int = 52
-var bomb_cell_size : int = 22
-
+const hp_cell_size : int = 52
+const bomb_cell_size : int = 22
 var hp_cell_size_defined : bool = false
 var bomb_counter_frame_defined : bool = false
 
@@ -58,10 +62,10 @@ var bomb_counter_frame_defined : bool = false
 			$UILayer/HUD/Bomb_Short_Container.size.x = (bomb_cell_size / 2) * (bomb_count - limit_normal_bomb_slots)
 			$UILayer/HUD/Bomb_Short_Container.position.x = 9 + $UILayer/Bomb_Count_Frame/Bomb_Module.position.x + $UILayer/Bomb_Count_Frame/Bomb_Module.size.x
 
-@onready var stage_progress = $UILayer/HUD/StageProgressBar:
+@onready var stage_progress = stage_progress_bar:
 	set(progress_value):
-		stage_progress.value = progress_value
+		stage_progress_bar.value = progress_value
 
-@onready var stage_start_time = $UILayer/HUD/StageProgressBar:
-	set(start_time):
-		stage_progress.max_value = start_time
+func _ready():
+	stage_progress_bar.set_max($"../../ThreatManager".stage_length_in_minutes * 60)
+	print("PROGRESS BAR SIZE: %f" % stage_progress_bar.max_value)

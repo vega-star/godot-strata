@@ -164,6 +164,7 @@ theme_override_constants/outline_size = 2
 theme_override_styles/background = SubResource("StyleBoxFlat_8ekdw")
 theme_override_styles/fill = SubResource("StyleBoxFlat_3gdvb")
 value = 50.0
+allow_greater = true
 fill_mode = 1
 show_percentage = false
 

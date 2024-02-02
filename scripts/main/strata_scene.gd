@@ -12,9 +12,6 @@ extends Node2D
 @onready var transition_time = transition_controller.fade_time
 @onready var threat_manager = $ThreatManager
 
-# Stage Timer
-@export var stage_time_in_minutes : float = 3
-@onready var stage_time_in_seconds : float = stage_time_in_minutes * 60
 
 # Signals
 @onready var is_timer_paused = false
@@ -30,11 +27,7 @@ func _ready():
 	hud.hp = player_health_component.max_health
 	hud.bomb_counter = $Player.secondary_ammo
 	
-	# Stage Timer Start
-	hud.stage_start_time = stage_time_in_seconds
-	stage_timer.wait_time = stage_time_in_seconds
-	stage_timer.start()
-	
+	await threat_manager.scene_loaded
 	await get_tree().create_timer(transition_time).timeout
 	$ScreenTransitionLayer.visible = false
 	$ScreenTransitionLayer/ScreenTransition.visible = false
@@ -60,9 +53,7 @@ func _on_timer_pause(): # Timer switch
 func _on_stage_timer_timeout(): # Stage finished listener
 	end_stage_sequence()
 
-func _process(delta):
-	threat_manager.schedule_time = stage_timer.time_left
-	
+func _process(_delta):
 	if !is_timer_paused:
 		hud.stage_progress = stage_timer.time_left
 

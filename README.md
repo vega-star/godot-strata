@@ -9,28 +9,32 @@ The working game currently has:
 * Option menu
   * Keybinding menu for remapping
   * Sound sliders // (although the game doesn't have sounds yet)
-* Modular components
+* Components
   * Hitbox component
   * Health component
+  * Drop component // WIP
 * Player character
   * Smooth movement using lerp function
-  * Primary fire action - Light weapons like lasers, miniguns, etc. Low damage but fast and limitless.
-  * Secondary fire action - Heavy weapons like bombs, rockets, etc. They are limited by the use of ammo.
+  * Functioning AnimationTree that nicely blends movement animations.
+  * Primary fire action - Light weapons like lasers, miniguns, etc. Low damage but fast and infinite.
+  * Secondary fire action - Heavy weapons like bombs, guided missiles, etc. They are limited by the use of ammo.
   * Dash action
   * Roll action
-  * Reactive health bar
+  * Health bar constructor and modules
 * Threat manager
-  * Spawner controller
-  * Simple enemies with collision
+  * Event controller and threat spawner
+  * System works entirely on values extracted from dictionaries.
+  * Easily modifiable enemies
+  * Modular functions that spawns a variety of events with certain rules
 * Graphics
   * Fade-in and fade-out transition with shader and scene controller
   * Scalable menus snapped to screen center
-  * UI and artistic identity
+  * UI and pixel art graphics
   * Cutscenes and animated sprites
 
 Planned features are:
-* Toggleable photosensitivy mode
 
+* Toggleable photosensitivy mode
 * Roguelike elements and items
 * Stages and route map
 * Simple inventory management and equipment

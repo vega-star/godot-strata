@@ -47,7 +47,7 @@ func generate_threat(enemy, rule_check : bool = false):
 	var enemy_load = load(enemy_list[enemy]["scene"])
 	var selected_enemy = enemy_load.instantiate()
 	
-	if rule_check: # Prevents error when trying to spawn an enemy without a rule set
+	if rule_check: # Prevents error when trying to spawn an enemy event without a rule set
 		var rules = enemy_list[enemy]["rules"]
 		for r in rules: # Iterates through each rule in a match/case scenario
 			match r:
