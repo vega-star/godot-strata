@@ -36,11 +36,11 @@ color = Color(1, 0.419608, 0.415686, 1)
 texture = SubResource("PlaceholderTexture2D_xilwv")
 
 [node name="DoorLeft" type="Sprite2D" parent="MainParallax"]
-position = Vector2(285, 271)
+position = Vector2(285, 270)
 scale = Vector2(1.7276, 1)
 texture = ExtResource("3_32pro")
 
 [node name="DoorRight" type="Sprite2D" parent="MainParallax"]
-position = Vector2(666, 272)
+position = Vector2(666, 270)
 scale = Vector2(1.60274, 1)
 texture = ExtResource("4_k1fik")

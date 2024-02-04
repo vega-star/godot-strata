@@ -46,6 +46,9 @@ func _on_hitbox_area_entered(area):
 		if area.owner.get_class() == 'CharacterBody2D':
 			area.generate_damage(projectile_damage / self_damage_mitigation)
 			_bomb_exploded()
+		elif area.owner.get_class() == 'Miniboss' or 'Boss':
+			area.generate_damage(projectile_damage * 5)
+			_bomb_exploded()
 		else:
 			area.generate_damage(projectile_damage)
 			_bomb_exploded()

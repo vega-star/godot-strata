@@ -8,16 +8,18 @@ extends Node2D
 @onready var gameoverscreen = $GameOver
 @onready var player = $Player
 @onready var stage_timer = $StageTimer
-@onready var transition_controller = $ScreenTransitionLayer
-@onready var transition_time = transition_controller.fade_time
 @onready var threat_manager = $ThreatManager
 
+# Transition component
+@onready var transition_controller = $ScreenTransitionLayer
+@onready var transition_time = transition_controller.fade_time
 
 # Signals
 @onready var is_timer_paused = false
 signal timer_pause
 
 func _ready():
+	transition_controller.visible = true
 	assert(player!=null)
 	
 	player.global_position = player_spawn_pos.global_position
@@ -29,8 +31,7 @@ func _ready():
 	
 	await threat_manager.scene_loaded
 	await get_tree().create_timer(transition_time).timeout
-	$ScreenTransitionLayer.visible = false
-	$ScreenTransitionLayer/ScreenTransition.visible = false
+	transition_controller.visible = false
 
 func _on_player_primary_fired(primary_projectile_scene, location):
 	var primary_shot = primary_projectile_scene.instantiate()

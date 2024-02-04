@@ -1,0 +1,59 @@
+[gd_scene load_steps=5 format=3 uid="uid://1r0vgtmjr5qp"]
+
+[ext_resource type="Script" path="res://scripts/entities/vanguard.gd" id="1_3fifh"]
+[ext_resource type="Texture2D" uid="uid://b1h0u6px4fl0r" path="res://assets/textures/entities/enemies/vanguard/vanguard-prototype.png" id="2_pak47"]
+[ext_resource type="PackedScene" uid="uid://bdfaybp4djcn2" path="res://components/status/health_component.tscn" id="3_vvq5j"]
+[ext_resource type="PackedScene" uid="uid://c3atqdge540t0" path="res://components/status/hitbox_component.tscn" id="4_46h5e"]
+
+[node name="Vanguard" type="Area2D" groups=["enemies"]]
+light_mask = 2
+visibility_layer = 2
+position = Vector2(200, 0)
+collision_layer = 2
+collision_mask = 5
+script = ExtResource("1_3fifh")
+contact_damage = 0
+
+[node name="EnemySprite" type="Sprite2D" parent="."]
+light_mask = 2
+visibility_layer = 2
+texture = ExtResource("2_pak47")
+
+[node name="VanguardShapeCollision" type="CollisionPolygon2D" parent="."]
+modulate = Color(1, 1, 1, 0.141176)
+light_mask = 2
+visibility_layer = 2
+position = Vector2(0.999994, 0)
+scale = Vector2(0.73, 0.73)
+polygon = PackedVector2Array(95.7143, 1.42857, 47.1429, -115.714, -8.57143, -141.429, -74.2857, -162.857, -158.571, -182.857, -267.143, -187.143, -271.429, -192.857, -258.571, -201.429, 97.1429, -201.429, 127.143, -222.857, 150, -254.286, 168.571, -292.857, 194.286, -354.286, 202.857, -241.429, 222.857, -200, 261.429, -200, 270, -192.857, 265.714, -184.286, 270, -181.429, 245.714, -130, 238.571, -25.7143, 224.286, -12.8571, 230, 12.8571, 241.429, 28.5714, 237.143, 267.143, 220, 264.286, 205.714, 227.143, 164.286, 224.286, 150, 205.714, 108.571, 57.1429, 118.571, 44.2857, 112.857, 11.4286)
+
+[node name="HealthComponent" parent="." instance=ExtResource("3_vvq5j")]
+max_health = 200
+
+[node name="HitboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("4_46h5e")]
+collision_layer = 2
+collision_mask = 5
+health_component = NodePath("../HealthComponent")
+
+[node name="CoreHitbox_1" type="CollisionPolygon2D" parent="HitboxComponent"]
+position = Vector2(0, -0.999992)
+scale = Vector2(0.73, 0.73)
+polygon = PackedVector2Array(135.714, -71.4286, 158.571, -127.143, 191.429, -144.286, 201.429, -135.714, 205.714, -124.286, 211.429, -118.571, 160, -68.5714)
+
+[node name="CoreHitbox_2" type="CollisionPolygon2D" parent="HitboxComponent"]
+position = Vector2(-87, -95)
+scale = Vector2(0.73, 0.73)
+polygon = PackedVector2Array(290, -158.571, 273.115, -122.441, 250.933, -93.2221, 224.592, -72.3515, 321.918, -73.9726, 316.438, -187.671)
+
+[node name="CoreHitbox_3" type="CollisionPolygon2D" parent="HitboxComponent"]
+position = Vector2(-57, 151)
+scale = Vector2(0.73, 0.73)
+polygon = PackedVector2Array(311.934, -169.748, 275.888, -168.356, 267.57, -162.791, 242.615, -140.529, 253.706, -130.789, 303.615, -130.789, 311.934, -139.137)
+
+[node name="CoreHitbox_4" type="CollisionPolygon2D" parent="HitboxComponent"]
+position = Vector2(-44, 285)
+scale = Vector2(0.73, 0.73)
+polygon = PackedVector2Array(275.888, -168.356, 277.274, -186.444, 238.456, -186.444, 248.161, -140.529, 271.729, -140.529)
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="damage_inferred" from="HealthComponent" to="." method="_on_damage_inferred"]

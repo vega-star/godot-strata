@@ -5,12 +5,6 @@ extends Node
 
 signal enemy_spawned(enemy_name,type)
 
-# Enemy types:
-# 0 - Single enemy
-# 1 - Enemy cluster
-# 2 - Mini-boss
-# 3 - Boss
-
 var debug : bool: # Inherits debug from ThreatManager var
 	set(debug_toggle):
 		debug = debug_toggle
@@ -19,8 +13,9 @@ var debug : bool: # Inherits debug from ThreatManager var
 	"striker_1": {"scene": "res://entities/enemy_prop/enemy.tscn", "type": 0},
 	"striker_swarm_1": {"scene": "res://entities/enemy_prop/enemy.tscn", "type": 1, "rules": {"spawn_override": "center", "swarm": {"method": 0, "separation": 30, "amount": 5}}},
 	"striker_swarm_2": {"scene": "res://entities/enemy_prop/enemy.tscn", "type": 1, "rules": {"spawn_override": "bottom", "swarm": {"method": 1, "separation": 50, "amount": 3}}},
-	"vanguard_1": {"scene": "res://entities/enemy_prop/enemy.tscn", "type": 2},
-	"vanguard_2": {"scene": "res://entities/enemy_prop/enemy.tscn", "type": 2, "rules": {"spawn_override": "center"}},
+	"vanguard": {"scene": "res://entities/enemies/vanguard.tscn", "type": 2, "rules": {"spawn_override": "center"}},
+	"vanguard_1": {"scene": "res://entities/enemy_prop/enemy.tscn", "type": 1},
+	"vanguard_2": {"scene": "res://entities/enemy_prop/enemy.tscn", "type": 1, "rules": {"spawn_override": "center"}},
 	"aegis_1": {"scene": "res://entities/enemy_prop/enemy.tscn", "type": 3, "rules": {"spawn_override": "center"}}
 }
 
@@ -43,11 +38,11 @@ func _ready():
 	
 	randomize()
 
-func generate_threat(enemy, rule_check : bool = false):
+func generate_threat(enemy, event_name : String = 'An unspecified event'):
 	var enemy_load = load(enemy_list[enemy]["scene"])
 	var selected_enemy = enemy_load.instantiate()
 	
-	if rule_check: # Prevents error when trying to spawn an enemy event without a rule set
+	if enemy_list[enemy].size() >= 3: # Prevents error when trying to spawn an enemy event without a rule set
 		var rules = enemy_list[enemy]["rules"]
 		for r in rules: # Iterates through each rule in a match/case scenario
 			match r:
@@ -62,14 +57,29 @@ func generate_threat(enemy, rule_check : bool = false):
 					var spawn_amount = rules["swarm"]["amount"]
 					if debug: print('{0} CHECK | Swarm of {1} queued in swarm_constructor'.format({0:enemy.to_upper(), 1:spawn_amount}))
 					swarm_constructor(enemy_load, spawn_method, spawn_separation, spawn_amount)
-	
-	else: # No rule - Random position
+	else: # No rules - Random position
 		var rand_position = spawn_area.position + Vector2(randf() * spawn_area.size.x, randf() * spawn_area.size.y)
 		selected_enemy.global_position = rand_position
-		enemies_container.add_child(selected_enemy)
-		if debug: print("Enemy %s spawned by ThreatGenerator" % enemy)
-		enemy_spawned.emit(enemy,full_enemy_list[enemy]["type"])
-	pass
+	
+	match enemy_list[enemy]["type"]:
+		0: # - Single enemy
+			selected_enemy.add_to_group("Enemy")
+			pass
+		1: # - Enemy cluster
+			selected_enemy.add_to_group("SwarmEnemy")
+			pass
+		2: # - Mini-boss
+			selected_enemy.add_to_group("Miniboss")
+			pass
+		3: # - Boss
+			selected_enemy.add_to_group("Boss")
+			pass
+	
+	
+	enemies_container.add_child(selected_enemy)
+	if debug: print("ThreatGenerator | {1} spawned a {0} entity".format({0:enemy, 1:event_name}))
+	enemy_spawned.emit(enemy,full_enemy_list[enemy]["type"])
+
 
 func swarm_constructor(enemy_load, method, separation, amount):
 	for n in amount:

@@ -1,23 +1,24 @@
 extends Control
 
-@onready var transition_controller = $ScreenTransitionLayer
-@onready var transition_time = transition_controller.fade_time
+@onready var transition_layer = $ScreenTransitionLayer
+@onready var transition_time = transition_layer.fade_time
 @onready var project_version = ProjectSettings.get_setting("application/config/version")
 @onready var version_label = $VersionLabel
 
 # | Main Menu
 
 func _ready():
+	transition_layer.visible = true
 	version_label.text = "v%s" % project_version
 	
-	transition_controller.fade('in')
+	transition_layer.fade('IN')
 	await get_tree().create_timer(transition_time).timeout
 	$ButtonsContainer/StartButton.grab_focus()
-	transition_controller.visible = false
+	transition_layer.visible = false
 
 func _on_start_button_pressed(): # StartButton
-	transition_controller.fade('out')
-	transition_controller.visible = true
+	transition_layer.fade('OUT')
+	transition_layer.visible = true
 	await get_tree().create_timer(transition_time).timeout
 	get_tree().change_scene_to_file("res://scenes/strata_scene.tscn")
 

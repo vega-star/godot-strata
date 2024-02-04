@@ -133,7 +133,7 @@ vertical_alignment = 1
 uppercase = true
 
 [node name="ScreenTransitionLayer" parent="." instance=ExtResource("4_yndog")]
-layer = 50
+visible = false
 
 [connection signal="visibility_changed" from="Options" to="." method="_on_options_visibility_changed"]
 [connection signal="pressed" from="ButtonsContainer/StartButton" to="." method="_on_start_button_pressed"]

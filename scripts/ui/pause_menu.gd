@@ -3,10 +3,11 @@ extends CanvasLayer
 # | Pause Menu
 
 @export var pause_state : bool = false
+@onready var unpause_button = $PauseMenu/ButtonsContainer/UnpauseButton
 @onready var return_prompt = $ReturnPrompt
 
 func pause():
-	$PauseMenu/ButtonsContainer/UnpauseButton.grab_focus()
+	unpause_button .grab_focus()
 	get_tree().paused = true
 	pause_state = true
 	show()
@@ -17,10 +18,10 @@ func unpause():
 	hide()
 
 func _process(_delta):
-	if Options.visible == false: # | Only pauses game outside Options menu - prevents game unpausing during confirmation prompt
-		if Input.is_action_just_pressed("pause") and pause_state == false:
+	if !Options.visible: # | Only pauses game outside Options menu - prevents game unpausing during confirmation prompt
+		if Input.is_action_just_pressed("pause") and !pause_state:
 			pause()
-		elif Input.is_action_just_pressed("pause") or Input.is_action_just_pressed("quit") and pause_state == true:
+		elif Input.is_action_just_pressed("pause") or Input.is_action_just_pressed("quit") and pause_state:
 			unpause()
 
 func _on_unpause_button_pressed():

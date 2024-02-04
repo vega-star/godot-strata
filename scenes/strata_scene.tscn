@@ -1,9 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://q5ddnm20kbtu"]
+[gd_scene load_steps=9 format=3 uid="uid://q5ddnm20kbtu"]
 
 [ext_resource type="Script" path="res://scripts/main/strata_scene.gd" id="1_wreqo"]
 [ext_resource type="PackedScene" uid="uid://csdnju38rqee8" path="res://components/main/threat_manager.tscn" id="2_45o2m"]
 [ext_resource type="PackedScene" uid="uid://biim58k38oa7h" path="res://entities/player_prop/player.tscn" id="5_4q2cg"]
-[ext_resource type="Theme" uid="uid://fmibt6brra62" path="res://assets/themes/monospace_vt323.tres" id="5_643op"]
 [ext_resource type="PackedScene" uid="uid://chy6yrcopxpke" path="res://components/ui/ui_overlay.tscn" id="5_pxyto"]
 [ext_resource type="PackedScene" uid="uid://70mnen3idkqt" path="res://components/ui/game_over_screen.tscn" id="6_mp7p5"]
 [ext_resource type="PackedScene" uid="uid://be4idvqpl0pds" path="res://scenes/pause_menu.tscn" id="7_o80nl"]
@@ -14,32 +13,11 @@
 light_mask = 2
 visibility_layer = 2
 script = ExtResource("1_wreqo")
-metadata/_edit_horizontal_guides_ = [540.0]
+metadata/_edit_horizontal_guides_ = [540.0, -103.0]
 metadata/_edit_vertical_guides_ = [960.0]
 
 [node name="ThreatManager" parent="." instance=ExtResource("2_45o2m")]
 debug = true
-
-[node name="ScreenTransitionLayer" parent="." instance=ExtResource("8_rsgwl")]
-
-[node name="StageCompleted" type="Label" parent="ScreenTransitionLayer"]
-visible = false
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -191.5
-offset_top = -25.0
-offset_right = 191.5
-offset_bottom = 25.0
-grow_horizontal = 2
-grow_vertical = 2
-theme = ExtResource("5_643op")
-theme_override_font_sizes/font_size = 50
-text = "- STAGE COMPLETED -"
-horizontal_alignment = 1
-autowrap_mode = 2
 
 [node name="MainCamera" type="Camera2D" parent="."]
 position = Vector2(-137, 82)
@@ -79,7 +57,7 @@ offset_right = 0.0
 offset_bottom = 0.0
 
 [node name="PauseMenuLayer" parent="." instance=ExtResource("7_o80nl")]
-layer = 15
+layer = 50
 visible = false
 
 [node name="GameOver" parent="." instance=ExtResource("6_mp7p5")]
@@ -87,6 +65,11 @@ process_mode = 3
 layer = 15
 visible = false
 follow_viewport_enabled = true
+
+[node name="ScreenTransitionLayer" parent="." instance=ExtResource("8_rsgwl")]
+layer = 10
+visible = false
+debug = true
 
 [node name="FirstStageParallax" parent="." instance=ExtResource("8_1n16k")]
 
