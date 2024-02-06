@@ -112,6 +112,7 @@ scale = Vector2(0.3, 0.55)
 [node name="HitboxComponent" parent="." instance=ExtResource("3_5s5eh")]
 collision_layer = 4
 collision_mask = 10
+immunity_frame_limit = 5
 
 [node name="SelfProjectileBox" type="CollisionShape2D" parent="HitboxComponent"]
 rotation = -1.5708

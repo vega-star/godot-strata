@@ -1,6 +1,6 @@
 class_name Miniboss extends Area2D
 
-signal miniboss_killed
+signal challenge_killed
 
 const alpha_modulation = 0.5
 @export var speed = 150
@@ -21,7 +21,7 @@ func _on_area_entered(body):
 		body.generate_damage(contact_damage)
 
 func die():
-	miniboss_killed.emit()
+	challenge_killed.emit()
 	queue_free()
 
 func _on_damage_inferred():

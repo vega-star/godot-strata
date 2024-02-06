@@ -43,7 +43,7 @@ func _on_outside_screen_check_exit_detected():
 
 func _on_hitbox_area_entered(area):
 	if area is HitboxComponent:
-		if area.owner.get_class() == 'CharacterBody2D':
+		if area.owner.get_class() == 'CharacterBody2D': # Detect if the 
 			area.generate_damage(projectile_damage / self_damage_mitigation)
 			_bomb_exploded()
 		elif area.owner.get_class() == 'Miniboss' or 'Boss':

@@ -42,4 +42,6 @@ position = Vector2(39, 0)
 
 [node name="EnemiesContainer" type="Node2D" parent="."]
 
+[node name="ItemsContainer" type="Node2D" parent="."]
+
 [connection signal="enemy_spawned" from="ThreatGenerator" to="." method="_on_threat_spawned_relay"]

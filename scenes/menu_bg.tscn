@@ -1,9 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://c8sis2bmuopvk"]
+[gd_scene load_steps=9 format=3 uid="uid://c8sis2bmuopvk"]
 
 [ext_resource type="Script" path="res://scripts/ui/menu_bg_controller.gd" id="1_kla7a"]
-[ext_resource type="Texture2D" uid="uid://bg8usjc38mrhe" path="res://assets/textures/parallax/main_menu/menu-overlay_sketch.png" id="2_qwil2"]
+[ext_resource type="Texture2D" uid="uid://dj1q6xggo12ly" path="res://assets/textures/parallax/main_menu/menu-bg-lower.png" id="2_ntreh"]
 [ext_resource type="Texture2D" uid="uid://1k4gi336jku" path="res://assets/textures/parallax/waterbg.png" id="2_rije7"]
 [ext_resource type="Texture2D" uid="uid://jwsvyrfmcb3o" path="res://assets/textures/parallax/main_menu/menu-overlay_door_left.png" id="3_32pro"]
+[ext_resource type="Texture2D" uid="uid://oct1ofrodkcx" path="res://assets/textures/parallax/main_menu/menu-bg-hunter.png" id="3_fq3hs"]
+[ext_resource type="Texture2D" uid="uid://bfe4mp2gw7lrg" path="res://assets/textures/parallax/main_menu/menu-bg-top.png" id="4_iftnp"]
 [ext_resource type="Texture2D" uid="uid://ceni4dheg8o7t" path="res://assets/textures/parallax/main_menu/menu-overlay_door_right.png" id="4_k1fik"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_xilwv"]
@@ -12,10 +14,19 @@
 layer = -50
 script = ExtResource("1_kla7a")
 
-[node name="SketchOverlay" type="Sprite2D" parent="."]
-self_modulate = Color(1, 1, 1, 0.27451)
+[node name="MenuBG-Below" type="Sprite2D" parent="."]
 position = Vector2(480, 270)
-texture = ExtResource("2_qwil2")
+texture = ExtResource("2_ntreh")
+
+[node name="MenuVehicles" type="Node2D" parent="."]
+
+[node name="MenuBG-Hunter" type="Sprite2D" parent="MenuVehicles"]
+position = Vector2(480, 332)
+texture = ExtResource("3_fq3hs")
+
+[node name="MenuBG-Above" type="Sprite2D" parent="."]
+position = Vector2(480, 270)
+texture = ExtResource("4_iftnp")
 
 [node name="MainParallax" type="ParallaxBackground" parent="."]
 

@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://cyvtq5l03cyc1"]
+
+[ext_resource type="Script" path="res://entities/items/health_capsule.gd" id="1_pjpoe"]
+[ext_resource type="Texture2D" uid="uid://8m4ijw2ttmjw" path="res://assets/textures/items/health-capsule.png" id="2_7tfqc"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mavwj"]
+radius = 7.0
+
+[node name="HealthCapsule" type="Area2D"]
+light_mask = 2
+visibility_layer = 2
+collision_layer = 4
+collision_mask = 3
+script = ExtResource("1_pjpoe")
+
+[node name="CapsuleSprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_7tfqc")
+
+[node name="HealthCollision" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_mavwj")
+
+[connection signal="body_entered" from="." to="." method="_on_capsule_collided"]

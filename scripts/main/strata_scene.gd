@@ -3,8 +3,8 @@ extends Node2D
 # Node variables
 @onready var player_spawn_pos = $PlayerSpawnPos
 @onready var player_projectile_container = $ProjectileContainer
-@onready var hud = $UILayer/UIOverlay
 @onready var player_health_component = $Player/HealthComponent
+@onready var hud_component = $UILayer/UIOverlay
 @onready var gameoverscreen = $GameOver
 @onready var player = $Player
 @onready var stage_timer = $StageTimer
@@ -23,29 +23,16 @@ func _ready():
 	assert(player!=null)
 	
 	player.global_position = player_spawn_pos.global_position
-	player.fire_primary.connect(_on_player_primary_fired)
-	player.fire_secondary.connect(_on_player_secondary_fired)
 	
-	hud.hp = player_health_component.max_health
-	hud.bomb_counter = $Player.secondary_ammo
+	hud_component.hp = player_health_component.max_health
+	hud_component.bomb_counter = player.secondary_ammo
 	
 	await threat_manager.scene_loaded
 	await get_tree().create_timer(transition_time).timeout
 	transition_controller.visible = false
 
-func _on_player_primary_fired(primary_projectile_scene, location):
-	var primary_shot = primary_projectile_scene.instantiate()
-	primary_shot.global_position = location
-	player_projectile_container.add_child(primary_shot)
-
-func _on_player_secondary_fired(secondary_projectile_scene, location, secondary_ammo):
-	var secondary_shot = secondary_projectile_scene.instantiate()
-	secondary_shot.global_position = location
-	player_projectile_container.add_child(secondary_shot)
-	hud.bomb_counter = secondary_ammo - 1
-
 func _on_player_health_change(_previous_value, new_value): # Update HP right only after change
-	hud.hp = new_value
+	hud_component.hp = new_value
 
 func _on_timer_pause(): # Timer switch
 	if is_timer_paused: is_timer_paused = false
@@ -56,7 +43,7 @@ func _on_stage_timer_timeout(): # Stage finished listener
 
 func _process(_delta):
 	if !is_timer_paused:
-		hud.stage_progress = stage_timer.time_left
+		hud_component.stage_progress = stage_timer.time_left
 
 func end_stage_sequence():
 	player.lock_controls.emit()
@@ -71,3 +58,6 @@ func end_stage_sequence():
 	transition_controller.fade('out')
 	await get_tree().create_timer(5).timeout
 	get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
+
+func _on_player_fire_secondary(_location, secondary_ammo):
+	hud_component.bomb_counter = secondary_ammo - 1

@@ -17,7 +17,6 @@ metadata/_edit_horizontal_guides_ = [540.0, -103.0]
 metadata/_edit_vertical_guides_ = [960.0]
 
 [node name="ThreatManager" parent="." instance=ExtResource("2_45o2m")]
-debug = true
 
 [node name="MainCamera" type="Camera2D" parent="."]
 position = Vector2(-137, 82)
@@ -37,7 +36,6 @@ position = Vector2(185, 237)
 light_mask = 2
 visibility_layer = 2
 position = Vector2(-137, 82)
-motion_mode = 1
 
 [node name="CameraConnection" type="RemoteTransform2D" parent="Player"]
 remote_path = NodePath("../../MainCamera")
@@ -74,6 +72,7 @@ debug = true
 [node name="FirstStageParallax" parent="." instance=ExtResource("8_1n16k")]
 
 [connection signal="timer_pause" from="." to="." method="_on_timer_pause"]
+[connection signal="fire_secondary" from="Player" to="." method="_on_player_fire_secondary"]
 [connection signal="health_change" from="Player" to="." method="_on_player_health_change"]
 [connection signal="player_killed" from="Player" to="GameOver" method="_on_player_killed"]
 [connection signal="timeout" from="StageTimer" to="." method="_on_stage_timer_timeout"]

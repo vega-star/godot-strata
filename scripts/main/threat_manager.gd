@@ -119,7 +119,7 @@ func set_event_timer(event, override = null): # Sets the timer that toggles 'tim
 					if debug: print("CHALLENGE ENEMY %s EVENT CAUSED STAGE_TIMER TO PAUSE" % challenge_enemy)
 					stage_timer_toggled = true
 					stage_timer.set_paused(true)
-					await challenge_enemy.miniboss_killed
+					await challenge_enemy.challenge_killed
 					stage_timer.set_paused(false)
 			"stop_before":
 				await get_tree().create_timer(override, false).timeout # Waits for a previously calculated time

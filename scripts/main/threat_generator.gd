@@ -16,7 +16,8 @@ var debug : bool: # Inherits debug from ThreatManager var
 	"vanguard": {"scene": "res://entities/enemies/vanguard.tscn", "type": 2, "rules": {"spawn_override": "center"}},
 	"vanguard_1": {"scene": "res://entities/enemy_prop/enemy.tscn", "type": 1},
 	"vanguard_2": {"scene": "res://entities/enemy_prop/enemy.tscn", "type": 1, "rules": {"spawn_override": "center"}},
-	"aegis_1": {"scene": "res://entities/enemy_prop/enemy.tscn", "type": 3, "rules": {"spawn_override": "center"}}
+	"aegis_1": {"scene": "res://entities/enemy_prop/enemy.tscn", "type": 3, "rules": {"spawn_override": "center"}},
+	"cargo_ship": {"scene": "res://entities/enemies/cargo-ship.tscn", "type": 1, "rules": {"spawn_override": "bottom"}}
 }
 
 @onready var enemy_list : Dictionary = full_enemy_list

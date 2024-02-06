@@ -1,0 +1,41 @@
+[gd_scene load_steps=6 format=3 uid="uid://dfcj410iexn0a"]
+
+[ext_resource type="Script" path="res://scripts/enemy.gd" id="1_bb4nu"]
+[ext_resource type="Texture2D" uid="uid://ddbwujrtlw3md" path="res://assets/textures/entities/enemies/misc/cargo-ship.png" id="2_r1feh"]
+[ext_resource type="PackedScene" uid="uid://bdfaybp4djcn2" path="res://components/status/health_component.tscn" id="3_dr6nw"]
+[ext_resource type="PackedScene" uid="uid://c3atqdge540t0" path="res://components/status/hitbox_component.tscn" id="4_a3yti"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tq5bo"]
+size = Vector2(109.286, 31.4286)
+
+[node name="CargoShip" type="Area2D" groups=["enemies"]]
+collision_layer = 2
+collision_mask = 5
+script = ExtResource("1_bb4nu")
+speed = 50
+
+[node name="EnemySprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_r1feh")
+
+[node name="SelfCollision" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("RectangleShape2D_tq5bo")
+debug_color = Color(0, 0.6, 0.701961, 0)
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(130, 0)
+
+[node name="HealthComponent" parent="." instance=ExtResource("3_dr6nw")]
+max_health = 10
+
+[node name="HitboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("4_a3yti")]
+collision_layer = 2
+collision_mask = 5
+health_component = NodePath("../HealthComponent")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="HitboxComponent"]
+polygon = PackedVector2Array(-30, -8.57143, -55.7143, -8.57143, -61.4286, -14.2857, -70, -14.2857, -74.2857, -8.57143, -92.8571, -11.4286, -94.2857, -8.57143, -75.7143, 4.28571, -75.7143, 12.8571, -85.7143, 20, -84.2857, 22.8571, -40, 21.4286, 61.4286, 21.4286, 90, 21.4286, 87.1429, 10, 92.8571, -2.85714, 92.8571, -15.7143, 72.8571, -22.8571, 64.2857, -22.8571, 51.4286, -8.57143, 30, -8.57143, 28.5714, -12.8571, -28.5714, -12.8571)
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
+[connection signal="damage_inferred" from="HealthComponent" to="." method="_on_damage_inferred"]

@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bocnfn48ib66i"]
+
+[ext_resource type="Script" path="res://components/modules/equipment_module.gd" id="1_ex08y"]
+
+[node name="EquipmentModule" type="Node"]
+script = ExtResource("1_ex08y")

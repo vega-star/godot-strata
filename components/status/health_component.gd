@@ -1,31 +1,30 @@
 class_name HealthComponent extends Node
 
-signal health_change(previous_value: int, new_value: int)
-signal damage_inferred()
-signal heal_inferred()
+signal health_change(previous_value: int, new_value: int, type : bool)
 
+@export var health_bar : HealthBarComponent
 @export var max_health: int
 var current_health: int
 
-const damage_effect_flicker_count = 3
-const damage_effect_flicker = 0.1
-var damage_effect_running : bool = false
+## HealthComponent provides a health value for all entities and a condition on which the entity starts a death sequence
 
-func _ready():
+func _ready(): # Loads the max health of the entity. Can be set differently to each scene this component is instantiated
 	current_health = max_health
+	clamp(current_health, 0, max_health) # Prevents enemy from overflowing health value
+	
+	if health_bar: health_bar.visible = false
 
-func heal_damage(amount: int):
+func change_health(amount : int, negative : bool = true):
+	# Negative = By default this function cause damage, but can also be used to heal.
 	var previous_value := current_health
-	current_health += amount
-	current_health = clamp(current_health, 0, max_health)
-	health_change.emit(previous_value,current_health)
-	heal_inferred.emit()
-
-func infer_damage(damage):
-	var previous_value := current_health
-	current_health -= damage
-	health_change.emit(previous_value,current_health)
-	damage_inferred.emit()
+	
+	if negative: current_health -= amount
+	else: current_health += amount
+	
+	health_change.emit(previous_value, current_health, negative)
 	
 	if current_health <= 0:
-		owner.die()
+		owner.die() # Let the owner itself execute queue_free() after a unique death sequence
+	
+	if health_bar: health_bar.visible = true # Turns the health_bar visible after the first change
+	if health_bar: health_bar.health_bar_sync = current_health # Sync with health_bar ONLY if there's a health_bar node attributed
