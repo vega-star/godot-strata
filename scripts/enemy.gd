@@ -32,9 +32,11 @@ func die(): # Entity death sequence, called by HealthComponent when health <= 0
 	if drop_component: await drop_component.item_dropped
 	queue_free()
 
-func _on_damage_inferred():
-	for n in damage_effect_flicker_count:
-		modulate = Color(0,0,0)
-		await get_tree().create_timer(damage_effect_flicker).timeout
-		modulate = Color(255,255,255)
-		await get_tree().create_timer(damage_effect_flicker).timeout
+func _on_health_component_health_change(_previous_value, _new_value, type):
+	if type:
+		for n in damage_effect_flicker_count:
+			self_sprite.modulate = Color(0,0,0)
+			await get_tree().create_timer(damage_effect_flicker).timeout
+			self_sprite.modulate = Color(255,255,255)
+			await get_tree().create_timer(damage_effect_flicker).timeout
+

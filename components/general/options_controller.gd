@@ -196,6 +196,6 @@ func _on_screen_mode_selected(index):
 	config_file.save(config_file_path)
 
 
-# Foundation learned from a tutorial from Rungeon, most parts had to be rewritten due to changes in Godot 4.2 and new functions were added
+# Foundation basen on a tutorial from Rungeon, most parts had to be rewritten due to changes in Godot 4.2 and new functions were added
 # Source: https://www.youtube.com/watch?v=WHGHevwhXCQ
 # Github: https://github.com/trolog/godotKeybindingTutorial

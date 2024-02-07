@@ -77,7 +77,8 @@ func generate_threat(enemy, event_name : String = 'An unspecified event'):
 			pass
 	
 	
-	enemies_container.add_child(selected_enemy)
+	# enemies_container.add_child(selected_enemy)
+	enemies_container.call_deferred("add_child", selected_enemy)
 	if debug: print("ThreatGenerator | {1} spawned a {0} entity".format({0:enemy, 1:event_name}))
 	enemy_spawned.emit(enemy,full_enemy_list[enemy]["type"])
 
@@ -94,5 +95,6 @@ func swarm_constructor(enemy_load, method, separation, amount):
 			2: # Random
 				var rand_position = spawn_area.position + Vector2(randf() * spawn_area.size.x, randf() * spawn_area.size.y)
 				enemy.global_position = rand_position
-		enemies_container.add_child(enemy)
+		# enemies_container.add_child(enemy)
+		enemies_container.call_deferred("add_child", enemy)
 		if debug: print('SWARM CONSTRUCTOR | Entity number {0} spawned on {1}'.format({0:n + 1, 1:enemy.global_position}))

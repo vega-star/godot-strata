@@ -5,12 +5,12 @@ signal item_dropped
 @export var debug : bool = false
 
 # For each enemy in game, the drop list has two related arrays, one with the items and the other with the weights. The higher the weight respective to the item, the higher the odds for it to drop.
-var enemy_drops_list = {
+var enemy_drops_list : Dictionary = {
 	"enemy": {"items": [false,"secondary_ammo","health_capsule"], "chances": [0,80,90,20001], "range": 100},
 	"striker_1": {"items": [false,"secondary_ammo","health_capsule"], "chances": [0,80,90,20001], "range": 100}
 }
 
-var item_list = {
+var item_list : Dictionary = {
 	"health_capsule": {"scene": "res://entities/items/health_capsule.tscn", "accumulate": true},
 	"secondary_ammo": {"scene": "res://entities/items/secondary_ammo.tscn", "accumulate": true},
 	"damage_boost": {"scene": "", "accumulate": false}
@@ -30,8 +30,8 @@ func _on_enemy_died():
 	else: pass
 	item_dropped.emit(drop)
 
-func gamble_drop(items,chances, range):
-	var drop_value = randi_range(1,range)
+func gamble_drop(items, chances, max_range):
+	var drop_value = randi_range(1,max_range)
 	print(drop_value)
 	for i in items.size():
 		var next_item_chance : int
@@ -49,4 +49,5 @@ func spawn_item(item):
 	var item_scene = load(item["scene"])
 	item = item_scene.instantiate()
 	item.global_position = owner.global_position
-	item_container.add_child(item)
+	# item_container.add_child(item)
+	item_container.call_deferred("add_child", item)

@@ -122,6 +122,8 @@ region_enabled = true
 region_rect = Rect2(0, 368, 960, 120)
 
 [node name="WaterLevel" type="ParallaxLayer" parent="."]
+position = Vector2(0, 1)
+motion_offset = Vector2(0, -20)
 motion_mirroring = Vector2(960, 0)
 
 [node name="WaterSprite" type="Sprite2D" parent="WaterLevel"]

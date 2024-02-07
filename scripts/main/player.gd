@@ -66,12 +66,10 @@ func _process(delta): # Frequent listener for input with delay (weapons, items, 
 	if Input.is_action_just_pressed("bomb"):
 		if secondary_ammo >= 1:
 			if !secondary_fire_cooldown:
-				if debug: print("Bomb launched! %d ammo left" % int(secondary_ammo - 1))
 				secondary_fire_cooldown = true
 				shoot_secondary()
 				await get_tree().create_timer(secondary_fire_rof * delta).timeout
 				secondary_fire_cooldown = false
-				secondary_ammo -= 1
 		else:
 			if debug: print("No ammo left!")
 	
@@ -89,7 +87,6 @@ func _process(delta): # Frequent listener for input with delay (weapons, items, 
 			$HunterSprites.modulate.a = 1
 			
 			roll_cooldown = false
-		pass
 	
 	update_animation_state()
 
@@ -101,9 +98,15 @@ func _physics_process(delta): # General movement function
 	if Input.is_action_just_pressed("dash") and dash_cooldown == false:
 		print('Dash pressed')
 		dash_cooldown = true
+		$HunterSprites.modulate.g = 0.5
+		$HunterSprites.modulate.b = 0.5
 		var target_direction = direction.normalized()
 		velocity = target_direction * dash_speed
+		
 		await get_tree().create_timer(dash_cooldown_timer * delta).timeout
+		
+		$HunterSprites.modulate.g = 1
+		$HunterSprites.modulate.b = 1
 		dash_cooldown = false
 		pass
 	
@@ -147,9 +150,14 @@ func shoot_primary():
 	
 # Equipped weapon in secondary. 
 func shoot_secondary():
-	secondary_ammo = equipment_module.secondary_ammo
+	# secondary_ammo = equipment_module.secondary_ammo
 	if secondary_ammo > 0:
+		if debug: print("Bomb launched! %d ammo left" % int(secondary_ammo - 1))
 		fire_secondary.emit(muzzle.global_position, secondary_ammo) # This signal alters the hud value and emits the projectile at the same time
+	else: if debug: print("No ammo left!")
+
+func _on_ammo_changed(current_ammo, _previous_ammo):
+	secondary_ammo = current_ammo
 
 func _on_health_component_health_change(previous_value, new_value, _negative): # Relaying health value as a signal, so it can be changed in the hud
 	health_change.emit(previous_value, new_value)

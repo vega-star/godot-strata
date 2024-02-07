@@ -13,7 +13,7 @@ var is_immune : bool = false
 func _ready():
 	clamp(immunity_frames_count, 0, immunity_frame_limit)
 
-func _physics_process(delta): # As it updates 60 times per second, we could calculate really short immunity frames without creating a timer node
+func _physics_process(_delta): # As it updates 60 times per second, we could calculate really short immunity frames without creating a timer node
 	immunity_frames_count += 1
 	if immunity_frames_count == immunity_frame_limit:
 		is_immune = false

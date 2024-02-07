@@ -19,20 +19,11 @@ bg_color = Color(0.647059, 0.647059, 0.647059, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3gdvb"]
 bg_color = Color(0.203922, 0.227451, 0.227451, 1)
 
-[node name="UIOverlay" type="Control"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("1_p401e")
-debug = true
-
-[node name="UILayer" type="CanvasLayer" parent="."]
+[node name="UILayer" type="CanvasLayer"]
 layer = 10
+script = ExtResource("1_p401e")
 
-[node name="HP" type="Control" parent="UILayer"]
+[node name="HP" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 84.0
@@ -40,7 +31,7 @@ offset_bottom = 37.0
 size_flags_horizontal = 0
 size_flags_vertical = 0
 
-[node name="HP_StartSprite" type="TextureRect" parent="UILayer/HP"]
+[node name="HP_StartSprite" type="TextureRect" parent="HP"]
 custom_minimum_size = Vector2(8, 0)
 layout_mode = 0
 offset_right = 8.0
@@ -48,7 +39,7 @@ offset_bottom = 37.0
 texture = ExtResource("2_dqcqq")
 stretch_mode = 2
 
-[node name="HP_Container" type="TextureRect" parent="UILayer/HP"]
+[node name="HP_Container" type="TextureRect" parent="HP"]
 custom_minimum_size = Vector2(52, 0)
 layout_mode = 0
 offset_left = 8.0
@@ -57,7 +48,7 @@ offset_bottom = 37.0
 texture = ExtResource("3_gwxsa")
 stretch_mode = 1
 
-[node name="HP_ShortContainer" type="TextureRect" parent="UILayer/HP"]
+[node name="HP_ShortContainer" type="TextureRect" parent="HP"]
 visible = false
 layout_mode = 0
 offset_left = 60.0
@@ -67,7 +58,7 @@ size_flags_horizontal = 4
 texture = ExtResource("4_v5526")
 stretch_mode = 1
 
-[node name="HP_EndSprite" type="TextureRect" parent="UILayer/HP"]
+[node name="HP_EndSprite" type="TextureRect" parent="HP"]
 layout_mode = 0
 offset_left = 60.0
 offset_right = 84.0
@@ -75,7 +66,7 @@ offset_bottom = 37.0
 texture = ExtResource("5_r0sqk")
 stretch_mode = 2
 
-[node name="SecondaryAmmo" type="Control" parent="UILayer"]
+[node name="SecondaryAmmo" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
 offset_left = 9.0
@@ -83,7 +74,7 @@ offset_top = 41.0
 offset_right = 32.0
 offset_bottom = 64.0
 
-[node name="SecondaryAmmo_Container" type="TextureRect" parent="UILayer/SecondaryAmmo"]
+[node name="SecondaryAmmo_Container" type="TextureRect" parent="SecondaryAmmo"]
 custom_minimum_size = Vector2(22, 0)
 layout_mode = 2
 offset_right = 22.0
@@ -91,7 +82,7 @@ offset_bottom = 22.0
 texture = ExtResource("6_q6wh7")
 stretch_mode = 1
 
-[node name="SecondaryAmmo_ShortContainer" type="TextureRect" parent="UILayer/SecondaryAmmo"]
+[node name="SecondaryAmmo_ShortContainer" type="TextureRect" parent="SecondaryAmmo"]
 visible = false
 custom_minimum_size = Vector2(11, 0)
 layout_mode = 2
@@ -102,7 +93,7 @@ size_flags_horizontal = 4
 texture = ExtResource("7_i554k")
 stretch_mode = 1
 
-[node name="HUD" type="Control" parent="UILayer"]
+[node name="HUD" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -111,7 +102,7 @@ grow_horizontal = 2
 grow_vertical = 2
 metadata/_edit_use_anchors_ = true
 
-[node name="HP_Bar" type="TextureRect" parent="UILayer/HUD"]
+[node name="HP_Bar" type="TextureRect" parent="HUD"]
 layout_mode = 0
 offset_left = 8.0
 offset_top = 8.0
@@ -121,7 +112,7 @@ texture = ExtResource("8_htvcw")
 expand_mode = 1
 stretch_mode = 1
 
-[node name="HP_ShortBar" type="TextureRect" parent="UILayer/HUD"]
+[node name="HP_ShortBar" type="TextureRect" parent="HUD"]
 visible = false
 layout_mode = 0
 offset_left = 64.0
@@ -132,7 +123,7 @@ texture = ExtResource("9_hb16e")
 expand_mode = 1
 stretch_mode = 1
 
-[node name="SecondaryAmmo_Bar" type="TextureRect" parent="UILayer/HUD"]
+[node name="SecondaryAmmo_Bar" type="TextureRect" parent="HUD"]
 layout_mode = 0
 offset_left = 9.0
 offset_top = 41.0
@@ -142,7 +133,7 @@ texture = ExtResource("9_axnvv")
 expand_mode = 1
 stretch_mode = 1
 
-[node name="SecondaryAmmo_ShortBar" type="TextureRect" parent="UILayer/HUD"]
+[node name="SecondaryAmmo_ShortBar" type="TextureRect" parent="HUD"]
 visible = false
 layout_mode = 0
 offset_left = 34.0
@@ -153,7 +144,7 @@ texture = ExtResource("11_tygwk")
 expand_mode = 1
 stretch_mode = 1
 
-[node name="StageProgressBar" type="ProgressBar" parent="UILayer/HUD"]
+[node name="StageProgressBar" type="ProgressBar" parent="HUD"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.508
@@ -174,6 +165,6 @@ allow_greater = true
 fill_mode = 1
 show_percentage = false
 
-[node name="ProgressBarFrame" type="Sprite2D" parent="UILayer/HUD"]
+[node name="ProgressBarFrame" type="Sprite2D" parent="HUD"]
 position = Vector2(480, 531)
 texture = ExtResource("10_noxrv")

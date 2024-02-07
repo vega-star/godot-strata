@@ -4,14 +4,14 @@ extends Node2D
 @onready var player_spawn_pos = $PlayerSpawnPos
 @onready var player_projectile_container = $ProjectileContainer
 @onready var player_health_component = $Player/HealthComponent
-@onready var hud_component = $UILayer/UIOverlay
-@onready var gameoverscreen = $GameOver
 @onready var player = $Player
 @onready var stage_timer = $StageTimer
 @onready var threat_manager = $ThreatManager
 
-# Transition component
-@onready var transition_controller = $ScreenTransitionLayer
+# UIComponent
+@onready var hud_component = $UIComponent/UIOverlay
+@onready var gameoverscreen = $UIComponent/GameOver
+@onready var transition_controller = $UIComponent/ScreenTransitionLayer
 @onready var transition_time = transition_controller.fade_time
 
 # Signals

@@ -6,6 +6,7 @@ class_name ThreatManager extends Node
 
 signal enemy_spawned(enemy_name,type)
 signal event_completed(event_name,event_type)
+signal stage_timer_toggled(paused : bool)
 signal scene_loaded()
 
 # Each stage should also have a configuration file that loads before the events and sets certain parameters to other processes
@@ -20,7 +21,7 @@ var challenge_enemy
 @onready var enemy_container = $EnemiesContainer
 @onready var current_stage = owner.get_name()
 @export var debug : bool = false
-var stage_timer_toggled : bool = false
+var is_stage_timer_toggled : bool = false
 var timer_period_expired : bool = false
 
 # Threads
@@ -117,10 +118,9 @@ func set_event_timer(event, override = null): # Sets the timer that toggles 'tim
 			"pause_stage_timer":
 				if property_value == true:
 					if debug: print("CHALLENGE ENEMY %s EVENT CAUSED STAGE_TIMER TO PAUSE" % challenge_enemy)
-					stage_timer_toggled = true
-					stage_timer.set_paused(true)
+					toggle_stage_timer(true)
 					await challenge_enemy.challenge_killed
-					stage_timer.set_paused(false)
+					toggle_stage_timer(false)
 			"stop_before":
 				await get_tree().create_timer(override, false).timeout # Waits for a previously calculated time
 			"timer_period":
@@ -144,12 +144,18 @@ func period_loop(event, period_type): # Contains most repetitive timed loops of 
 				await get_tree().create_timer(event["event_properties"]["spawn_interval"], false).timeout
 				spawn_cooldown = false
 	if debug: print('\t%s PERIOD LOOP ENDED' % event["event_type"])
+	period_thread.wait_to_finish()
 	return
 
 func spawn_sequence(enemy_array, sequence_cooldown): # Plays a simple sequence from a given array of enemies
 	for enemy in enemy_array:
 		threat_generator.generate_threat(enemy)
 		await get_tree().create_timer(sequence_cooldown, false).timeout
+
+func toggle_stage_timer(paused : bool):
+	is_stage_timer_toggled = paused
+	stage_timer.set_paused(paused)
+	stage_timer_toggled.emit(paused)
 
 func _on_boss_killed():
 	pass

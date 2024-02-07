@@ -40,7 +40,6 @@ max_health = 5
 collision_layer = 2
 collision_mask = 5
 health_component = NodePath("../HealthComponent")
-immunity_frame_limit = 5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
 shape = SubResource("RectangleShape2D_tq5bo")
@@ -49,3 +48,4 @@ debug_color = Color(0.701961, 0, 0.152941, 0.2)
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="enemy_died" from="." to="DropComponent" method="_on_enemy_died"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
+[connection signal="health_change" from="HealthComponent" to="." method="_on_health_component_health_change"]

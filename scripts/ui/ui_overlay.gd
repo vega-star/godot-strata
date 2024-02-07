@@ -1,4 +1,4 @@
-extends Control
+extends CanvasLayer
 
 @export var limit_hp_slots = 3
 @export var limit_secondary_ammo = 5
@@ -6,21 +6,21 @@ extends Control
 
 @onready var hud_elements_list : Dictionary = {
 	"hp": {
-		"cell_container": $UILayer/HP/HP_Container, 
-		"short_cell_container": $UILayer/HP/HP_ShortContainer,
-		"cell_bar": $UILayer/HUD/HP_Bar,
-		"short_cell_bar": $UILayer/HUD/HP_ShortBar,
+		"cell_container": $HP/HP_Container, 
+		"short_cell_container": $HP/HP_ShortContainer,
+		"cell_bar": $HUD/HP_Bar,
+		"short_cell_bar": $HUD/HP_ShortBar,
 		"cell_size": 52,
 		"short_cell_size": 26,
 		"start_position": 8,
-		"has_start_sprite": true, "start_sprite": $UILayer/HP/HP_StartSprite,
-		"has_end_sprite": true, "end_sprite": $UILayer/HP/HP_EndSprite
+		"has_start_sprite": true, "start_sprite": $HP/HP_StartSprite,
+		"has_end_sprite": true, "end_sprite": $HP/HP_EndSprite
 		},
 	"secondary_ammo": {
-		"cell_container": $UILayer/SecondaryAmmo/SecondaryAmmo_Container, 
-		"short_cell_container": $UILayer/SecondaryAmmo/SecondaryAmmo_ShortContainer,
-		"cell_bar": $UILayer/HUD/SecondaryAmmo_Bar,
-		"short_cell_bar": $UILayer/HUD/SecondaryAmmo_ShortBar,
+		"cell_container": $SecondaryAmmo/SecondaryAmmo_Container, 
+		"short_cell_container": $SecondaryAmmo/SecondaryAmmo_ShortContainer,
+		"cell_bar": $HUD/SecondaryAmmo_Bar,
+		"short_cell_bar": $HUD/SecondaryAmmo_ShortBar,
 		"cell_size": 22,
 		"short_cell_size": 11,
 		"start_position": 9,
@@ -29,7 +29,7 @@ extends Control
 	}
 }
 
-@onready var stage_progress_bar = $UILayer/HUD/StageProgressBar
+@onready var stage_progress_bar = $HUD/StageProgressBar
 
 @onready var hp:
 	set(hp_value):

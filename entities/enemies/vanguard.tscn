@@ -33,6 +33,7 @@ max_health = 200
 collision_layer = 2
 collision_mask = 5
 health_component = NodePath("../HealthComponent")
+immunity_frame_limit = 5
 
 [node name="CoreHitbox_1" type="CollisionPolygon2D" parent="HitboxComponent"]
 position = Vector2(0, -0.999992)
