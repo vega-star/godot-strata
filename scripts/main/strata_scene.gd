@@ -25,7 +25,9 @@ func _ready():
 	player.global_position = player_spawn_pos.global_position
 	
 	hud_component.hp = player_health_component.max_health
-	hud_component.bomb_counter = player.secondary_ammo
+	hud_component.secondary_ammo_counter = player.equipment_module.max_secondary_ammo
+	
+	player.equipment_module.ammo_changed.connect(_on_player_secondary_ammo_changed)
 	
 	await threat_manager.scene_loaded
 	await get_tree().create_timer(transition_time).timeout
@@ -33,6 +35,9 @@ func _ready():
 
 func _on_player_health_change(_previous_value, new_value): # Update HP right only after change
 	hud_component.hp = new_value
+
+func _on_player_secondary_ammo_changed(current_ammo, _previous_ammo):
+	hud_component.secondary_ammo_counter = current_ammo
 
 func _on_timer_pause(): # Timer switch
 	if is_timer_paused: is_timer_paused = false
@@ -59,5 +64,3 @@ func end_stage_sequence():
 	await get_tree().create_timer(5).timeout
 	get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
 
-func _on_player_fire_secondary(_location, secondary_ammo):
-	hud_component.bomb_counter = secondary_ammo - 1

@@ -4,5 +4,4 @@
 
 [node name="HitboxComponent" type="Area2D"]
 script = ExtResource("1_y6ofy")
-debug = false
 immunity_frame_limit = null

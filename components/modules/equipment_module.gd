@@ -1,5 +1,7 @@
 class_name EquipmentModule extends Node
 
+signal ammo_changed(current_ammo, previous_ammo)
+
 # Placeholder weapons dictionary.
 var all_weapons = { 
 	"default_laser": {
@@ -63,5 +65,10 @@ func _on_player_primary_fired(start_position):
 func _on_player_secondary_fired(start_position, _secondary_ammo):
 	var secondary_shot = secondary_weapon_scene.instantiate()
 	secondary_shot.global_position = start_position
-	secondary_ammo -= 1 # The equipment shall control the ammo
+	secondary_ammo -= 1
+	ammo_changed.emit(secondary_ammo, secondary_ammo + 1)
 	projectile_container.add_child(secondary_shot)
+
+func add_ammo(ammo_value):
+	secondary_ammo += ammo_value
+	ammo_changed.emit(secondary_ammo, secondary_ammo - 1)

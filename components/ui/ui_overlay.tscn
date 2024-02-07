@@ -21,37 +21,43 @@ bg_color = Color(0.203922, 0.227451, 0.227451, 1)
 
 [node name="UIOverlay" type="Control"]
 layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_p401e")
+debug = true
 
 [node name="UILayer" type="CanvasLayer" parent="."]
 layer = 10
 
-[node name="HP_Bar" type="Control" parent="UILayer"]
+[node name="HP" type="Control" parent="UILayer"]
 layout_mode = 3
 anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 84.0
+offset_bottom = 37.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
 
-[node name="HP_Bar_Start" type="TextureRect" parent="UILayer/HP_Bar"]
+[node name="HP_StartSprite" type="TextureRect" parent="UILayer/HP"]
+custom_minimum_size = Vector2(8, 0)
 layout_mode = 0
 offset_right = 8.0
 offset_bottom = 37.0
 texture = ExtResource("2_dqcqq")
 stretch_mode = 2
 
-[node name="HP_Bar_Module" type="TextureRect" parent="UILayer/HP_Bar"]
+[node name="HP_Container" type="TextureRect" parent="UILayer/HP"]
+custom_minimum_size = Vector2(52, 0)
 layout_mode = 0
 offset_left = 8.0
 offset_right = 60.0
 offset_bottom = 37.0
 texture = ExtResource("3_gwxsa")
-expand_mode = 1
 stretch_mode = 1
 
-[node name="HP_Bar_Short_Module" type="TextureRect" parent="UILayer/HP_Bar"]
+[node name="HP_ShortContainer" type="TextureRect" parent="UILayer/HP"]
 visible = false
 layout_mode = 0
 offset_left = 60.0
@@ -61,7 +67,7 @@ size_flags_horizontal = 4
 texture = ExtResource("4_v5526")
 stretch_mode = 1
 
-[node name="HP_Bar_End" type="TextureRect" parent="UILayer/HP_Bar"]
+[node name="HP_EndSprite" type="TextureRect" parent="UILayer/HP"]
 layout_mode = 0
 offset_left = 60.0
 offset_right = 84.0
@@ -69,29 +75,29 @@ offset_bottom = 37.0
 texture = ExtResource("5_r0sqk")
 stretch_mode = 2
 
-[node name="Bomb_Count_Frame" type="Control" parent="UILayer"]
+[node name="SecondaryAmmo" type="Control" parent="UILayer"]
 layout_mode = 3
 anchors_preset = 0
 offset_left = 9.0
 offset_top = 41.0
-offset_right = 190.0
-offset_bottom = 81.0
+offset_right = 32.0
+offset_bottom = 64.0
 
-[node name="Bomb_Module" type="TextureRect" parent="UILayer/Bomb_Count_Frame"]
+[node name="SecondaryAmmo_Container" type="TextureRect" parent="UILayer/SecondaryAmmo"]
+custom_minimum_size = Vector2(22, 0)
 layout_mode = 2
-offset_right = 23.0
-offset_bottom = 23.0
+offset_right = 22.0
+offset_bottom = 22.0
 texture = ExtResource("6_q6wh7")
-expand_mode = 2
 stretch_mode = 1
 
-[node name="Short_Bomb_Module" type="TextureRect" parent="UILayer/Bomb_Count_Frame"]
+[node name="SecondaryAmmo_ShortContainer" type="TextureRect" parent="UILayer/SecondaryAmmo"]
 visible = false
 custom_minimum_size = Vector2(11, 0)
 layout_mode = 2
-offset_left = 23.0
-offset_right = 36.0
-offset_bottom = 23.0
+offset_left = 22.0
+offset_right = 33.0
+offset_bottom = 22.0
 size_flags_horizontal = 4
 texture = ExtResource("7_i554k")
 stretch_mode = 1
@@ -105,7 +111,7 @@ grow_horizontal = 2
 grow_vertical = 2
 metadata/_edit_use_anchors_ = true
 
-[node name="HP_Container" type="TextureRect" parent="UILayer/HUD"]
+[node name="HP_Bar" type="TextureRect" parent="UILayer/HUD"]
 layout_mode = 0
 offset_left = 8.0
 offset_top = 8.0
@@ -115,7 +121,7 @@ texture = ExtResource("8_htvcw")
 expand_mode = 1
 stretch_mode = 1
 
-[node name="HP_Short_Container" type="TextureRect" parent="UILayer/HUD"]
+[node name="HP_ShortBar" type="TextureRect" parent="UILayer/HUD"]
 visible = false
 layout_mode = 0
 offset_left = 64.0
@@ -126,17 +132,17 @@ texture = ExtResource("9_hb16e")
 expand_mode = 1
 stretch_mode = 1
 
-[node name="Bomb_Container" type="TextureRect" parent="UILayer/HUD"]
+[node name="SecondaryAmmo_Bar" type="TextureRect" parent="UILayer/HUD"]
 layout_mode = 0
 offset_left = 9.0
 offset_top = 41.0
-offset_right = 32.0
-offset_bottom = 64.0
+offset_right = 31.0
+offset_bottom = 63.0
 texture = ExtResource("9_axnvv")
 expand_mode = 1
 stretch_mode = 1
 
-[node name="Bomb_Short_Container" type="TextureRect" parent="UILayer/HUD"]
+[node name="SecondaryAmmo_ShortBar" type="TextureRect" parent="UILayer/HUD"]
 visible = false
 layout_mode = 0
 offset_left = 34.0

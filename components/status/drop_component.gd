@@ -21,7 +21,6 @@ var item_list = {
 @onready var enemy : String = owner.enemy_name
 
 func _ready(): # Needed for random results
-	if debug: print('DROPCOMPONENT READY IN %s' % root_scene)
 	randomize()
 
 func _on_enemy_died():
@@ -39,7 +38,11 @@ func gamble_drop(items,chances, range):
 		clamp(next_item_chance,0,chances.size())
 		next_item_chance = chances[i + 1]
 		
-		if next_item_chance > drop_value: return items[i] # If next_value is bigger than random number chance, drop current item in loop
+		if debug: print('ITEM INDEX: {2} | VALUE ROLLED: {0} | NEXT_ITEM_CHANCE: {1}'.format({0:drop_value, 1:next_item_chance, 2:i}))
+		
+		if next_item_chance > drop_value: 
+			if debug: print('ITEM GAMBLED: %s' % str(items[i]))
+			return items[i] # If next_value is bigger than random number chance, drop current item in loop
 		else: pass
 
 func spawn_item(item):

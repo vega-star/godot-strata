@@ -496,7 +496,7 @@ animations = [{
 }]
 
 [node name="Player" type="CharacterBody2D" groups=["player"]]
-collision_mask = 10
+collision_mask = 26
 motion_mode = 1
 script = ExtResource("1_hermy")
 
@@ -555,7 +555,7 @@ max_health = 3
 collision_mask = 10
 input_pickable = false
 health_component = NodePath("../HealthComponent")
-immunity_frame_limit = 5
+immunity_frame_limit = 20
 
 [node name="PlayerHitbox" type="CollisionPolygon2D" parent="HitboxComponent"]
 polygon = PackedVector2Array(10, -5, 17, -1, 31, -1, 38, 3, -3, 8, -26, 17, -32, 13, -22, 8, -32, 8, -38, -13, -23, -5)

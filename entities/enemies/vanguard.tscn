@@ -55,4 +55,3 @@ scale = Vector2(0.73, 0.73)
 polygon = PackedVector2Array(275.888, -168.356, 277.274, -186.444, 238.456, -186.444, 248.161, -140.529, 271.729, -140.529)
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
-[connection signal="damage_inferred" from="HealthComponent" to="." method="_on_damage_inferred"]

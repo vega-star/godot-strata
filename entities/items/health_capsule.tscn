@@ -9,8 +9,7 @@ radius = 7.0
 [node name="HealthCapsule" type="Area2D"]
 light_mask = 2
 visibility_layer = 2
-collision_layer = 4
-collision_mask = 3
+collision_layer = 16
 script = ExtResource("1_pjpoe")
 
 [node name="CapsuleSprite" type="Sprite2D" parent="."]
@@ -19,4 +18,9 @@ texture = ExtResource("2_7tfqc")
 [node name="HealthCollision" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_mavwj")
 
-[connection signal="body_entered" from="." to="." method="_on_capsule_collided"]
+[node name="PresenceChecker" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(93, 0)
+scale = Vector2(0.55, 0.725)
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="screen_exited" from="PresenceChecker" to="." method="_on_presence_checker_screen_exited"]
