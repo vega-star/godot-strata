@@ -1,0 +1,39 @@
+
+| PERIOD
+"period_example": {
+        "event_type": "period",
+        "event_description": "Starts an specific period in-game. Requires 'set_timer = true' so it will only resume other sequences after its completion.",
+        "set_timer": true,
+        "has_rules": true,
+        "event_proprieties": {
+            "period_type": 0,
+            "event_timer": {
+                "pause_stage_timer": false,
+                "timer_period": 10.0
+            },
+            "rules": { 
+                "spawn_override": "center", 
+                "swarm": {
+                    "method": 0, 
+                    "separation": 30,
+                    "amount": 5
+                }
+            }
+        }
+    }
+
+1. Most values are stored in the nested 'event_proprieties' dictionary, and toggled by boolean values in the root dict
+2. Enemies have their own ruleset when instantiated, but you can also override their ruleset within the event call, creating new possibilities
+
+| TEXTBOX
+"textbox_example": {
+        "event_type": "textbox",
+        "event_description": "Generates a textbox with intructions in the screen. Useful for tutorials and explaining new features in an active stage.",
+        "set_timer": true
+        "has_rules": false
+        "event_proprieties": {
+            "textbox_type": 0,
+            "textbox_message": "Test textbox"  
+            "textbox_position": "center-right"
+        }
+    }

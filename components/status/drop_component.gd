@@ -32,7 +32,6 @@ func _on_enemy_died():
 
 func gamble_drop(items, chances, max_range):
 	var drop_value = randi_range(1,max_range)
-	print(drop_value)
 	for i in items.size():
 		var next_item_chance : int
 		clamp(next_item_chance,0,chances.size())

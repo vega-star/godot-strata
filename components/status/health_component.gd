@@ -9,8 +9,9 @@ var current_health: int
 ## HealthComponent provides a health value for all entities and a condition on which the entity starts a death sequence
 
 func _ready(): # Loads the max health of the entity. Can be set differently to each scene this component is instantiated
+	
+	current_health = clamp(current_health, 0, max_health) # Prevents enemy from overflowing health value
 	current_health = max_health
-	clamp(current_health, 0, max_health) # Prevents enemy from overflowing health value
 	
 	if health_bar: health_bar.visible = false
 
@@ -21,10 +22,15 @@ func change_health(amount : int, negative : bool = true):
 	if negative: current_health -= amount
 	else: current_health += amount
 	
-	health_change.emit(previous_value, current_health, negative)
+	if !negative: # Patches healing value, prevents health overflow, etc.
+		if current_health + amount >= max_health:
+			print('HEALTH OVERFLOW')
+			current_health = max_health
 	
 	if current_health <= 0:
 		owner.die() # Let the owner itself execute queue_free() after a unique death sequence
+	
+	health_change.emit(previous_value, current_health, negative)
 	
 	if health_bar: health_bar.visible = true # Turns the health_bar visible after the first change
 	if health_bar: health_bar.health_bar_sync = current_health # Sync with health_bar ONLY if there's a health_bar node attributed

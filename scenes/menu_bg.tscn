@@ -1,57 +1,143 @@
-[gd_scene load_steps=9 format=3 uid="uid://c8sis2bmuopvk"]
+[gd_scene load_steps=21 format=3 uid="uid://c8sis2bmuopvk"]
 
-[ext_resource type="Script" path="res://scripts/ui/menu_bg_controller.gd" id="1_kla7a"]
-[ext_resource type="Texture2D" uid="uid://dj1q6xggo12ly" path="res://assets/textures/parallax/main_menu/menu-bg-lower.png" id="2_ntreh"]
-[ext_resource type="Texture2D" uid="uid://1k4gi336jku" path="res://assets/textures/parallax/waterbg.png" id="2_rije7"]
-[ext_resource type="Texture2D" uid="uid://jwsvyrfmcb3o" path="res://assets/textures/parallax/main_menu/menu-overlay_door_left.png" id="3_32pro"]
-[ext_resource type="Texture2D" uid="uid://oct1ofrodkcx" path="res://assets/textures/parallax/main_menu/menu-bg-hunter.png" id="3_fq3hs"]
-[ext_resource type="Texture2D" uid="uid://bfe4mp2gw7lrg" path="res://assets/textures/parallax/main_menu/menu-bg-top.png" id="4_iftnp"]
-[ext_resource type="Texture2D" uid="uid://ceni4dheg8o7t" path="res://assets/textures/parallax/main_menu/menu-overlay_door_right.png" id="4_k1fik"]
+[ext_resource type="Script" path="res://scenes/scripts/ui/menu_bg_controller.gd" id="1_kla7a"]
+[ext_resource type="Texture2D" uid="uid://b17ojov5p8m1d" path="res://assets/textures/parallax/main_menu/v2-stars.png" id="2_eb8bg"]
+[ext_resource type="Texture2D" uid="uid://bd6qdud63kpb4" path="res://assets/textures/parallax/main_menu/black-bg.png" id="2_x34od"]
+[ext_resource type="Texture2D" uid="uid://loeiit3vox4l" path="res://assets/textures/parallax/main_menu/v2-planet.png" id="4_l1wtn"]
+[ext_resource type="Texture2D" uid="uid://drqbu1l3wko5v" path="res://assets/textures/parallax/main_menu/v2-sun-flares.png" id="5_3jwjd"]
+[ext_resource type="Texture2D" uid="uid://bmkus753i5hoa" path="res://assets/textures/parallax/main_menu/v2-sun-color.png" id="6_on1qc"]
 
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_xilwv"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_vvfw2"]
+atlas = ExtResource("2_eb8bg")
+region = Rect2(0, 0, 960, 271)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fbnqk"]
+atlas = ExtResource("2_eb8bg")
+region = Rect2(0, 271, 960, 271)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0oai3"]
+atlas = ExtResource("2_eb8bg")
+region = Rect2(0, 542, 960, 271)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_28kxy"]
+atlas = ExtResource("2_eb8bg")
+region = Rect2(0, 813, 960, 271)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7lorj"]
+atlas = ExtResource("2_eb8bg")
+region = Rect2(0, 1084, 960, 271)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r8c1k"]
+atlas = ExtResource("2_eb8bg")
+region = Rect2(0, 1355, 960, 271)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_mwlsf"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vvfw2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fbnqk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0oai3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_28kxy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7lorj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r8c1k")
+}],
+"loop": true,
+"name": &"stars_anim",
+"speed": 8.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qs43s"]
+atlas = ExtResource("5_3jwjd")
+region = Rect2(0, 0, 663, 249)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ycub1"]
+atlas = ExtResource("5_3jwjd")
+region = Rect2(0, 249, 663, 249)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cixwf"]
+atlas = ExtResource("5_3jwjd")
+region = Rect2(0, 498, 663, 249)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y2fax"]
+atlas = ExtResource("5_3jwjd")
+region = Rect2(0, 747, 663, 249)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7k4ax"]
+atlas = ExtResource("5_3jwjd")
+region = Rect2(0, 996, 663, 249)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cb0pc"]
+atlas = ExtResource("5_3jwjd")
+region = Rect2(0, 1245, 663, 249)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_tbqal"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qs43s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ycub1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cixwf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y2fax")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7k4ax")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cb0pc")
+}],
+"loop": true,
+"name": &"default",
+"speed": 4.0
+}]
 
 [node name="MenuBG" type="CanvasLayer"]
 layer = -50
 script = ExtResource("1_kla7a")
 
-[node name="MenuBG-Below" type="Sprite2D" parent="."]
-position = Vector2(480, 270)
-texture = ExtResource("2_ntreh")
-
-[node name="MenuVehicles" type="Node2D" parent="."]
-
-[node name="MenuBG-Hunter" type="Sprite2D" parent="MenuVehicles"]
-position = Vector2(480, 332)
-texture = ExtResource("3_fq3hs")
-
-[node name="MenuBG-Above" type="Sprite2D" parent="."]
-position = Vector2(480, 270)
-texture = ExtResource("4_iftnp")
-
 [node name="MainParallax" type="ParallaxBackground" parent="."]
 
-[node name="Sea" type="ParallaxLayer" parent="MainParallax"]
-motion_mirroring = Vector2(0, 540)
+[node name="BlackBG" type="Sprite2D" parent="MainParallax"]
+position = Vector2(480, 270)
+texture = ExtResource("2_x34od")
 
-[node name="SeaSprite" type="Sprite2D" parent="MainParallax/Sea"]
-position = Vector2(208, 0)
-texture = ExtResource("2_rije7")
-centered = false
-region_enabled = true
-region_rect = Rect2(0, 0, 540, 540)
+[node name="StarsBG" type="ParallaxLayer" parent="MainParallax"]
+motion_mirroring = Vector2(920, 0)
 
-[node name="PointLight2D" type="PointLight2D" parent="MainParallax"]
-position = Vector2(479.125, 239.375)
-scale = Vector2(95.75, 43.25)
-color = Color(1, 0.419608, 0.415686, 1)
-texture = SubResource("PlaceholderTexture2D_xilwv")
+[node name="StarsAnimation" type="AnimatedSprite2D" parent="MainParallax/StarsBG"]
+position = Vector2(480, 136)
+sprite_frames = SubResource("SpriteFrames_mwlsf")
+animation = &"stars_anim"
+autoplay = "stars_anim"
+frame_progress = 0.369572
 
-[node name="DoorLeft" type="Sprite2D" parent="MainParallax"]
-position = Vector2(285, 270)
-scale = Vector2(1.7276, 1)
-texture = ExtResource("3_32pro")
+[node name="SunColor" type="Sprite2D" parent="."]
+self_modulate = Color(1, 0.866667, 0.686275, 1)
+position = Vector2(480, 270)
+texture = ExtResource("6_on1qc")
 
-[node name="DoorRight" type="Sprite2D" parent="MainParallax"]
-position = Vector2(666, 270)
-scale = Vector2(1.60274, 1)
-texture = ExtResource("4_k1fik")
+[node name="Sun" type="AnimatedSprite2D" parent="."]
+position = Vector2(480, 298)
+sprite_frames = SubResource("SpriteFrames_tbqal")
+autoplay = "default"
+frame_progress = 0.153061
+
+[node name="Planet" type="Sprite2D" parent="."]
+position = Vector2(480, 270)
+texture = ExtResource("4_l1wtn")

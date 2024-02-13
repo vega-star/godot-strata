@@ -14,7 +14,7 @@ config/name="Strata"
 config/description="Prototype game in Godot 4.2+ made to exemplify how to make and test scripts, modular composition, and integrate various nodes. 
 
 [https://github.com/vega-star/godot-strata]"
-config/version="0.2.6"
+config/version="0.2.7"
 run/main_scene="res://scenes/main_menu.tscn"
 config/features=PackedStringArray("4.2", "GL Compatibility")
 boot_splash/bg_color=Color(0, 0, 0, 1)
@@ -22,6 +22,7 @@ boot_splash/image="res://assets/textures/prototypes/hpcontainer.png"
 boot_splash/use_filter=false
 config/icon="res://icon.svg"
 boot_splash/minimum_display_time=10
+config/image="res://assets/textures/prototypes/hpcontainer.png"
 
 [autoload]
 
@@ -43,7 +44,7 @@ folder_colors={
 "res://components/": "purple",
 "res://entities/": "orange",
 "res://scenes/": "yellow",
-"res://scripts/": "green",
+"res://scenes/scripts/": "green",
 "res://shaders/": "pink",
 "res://stages/": "teal"
 }

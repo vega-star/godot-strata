@@ -1,8 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://cyumjx0xrqqyl"]
+[gd_scene load_steps=6 format=3 uid="uid://c0agnox4ir8o6"]
 
-[ext_resource type="Script" path="res://scripts/main/strata_scene.gd" id="1_de0a8"]
-[ext_resource type="PackedScene" uid="uid://csdnju38rqee8" path="res://components/main/threat_manager.tscn" id="2_s7e1r"]
-[ext_resource type="PackedScene" uid="uid://biim58k38oa7h" path="res://entities/player_prop/player.tscn" id="3_y7uog"]
+[ext_resource type="Script" path="res://scenes/scripts/main/strata_scene.gd" id="1_de0a8"]
+[ext_resource type="PackedScene" uid="uid://csdnju38rqee8" path="res://components/main/stage_manager.tscn" id="2_s7e1r"]
+[ext_resource type="PackedScene" uid="uid://biim58k38oa7h" path="res://entities/player/player.tscn" id="3_y7uog"]
 [ext_resource type="PackedScene" uid="uid://bungiyr4lpj25" path="res://components/main/ui_component.tscn" id="4_raji4"]
 [ext_resource type="PackedScene" uid="uid://b7d5rmrbmprps" path="res://components/parallax/first_stage_parallax.tscn" id="8_4wxm4"]
 
@@ -46,7 +46,6 @@ one_shot = true
 
 [node name="FirstStageParallax" parent="." instance=ExtResource("8_4wxm4")]
 
-[connection signal="timer_pause" from="." to="." method="_on_timer_pause"]
 [connection signal="fire_secondary" from="Player" to="." method="_on_player_fire_secondary"]
 [connection signal="health_change" from="Player" to="." method="_on_player_health_change"]
 [connection signal="timeout" from="StageTimer" to="." method="_on_stage_timer_timeout"]

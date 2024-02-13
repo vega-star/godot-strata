@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://1r0vgtmjr5qp"]
+[gd_scene load_steps=6 format=3 uid="uid://1r0vgtmjr5qp"]
 
-[ext_resource type="Script" path="res://scripts/entities/vanguard.gd" id="1_3fifh"]
+[ext_resource type="Script" path="res://entities/enemies/vanguard.gd" id="1_3fifh"]
 [ext_resource type="Texture2D" uid="uid://b1h0u6px4fl0r" path="res://assets/textures/entities/enemies/vanguard/vanguard-prototype.png" id="2_pak47"]
 [ext_resource type="PackedScene" uid="uid://bdfaybp4djcn2" path="res://components/status/health_component.tscn" id="3_vvq5j"]
 [ext_resource type="PackedScene" uid="uid://c3atqdge540t0" path="res://components/status/hitbox_component.tscn" id="4_46h5e"]
+[ext_resource type="PackedScene" uid="uid://dqge7meaumoi5" path="res://entities/dummy_enemies/enemy_gun.tscn" id="5_p6ngh"]
 
 [node name="Vanguard" type="Area2D" groups=["enemies"]]
 light_mask = 2
@@ -33,7 +34,6 @@ max_health = 200
 collision_layer = 2
 collision_mask = 5
 health_component = NodePath("../HealthComponent")
-immunity_frame_limit = 5
 
 [node name="CoreHitbox_1" type="CollisionPolygon2D" parent="HitboxComponent"]
 position = Vector2(0, -0.999992)
@@ -54,5 +54,17 @@ polygon = PackedVector2Array(311.934, -169.748, 275.888, -168.356, 267.57, -162.
 position = Vector2(-44, 285)
 scale = Vector2(0.73, 0.73)
 polygon = PackedVector2Array(275.888, -168.356, 277.274, -186.444, 238.456, -186.444, 248.161, -140.529, 271.729, -140.529)
+
+[node name="EnemyGun" parent="." instance=ExtResource("5_p6ngh")]
+position = Vector2(65, -66)
+scale = Vector2(0.5, 0.5)
+
+[node name="EnemyGun2" parent="." instance=ExtResource("5_p6ngh")]
+position = Vector2(25, -114)
+scale = Vector2(0.5, 0.5)
+
+[node name="EnemyGun3" parent="." instance=ExtResource("5_p6ngh")]
+position = Vector2(114, 164)
+scale = Vector2(0.5, 0.5)
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]

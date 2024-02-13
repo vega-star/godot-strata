@@ -1,8 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://c1q12be6jjyek"]
+[gd_scene load_steps=6 format=3 uid="uid://d3q7qlol4wnfp"]
 
-[ext_resource type="Script" path="res://entities/projectiles/projectiles_scripts/default_laser.gd" id="1_24mmu"]
-[ext_resource type="Texture2D" uid="uid://c868sysa766fa" path="res://assets/textures/projectiles/default-laser.png" id="2_lky23"]
-[ext_resource type="PackedScene" uid="uid://c3atqdge540t0" path="res://components/status/hitbox_component.tscn" id="3_5k8xg"]
+[ext_resource type="Texture2D" uid="uid://bfw1nw60hhtcy" path="res://assets/textures/entities/enemies/misc/enemy_default_laser.png" id="1_jwiey"]
+[ext_resource type="Script" path="res://entities/projectiles/projectiles_scripts/default_enemy_laser.gd" id="1_reim5"]
+[ext_resource type="PackedScene" uid="uid://c3atqdge540t0" path="res://components/status/hitbox_component.tscn" id="3_ptfmk"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jewc2"]
 radius = 4.0
@@ -12,19 +12,17 @@ height = 20.0
 radius = 2.0
 height = 7.99999
 
-[node name="DefaultLaser" type="Area2D"]
+[node name="DefaultEnemyLaser" type="Area2D"]
 top_level = true
 light_mask = 2
-collision_layer = 4
-collision_mask = 10
-script = ExtResource("1_24mmu")
-projectile_speed = 700
+collision_layer = 8
+collision_mask = 5
+script = ExtResource("1_reim5")
 
 [node name="LaserSprite" type="Sprite2D" parent="."]
-position = Vector2(0.0014017, 5.43049e-05)
-rotation = 1.5708
-scale = Vector2(0.397513, 0.218961)
-texture = ExtResource("2_lky23")
+position = Vector2(0.0014017, 0)
+scale = Vector2(0.397513, 0.7)
+texture = ExtResource("1_jwiey")
 
 [node name="SelfHitbox" type="CollisionShape2D" parent="."]
 visible = false
@@ -36,9 +34,9 @@ disabled = true
 position = Vector2(-67, 0)
 scale = Vector2(0.3, 0.55)
 
-[node name="HitboxComponent" parent="." instance=ExtResource("3_5k8xg")]
-collision_layer = 4
-collision_mask = 10
+[node name="HitboxComponent" parent="." instance=ExtResource("3_ptfmk")]
+collision_layer = 8
+collision_mask = 5
 
 [node name="SelfProjectileBox" type="CollisionShape2D" parent="HitboxComponent"]
 rotation = -1.5708

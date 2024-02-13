@@ -1,0 +1,54 @@
+[gd_scene load_steps=8 format=3 uid="uid://dqge7meaumoi5"]
+
+[ext_resource type="Texture2D" uid="uid://dph1k44grln8n" path="res://assets/textures/entities/enemies/misc/enemy-gun.png" id="1_e72jq"]
+[ext_resource type="Script" path="res://entities/dummy_enemies/enemy_gun.gd" id="1_o7ikq"]
+[ext_resource type="PackedScene" uid="uid://bfy4edhtjb4rs" path="res://components/status/health_bar_component.tscn" id="3_45q46"]
+[ext_resource type="PackedScene" uid="uid://bdfaybp4djcn2" path="res://components/status/health_component.tscn" id="4_22w5n"]
+[ext_resource type="PackedScene" uid="uid://c3atqdge540t0" path="res://components/status/hitbox_component.tscn" id="6_hyqdx"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_57ns0"]
+radius = 30.1358
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_effn3"]
+radius = 31.461
+
+[node name="EnemyGun" type="Area2D" groups=["enemies"]]
+scale = Vector2(0.7, 0.7)
+collision_layer = 2
+collision_mask = 5
+script = ExtResource("1_o7ikq")
+rate_of_fire = 2.0
+
+[node name="GunMuzzle" type="Marker2D" parent="."]
+position = Vector2(32.8571, 0)
+
+[node name="EnemySprite" type="Sprite2D" parent="."]
+rotation = 3.14159
+texture = ExtResource("1_e72jq")
+
+[node name="SelfCollision" type="CollisionShape2D" parent="."]
+position = Vector2(9.53674e-07, 9.53674e-07)
+shape = SubResource("CircleShape2D_57ns0")
+debug_color = Color(0, 0.6, 0.701961, 0)
+
+[node name="HealthBarComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("3_45q46")]
+position = Vector2(0, 22.8571)
+health_component = NodePath("../HealthComponent")
+
+[node name="HealthComponent" parent="." node_paths=PackedStringArray("health_bar") instance=ExtResource("4_22w5n")]
+health_bar = NodePath("../HealthBarComponent")
+max_health = 35
+
+[node name="HitboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("6_hyqdx")]
+collision_layer = 2
+collision_mask = 5
+health_component = NodePath("../HealthComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
+shape = SubResource("CircleShape2D_effn3")
+debug_color = Color(0.701961, 0, 0.152941, 0.2)
+
+[node name="TemporaryContainer" type="Node2D" parent="."]
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="health_change" from="HealthComponent" to="." method="_on_health_component_health_change"]
