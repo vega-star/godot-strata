@@ -1,6 +1,6 @@
 [gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://dsb0m7uftq00y"]
 
-[ext_resource type="Shader" path="res://shaders/transition/diamond-based-screen-transition.gdshader" id="1_lydbn"]
+[ext_resource type="Shader" path="res://assets/shaders/transition/diamond-based-screen-transition.gdshader" id="1_lydbn"]
 
 [resource]
 shader = ExtResource("1_lydbn")

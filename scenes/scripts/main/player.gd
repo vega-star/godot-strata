@@ -114,9 +114,7 @@ func _physics_process(delta): # General movement function
 	velocity *= 1.0 - (air_friction * delta)
 	move_and_slide()
 	
-	# global_position = global_position.clamp(Vector2.ZERO,get_viewport_rect().size) # Clamps player position inside screen size
-	
-	var limit_below = Vector2(get_viewport_rect().size.x - 30, get_viewport_rect().size.y - 40)
+	var limit_below = Vector2(get_viewport_rect().size.x - 30, get_viewport_rect().size.y - 25)
 	global_position = global_position.clamp(Vector2.ZERO,limit_below)
 
 func update_animation_state(): 

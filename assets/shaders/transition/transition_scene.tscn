@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://cx3klkrk3nesh"]
 
-[ext_resource type="Script" path="res://shaders/transition/transition_controller.gd" id="1_4hvhs"]
-[ext_resource type="Shader" path="res://shaders/transition/diamond-based-screen-transition.gdshader" id="1_yh4l6"]
+[ext_resource type="Script" path="res://assets/shaders/transition/transition_controller.gd" id="1_4hvhs"]
+[ext_resource type="Shader" path="res://assets/shaders/transition/diamond-based-screen-transition.gdshader" id="1_yh4l6"]
 [ext_resource type="Theme" uid="uid://fmibt6brra62" path="res://assets/themes/monospace_vt323.tres" id="3_i5skl"]
 
 [sub_resource type="Animation" id="Animation_85u8s"]

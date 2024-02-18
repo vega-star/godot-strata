@@ -1,0 +1,59 @@
+{
+    "enemy": {
+        "scene": "res://entities/dummy_enemies/enemy.tscn", 
+        "type": 0,
+        "contain_rules": false,
+        "contain_items": true,
+        "drops": {"items": [false,"secondary_ammo","health_capsule"], "chances": [0,80,90,20001], "range": 100}
+    },
+    "striker_1": {
+        "scene": "res://entities/dummy_enemies/enemy.tscn", 
+        "type": 0,
+        "contain_rules": false,
+        "contain_items": true,
+        "drops": {"items": [false,"secondary_ammo","health_capsule"], "chances": [0,80,90,20001], "range": 100}
+    },
+	"striker_swarm_1": {
+        "scene": "res://entities/dummy_enemies/enemy.tscn", 
+        "type": 1,
+        "contain_rules": true,
+        "contain_items": false,
+        "rules": {"spawn_override": "center", "swarm": {"method": 0, "separation": 30, "amount": 5}}
+    },
+	"striker_swarm_2": {
+        "scene": "res://entities/dummy_enemies/enemy.tscn", 
+        "type": 1,
+        "contain_rules": true,
+        "contain_items": false,
+        "rules": {"spawn_override": "bottom", 
+        "swarm": {"method": 1, "separation": 50, "amount": 3}}
+    },
+	"vanguard": {
+        "scene": "res://entities/enemies/vanguard.tscn", 
+        "type": 3,
+        "contain_rules": true,
+        "contain_items": false,
+        "rules": {"spawn_override": "center", "challenge": true}
+    },
+	"aegis_1": {
+        "scene": "res://entities/dummy_enemies/enemy.tscn", 
+        "type": 4,
+        "contain_rules": true,
+        "contain_items": false,
+        "rules": {"spawn_override": "center"}
+    },
+	"cargo_ship": {
+        "scene": "res://entities/enemies/cargo-ship.tscn", 
+        "type": 1,
+        "contain_rules": true,
+        "contain_items": false,
+        "rules": {"spawn_override": "bottom"}
+    },
+    "composite_enemy": {
+        "scene": "res://entities/dummy_enemies/composite_enemy.tscn", 
+        "type": 2,
+        "contain_rules": true,
+        "contain_items": false,
+        "rules": {"spawn_override": "center", "challenge": true}
+    }
+}

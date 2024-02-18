@@ -1,21 +1,26 @@
 extends Line2D
 
-var current_pos
-var source_pos
-@export var append_line : NodePath
-@export var line_speed : float = 10
-@export var trail_length : int = 50
+var position_offset : Vector2
+var current_pos : Vector2
+@export var trail_length : int = 30
+@export var movement_speed = 10
+var trail_size_flicker : float = 1.2
+var range_value : float  = 0.2
 
 func _ready():
-	source_pos = get_node(append_line)
-	pass
+	randomize()
+	position_offset = self.position
 
 func _process(delta):
-	global_position = Vector2(0,0)
-	current_pos = source_pos.global_position
+	global_position = position_offset
+	current_pos = owner.global_position
 	add_point(current_pos)
 	
 	if get_point_count() > trail_length:
 		remove_point(0)
-	# current_pos = global_position
-	# clamp(width, 0, 50)
+	
+	for p in range(get_point_count()):
+		var rand_vector := Vector2( randf_range(-range_value, range_value), randf_range(-range_value, range_value) )
+		points[p] += (Vector2.LEFT * movement_speed + ( rand_vector * trail_size_flicker))
+	
+

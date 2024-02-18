@@ -1,0 +1,30 @@
+[gd_scene load_steps=6 format=3 uid="uid://vi1edwldfrtq"]
+
+[ext_resource type="Script" path="res://entities/composite_elements/composite_enemy_module.gd" id="1_371ub"]
+[ext_resource type="PackedScene" uid="uid://bdfaybp4djcn2" path="res://components/status/health_component.tscn" id="2_0d728"]
+[ext_resource type="PackedScene" uid="uid://c4rkui846g2ue" path="res://components/status/combat_component.tscn" id="3_1pvw1"]
+[ext_resource type="PackedScene" uid="uid://c3atqdge540t0" path="res://components/status/hitbox_component.tscn" id="3_cq3ul"]
+[ext_resource type="PackedScene" uid="uid://bfy4edhtjb4rs" path="res://components/status/health_bar_component.tscn" id="5_k465t"]
+
+[node name="CompositeEnemyModule" type="Node2D" groups=["enemy"]]
+light_mask = 2
+visibility_layer = 2
+script = ExtResource("1_371ub")
+
+[node name="CombatComponent" parent="." instance=ExtResource("3_1pvw1")]
+
+[node name="HealthBarComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("5_k465t")]
+health_component = NodePath("../HealthComponent")
+
+[node name="HealthComponent" parent="." node_paths=PackedStringArray("health_bar") instance=ExtResource("2_0d728")]
+health_bar = NodePath("../HealthBarComponent")
+max_health = 150
+
+[node name="HitboxComponent" parent="." node_paths=PackedStringArray("health_component", "combat_component") instance=ExtResource("3_cq3ul")]
+collision_layer = 2
+collision_mask = 5
+health_component = NodePath("../HealthComponent")
+combat_component = NodePath("../CombatComponent")
+
+[node name="ModuleHitbox" type="CollisionPolygon2D" parent="HitboxComponent"]
+polygon = PackedVector2Array(-42, 30, -52, -3, -35, -24, 95, -31, 100, -22, 62, 30)

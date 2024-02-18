@@ -1,0 +1,40 @@
+[gd_scene load_steps=8 format=3 uid="uid://dqkmbvpbyrhg0"]
+
+[ext_resource type="Script" path="res://entities/composite_elements/composite_enemy_barrier.gd" id="1_j2kjx"]
+[ext_resource type="Texture2D" uid="uid://bir22ts5blvfa" path="res://assets/textures/entities/enemies/misc/composite_enemy_module_core_barrier.png" id="1_vwe36"]
+[ext_resource type="PackedScene" uid="uid://c4rkui846g2ue" path="res://components/status/combat_component.tscn" id="2_7smc5"]
+[ext_resource type="Script" path="res://components/status/health_component.gd" id="2_iay4x"]
+[ext_resource type="PackedScene" uid="uid://bfy4edhtjb4rs" path="res://components/status/health_bar_component.tscn" id="3_0l5c2"]
+[ext_resource type="PackedScene" uid="uid://c3atqdge540t0" path="res://components/status/hitbox_component.tscn" id="3_1pi1t"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yyxyn"]
+size = Vector2(4, 28)
+
+[node name="CompositeEnemyBarrier" type="Node2D"]
+light_mask = 2
+visibility_layer = 2
+script = ExtResource("1_j2kjx")
+
+[node name="BarrierSprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_vwe36")
+
+[node name="HealthBarComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("3_0l5c2")]
+rotation = 1.5708
+health_component = NodePath("../HealthComponent")
+
+[node name="CombatComponent" parent="." instance=ExtResource("2_7smc5")]
+
+[node name="HealthComponent" type="Node" parent="." node_paths=PackedStringArray("health_bar") groups=["shielding"]]
+script = ExtResource("2_iay4x")
+health_bar = NodePath("../HealthBarComponent")
+max_health = 20
+
+[node name="HitboxComponent" parent="." node_paths=PackedStringArray("health_component", "combat_component") groups=["shielding"] instance=ExtResource("3_1pi1t")]
+collision_layer = 2
+collision_mask = 5
+health_component = NodePath("../HealthComponent")
+combat_component = NodePath("../CombatComponent")
+is_shielding = true
+
+[node name="BarrierHitbox" type="CollisionShape2D" parent="HitboxComponent"]
+shape = SubResource("RectangleShape2D_yyxyn")

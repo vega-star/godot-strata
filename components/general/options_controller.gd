@@ -2,7 +2,7 @@ extends CanvasLayer
 
 signal options_changed
 
-const keybind_file_path = "res://components/keybinding_reg.json"
+const keybind_file_path = "res://data/keybinding_reg.json"
 const config_file_path = "user://config.cfg"
 var config_file = ConfigFile.new()
 var config_file_load = config_file.load(config_file_path) 

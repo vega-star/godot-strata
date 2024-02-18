@@ -1,0 +1,5 @@
+{
+	"health_capsule": {"scene": "res://entities/items/health_capsule.tscn", "accumulate": true},
+	"secondary_ammo": {"scene": "res://entities/items/secondary_ammo.tscn", "accumulate": true},
+	"damage_boost": {"scene": "", "accumulate": false}
+}

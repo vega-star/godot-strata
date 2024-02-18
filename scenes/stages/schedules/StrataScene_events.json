@@ -9,6 +9,24 @@
             "random_spawn_interval": 1.5
         }
     },
+    "test_composite_enemy": {
+        "event_type": "spawn_challenge",
+        "event_description": "Spawns a mini boss. Can pause stage timer if required, and only resumes when it recieves a signal from the enemy.",
+        "set_timer": true,
+        "has_rules": true,
+        "event_properties": {
+            "enemy": "composite_enemy",
+            "challenge_type": 1,
+            "event_timer": {
+                "pause_stage_timer": true,
+                "timer_period": 2.0
+            },
+            "rules": {
+                "challenge": true,
+                "spawn_override": "center"
+            }
+        }
+    },
     "spawn_single_enemy_1": {
         "event_type": "spawn_enemy",
         "event_description": "Spawn a single specific enemy in scene. Useful for certain controlled events.",
@@ -60,24 +78,24 @@
         "has_rules": false,
         "event_properties": {
             "enemy_array": ["striker_1","striker_1","striker_1","striker_1","striker_1","striker_1","striker_1","striker_1","striker_1","striker_1"],
-            "sequence_cooldown": 1,
+            "sequence_cooldown": 2,
             "event_timer": {
                 "pause_stage_timer": false,
-                "timer_period": 5.0
+                "timer_period": 10.0
             }
         }
     },
     "test_miniboss": {
-        "event_type": "spawn_miniboss",
+        "event_type": "spawn_challenge",
         "event_description": "Spawns a mini boss. Can pause stage timer if required, and only resumes when it recieves a signal from the enemy.",
         "set_timer": true,
         "has_rules": false,
         "event_properties": {
-            "challenge_enemy": "vanguard",
-            "challenge_type": "miniboss",
+            "enemy": "vanguard",
+            "challenge_type": 1,
             "event_timer": {
                 "pause_stage_timer": true,
-                "timer_period": 5.0
+                "timer_period": 2.0
             }
         }
     },
@@ -111,7 +129,8 @@
         "set_timer": true,
         "has_rules": false,
         "event_properties": {
-            "active": false,
+            "active": true,
+            "random_spawn_interval": 2,
             "event_timer": {
                 "pause_stage_timer": false,
                 "timer_period": 20
@@ -132,6 +151,19 @@
             }
         }
     },
+    "toggle_random_before_filler": {
+        "event_type": "toggle_random",
+        "event_description": "Toggles the period on which random enemies can spawn on screen",
+        "set_timer": true,
+        "has_rules": false,
+        "event_properties": {
+            "active": false,
+            "event_timer": {
+                "pause_stage_timer": false,
+                "timer_period": 20
+            }
+        }
+    },
     "test_filler": {
         "event_type": "filler",
         "event_description": "Acts as a empty filler between previous events and a certain portion of the stage. It just needs the 'stop_before' variable for it to work",
@@ -143,14 +175,27 @@
             }
         }
     },
+    "toggle_random_during_filler": {
+        "event_type": "toggle_random",
+        "event_description": "Toggles the period on which random enemies can spawn on screen",
+        "set_timer": true,
+        "has_rules": false,
+        "event_properties": {
+            "active": true,
+            "event_timer": {
+                "pause_stage_timer": false,
+                "timer_period": 20
+            }
+        }
+    },
     "event_010": {
-        "event_type": "spawn_boss",
+        "event_type": "spawn_challenge",
         "event_description": "Always stops time, acts as a great threat to be overcome during stage. Can be final or not. Has the power to change certain aspects of the scene itself.",
         "set_timer": true,
         "has_rules": false,
         "event_properties": {
-            "challenge_enemy": "aegis_1",
-            "challenge_type": "boss"
+            "enemy": "aegis_1",
+            "challenge_type": 0
         }
     }
 }

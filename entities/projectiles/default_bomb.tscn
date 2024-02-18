@@ -78,6 +78,8 @@ radius = 7.0
 radius = 7.0
 
 [node name="DefaultBomb" type="Area2D"]
+light_mask = 2
+visibility_layer = 2
 collision_layer = 4
 collision_mask = 10
 script = ExtResource("1_ckq4a")
@@ -89,6 +91,8 @@ frame_progress = 0.68585
 
 [node name="BombExplosionSprite" type="Sprite2D" parent="."]
 visible = false
+light_mask = 2
+visibility_layer = 2
 scale = Vector2(0.047, 0.047)
 texture = ExtResource("3_iiabf")
 
@@ -103,7 +107,7 @@ modulate = Color(0.686275, 0, 0.164706, 1)
 rotation = 1.5708
 shape = SubResource("CircleShape2D_oan53")
 disabled = true
-debug_color = Color(0, 0.6, 0.701961, 0.419608)
+debug_color = Color(0.843137, 0, 0.203922, 0.419608)
 
 [node name="OutsideScreenCheck" type="VisibleOnScreenNotifier2D" parent="."]
 position = Vector2(-193, 0)
@@ -116,6 +120,7 @@ collision_mask = 10
 [node name="SelfProjectileBox" type="CollisionShape2D" parent="HitboxComponent"]
 rotation = -1.5708
 shape = SubResource("CircleShape2D_1g5hp")
+debug_color = Color(0.988235, 0, 0.309804, 0.419608)
 
 [connection signal="bomb_exploded" from="." to="." method="_bomb_exploded"]
 [connection signal="screen_exited" from="OutsideScreenCheck" to="." method="_on_outside_screen_check_exit_detected"]

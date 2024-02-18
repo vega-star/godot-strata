@@ -12,9 +12,10 @@ func _on_presence_checker_screen_exited(): # Deletes item if it goes away from t
 	queue_free()
 
 func _on_area_entered(area):
-	print('{0} COLLIDED'.format({0:area}))
 	if area is HitboxComponent:
-		var equipment_module = area.get_owner().equipment_module
-		# equipment_module.secondary_ammo += ammo_quantity
-		equipment_module.add_ammo(ammo_quantity)
-		queue_free()
+		for group in area.owner.get_groups():
+			match group:
+				'player':
+					var equipment_module = area.get_owner().equipment_module
+					equipment_module.add_ammo(ammo_quantity)
+					queue_free()

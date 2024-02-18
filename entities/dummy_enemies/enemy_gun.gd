@@ -1,27 +1,40 @@
 extends Area2D
 
-const enemy_id = 0
-const enemy_name = "enemy"
-const alpha_modulation = 0.5
+signal weapon_destroyed(gun_name)
 
-@export var contact_damage = 1
+# Nodes
+
 @onready var self_sprite = $EnemySprite
 @onready var self_hitbox = $HitboxComponent
 @onready var drop_component : DropComponent
+@onready var combat_component : CombatComponent = $CombatComponent
+@onready var health_component : HealthComponent = $HealthComponent
+@onready var health_bar_component : HealthBarComponent = $HealthBarComponent
+@onready var hitbox_component : HitboxComponent = $HitboxComponent
+@onready var projectile_container = $TemporaryContainer
+
+# Properties
+const alpha_modulation = 0.5
 const damage_effect_flicker_count = 3
 const damage_effect_flicker = 0.15
+const self_scene_path = "res://entities/dummy_enemies/enemy_gun.tscn"
 
 @onready var projectile_scene = preload("res://entities/projectiles/default_enemy_laser.tscn")
 @onready var player = get_tree().get_first_node_in_group('Player')
-@onready var projectile_container = $TemporaryContainer
-var shoot_cooldown : bool = false
+@export var contact_damage = 1
+@export var set_health_bar : bool = false
 @export var rate_of_fire : float = 1
-@export var rof_randomness : float = 1.2
+@export var rof_randomness : float = 1.15
+ 
+var shoot_cooldown : bool = false
+
+# Unique identifier for modularization
 
 func _ready():
 	randomize()
+	health_bar_component.visible = set_health_bar
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if get_tree().has_group('Player'): look_at(player.global_position)
 	
 	if !shoot_cooldown:
@@ -40,8 +53,20 @@ func _on_area_entered(body):
 	if body is HitboxComponent:
 		body.generate_damage(contact_damage)
 
-func die():
+func die(): # Temporarily destroys the enemy, but not really
+	weapon_destroyed.emit(self)
+
+func destroy(): # Destroys the enemy definetely
 	queue_free()
+
+func deactivate():
+	self.visible = false
+	pass
+
+func reactivate():
+	health_component.reset_health()
+	self.visible = true
+	pass
 
 func _on_health_component_health_change(_previous_value, _new_value, type):
 	if type:

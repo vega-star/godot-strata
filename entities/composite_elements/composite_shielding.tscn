@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://cxk85efxpd3at"]
+
+[ext_resource type="Script" path="res://components/status/hitbox_component.gd" id="1_4ah76"]
+[ext_resource type="PackedScene" uid="uid://bdfaybp4djcn2" path="res://components/status/health_component.tscn" id="1_ocevq"]
+
+[node name="CompositeShielding" type="Area2D" node_paths=PackedStringArray("health_component")]
+collision_layer = 2
+collision_mask = 5
+script = ExtResource("1_4ah76")
+health_component = NodePath("HealthComponent")
+is_shielding = true
+
+[node name="HealthComponent" parent="." instance=ExtResource("1_ocevq")]
+max_health = 25

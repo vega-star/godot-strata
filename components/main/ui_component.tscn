@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://chy6yrcopxpke" path="res://components/ui/ui_overlay.tscn" id="1_xemg0"]
 [ext_resource type="PackedScene" uid="uid://be4idvqpl0pds" path="res://scenes/pause_menu.tscn" id="2_s2xby"]
 [ext_resource type="PackedScene" uid="uid://70mnen3idkqt" path="res://components/ui/game_over_screen.tscn" id="3_8xi75"]
-[ext_resource type="PackedScene" uid="uid://cx3klkrk3nesh" path="res://shaders/transition/transition_scene.tscn" id="4_q5kqp"]
+[ext_resource type="PackedScene" uid="uid://cx3klkrk3nesh" path="res://assets/shaders/transition/transition_scene.tscn" id="4_q5kqp"]
 
 [node name="UIComponent" type="Control"]
 layout_mode = 3

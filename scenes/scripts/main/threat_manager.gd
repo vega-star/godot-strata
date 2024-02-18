@@ -36,8 +36,8 @@ func _ready():
 	if debug_generator:
 		threat_generator.debug = true
 		print("ThreatGenerator located in %s with debug active" % current_stage)
-	var raw_events_file : String = "res://stages/schedules/{0}_events.json".format({0:current_stage})
-	var raw_stage_file : String = "res://stages/schedules/{0}_stage.json".format({0:current_stage})
+	var raw_events_file : String = "res://scenes/stages/schedules/{0}_events.json".format({0:current_stage})
+	var raw_stage_file : String = "res://scenes/stages/stagefiles/{0}_stage.json".format({0:current_stage})
 	
 	await load_stage_file(raw_stage_file)
 	await owner.stage_started # The scene controls when the schedule starts
@@ -99,8 +99,8 @@ func execute_event(event, event_name = "UNNAMED_EVENT"):
 			threat_generator.generate_threat(stage_allowed_random_enemies[select_random], rule_override)
 		"spawn_sequence":
 			spawn_sequence(event["event_properties"]["enemy_array"], event["event_properties"]["sequence_cooldown"], rule_override)
-		"spawn_miniboss", "spawn_boss":
-			threat_generator.generate_threat(event["event_properties"]["challenge_enemy"], rule_override)
+		"spawn_challenge":
+			threat_generator.generate_threat(event["event_properties"]["enemy"], rule_override)
 		_:
 			push_error('%s | INVALID EVENT TYPE' % event_name)
 	
@@ -118,7 +118,9 @@ func set_event_timer(event, event_name = "UNNAMED EVENT", override = null): # Se
 		var property_value = event["event_properties"]["event_timer"][property]
 		match property:
 			"pause_stage_timer":
-				if property_value == true:
+				if property_value == true: # Switch that only unpauses the game after the challenge is completed
+					# Note that if the signal isn't connected to the enemy, ThreatGenerator will not send the signal and timer will stay paused forever
+					# Also, if the enemy spawned by the ThreatGenerator doesn't emit a enemy_defeated signal, it will not pause at all
 					pause_stage_timer(true)
 					await threat_generator.challenge_completed
 					pause_stage_timer(false)

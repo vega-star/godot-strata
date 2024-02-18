@@ -9,8 +9,9 @@ const alpha_modulation = 0.5
 @export var speed = 150
 @export var contact_damage = 1
 @onready var self_sprite = $EnemySprite
-@onready var self_hitbox = $HitboxComponent
-@onready var drop_component : DropComponent
+@onready var self_hitbox : HitboxComponent = $HitboxComponent
+@onready var combat_component : CombatComponent = $CombatComponent
+@onready var drop_component : DropComponent = $DropComponent
 const damage_effect_flicker_count = 3
 const damage_effect_flicker = 0.15
 
@@ -29,7 +30,6 @@ func _on_visible_on_screen_notifier_2d_screen_exited(): # Deletes the enemy enti
 
 func die(): # Entity death sequence, called by HealthComponent when health <= 0
 	enemy_died.emit()
-	if drop_component: await drop_component.item_dropped
 	queue_free()
 
 func _on_health_component_health_change(_previous_value, _new_value, type):
@@ -39,4 +39,3 @@ func _on_health_component_health_change(_previous_value, _new_value, type):
 			await get_tree().create_timer(damage_effect_flicker).timeout
 			self_sprite.modulate = Color(255,255,255)
 			await get_tree().create_timer(damage_effect_flicker).timeout
-

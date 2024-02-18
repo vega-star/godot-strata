@@ -1,26 +1,26 @@
-[gd_scene load_steps=8 format=3 uid="uid://dqge7meaumoi5"]
+[gd_scene load_steps=9 format=3 uid="uid://dqge7meaumoi5"]
 
 [ext_resource type="Texture2D" uid="uid://dph1k44grln8n" path="res://assets/textures/entities/enemies/misc/enemy-gun.png" id="1_e72jq"]
 [ext_resource type="Script" path="res://entities/dummy_enemies/enemy_gun.gd" id="1_o7ikq"]
 [ext_resource type="PackedScene" uid="uid://bfy4edhtjb4rs" path="res://components/status/health_bar_component.tscn" id="3_45q46"]
+[ext_resource type="PackedScene" uid="uid://c4rkui846g2ue" path="res://components/status/combat_component.tscn" id="4_7tmbe"]
 [ext_resource type="PackedScene" uid="uid://bdfaybp4djcn2" path="res://components/status/health_component.tscn" id="4_22w5n"]
 [ext_resource type="PackedScene" uid="uid://c3atqdge540t0" path="res://components/status/hitbox_component.tscn" id="6_hyqdx"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_57ns0"]
-radius = 30.1358
+radius = 14.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_effn3"]
-radius = 31.461
+radius = 14.0
 
-[node name="EnemyGun" type="Area2D" groups=["enemies"]]
-scale = Vector2(0.7, 0.7)
+[node name="EnemyGun" type="Area2D" groups=["enemy"]]
 collision_layer = 2
 collision_mask = 5
 script = ExtResource("1_o7ikq")
 rate_of_fire = 2.0
 
 [node name="GunMuzzle" type="Marker2D" parent="."]
-position = Vector2(32.8571, 0)
+position = Vector2(16.8571, 0)
 
 [node name="EnemySprite" type="Sprite2D" parent="."]
 rotation = 3.14159
@@ -32,8 +32,12 @@ shape = SubResource("CircleShape2D_57ns0")
 debug_color = Color(0, 0.6, 0.701961, 0)
 
 [node name="HealthBarComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("3_45q46")]
-position = Vector2(0, 22.8571)
+visible = false
+position = Vector2(0, 19.8571)
 health_component = NodePath("../HealthComponent")
+fixed_rotation = true
+
+[node name="CombatComponent" parent="." instance=ExtResource("4_7tmbe")]
 
 [node name="HealthComponent" parent="." node_paths=PackedStringArray("health_bar") instance=ExtResource("4_22w5n")]
 health_bar = NodePath("../HealthBarComponent")

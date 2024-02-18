@@ -47,8 +47,8 @@ func _ready():
 func _process(_delta): # Updates stage timer bar
 	hud_component.stage_progress = stage_timer.time_left
 	
+	# Spawns enemies randomly
 	if random_loop_active and random_loop_available:
-		print('LOOP ITERATED')
 		random_loop_available = false
 		var select_random = randi() % stage_manager.stage_dict["allowed_random_enemies"].size() # Remember, this array comes from the [Stage Name]_stage.json file
 		threat_generator.generate_threat(stage_manager.stage_dict["allowed_random_enemies"][select_random])
@@ -87,7 +87,7 @@ func start_stage_sequence(): # Starting animations, fade-in, etc.
 func end_stage_sequence(): # Fade-out, stage finished screen, etc.
 	player.switch_controls_lock.emit()
 	var player_move_to_center = get_tree().create_tween()
-	player_move_to_center.tween_property(player,"position.x",600, 0.95)
+	player_move_to_center.tween_property(player,"global_position.x",1200, 0.95)
 	
 	$UIComponent/ScreenTransitionLayer.visible = true
 	$UIComponent/ScreenTransitionLayer/StageCompleted.visible = true

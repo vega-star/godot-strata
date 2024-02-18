@@ -30,8 +30,6 @@ visibility_layer = 2
 position = Vector2(185, 270)
 
 [node name="Player" parent="." instance=ExtResource("5_4q2cg")]
-light_mask = 2
-visibility_layer = 2
 position = Vector2(-137, 82)
 
 [node name="CameraConnection" type="RemoteTransform2D" parent="Player"]

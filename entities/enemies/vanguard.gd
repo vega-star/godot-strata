@@ -1,4 +1,4 @@
-class_name Miniboss extends Area2D
+extends Area2D
 
 signal enemy_defeated
 
