@@ -20,24 +20,16 @@ var weapons_dict : Dictionary
 @onready var player = get_tree().get_first_node_in_group('player')
 
 # Behaviour variables
+@export var debug : bool = false
 var pursuit : bool = true
-
-func _physics_process(_delta):
-	if is_instance_valid(player):
-		player_y_position = player.global_position.y
-	
-	if pursuit:
-		global_position.y = lerp(global_position.y, player_y_position, 0.005)
-		clamp(global_position.y, 100, 450)
-	pass
-
-func _on_area_entered(body):
-	if body.owner.get_class() == 'CharacterBody2D': # Generate damage to itself
-		self_hitbox.generate_damage(contact_damage)
-	if body is HitboxComponent: # Generate damage to the player
-		body.generate_damage(contact_damage)
+const base_pursuit_speed : float = 0.2
+const max_pursuit_speed : float = 1
+var pursuit_speed : float
+var pursuit_speed_acceleration : float = 1.01
 
 func _ready():
+	pursuit_speed = base_pursuit_speed
+	
 	var initial_tween = get_tree().create_tween()
 	initial_tween.tween_property(self, "position",Vector2(720,270),0.7)
 	
@@ -50,6 +42,28 @@ func _ready():
 		weapons_dict[part.name] = {
 			"active": true
 		}
+
+func _physics_process(delta):
+	if is_instance_valid(player):
+		player_y_position = player.global_position.y
+	
+	if pursuit:
+		global_position.y = lerp(global_position.y, player_y_position, pursuit_speed * delta)
+		clamp(global_position.y, 100, 450)
+	
+	if pursuit_speed < max_pursuit_speed:
+		pursuit_speed *= pursuit_speed_acceleration
+	
+	#if laser_active:
+	#	if laser_charging:
+	#		pass
+	pass
+
+func _on_area_entered(body):
+	if body.owner.get_class() == 'CharacterBody2D': # Generate damage to itself
+		self_hitbox.generate_damage(contact_damage)
+	if body is HitboxComponent: # Generate damage to the player
+		body.generate_damage(contact_damage)
 
 func die():
 	enemy_defeated.emit()
@@ -76,25 +90,20 @@ func update_weapon_status(part_node, is_active):
 	var gun_activity_sum : int
 	var gun_activity = []
 	
-	print(weapons_dict)
 	weapons_dict[part_node.name]["active"] = is_active
 	
 	for weapon in weapons_dict:
 		gun_activity.append(int(weapons_dict[weapon]["active"]))
 	
-	print(gun_activity)
 	for activity in gun_activity:
 		gun_activity_sum += activity
 	
-	print(gun_activity.size())
-	
 	if gun_activity_sum == 0:
-		print('No active guns detected')
-		update_composite_status(part_node, 2)
+		if debug: print('No active guns detected')
 	elif gun_activity_sum == gun_activity.size() / 2:
-		print('Half of the guns are active')
+		if debug: print('Half of the guns are active')
 	else:
-		print('Guns appear to be nominal')
+		if debug: print('Guns appear to be nominal')
 
 func update_barrier_status():
 	# print('Barrier destroyed')

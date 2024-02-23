@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scenes/scripts/ui/main_menu.gd" id="1_kc4of"]
 [ext_resource type="Theme" uid="uid://b1a5sjt2xibwo" path="res://assets/themes/strata_theme.tres" id="2_r4pjr"]
 [ext_resource type="PackedScene" uid="uid://c8sis2bmuopvk" path="res://scenes/menu_bg.tscn" id="2_wwxxs"]
-[ext_resource type="PackedScene" uid="uid://duws3qk7e45vs" path="res://scenes/options.tscn" id="3_tl6qq"]
+[ext_resource type="PackedScene" uid="uid://duws3qk7e45vs" path="res://scenes/singletons/options.tscn" id="3_tl6qq"]
 [ext_resource type="Texture2D" uid="uid://b1gfbx416f357" path="res://assets/textures/static/github_icon_outline.png" id="4_2esso"]
 [ext_resource type="PackedScene" uid="uid://cx3klkrk3nesh" path="res://assets/shaders/transition/transition_scene.tscn" id="4_yndog"]
 [ext_resource type="Texture2D" uid="uid://bl66ij78aurfm" path="res://assets/textures/static/gear_icon_outline.png" id="5_4bqm0"]

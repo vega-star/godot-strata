@@ -3,7 +3,7 @@ extends Node2D
 signal main_loaded
 signal cm_weapon_update(self_node)
 signal cm_update(self_node, is_active)
-signal weapon_activated
+signal weapon_toggled
 
 @export var module_sprite : Sprite2D
 @export var weapon : Area2D
@@ -34,22 +34,24 @@ func _on_weapon_destroyed(affected_weapon): # Respawn gun if the module is still
 	if has_respawn_limit: weapon_respawn_count += 1
 	
 	if weapon_respawn_count == weapon_respawn_limit:
+		weapon_deactivated = true
+	
+	if weapon_respawn_count == weapon_respawn_limit:
 		affected_weapon.destroy()
 	else:
 		affected_weapon.deactivate()
 		cm_weapon_update.emit(self, false)
 		
 		await get_tree().create_timer(weapon_respawn_timeout, false).timeout
-		if weapon_deactivated: await weapon_activated
+		if weapon_deactivated: await weapon_toggled
 		
 		cm_weapon_update.emit(self, true)
-		if vertical_inversion: affected_weapon.position.y = -affected_weapon.position.y
 		affected_weapon.reactivate()
 
 func toggle_weaponry(value):
 	weapon_deactivated = value
 	if value:
-		weapon_activated.emit()
+		weapon_toggled.emit()
 
 func die():
 	cm_update.emit(self, 0)

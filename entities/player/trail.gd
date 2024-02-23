@@ -11,7 +11,7 @@ func _ready():
 	randomize()
 	position_offset = self.position
 
-func _process(delta):
+func _process(_delta):
 	global_position = position_offset
 	current_pos = owner.global_position
 	add_point(current_pos)

@@ -25,8 +25,7 @@
         "type": 1,
         "contain_rules": true,
         "contain_items": false,
-        "rules": {"spawn_override": "bottom", 
-        "swarm": {"method": 1, "separation": 50, "amount": 3}}
+        "rules": {"spawn_override": "bottom", "swarm": {"method": 1, "separation": 50, "amount": 3}}
     },
 	"vanguard": {
         "scene": "res://entities/enemies/vanguard.tscn", 

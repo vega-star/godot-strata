@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=3 uid="uid://l3nrofdqijr6"]
+
+[ext_resource type="Script" path="res://components/ui/statistics_controller.gd" id="1_kvule"]
+[ext_resource type="FontFile" uid="uid://dwtntl5rvhwgr" path="res://assets/themes/CRYSRG__.TTF" id="1_xnn18"]
+
+[sub_resource type="Theme" id="Theme_vvt77"]
+default_font = ExtResource("1_xnn18")
+default_font_size = 16
+
+[node name="StatisticsConsole" type="BoxContainer"]
+offset_right = 130.0
+offset_bottom = 189.0
+theme_override_constants/separation = 0
+script = ExtResource("1_kvule")
+
+[node name="DefaultStatisticsList" type="ItemList" parent="."]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+theme = SubResource("Theme_vvt77")
+theme_override_font_sizes/font_size = 12
+text_overrun_behavior = 4
+
+[node name="DefaultValuesList" type="ItemList" parent="."]
+custom_minimum_size = Vector2(70, 0)
+layout_mode = 2
+theme = SubResource("Theme_vvt77")
+theme_override_font_sizes/font_size = 12
+
+[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]

@@ -65,16 +65,18 @@ script = ExtResource("1_7u43o")
 
 [node name="Sky" type="ParallaxLayer" parent="."]
 modulate = Color(1, 1, 1, 0.27451)
-motion_mirroring = Vector2(960, 0)
+position = Vector2(-30, -30)
+motion_mirroring = Vector2(1014, 0)
 
 [node name="SkyDithering" type="Sprite2D" parent="Sky"]
-position = Vector2(480, 270)
-scale = Vector2(1, 1.00185)
+position = Vector2(508.1, 298.105)
+scale = Vector2(1.05604, 1.10331)
 texture = ExtResource("2_jxvmu")
 
 [node name="SkyBG" type="Sprite2D" parent="Sky"]
 show_behind_parent = true
-scale = Vector2(1, 1.00185)
+position = Vector2(1, 0)
+scale = Vector2(1.05625, 1.1037)
 texture = ExtResource("3_mjtgv")
 centered = false
 region_enabled = true
@@ -108,7 +110,7 @@ modulate = Color(1, 1, 1, 0.27451)
 motion_mirroring = Vector2(960, 0)
 
 [node name="MediumCloudsSprite" type="Sprite2D" parent="MediumClouds"]
-position = Vector2(0, 293)
+position = Vector2(0, 322)
 texture = ExtResource("4_ufu03")
 centered = false
 region_enabled = true
@@ -116,10 +118,11 @@ region_rect = Rect2(0, 306, 960, 104)
 
 [node name="CloserClouds" type="ParallaxLayer" parent="."]
 modulate = Color(1, 1, 1, 0.27451)
+position = Vector2(-1, 0)
 motion_mirroring = Vector2(960, 0)
 
 [node name="CloserClouds" type="Sprite2D" parent="CloserClouds"]
-position = Vector2(0, 317)
+position = Vector2(0, 360)
 texture = ExtResource("7_nc7gk")
 centered = false
 region_enabled = true
@@ -132,12 +135,12 @@ motion_offset = Vector2(0, -20)
 motion_mirroring = Vector2(960, 0)
 
 [node name="WaterSprite" type="Sprite2D" parent="WaterLevel"]
-position = Vector2(0, 509)
+position = Vector2(-12, 519)
 texture = ExtResource("5_7fuav")
 centered = false
 region_enabled = true
 region_rect = Rect2(0, 0, 960, 31)
 
 [node name="WaterGlow" type="Sprite2D" parent="WaterLevel"]
-position = Vector2(480, 525)
+position = Vector2(468, 535)
 texture = ExtResource("6_k1nvf")

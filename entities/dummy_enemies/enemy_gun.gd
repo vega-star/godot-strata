@@ -4,7 +4,8 @@ signal weapon_destroyed(gun_name)
 
 # Nodes
 
-@onready var self_sprite = $EnemySprite
+@export var self_sprite : Sprite2D
+@export var muzzle : Marker2D
 @onready var self_hitbox = $HitboxComponent
 @onready var drop_component : DropComponent
 @onready var combat_component : CombatComponent = $CombatComponent
@@ -31,6 +32,10 @@ var shoot_cooldown : bool = false
 # Unique identifier for modularization
 
 func _ready():
+	# Default node connections
+	if !self_sprite: self_sprite = $EnemySprite
+	if !muzzle: muzzle = $GunMuzzle
+	
 	randomize()
 	health_bar_component.visible = set_health_bar
 
@@ -61,12 +66,11 @@ func destroy(): # Destroys the enemy definetely
 
 func deactivate():
 	self.visible = false
-	pass
 
 func reactivate():
 	health_component.reset_health()
+	health_component.lock_health(false)
 	self.visible = true
-	pass
 
 func _on_health_component_health_change(_previous_value, _new_value, type):
 	if type:

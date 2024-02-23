@@ -28,15 +28,18 @@ var setting_key : bool = false
 var settings_changed : bool = false
 
 func _ready():
+	if visible: visible = false # Just in case I forgot to make this node invisible after making UI changes
+	
 	load_keys()
 	if config_file_load == OK: # Config file generator and loader checker
-		DisplayServer.window_set_mode(config_file.get_value("MAIN_OPTIONS","WINDOW_MODE"))
-		# DisplayServer.window_set_min_size(config_file.get_value("MAIN_OPTIONS","MINIMUM_WINDOW_SIZE"))
+		# DisplayServer.window_set_mode(config_file.get_value("MAIN_OPTIONS","WINDOW_MODE"))
 		
 		var current_toggle_state = config_file.get_value("MAIN_OPTIONS","TOGGLE_FIRE")
-		if current_toggle_state == true: $OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons/ToggleFiring.button_pressed = true
+		if current_toggle_state: $OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons/ToggleFiring.button_pressed = true
 		var current_photosens_state = config_file.get_value("MAIN_OPTIONS","PHOTOSENS_MODE")
-		if current_photosens_state == true: $OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons/Photosens_Mode.button_pressed = true
+		if current_photosens_state: $OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons/Photosens_Mode.button_pressed = true
+		var current_screenshake_state = config_file.get_value("MAIN_OPTIONS","SCREEN_SHAKE")
+		if current_screenshake_state: $OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons/ScreenShake.button_pressed = true
 		
 		config_file.save(config_file_path)
 	else: 
@@ -45,6 +48,7 @@ func _ready():
 		config_file.set_value("MAIN_OPTIONS","MINIMUM_WINDOW_SIZE", Vector2(480,270))
 		config_file.set_value("MAIN_OPTIONS","PHOTOSENS_MODE", false)
 		config_file.set_value("MAIN_OPTIONS","TOGGLE_FIRE", false)
+		config_file.set_value("MAIN_OPTIONS","SCREEN_SHAKE", true)
 		
 		config_file.save(config_file_path)
 
@@ -162,19 +166,24 @@ func _on_exit_check_confirmed():
 func _on_exit_check_canceled():
 	_exit()
 
-# SAVING TO FILE
-
 func _on_toggle_firing_pressed():
-	var button_status = bool($OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons/ToggleFiring.button_pressed)
-	if debug == true: print(button_status)
-	config_file.set_value("MAIN_OPTIONS","TOGGLE_FIRE",button_status)
-	config_file.save(config_file_path)
-	options_changed.emit()
+	button_toggle($OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons/ToggleFiring, "TOGGLE_FIRE")
+	
+	# var button_status = bool($OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons/ToggleFiring.button_pressed)
+	# config_file.set_value("MAIN_OPTIONS","TOGGLE_FIRE",button_status)
+	# config_file.save(config_file_path)
+	# options_changed.emit()
 
 func _on_photosens_mode_pressed():
-	var button_status = bool($OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons/Photosens_Mode.button_pressed)
-	if debug == true: print(button_status)
-	config_file.set_value("MAIN_OPTIONS","PHOTOSENS_MODE",button_status)
+	button_toggle($OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons/Photosens_Mode, "PHOTOSENS_MODE")
+
+func _on_screen_shake_pressed():
+	button_toggle($OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons/ScreenShake, "SCREEN_SHAKE")
+
+func button_toggle(button, config):
+	var button_status = bool(button.button_pressed)
+	if debug: print('Toggled: {0}'.format({0:button_status}))
+	config_file.set_value("MAIN_OPTIONS", config, button_status)
 	config_file.save(config_file_path)
 	options_changed.emit()
 
@@ -192,10 +201,10 @@ func _on_screen_mode_selected(index):
 		DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS,false)
 	DisplayServer.window_set_mode(window_modes[index])
 	config_file.set_value("MAIN_OPTIONS","WINDOW_MODE",window_modes[index])
-	print(window_modes[index])
+	if debug: print('Display format selected: {0}'.format({0:window_modes[index]}))
 	config_file.save(config_file_path)
 
-
-# Foundation basen on a tutorial from Rungeon, most parts had to be rewritten due to changes in Godot 4.2 and new functions were added
+# Foundation based on a tutorial from Rungeon, mostly rewritten due to changes in Godot 4.2 and a lot of other functions were added
+# Even so, his tutorial is great and explore more details about registering and updating keybindings
 # Source: https://www.youtube.com/watch?v=WHGHevwhXCQ
 # Github: https://github.com/trolog/godotKeybindingTutorial

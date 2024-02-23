@@ -6,6 +6,7 @@ const enemy_id = 0
 const enemy_name = "enemy"
 const alpha_modulation = 0.5
 
+@export var score_value = 10
 @export var speed = 150
 @export var contact_damage = 1
 @onready var self_sprite = $EnemySprite
@@ -14,6 +15,9 @@ const alpha_modulation = 0.5
 @onready var drop_component : DropComponent = $DropComponent
 const damage_effect_flicker_count = 3
 const damage_effect_flicker = 0.15
+
+# Debug / testing
+@export var bulk_updating : bool = false
 
 func _physics_process(delta):
 	global_position.x -= speed * delta
@@ -30,6 +34,24 @@ func _on_visible_on_screen_notifier_2d_screen_exited(): # Deletes the enemy enti
 
 func die(): # Entity death sequence, called by HealthComponent when health <= 0
 	enemy_died.emit()
+	
+	if !bulk_updating:
+		Profile.add_run_data("STATISTICS", "ENEMIES_DEFEATED", 1)
+		Profile.add_run_data("STATISTICS", "SCORE", score_value)
+	else:
+		# Bulk add example
+		var bulk_dict = {
+			"Data1": {
+				section = "STATISTICS",
+				stat = "ENEMIES_DEFEATED",
+				value = 1},
+			"Data2": {
+				section = "STATISTICS",
+				stat = "SCORE",
+				value = score_value}
+		}
+		Profile.add_bulk_data(bulk_dict)
+	
 	queue_free()
 
 func _on_health_component_health_change(_previous_value, _new_value, type):

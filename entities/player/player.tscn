@@ -829,7 +829,8 @@ libraries = {
 }
 speed_scale = 2.0
 
-[node name="InventoryModule" parent="." instance=ExtResource("6_whg1o")]
+[node name="InventoryModule" parent="." node_paths=PackedStringArray("equipment_module") instance=ExtResource("6_whg1o")]
+equipment_module = NodePath("../EquipmentModule")
 
 [node name="EquipmentModule" parent="." instance=ExtResource("7_0klvy")]
 
@@ -846,6 +847,5 @@ hitbox = NodePath("PlayerHitbox")
 [node name="PlayerHitbox" type="CollisionPolygon2D" parent="HitboxComponent"]
 polygon = PackedVector2Array(6, -3, 17, -1, 28, 1, 43, 4, -3, 9, -32, 8, -43, -9, -21, 0)
 
-[connection signal="switch_controls_lock" from="." to="." method="_switch_controls_lock"]
 [connection signal="ammo_changed" from="EquipmentModule" to="." method="_on_ammo_changed"]
 [connection signal="health_change" from="HealthComponent" to="." method="_on_health_component_health_change"]

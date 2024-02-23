@@ -1,12 +1,10 @@
 extends CharacterBody2D
 class_name Player
 
-@export var debug : bool = true
-
 # Load configuration file
 var config = ConfigFile.new()
 var config_load = config.load("user://config.cfg")
-@onready var toggle_mode = config.get_value("MAIN_OPTIONS","TOGGLE_FIRE")
+var toggle_mode : bool
 # @onready var deadzone = config.get_value("MAIN_OPTIONS","DEADZONE") | TO DO
 var primary_fire_toggled = false
 
@@ -15,7 +13,6 @@ signal fire_primary(initial_position) # Sends a signal to spawn projectile, as w
 signal fire_secondary(initial_position, secondary_ammo) # Also sends signal to spawn projectile as similar to primary
 signal health_change(previous_value, new_value) # Notifies health change for a variety of other nodes
 signal player_killed # Self explanatory
-signal switch_controls_lock # Useful for cutscenes, animations, or certain sequences similar
 
 # Movement
 @onready var is_control_locked : bool = false
@@ -25,15 +22,16 @@ signal switch_controls_lock # Useful for cutscenes, animations, or certain seque
 @export var acceleration = 1.1
 @export var deadzone = 0.25 # Useful for controller compatibility
 @export var air_friction = 0.5
-
 @export var dash_speed : float = 1200
 @export var dash_cooldown_timer : float = 75
 @export var roll_cooldown_timer : float = 120
 
 # Status
+@onready var stage_camera : Camera2D = $"../StageCamera"
 @onready var health_component : HealthComponent = $HealthComponent
 @onready var inventory_module : InventoryModule = $InventoryModule
 @onready var equipment_module : EquipmentModule = $EquipmentModule
+@onready var hitbox_component : HitboxComponent = $HitboxComponent
 @onready var animation_tree = $PlayerAnimationTree
 
 var primary_fire_cooldown : bool = false
@@ -44,47 +42,62 @@ var roll_cooldown : bool = false
 # Inventory
 @onready var muzzle = $Muzzles/MuzzleRightWing
 @onready var secondary_ammo : int = equipment_module.secondary_ammo
-var primary_fire_rof : float
+var primary_fire_rof : float # The rate of fire already comes with added multipliers
+var set_primary_rof:
+	set(value):
+		primary_fire_rof = value
 var secondary_fire_rof : float
+var set_secondary_rof:
+	set(value):
+		secondary_fire_rof = value
 
-# Modifiers
-@export var primary_rof_buff : float = 1
-@export var secondary_rof_buff : float = 1
+# Debug
+@export var debug : bool = true
 
 func _ready():
 	if config_load != OK: printerr("Config file not found | Impossible to gather crucial data, will crash the game")
 	self.add_to_group('Player')
+	
+	# Loading config
+	toggle_mode = config.get_value("MAIN_OPTIONS","TOGGLE_FIRE")
 	Options.options_changed.connect(_on_config_changed)
 
+func _on_config_changed(): 
+	config_load = config.load("user://config.cfg")
+	toggle_mode = config.get_value("MAIN_OPTIONS","TOGGLE_FIRE")
+
 func _process(delta): # Frequent listener for input with delay (weapons, items, etc.)
-	if toggle_mode == true:
-		if Input.is_action_just_pressed("shoot") and primary_fire_toggled == false: primary_fire_toggled = true
-		elif Input.is_action_just_pressed("shoot") and primary_fire_toggled == true: primary_fire_toggled = false
-		if primary_fire_toggled == true: shoot_loop(delta)
-	else:
-		if Input.is_action_pressed("shoot"): shoot_loop(delta)
+	if toggle_mode:
+		if Input.is_action_just_pressed("shoot") and !primary_fire_toggled:
+			primary_fire_toggled = true
+		elif Input.is_action_just_pressed("shoot") and primary_fire_toggled:
+			primary_fire_toggled = false
+		
+		if primary_fire_toggled: shoot_loop(delta)
+	else: # Toggle firing off
+		if Input.is_action_pressed("shoot"): 
+			if !primary_fire_cooldown: shoot_loop(delta)
 	
 	if Input.is_action_just_pressed("bomb"):
 		if secondary_ammo >= 1:
 			if !secondary_fire_cooldown:
 				secondary_fire_cooldown = true
 				shoot_secondary()
-				await get_tree().create_timer(secondary_fire_rof * delta).timeout
+				await get_tree().create_timer(secondary_fire_rof * (150 * delta)).timeout
 				secondary_fire_cooldown = false
 		else:
 			if debug: print("No ammo left!")
 	
 	if Input.is_action_just_pressed("roll"):
 		if !roll_cooldown:
-			print('Roll pressed')
 			roll_cooldown = true
 			
-			$HitboxComponent/PlayerHitbox.disabled = true
+			hitbox_component.toggle_immunity(true)
 			$HunterSprites.modulate.a = 0.5
 			
-			await get_tree().create_timer(roll_cooldown_timer * delta).timeout
+			await get_tree().create_timer(roll_cooldown_timer * 1 * delta).timeout
 			
-			$HitboxComponent/PlayerHitbox.disabled = false
+			hitbox_component.toggle_immunity(false)
 			$HunterSprites.modulate.a = 1
 			
 			roll_cooldown = false
@@ -97,7 +110,6 @@ func _physics_process(delta): # General movement function
 	velocity = velocity.lerp(direction * speed, 0.1) # Thanks DeeRaghooGames for blessing me with this secret sauce: https://www.youtube.com/watch?v=KadtbetXTGc
 	
 	if Input.is_action_just_pressed("dash") and dash_cooldown == false:
-		print('Dash pressed')
 		dash_cooldown = true
 		$HunterSprites.modulate.g = 0.5
 		$HunterSprites.modulate.b = 0.5
@@ -149,29 +161,38 @@ func shoot_primary():
 	
 # Equipped weapon in secondary. 
 func shoot_secondary():
-	# secondary_ammo = equipment_module.secondary_ammo
 	if secondary_ammo > 0:
 		if debug: print("Bomb launched! %d ammo left" % int(secondary_ammo - 1))
-		fire_secondary.emit(muzzle.global_position, secondary_ammo) # This signal alters the hud value and emits the projectile at the same time
-	else: if debug: print("No ammo left!")
+		fire_secondary.emit(muzzle, secondary_ammo) # This signal both alters the hud value and emits the projectile at the same time
+	else: 
+		if debug: print("No ammo left!")
 
 func _on_ammo_changed(current_ammo, _previous_ammo):
 	secondary_ammo = current_ammo
 
-func _on_health_component_health_change(previous_value, new_value, _negative): # Relaying health value as a signal, so it can be changed in the hud
+func _on_health_component_health_change(previous_value, new_value, negative): # Relaying health value as a signal, so it can be changed in the hud
 	health_change.emit(previous_value, new_value)
+	if negative:
+		stage_camera.start_shake()
 
-func _on_config_changed(): 
-	config_load = config.load("user://config.cfg")
+func controls_lock(switch_bool): # Control lock switch
+	is_control_locked = switch_bool
 
-func _switch_controls_lock(): # Control lock switch
-	if !is_control_locked: is_control_locked = true
-	else: is_control_locked = false
+func death_sequence():
+	# Death animation
+	await get_tree().create_timer(2).timeout
 
 func die():
 	if health_component.current_health <= 0:
-		print("Player killed status fired")
+		controls_lock(true)
+		stage_camera.config_shake(30, 6, true)
+		
+		primary_fire_toggled = false
 		player_killed.emit()
+		
+		Profile.end_run(false)
+		
+		await death_sequence()
 		queue_free()
 
 # Most code were based on tutorial video from Kaan Alpar, and it's a great tutorial detailing steps of building a fully complete game. 

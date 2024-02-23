@@ -59,10 +59,10 @@ func generate_threat(enemy, rule_override = null):
 					var spawn_method = rule_property["method"]
 					var spawn_separation = rule_property["separation"]
 					var spawn_amount = rule_property["amount"]
-					if debug: print('{0} CHECK | Swarm of {1} queued in swarm_constructor'.format({0:enemy.to_upper(), 1:spawn_amount}))
+					if debug: print('{0} CHECK | Swarm of {1} queued in swarm_constructor, using method {2}'.format({0:enemy.to_upper(), 1:spawn_amount, 2:spawn_method}))
 					swarm_constructor(enemy_load, spawn_method, spawn_separation, spawn_amount)
 				"challenge":
-					print('Challenge initialized')
+					if debug: print('Challenge initialized')
 					challenge = rule_property
 	else: # No rules - Random position, random proprieties, etc.
 		var rand_position = spawn_area.position + Vector2(randf() * spawn_area.size.x, randf() * spawn_area.size.y)
@@ -86,15 +86,16 @@ func swarm_constructor(enemy_load, method, separation, amount):
 	for n in amount:
 		var enemy = enemy_load.instantiate()
 		enemy.global_position = initial_global_position
-		match method: # Defines the format the swarm will be spawned
-			# Vertical
-			0: enemy.global_position.y -= separation * n
-			# Horizontal
-			1: enemy.global_position.x += separation * n
-			# Random
-			2: 
+		match int(method): # Defines the format the swarm will be spawned
+			0: # Vertical
+				enemy.global_position.y -= separation * n
+			1: # Horizontal
+				enemy.global_position.x += separation * n
+			2: # Random
 				var rand_position = spawn_area.position + Vector2(randf() * spawn_area.size.x, randf() * spawn_area.size.y)
 				enemy.global_position = rand_position
+			_:
+				print('No method for swarm spawning, they will spawn on top of each other')
 		
 		enemies_container.call_deferred("add_child", enemy) # Adds enemy to EnemiesContainer
 

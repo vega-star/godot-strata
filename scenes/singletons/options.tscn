@@ -14,7 +14,6 @@ bg_color = Color(0.160784, 0.160784, 0.160784, 0.815686)
 [node name="Options" type="CanvasLayer"]
 process_mode = 3
 layer = 100
-visible = false
 script = ExtResource("1_hjbun")
 
 [node name="OptionsControl" type="Control" parent="."]
@@ -250,6 +249,15 @@ focus_neighbor_right = NodePath("../../../Binds/BindGrids/BindGridLeft/LEFT_B")
 focus_neighbor_bottom = NodePath("../Photosens_Mode")
 theme = ExtResource("1_yjy47")
 text = "TOGGLE FIRING"
+alignment = 1
+
+[node name="ScreenShake" type="CheckButton" parent="OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons"]
+layout_mode = 2
+focus_neighbor_top = NodePath("../VolumeContainer/SoundEffectVol/Effect_Slider")
+focus_neighbor_right = NodePath("../../../Binds/BindGrids/BindGridLeft/LEFT_B")
+focus_neighbor_bottom = NodePath("../Photosens_Mode")
+theme = ExtResource("1_yjy47")
+text = "SCREEN SHAKE"
 alignment = 1
 
 [node name="Photosens_Mode" type="CheckButton" parent="OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons"]
@@ -542,6 +550,7 @@ dialog_text = "Reset default keybinds?"
 [connection signal="visibility_changed" from="." to="." method="_on_options_visibility_changed"]
 [connection signal="item_selected" from="OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons/ScreenMode/ScreenModeMenu" to="." method="_on_screen_mode_selected"]
 [connection signal="pressed" from="OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons/ToggleFiring" to="." method="_on_toggle_firing_pressed"]
+[connection signal="pressed" from="OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons/ScreenShake" to="." method="_on_screen_shake_pressed"]
 [connection signal="pressed" from="OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons/Photosens_Mode" to="." method="_on_photosens_mode_pressed"]
 [connection signal="pressed" from="OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons/ResetDefKeybind" to="." method="_on_reset_default_keybinds_button"]
 [connection signal="pressed" from="OptionsControl/ExitMenu" to="." method="_on_exit_menu_pressed"]

@@ -19,9 +19,6 @@ var is_immune : bool = false
 @export var immune_to_damage : bool = false
 @export var is_composite_module : bool = false
 @export var override_max_health : int = 0
-var toggle_immunity:
-	set(boolean_value):
-		immune_to_damage = boolean_value
 
 ## HitboxComponent communicates with HealthComponent to react with projectiles and collision
 # As this component is a Area2D with body/area signals, needs one or multiple CollisionPolygon2D/CollisionShape2D nodes to work as intended
@@ -60,6 +57,9 @@ func _physics_process(_delta): # As it updates 60 times per second, we could cal
 	if immunity_frames_count == immunity_frame_limit:
 		if active_hitbox: active_hitbox.disabled = false
 		is_immune = false
+
+func toggle_immunity(boolean_value):
+	immune_to_damage = boolean_value
 
 func generate_damage(damage):
 	if !immune_to_damage:

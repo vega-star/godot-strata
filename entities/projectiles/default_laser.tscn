@@ -1,16 +1,66 @@
-[gd_scene load_steps=6 format=3 uid="uid://c1q12be6jjyek"]
+[gd_scene load_steps=14 format=3 uid="uid://c1q12be6jjyek"]
 
 [ext_resource type="Script" path="res://entities/projectiles/projectiles_scripts/default_laser.gd" id="1_24mmu"]
 [ext_resource type="Texture2D" uid="uid://c868sysa766fa" path="res://assets/textures/projectiles/default-laser.png" id="2_lky23"]
+[ext_resource type="Texture2D" uid="uid://d2lma1gj77n10" path="res://assets/textures/projectiles/laser_spawn_sequence.png" id="2_mbnwi"]
 [ext_resource type="PackedScene" uid="uid://c3atqdge540t0" path="res://components/status/hitbox_component.tscn" id="3_5k8xg"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h6nek"]
+atlas = ExtResource("2_mbnwi")
+region = Rect2(0, 0, 12, 6)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yrq87"]
+atlas = ExtResource("2_mbnwi")
+region = Rect2(12, 0, 12, 6)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_apq5k"]
+atlas = ExtResource("2_mbnwi")
+region = Rect2(24, 0, 12, 6)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cnn6l"]
+atlas = ExtResource("2_mbnwi")
+region = Rect2(36, 0, 12, 6)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dchve"]
+atlas = ExtResource("2_mbnwi")
+region = Rect2(48, 0, 12, 6)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ctmdm"]
+atlas = ExtResource("2_mbnwi")
+region = Rect2(60, 0, 12, 6)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_pvj6k"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h6nek")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yrq87")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_apq5k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cnn6l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dchve")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ctmdm")
+}],
+"loop": false,
+"name": &"laser_spawned",
+"speed": 30.0
+}]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jewc2"]
 radius = 4.0
 height = 20.0
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_43gnj"]
-radius = 2.0
-height = 7.99999
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gmn0s"]
+size = Vector2(4, 12)
 
 [node name="DefaultLaser" type="Area2D"]
 top_level = true
@@ -19,11 +69,22 @@ collision_layer = 4
 collision_mask = 10
 script = ExtResource("1_24mmu")
 projectile_speed = 700
+metadata/_edit_horizontal_guides_ = [-2.0, 2.0]
+metadata/_edit_vertical_guides_ = [-6.0, 6.0]
+
+[node name="LaserAnimatedSprite" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, 0.5)
+sprite_frames = SubResource("SpriteFrames_pvj6k")
+animation = &"laser_spawned"
+autoplay = "laser_spawned"
+frame = 5
+frame_progress = 1.0
 
 [node name="LaserSprite" type="Sprite2D" parent="."]
-position = Vector2(0.0014017, 5.43049e-05)
+visible = false
+position = Vector2(0.420861, 5.22033e-05)
 rotation = 1.5708
-scale = Vector2(0.397513, 0.218961)
+scale = Vector2(0.397513, 0.358178)
 texture = ExtResource("2_lky23")
 
 [node name="SelfHitbox" type="CollisionShape2D" parent="."]
@@ -42,7 +103,7 @@ collision_mask = 10
 
 [node name="SelfProjectileBox" type="CollisionShape2D" parent="HitboxComponent"]
 rotation = -1.5708
-shape = SubResource("CapsuleShape2D_43gnj")
+shape = SubResource("RectangleShape2D_gmn0s")
 
 [connection signal="screen_exited" from="OutsideScreenCheck" to="." method="_on_outside_screen_check_exit_detected"]
 [connection signal="area_entered" from="HitboxComponent" to="." method="_on_hitbox_area_entered"]
