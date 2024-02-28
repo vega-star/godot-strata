@@ -20,7 +20,7 @@ func _on_start_button_pressed(): # StartButton
 	transition_layer.fade('OUT')
 	transition_layer.visible = true
 	await get_tree().create_timer(transition_time).timeout
-	get_tree().change_scene_to_file("res://scenes/strata_scene.tscn")
+	get_tree().change_scene_to_file("res://scenes/loadout_selection.tscn")
 
 func _on_quit_button_pressed(): # QuitButton
 	get_tree().quit()

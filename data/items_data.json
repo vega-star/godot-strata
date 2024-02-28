@@ -1,5 +1,93 @@
 {
-	"health_capsule": {"scene": "res://entities/items/health_capsule.tscn", "accumulate": true},
-	"secondary_ammo": {"scene": "res://entities/items/secondary_ammo.tscn", "accumulate": true},
-	"damage_boost": {"scene": "", "accumulate": false}
+	"drops": {
+		"health_capsule": {
+			"scene": "res://entities/items/health_capsule.tscn",
+			"accumulate": false,
+			"type": 0
+		},
+		"secondary_ammo": {
+			"scene": "res://entities/items/secondary_ammo.tscn",
+			"accumulate": false,
+			"type": 0
+		},
+		"damage_boost": {
+			"scene": "res://entities/items/primary_up.tscn",
+			"accumulate": true,
+			"type": 0
+		}
+	},
+	"items": {
+		"ICAmplifier": {
+			"item_name": "I.C. Amplifier",
+			"item_description": "Regulates pressure inside the internal cannon and dissipates heat more efficiently.\n\nPrimary weapon rate of fire increased by 15%",
+			"item_type": "passive",
+			"item_effect": {
+				"type": "multiply", 
+				"target": "primary_rof_buff",
+				"value": 1.25
+			},
+			"item_properties": {
+				"item_small_icon": "",
+				"item_icon": "",
+				"item_tier": 0,
+				"item_category": 0,
+				"temporary": false,
+				"starter": true
+			}
+		},
+		"AdditionalHardpoint": {
+			"item_name": "Additional Hardpoint",
+			"item_description": "Multipurpose and modular storage for missiles, bombs, and similar.\n\nSecondary weapon ammo increased by 2",
+			"item_type": "passive",
+			"item_effect": {
+				"type": "addition", 
+				"target": "secondary_additional_amount",
+				"value": 2
+			},
+			"item_properties": {
+				"item_small_icon": "",
+				"item_icon": "",
+				"item_tier": 0,
+				"item_category": 0,
+				"temporary": false,
+				"starter": true
+			}
+		},
+		"PlasteelWing": {
+			"item_name": "Plasteel Wing Reinforcement",
+			"item_description": "Raises the flexibility of the wings without sacrificing its strength.\n\nRoll cooldown decreased by 20% and duration raised by 15%",
+			"item_type": "passive",
+			"item_effect": {
+				"type": "multiply", 
+				"target": ["roll_cooldown_factor", "roll_duration_factor"],
+				"value": [1.2,1.15]
+			},
+			"item_properties": {
+				"item_small_icon": "",
+				"item_icon": "",
+				"item_tier": 0,
+				"item_category": 0,
+				"temporary": false,
+				"starter": true
+			}
+		},
+		"OnDemandAfterburner": {
+			"item_name": "On-Demand Afterburner",
+			"item_description": "A thruster modification that ables a promptable afterburner burst.\n\nDash cooldown decreased by 20% and speed raised by 30%",
+			"item_type": "passive",
+			"item_effect": {
+				"type": "multiply", 
+				"target": ["dash_cooldown_factor", "dash_speed_buff"],
+				"value": [0.8,1.3]
+			},
+			"item_properties": {
+				"item_small_icon": "",
+				"item_icon": "",
+				"item_tier": 0,
+				"item_category": 0,
+				"temporary": false,
+				"starter": true
+			}
+		}
+	}
 }

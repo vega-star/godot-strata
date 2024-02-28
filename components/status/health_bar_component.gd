@@ -5,6 +5,11 @@ class_name HealthBarComponent extends Node2D
 @onready var health_bar_sync = health_bar:
 	set(health_value):
 		health_bar.value = health_value
+@onready var set_health_bar_size:
+	set(value):
+		health_bar.set_max(value)
+		health_bar.value = value
+
 
 @export var fixed_rotation : bool = false
 
@@ -15,8 +20,7 @@ class_name HealthBarComponent extends Node2D
 
 func _ready():
 	var initial_health = health_component.max_health
-	health_bar.set_max(initial_health)
-	health_bar.value = initial_health
+	set_health_bar_size = initial_health
 
 func _process(delta):
 	if fixed_rotation:

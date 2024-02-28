@@ -12,6 +12,7 @@ var primary_fire_toggled = false
 signal fire_primary(initial_position) # Sends a signal to spawn projectile, as well as the coordinates of player from which the projectile should spawn relative to
 signal fire_secondary(initial_position, secondary_ammo) # Also sends signal to spawn projectile as similar to primary
 signal health_change(previous_value, new_value) # Notifies health change for a variety of other nodes
+signal status_change
 signal player_killed # Self explanatory
 
 # Movement
@@ -25,11 +26,13 @@ signal player_killed # Self explanatory
 @export var dash_speed : float = 1200
 @export var dash_cooldown_timer : float = 75
 @export var roll_cooldown_timer : float = 120
+var damage_knockback : bool = false
+const knockback_speed = 1200
+const knockback_randomness = 0.2
 
 # Status
 @onready var stage_camera : Camera2D = $"../StageCamera"
 @onready var health_component : HealthComponent = $HealthComponent
-@onready var inventory_module : InventoryModule = $InventoryModule
 @onready var equipment_module : EquipmentModule = $EquipmentModule
 @onready var hitbox_component : HitboxComponent = $HitboxComponent
 @onready var animation_tree = $PlayerAnimationTree
@@ -93,11 +96,13 @@ func _process(delta): # Frequent listener for input with delay (weapons, items, 
 			roll_cooldown = true
 			
 			hitbox_component.toggle_immunity(true)
+			hitbox_component.set_collision_layer_value(1, false)
 			$HunterSprites.modulate.a = 0.5
 			
 			await get_tree().create_timer(roll_cooldown_timer * 1 * delta).timeout
 			
 			hitbox_component.toggle_immunity(false)
+			hitbox_component.set_collision_layer_value(1, true)
 			$HunterSprites.modulate.a = 1
 			
 			roll_cooldown = false
@@ -107,6 +112,8 @@ func _process(delta): # Frequent listener for input with delay (weapons, items, 
 func _physics_process(delta): # General movement function
 	if !is_control_locked:
 		direction = Input.get_vector("move_left", "move_right", "move_up", "move_down", deadzone)
+	else:
+		direction = Vector2(-0.1,0)
 	velocity = velocity.lerp(direction * speed, 0.1) # Thanks DeeRaghooGames for blessing me with this secret sauce: https://www.youtube.com/watch?v=KadtbetXTGc
 	
 	if Input.is_action_just_pressed("dash") and dash_cooldown == false:
@@ -122,6 +129,15 @@ func _physics_process(delta): # General movement function
 		$HunterSprites.modulate.b = 1
 		dash_cooldown = false
 		pass
+	
+	if damage_knockback:
+		damage_knockback = false
+		var random_knockback_direction = Vector2(
+			randf_range(-knockback_randomness,knockback_randomness),
+			randf_range(-knockback_randomness,knockback_randomness)
+		)
+		var target_direction = -(direction + random_knockback_direction) / 2
+		velocity = target_direction * knockback_speed
 	
 	velocity *= 1.0 - (air_friction * delta)
 	move_and_slide()
@@ -142,7 +158,6 @@ func update_animation_state():
 		print('Roll animation')
 	else:
 		animation_tree["parameters/conditions/on_roll"] = false
-		pass
 	
 	animation_tree["parameters/Idle/blend_position"] = direction
 	animation_tree["parameters/Moving/blend_position"] = direction
@@ -173,6 +188,7 @@ func _on_ammo_changed(current_ammo, _previous_ammo):
 func _on_health_component_health_change(previous_value, new_value, negative): # Relaying health value as a signal, so it can be changed in the hud
 	health_change.emit(previous_value, new_value)
 	if negative:
+		damage_knockback = true
 		stage_camera.start_shake()
 
 func controls_lock(switch_bool): # Control lock switch

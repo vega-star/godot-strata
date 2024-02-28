@@ -4,3 +4,4 @@
 
 [node name="Profile" type="Node"]
 script = ExtResource("1_or4tc")
+debug = true

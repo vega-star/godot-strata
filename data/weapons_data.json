@@ -1,0 +1,55 @@
+{
+    "primary": {
+        "default_laser": {
+            "projectile_scene": "res://entities/projectiles/default_laser.tscn",
+            "base_rate_of_fire": 20,
+            "base_damage": 2,
+            "weapon_properties": {
+                "weapon_name": "Burst Laser",
+                "weapon_description": "Convert excess core energy into concentrated laser bursts",
+                "weapon_small_icon": null,
+                "weapon_icon": null
+            }
+            },
+        "minigun": {
+            "projectile_scene": "res://entities/projectiles/minigun.tscn",
+            "base_rate_of_fire": 20,
+            "base_damage": 1,
+            "weapon_properties": {
+                "weapon_name": "Mounted Minigun",
+                "weapon_description": "A classic fighter-jet minigun that shoots high caliber bullets. Still packs a punch after all those years.",
+                "weapon_small_icon": null,
+                "weapon_icon": null
+            }
+            }
+    },
+    "secondary": {
+        "default_bomb": {
+            "projectile_scene": "res://entities/projectiles/default_bomb.tscn",
+            "base_rate_of_fire": 5,
+            "base_damage": 10,
+            "base_amount": 1,
+            "base_regeneration": false,
+            "weapon_properties": {
+                "weapon_name": "Stasis Bomb",
+                "weapon_description": "Slows down on air until stopped, and explodes soon after. Also explodes if in contact with enemy.",
+                "weapon_small_icon": null,
+                "weapon_icon": null
+            }
+        },
+        "default_missile": {
+            "projectile_scene": "res://entities/projectiles/default_missile.tscn",
+            "base_rate_of_fire": 5,
+            "base_damage": 5,
+            "base_amount": 3,
+            "base_regeneration": true,
+            "base_regeneration_cooldown": 5,
+            "weapon_properties": {
+                "weapon_name": "Guided Missile",
+                "weapon_description": "Missiles with an internal guidance system. Tends to seek untargeted enemies.",
+                "weapon_small_icon": null,
+                "weapon_icon": null
+            }
+        }
+	}
+}

@@ -8,6 +8,7 @@ var set_max_health:
 	set(override):
 		max_health = override
 		current_health = override
+		if health_bar: health_bar.set_health_bar_size = override
 var current_health : int
 var lock_health_changes : bool
 var component_on_player : bool = false
@@ -15,7 +16,7 @@ var component_on_player : bool = false
 ## HealthComponent provides a health value for all entities and a condition on which the entity starts a death sequence
 
 func _ready(): # Loads the max health of the entity. Can be set differently to each scene this component is instantiated
-	set_max_health = max_health
+	if max_health: set_max_health = max_health
 	if health_bar: health_bar.visible = true
 	
 	if owner is Player: component_on_player = true

@@ -48,9 +48,6 @@ func _ready():
 	Options.options_changed.connect(load_options)
 	load_options()
 	
-	hud_component.hp = player_health_component.max_health
-	hud_component.secondary_ammo_counter = player.equipment_module.max_secondary_ammo
-	
 	player.equipment_module.ammo_changed.connect(_on_player_secondary_ammo_changed)
 	player.player_killed.connect(gameoverscreen.game_over_prompt)
 	
@@ -72,10 +69,10 @@ func _process(_delta): # Updates stage timer bar
 		random_loop_available = true
 
 func _on_player_health_change(_previous_value, new_value): # Update HP right only after change
-	hud_component.hp = new_value
+	hud_component.set_hp = new_value
 
 func _on_player_secondary_ammo_changed(current_ammo, _previous_ammo):
-	hud_component.secondary_ammo_counter = current_ammo
+	hud_component.set_ammo = current_ammo
 
 func _on_stage_timer_timeout(): # Executes when StageTimer finishes
 	end_stage_sequence()
@@ -84,6 +81,7 @@ func pause_stage_timer(toggle : bool):
 	stage_timer.set_paused(toggle)
 
 func start_stage_sequence(): # Starting animations, fade-in, etc.
+	hud_component.set_ammo = Profile.current_run_data.get_value("INVENTORY", "MAX_AMMO")
 	
 	# Locking controls and starting animation
 	var player_move_to_action = get_tree().create_tween()

@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://l3nrofdqijr6"]
 
-[ext_resource type="Script" path="res://components/ui/statistics_controller.gd" id="1_kvule"]
+[ext_resource type="Script" path="res://scenes/scripts/ui/statistics_controller.gd" id="1_kvule"]
 [ext_resource type="FontFile" uid="uid://dwtntl5rvhwgr" path="res://assets/themes/CRYSRG__.TTF" id="1_xnn18"]
 
 [sub_resource type="Theme" id="Theme_vvt77"]

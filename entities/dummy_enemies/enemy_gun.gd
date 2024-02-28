@@ -46,7 +46,7 @@ func _physics_process(_delta):
 		shoot_cooldown = true
 		var projectile = projectile_scene.instantiate()
 		projectile.global_position = $GunMuzzle.global_position
-		projectile.rotation = self.rotation
+		projectile.rotation = self.global_rotation
 		projectile_container.call_deferred("add_child", projectile)
 		var shuffle_rof = randf_range(rate_of_fire * rof_randomness, rate_of_fire / rof_randomness)
 		await get_tree().create_timer(shuffle_rof).timeout
@@ -65,12 +65,14 @@ func destroy(): # Destroys the enemy definetely
 	queue_free()
 
 func deactivate():
+	shoot_cooldown = true
 	self.visible = false
 
 func reactivate():
 	health_component.reset_health()
 	health_component.lock_health(false)
 	self.visible = true
+	shoot_cooldown = false
 
 func _on_health_component_health_change(_previous_value, _new_value, type):
 	if type:

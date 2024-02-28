@@ -9,7 +9,9 @@ signal weapon_toggled
 @export var weapon : Area2D
 @export var combat_component : CombatComponent
 @export var hitbox_component : HitboxComponent
+@export var health_component : HealthComponent
 
+@export var set_health : int
 @export var vertical_inversion : bool
 @export var has_respawn_limit : bool
 @export var weapon_respawn_limit = 100
@@ -18,9 +20,11 @@ var weapon_respawn_count : int
 var weapon_deactivated : bool = false
 
 func _ready():
+	if !health_component: health_component = $HealthComponent
 	if !combat_component: combat_component = $CombatComponent
 	if !hitbox_component: hitbox_component = $HitboxComponent
 	if !module_sprite: module_sprite = $ModuleSprite
+	if set_health: health_component.set_max_health = set_health
 	
 	if vertical_inversion:
 		module_sprite.scale.y = -1

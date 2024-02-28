@@ -4,14 +4,14 @@
         "type": 0,
         "contain_rules": false,
         "contain_items": true,
-        "drops": {"items": [false,"secondary_ammo","health_capsule"], "chances": [0,80,90,20001], "range": 100}
+        "drops": {"items": [false,"secondary_ammo","health_capsule", "damage_boost"], "chances": [0,80,90,95,20001], "range": 100}
     },
     "striker_1": {
         "scene": "res://entities/dummy_enemies/enemy.tscn", 
         "type": 0,
         "contain_rules": false,
         "contain_items": true,
-        "drops": {"items": [false,"secondary_ammo","health_capsule"], "chances": [0,80,90,20001], "range": 100}
+        "drops": {"items": [false,"secondary_ammo","health_capsule", "damage_boost"], "chances": [0,80,90,95,20001], "range": 100}
     },
 	"striker_swarm_1": {
         "scene": "res://entities/dummy_enemies/enemy.tscn", 

@@ -19,11 +19,11 @@ extends CanvasLayer
 	"secondary_ammo": {
 		"cell_container": $SecondaryAmmo/SecondaryAmmo_Container, 
 		"short_cell_container": $SecondaryAmmo/SecondaryAmmo_ShortContainer,
-		"cell_bar": $HUD/SecondaryAmmo_Bar,
-		"short_cell_bar": $HUD/SecondaryAmmo_ShortBar,
+		"cell_bar": $SecondaryAmmo/SecondaryAmmo_Bar,
+		"short_cell_bar": $SecondaryAmmo/SecondaryAmmo_ShortBar,
 		"cell_size": 22,
 		"short_cell_size": 11,
-		"start_position": 9,
+		"start_position": 0,
 		"has_end_sprite": false,
 		"has_start_sprite": false
 	}
@@ -31,11 +31,11 @@ extends CanvasLayer
 
 @onready var stage_progress_bar = $ProgressBar/StageProgressBar
 
-@onready var hp:
+@onready var set_hp:
 	set(hp_value):
 		hud_constructor(hud_elements_list["hp"], hp_value, limit_hp_slots)
 
-@onready var secondary_ammo_counter:
+@onready var set_ammo:
 	set(secondary_ammo):
 		hud_constructor(hud_elements_list["secondary_ammo"], secondary_ammo, limit_secondary_ammo)
 
@@ -46,28 +46,29 @@ extends CanvasLayer
 func _ready():
 	## Sets the progress bar max value equal to the stage total time
 	stage_progress_bar.set_max($"../../StageManager".stage_length_in_minutes * 60)
+	Profile.statistics_changed.connect(update_ui_elements)
+	update_hud()
 
-var is_hud_constructed : bool = false
+var hud_constructed : bool = false
 func hud_constructor(hud_element, set_value, limit):
 	if debug: print('{0} | VALUE: {1}'.format({0:hud_element,1:set_value}))
 	
 	## Building the containers
-	# Containers can stay over or behind bars and are just cosmetic. They aren't supposed to change during a stage...
+	# Containers are positioned over or behind bars and are just cosmetic. They aren't supposed to change much during a stage
 	# However, they need to change if the player catches an empty HP container to raise its max HP, so an update_hud function to switch the boolean below works just fine.
-	if !is_hud_constructed:
+	if !hud_constructed:
 		if set_value <= limit: # If the value is lower than limit, construct bar without short containers.
 			hud_element["cell_container"].position.x = hud_element["start_position"]
 			hud_element["cell_container"].size.x = hud_element["cell_size"] * set_value
 			hud_element["short_cell_container"].visible = false
 			if hud_element["has_end_sprite"]: hud_element["end_sprite"].position.x = hud_element["start_position"] + (hud_element["cell_size"] * set_value)
-			# is_hud_constructed = true
 		else: # Else, the overflow value will become short containers to shorten occupied screen area
 			hud_element["cell_container"].size.x = hud_element["cell_size"] * limit
 			hud_element["short_cell_container"].visible = true
 			hud_element["short_cell_container"].size.x = hud_element["short_cell_size"] * (set_value - limit)
 			hud_element["short_cell_container"].position.x = hud_element["cell_container"].position.x + hud_element["cell_size"] * limit
 			if hud_element["has_end_sprite"]: hud_element["end_sprite"].position.x = hud_element["start_position"] + (hud_element["cell_size"] * limit) + hud_element["short_cell_size"] * (set_value - limit)
-			is_hud_constructed = true
+		hud_constructed = true
 	
 	## Resizing bars
 	if set_value <= limit: # Set current value on active bar
@@ -83,4 +84,11 @@ func hud_constructor(hud_element, set_value, limit):
 	if debug: print('{0} | BAR_SIZE\n{1} | SHORT_BAR_SIZE'.format({0:hud_element["cell_bar"].size.x,1:hud_element["short_cell_bar"].size.x}))
 
 func update_hud():
-	is_hud_constructed = false
+	set_hp = Profile.current_run_data.get_value("INVENTORY", "MAX_HEALTH")
+	hud_constructed = false
+	set_ammo = Profile.current_run_data.get_value("INVENTORY", "MAX_AMMO")
+	hud_constructed = false
+
+func update_ui_elements():
+	var score = Profile.current_run_data.get_value("STATISTICS", "SCORE")
+	$ScoreBar.text = "SCORE: " + str(score)

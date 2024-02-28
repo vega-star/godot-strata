@@ -13,9 +13,5 @@ func _on_presence_checker_screen_exited(): # Deletes item if it goes away from t
 
 func _on_area_entered(area):
 	if area is HitboxComponent:
-		for group in area.owner.get_groups():
-			match group:
-				'player':
-					var equipment_module = area.get_owner().equipment_module
-					equipment_module.add_ammo(ammo_quantity)
-					queue_free()
+		area.get_owner().equipment_module.add_ammo(ammo_quantity)
+		queue_free()

@@ -6,7 +6,7 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_0vq2t"]
 radius = 7.07107
 
-[node name="SecondaryAmmo" type="Area2D"]
+[node name="SecondaryAmmo" type="Area2D" groups=["item"]]
 collision_layer = 16
 script = ExtResource("1_qmiwu")
 

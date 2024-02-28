@@ -1,6 +1,36 @@
-[gd_scene load_steps=2 format=3 uid="uid://b0dns7qycucl7"]
+[gd_scene load_steps=3 format=3 uid="uid://b0dns7qycucl7"]
 
 [ext_resource type="Script" path="res://components/modules/inventory_module.gd" id="1_xnpm5"]
+[ext_resource type="PackedScene" uid="uid://co7x6mjl7feub" path="res://scenes/selection_button.tscn" id="2_8r8qa"]
 
 [node name="InventoryModule" type="Node"]
 script = ExtResource("1_xnpm5")
+
+[node name="InventoryUILayer" type="CanvasLayer" parent="."]
+
+[node name="SelectionControl" type="Control" parent="InventoryUILayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SelectionOptions" type="HBoxContainer" parent="InventoryUILayer/SelectionControl"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -466.0
+offset_top = -145.5
+offset_right = 466.0
+offset_bottom = 145.5
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="SelectionButton" parent="InventoryUILayer/SelectionControl/SelectionOptions" instance=ExtResource("2_8r8qa")]
+visible = false
+layout_mode = 2

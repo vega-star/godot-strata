@@ -20,7 +20,7 @@ script = ExtResource("1_o7ikq")
 rate_of_fire = 2.0
 
 [node name="GunMuzzle" type="Marker2D" parent="."]
-position = Vector2(16.8571, 0)
+position = Vector2(15.8571, 0)
 
 [node name="EnemySprite" type="Sprite2D" parent="."]
 rotation = 3.14159

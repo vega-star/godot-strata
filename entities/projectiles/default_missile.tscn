@@ -34,9 +34,10 @@ radius = 4.0
 light_mask = 2
 visibility_layer = 2
 collision_layer = 4
-collision_mask = 2
+collision_mask = 10
 script = ExtResource("1_n2dqw")
 projectile_damage = 5
+immune_to_enemy_shots = true
 metadata/_edit_vertical_guides_ = [-15.0, 15.0]
 metadata/_edit_horizontal_guides_ = [-5.0, 5.0]
 

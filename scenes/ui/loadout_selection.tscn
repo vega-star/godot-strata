@@ -1,0 +1,223 @@
+[gd_scene load_steps=10 format=3 uid="uid://bpha3godigcg2"]
+
+[ext_resource type="Script" path="res://scenes/scripts/ui/loadout_selection.gd" id="1_wywrc"]
+[ext_resource type="Texture2D" uid="uid://24sxb8icxn75" path="res://assets/textures/prototypes/loadout-menu-concept.png" id="2_31rtj"]
+[ext_resource type="Texture2D" uid="uid://bl66ij78aurfm" path="res://assets/textures/static/gear_icon_outline.png" id="3_kmq7g"]
+[ext_resource type="Texture2D" uid="uid://nsnw7fqu4cml" path="res://assets/textures/static/gear_icon.png" id="4_ecwgq"]
+[ext_resource type="BitMap" uid="uid://dngmj6m7g1uu4" path="res://assets/textures/static/gear_icon_bitmap.bmp" id="5_eonke"]
+[ext_resource type="Theme" uid="uid://b1a5sjt2xibwo" path="res://assets/themes/strata_theme.tres" id="6_u0kst"]
+[ext_resource type="Texture2D" uid="uid://daogoq1xsiexr" path="res://assets/textures/prototypes/return_icon.png" id="7_us3rs"]
+[ext_resource type="PackedScene" uid="uid://cx3klkrk3nesh" path="res://scenes/ui/ui_transition_scene.tscn" id="8_d1ulr"]
+[ext_resource type="Texture2D" uid="uid://ddrwh5rjfsmko" path="res://assets/textures/prototypes/arrow.png" id="9_3c5an"]
+
+[node name="LoadoutSelection" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_wywrc")
+debug = true
+
+[node name="MenuConcept" type="Sprite2D" parent="."]
+position = Vector2(480, 270)
+texture = ExtResource("2_31rtj")
+
+[node name="ConfigButton" type="TextureButton" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -92.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = 92.0
+grow_horizontal = 0
+texture_normal = ExtResource("3_kmq7g")
+texture_pressed = ExtResource("3_kmq7g")
+texture_hover = ExtResource("4_ecwgq")
+texture_click_mask = ExtResource("5_eonke")
+stretch_mode = 6
+
+[node name="ReturnToMainMenu" type="TextureButton" parent="."]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 92.0
+offset_bottom = 92.0
+focus_neighbor_right = NodePath("../../../ConfigButton")
+theme = ExtResource("6_u0kst")
+texture_normal = ExtResource("7_us3rs")
+
+[node name="ScreenTransitionLayer" parent="." instance=ExtResource("8_d1ulr")]
+visible = false
+
+[node name="StartButton" type="TextureButton" parent="."]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -76.0
+offset_top = 134.0
+offset_right = 6.0
+offset_bottom = 216.0
+grow_horizontal = 0
+grow_vertical = 2
+scale = Vector2(-1, 1)
+focus_neighbor_right = NodePath("../../../ConfigButton")
+theme = ExtResource("6_u0kst")
+texture_normal = ExtResource("7_us3rs")
+
+[node name="CustomizeLoadout" type="Control" parent="."]
+top_level = true
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -137.0
+offset_right = 720.0
+grow_vertical = 0
+
+[node name="ColorBG" type="ColorRect" parent="CustomizeLoadout"]
+layout_mode = 0
+offset_top = 26.0
+offset_right = 721.0
+offset_bottom = 137.0
+color = Color(0.184314, 0.184314, 0.184314, 1)
+
+[node name="LoadoutSelection" type="ColorRect" parent="CustomizeLoadout"]
+visible = false
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -97.5
+offset_top = -24.0
+offset_right = 97.5
+grow_horizontal = 2
+color = Color(0.356863, 0.356863, 0.356863, 1)
+
+[node name="Loadout" type="Label" parent="CustomizeLoadout/LoadoutSelection"]
+layout_mode = 0
+offset_top = -23.0
+offset_right = 195.0
+theme = ExtResource("6_u0kst")
+text = "SELECT LOADOUT"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LoadoutName" type="Label" parent="CustomizeLoadout/LoadoutSelection"]
+visible = false
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -97.5
+offset_right = 97.5
+offset_bottom = 24.0
+grow_horizontal = 2
+theme = ExtResource("6_u0kst")
+text = "LOADOUT1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LineEdit" type="LineEdit" parent="CustomizeLoadout/LoadoutSelection"]
+visible = false
+layout_mode = 0
+offset_left = 1.0
+offset_top = -3.0
+offset_right = 197.0
+offset_bottom = 28.0
+theme = ExtResource("6_u0kst")
+placeholder_text = "New Loadout"
+alignment = 1
+flat = true
+
+[node name="Sprite2D" type="Sprite2D" parent="CustomizeLoadout/LoadoutSelection"]
+position = Vector2(208.5, 12)
+texture = ExtResource("9_3c5an")
+
+[node name="Sprite2D2" type="Sprite2D" parent="CustomizeLoadout/LoadoutSelection"]
+position = Vector2(-12.5, 12)
+scale = Vector2(-1, 1)
+texture = ExtResource("9_3c5an")
+
+[node name="CustomizeLoadoutContainer" type="VBoxContainer" parent="CustomizeLoadout"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 7.0
+offset_top = -132.0
+offset_right = 715.0
+offset_bottom = -3.0
+grow_vertical = 0
+
+[node name="LoadoutLabels" type="HBoxContainer" parent="CustomizeLoadout/CustomizeLoadoutContainer"]
+layout_mode = 2
+
+[node name="PrimaryWeapon" type="Label" parent="CustomizeLoadout/CustomizeLoadoutContainer/LoadoutLabels"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme = ExtResource("6_u0kst")
+text = "PRIMARY WEAPON"
+horizontal_alignment = 1
+
+[node name="SecondaryWeapon" type="Label" parent="CustomizeLoadout/CustomizeLoadoutContainer/LoadoutLabels"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme = ExtResource("6_u0kst")
+text = "SECONDARY WEAPON
+"
+horizontal_alignment = 1
+
+[node name="StarterItem" type="Label" parent="CustomizeLoadout/CustomizeLoadoutContainer/LoadoutLabels"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+theme = ExtResource("6_u0kst")
+text = "STARTER ITEM
+"
+horizontal_alignment = 1
+
+[node name="LoadoutLists" type="HBoxContainer" parent="CustomizeLoadout/CustomizeLoadoutContainer"]
+layout_mode = 2
+
+[node name="PrimaryWeaponsList" type="ItemList" parent="CustomizeLoadout/CustomizeLoadoutContainer/LoadoutLists"]
+custom_minimum_size = Vector2(200, 100)
+layout_mode = 2
+mouse_filter = 1
+theme = ExtResource("6_u0kst")
+item_count = 3
+item_0/text = "MINIGUN"
+item_1/text = "BURST LASER"
+item_2/text = "RAILGUN"
+
+[node name="SecondaryWeaponsList" type="ItemList" parent="CustomizeLoadout/CustomizeLoadoutContainer/LoadoutLists"]
+custom_minimum_size = Vector2(200, 100)
+layout_mode = 2
+mouse_filter = 1
+theme = ExtResource("6_u0kst")
+item_count = 3
+item_0/text = "GUIDED MISSILES"
+item_1/text = "STASIS BOMB"
+item_2/text = "CHARGED LASER"
+
+[node name="StarterItemsList" type="ItemList" parent="CustomizeLoadout/CustomizeLoadoutContainer/LoadoutLists"]
+custom_minimum_size = Vector2(300, 100)
+layout_mode = 2
+mouse_filter = 1
+theme = ExtResource("6_u0kst")
+item_count = 3
+item_0/text = "I.C. AMPLIFIER"
+item_1/text = "ADDITIONAL HARDPOINT"
+item_2/text = "PLASTEEL WING REINFORCEMENT"
+
+[connection signal="pressed" from="ConfigButton" to="." method="_on_config_button_pressed"]
+[connection signal="pressed" from="ReturnToMainMenu" to="." method="_on_return_to_main_menu_pressed"]
+[connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="item_selected" from="CustomizeLoadout/CustomizeLoadoutContainer/LoadoutLists/PrimaryWeaponsList" to="." method="_on_primary_weapons_list_item_selected"]
+[connection signal="item_selected" from="CustomizeLoadout/CustomizeLoadoutContainer/LoadoutLists/SecondaryWeaponsList" to="." method="_on_secondary_weapons_list_item_selected"]
+[connection signal="item_selected" from="CustomizeLoadout/CustomizeLoadoutContainer/LoadoutLists/StarterItemsList" to="." method="_on_starter_items_list_item_selected"]

@@ -15,7 +15,6 @@ func _process(delta):
 	if enable_camera_shake:
 		shake_strength = lerpf(shake_strength, 0.0, shake_decay * delta)
 		if shake_strength > minimum_strength:
-			print(shake_strength)
 			offset = get_shake_offset(delta)
 		else:
 			offset = Vector2(0,0)

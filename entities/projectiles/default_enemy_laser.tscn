@@ -9,19 +9,18 @@ radius = 4.0
 height = 20.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_43gnj"]
-radius = 2.0
-height = 7.99999
+radius = 5.0
+height = 28.0
 
 [node name="DefaultEnemyLaser" type="Area2D"]
 top_level = true
 light_mask = 2
 collision_layer = 8
-collision_mask = 5
 script = ExtResource("1_reim5")
 
 [node name="LaserSprite" type="Sprite2D" parent="."]
-position = Vector2(0.0014017, 0)
-scale = Vector2(0.397513, 0.7)
+position = Vector2(1.13687e-13, 5.68434e-14)
+scale = Vector2(1.44869, 1.6)
 texture = ExtResource("1_jwiey")
 
 [node name="SelfHitbox" type="CollisionShape2D" parent="."]
@@ -36,11 +35,11 @@ scale = Vector2(0.3, 0.55)
 
 [node name="HitboxComponent" parent="." instance=ExtResource("3_ptfmk")]
 collision_layer = 8
-collision_mask = 5
 
 [node name="SelfProjectileBox" type="CollisionShape2D" parent="HitboxComponent"]
 rotation = -1.5708
 shape = SubResource("CapsuleShape2D_43gnj")
+debug_color = Color(0.984314, 0, 0.333333, 0.419608)
 
 [connection signal="screen_exited" from="OutsideScreenCheck" to="." method="_on_outside_screen_check_exit_detected"]
 [connection signal="area_entered" from="HitboxComponent" to="." method="_on_hitbox_area_entered"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=90 format=3 uid="uid://biim58k38oa7h"]
+[gd_scene load_steps=89 format=3 uid="uid://biim58k38oa7h"]
 
 [ext_resource type="Script" path="res://scenes/scripts/main/player.gd" id="1_hermy"]
 [ext_resource type="Texture2D" uid="uid://vnytxah5yagv" path="res://assets/textures/entities/player/hunter-prototype.png" id="2_3w5hk"]
@@ -10,7 +10,6 @@
 [ext_resource type="PackedScene" uid="uid://c3atqdge540t0" path="res://components/status/hitbox_component.tscn" id="4_vxsth"]
 [ext_resource type="Texture2D" uid="uid://bo1x0g42xcvfe" path="res://assets/textures/entities/player/diagonal_up.png" id="4_yry4s"]
 [ext_resource type="Texture2D" uid="uid://cyu4c5paykoc3" path="res://assets/textures/entities/player/hunter-idle-going-down.png" id="6_q1qjn"]
-[ext_resource type="PackedScene" uid="uid://b0dns7qycucl7" path="res://components/modules/inventory_module.tscn" id="6_whg1o"]
 [ext_resource type="PackedScene" uid="uid://bocnfn48ib66i" path="res://components/modules/equipment_module.tscn" id="7_0klvy"]
 [ext_resource type="Texture2D" uid="uid://j1kxc2btfi32" path="res://assets/textures/entities/player/hunter-idle-going-up.png" id="7_djrnn"]
 [ext_resource type="Script" path="res://entities/player/trail.gd" id="14_qu6m8"]
@@ -772,7 +771,9 @@ light_mask = 2
 visibility_layer = 2
 collision_mask = 26
 motion_mode = 1
+platform_wall_layers = 2
 script = ExtResource("1_hermy")
+debug = false
 
 [node name="PlayerTrail" type="Line2D" parent="."]
 position = Vector2(-23, 5)
@@ -829,10 +830,8 @@ libraries = {
 }
 speed_scale = 2.0
 
-[node name="InventoryModule" parent="." node_paths=PackedStringArray("equipment_module") instance=ExtResource("6_whg1o")]
-equipment_module = NodePath("../EquipmentModule")
-
-[node name="EquipmentModule" parent="." instance=ExtResource("7_0klvy")]
+[node name="EquipmentModule" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("7_0klvy")]
+health_component = NodePath("../HealthComponent")
 
 [node name="HealthComponent" parent="." instance=ExtResource("3_pgpvp")]
 max_health = 3
@@ -845,7 +844,7 @@ immunity_frame_limit = 60
 hitbox = NodePath("PlayerHitbox")
 
 [node name="PlayerHitbox" type="CollisionPolygon2D" parent="HitboxComponent"]
-polygon = PackedVector2Array(6, -3, 17, -1, 28, 1, 43, 4, -3, 9, -32, 8, -43, -9, -21, 0)
+polygon = PackedVector2Array(6, -3, 17, -1, 43, 4, 8, 9, -32, 8, -43, -9, -21, 0)
 
 [connection signal="ammo_changed" from="EquipmentModule" to="." method="_on_ammo_changed"]
 [connection signal="health_change" from="HealthComponent" to="." method="_on_health_component_health_change"]

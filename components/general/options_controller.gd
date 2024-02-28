@@ -28,9 +28,8 @@ var setting_key : bool = false
 var settings_changed : bool = false
 
 func _ready():
-	if visible: visible = false # Just in case I forgot to make this node invisible after making UI changes
+	await load_keys()
 	
-	load_keys()
 	if config_file_load == OK: # Config file generator and loader checker
 		# DisplayServer.window_set_mode(config_file.get_value("MAIN_OPTIONS","WINDOW_MODE"))
 		
@@ -51,6 +50,8 @@ func _ready():
 		config_file.set_value("MAIN_OPTIONS","SCREEN_SHAKE", true)
 		
 		config_file.save(config_file_path)
+	
+	if visible: visible = false # Just in case I forgot to make this node invisible after making UI changes
 
 func _exit(): # Clean temporary data and reset signal
 	Options.visible = false
@@ -81,7 +82,7 @@ func _on_reset_default_keybinds(): # Reloads keys after redefining key_dict
 func _on_options_visibility_changed(): 
 	# | Converts keycode physical elements from key_dict to their respectives string labels, abling players to visualize which keys are currently bound to what.
 	# I already know there's a efficient way to automate these attributions in the case other buttons are added, but I need to prioritize other elements first, so that's it for now
-	if Options.visible == true:
+	if visible:
 		$OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons/ToggleFiring.grab_focus() # Direct controller focus to this specific button
 		
 		$OptionsControl/ConfigContainer/Binds/BindGrids/BindGridLeft/UP_B.text = OS.get_keycode_string(key_dict["move_up"])
@@ -102,11 +103,10 @@ func _on_exit_menu_pressed():
 	else:
 		_exit()
 
-# | Configured to autoload when the game starts 
 func load_keys():
 	var file = FileAccess.open(keybind_file_path, FileAccess.READ)
 	
-	if (FileAccess.file_exists(keybind_file_path)) == true:
+	if (FileAccess.file_exists(keybind_file_path)):
 		delete_old_keys()
 		var content = file.get_as_text()
 		var data = JSON.parse_string(content)

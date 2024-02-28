@@ -2,16 +2,18 @@ extends Node
 
 signal profile_loaded
 signal profile_changed(profile)
+signal run_data_changed
 signal statistics_changed
 signal stage_started
 signal stage_ended
-signal run_started
-signal run_ended
+signal run_started(current_data_file)
+signal run_ended(current_data_file)
 
 #region Variables
 # Selected profile
 @export var selected_profile : String
 var selected_profile_folder : String
+var profile_history_folder : String
 
 # Data
 const data_folder_path : String = "user://profiles"
@@ -28,8 +30,7 @@ var current_run_data_path : String
 var profile_data_path = "{0}/profiles.cfg".format({0:data_folder_path})
 var profile_data_load = profiles_data.load(profile_data_path)
 var save_data : bool = true
-
-var current_score : int
+@export var debug : bool = false
 #endregion
 
 func _ready():
@@ -43,19 +44,29 @@ func _ready():
 	await load_profile()
 	profile_loaded.emit()
 	
-	start_run()
+	reset_run_data()
 	run_started.emit()
 
 func load_profile(profile = selected_profile):
-	selected_profile_folder = "{0}/{1}".format({0:data_folder_path,1:profile})
+	var data_load
+	selected_profile_folder = "{0}/{1}".format({
+		0:data_folder_path,
+		1:profile
+	})
 	var check_profile_folder = DirAccess.make_dir_recursive_absolute(selected_profile_folder) 
 	
+	profile_history_folder = "{0}/history".format({0:selected_profile_folder})
+	var check_history_folder = DirAccess.make_dir_recursive_absolute(selected_profile_folder) 
+	
 	history_data_path = "{0}/history.cfg".format({0:selected_profile_folder})
-	var history_data_load = history_data.load(history_data_path)
-	history_data.save(history_data_path)
+	data_load = history_data.load(history_data_path)
+	if data_load != OK:
+		history_data.save(history_data_path)
 	
 	current_run_data_path = "{0}/active_data.cfg".format({0:selected_profile_folder})
-	var current_run_data_load = current_run_data.load(current_run_data_path)
+	data_load = current_run_data.load(current_run_data_path)
+	if data_load != OK:
+		current_run_data.save(current_run_data_path)
 
 func change_profile(profile):
 	var profile_list : Array = ['anonymous']
@@ -79,15 +90,12 @@ func save_new_profile(profile_name, pilot_name, icon, color, xp, save_data : boo
 	
 	profiles_data.save(profile_data_path)
 
-# Run data
-func start_run(loadout = 'hunter'):
+func save_profile_data():
+	profiles_data.save(profile_data_path)
+
+## RUN DATA
+func reset_run_data():
 	var start_time = Time.get_unix_time_from_system()
-	
-	## RUN DETAILS
-	current_run_data.set_value("RUN_DETAILS", "SUCCESS", false)
-	current_run_data.set_value("RUN_DETAILS", "STARTED_AT", start_time)
-	current_run_data.set_value("RUN_DETAILS", "TIME_ELAPSED", 0)
-	current_run_data.set_value("RUN_DETAILS", "LOADOUT", loadout)
 	
 	## STATISTICS
 	current_run_data.set_value("STATISTICS", "RUN_TIME_ELAPSED", 0)
@@ -98,11 +106,31 @@ func start_run(loadout = 'hunter'):
 	current_run_data.set_value("STATISTICS", "AMMO_CONSUMED", 0)
 	current_run_data.set_value("STATISTICS", "AMMO_RECOVERED", 0)
 	
+	## INVENTORY
+	current_run_data.set_value("INVENTORY", "PRIMARY_WEAPON", "default_laser")
+	current_run_data.set_value("INVENTORY", "SECONDARY_WEAPON", "default_bomb")
+	current_run_data.set_value("INVENTORY", "MAX_HEALTH", 5)
+	current_run_data.set_value("INVENTORY", "HEALTH_REGENERATION", false)
+	current_run_data.set_value("INVENTORY", "MAX_AMMO", 7)
+	current_run_data.set_value("INVENTORY", "AMMO_REGENERATION", false)
+	current_run_data.set_value("INVENTORY", "ACTIVE_ITEM", "")
+	current_run_data.set_value("INVENTORY", "ITEMS_STORED", [])
+	
+	## BUFFS
+	current_run_data.set_value("EFFECTS", "BONUS_HEALTH", 0)
+	current_run_data.set_value("EFFECTS", "BONUS_AMMO", 0)
+	
 	## START
 	save_active_data()
-	run_started.emit()
+	run_started.emit(current_run_data)
 
-func end_run(success):
+func start_run():
+	var start_time = Time.get_unix_time_from_system()
+	current_run_data.set_value("RUN_DETAILS", "SUCCESS", false)
+	current_run_data.set_value("RUN_DETAILS", "STARTED_AT", start_time)
+	current_run_data.set_value("RUN_DETAILS", "TIME_ELAPSED", 0)
+
+func end_run(success : bool):
 	run_ended.emit()
 	
 	var start_time = current_run_data.get_value("RUN_DETAILS", "STARTED_AT")
@@ -118,12 +146,7 @@ func end_run(success):
 	current_run_data.set_value("RUN_DETAILS", "ENDED_AT", final_time)
 	current_run_data.set_value("STATISTICS", "RUN_TIME_ELAPSED", time_diff)
 	current_run_data.set_value("RUN_DETAILS", "SUCCESS", success)
-	
-	save_active_data()
-	
-	#if FileAccess.file_exists(current_run_data_path):
-	#	DirAccess.remove_absolute(current_run_data_path)
-	pass
+	save_active_data(true)
 
 func add_run_data(section, statistic, value, bulk : bool = false): # Change one value, save changes in file
 	var current_data = current_run_data.get_value(section, statistic)
@@ -139,17 +162,17 @@ func add_run_data(section, statistic, value, bulk : bool = false): # Change one 
 		TYPE_STRING:
 			data = String(current_data + value)
 		TYPE_ARRAY:
-			data.append(value)
+			current_data.append(value)
+			data = current_data
 		TYPE_DICTIONARY:
 			data = current_data + value
 		_:
 			push_warning('Type may not be supported by configuration file. Simple addition will be used')
 			data = current_data + value
-	current_run_data.set_value(section, statistic, current_data + value)
+	current_run_data.set_value(section, statistic, data)
 	
 	if !bulk:
 		save_active_data()
-		statistics_changed.emit()
 
 func add_bulk_data(data): # Change multiple values in one execution, save changes in file a single time after completion
 	assert(data is Dictionary)
@@ -158,9 +181,16 @@ func add_bulk_data(data): # Change multiple values in one execution, save change
 		var stat = data[command]["stat"]
 		var value = data[command]["value"]
 		add_run_data(section, stat, value, true)
-	
-	statistics_changed.emit()
 	save_active_data()
 
-func save_active_data():
+func save_active_data(close : bool = false):
+	statistics_changed.emit()
+	run_data_changed.emit()
 	current_run_data.save(current_run_data_path)
+	if close:
+		var timestamp = current_run_data.get_value("RUN_DETAILS", "STARTED_AT")
+		var final_run_data_path = "{0}/RUN_{1}.cfg".format({
+			0:profile_history_folder,
+			1:timestamp
+		})
+		current_run_data.save(final_run_data_path)

@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scenes/scripts/ui/game_over.gd" id="1_8ouiq"]
 [ext_resource type="Theme" uid="uid://b1a5sjt2xibwo" path="res://assets/themes/strata_theme.tres" id="1_oxe1g"]
 [ext_resource type="LabelSettings" uid="uid://dqqjjg0mh3bhh" path="res://assets/themes/strata_font.tres" id="3_0ahpm"]
-[ext_resource type="PackedScene" uid="uid://l3nrofdqijr6" path="res://components/ui/statistics_console.tscn" id="4_g8mu7"]
+[ext_resource type="PackedScene" uid="uid://l3nrofdqijr6" path="res://scenes/statistics_console.tscn" id="4_g8mu7"]
 [ext_resource type="Texture2D" uid="uid://bl66ij78aurfm" path="res://assets/textures/static/gear_icon_outline.png" id="5_u1mwt"]
 [ext_resource type="Texture2D" uid="uid://nsnw7fqu4cml" path="res://assets/textures/static/gear_icon.png" id="6_6l212"]
 [ext_resource type="BitMap" uid="uid://dngmj6m7g1uu4" path="res://assets/textures/static/gear_icon_bitmap.bmp" id="7_5c3mt"]

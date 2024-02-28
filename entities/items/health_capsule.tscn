@@ -6,7 +6,7 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_mavwj"]
 radius = 7.0
 
-[node name="HealthCapsule" type="Area2D"]
+[node name="HealthCapsule" type="Area2D" groups=["item"]]
 light_mask = 2
 visibility_layer = 2
 collision_layer = 16

@@ -51,10 +51,21 @@ func gamble_drop(items, chances, max_range):
 		if next_item_chance > drop_value: 
 			if debug: print('ITEM GAMBLED: %s' % str(items[i]))
 			return items[i] # If next_value is bigger than random number chance, drop current item in loop
-		else: pass
+		else:
+			pass
 
 func _on_item_dropped(drop):
-	var item_scene = load(items_dict[drop]["scene"])
+	var item_scene
+	match items_dict["drops"][drop]["type"]:
+		0: # Consumable
+			if debug: print('CONSUMABLE')
+			item_scene = load(items_dict["drops"][drop]["scene"])
+		1: # Item Template
+			if debug: print('ITEM TEMPLATE')
+			item_scene = load(items_dict["drops"][drop]["scene"])
+		_: # Unset
+			if debug: print('UNSET')
+			item_scene = load(items_dict["drops"][drop]["scene"])
 	drop = item_scene.instantiate()
 	drop.global_position = owner.global_position
 	item_container.call_deferred("add_child", drop)

@@ -66,7 +66,7 @@ size = Vector2(4, 12)
 top_level = true
 light_mask = 2
 collision_layer = 4
-collision_mask = 10
+collision_mask = 2
 script = ExtResource("1_24mmu")
 projectile_speed = 700
 metadata/_edit_horizontal_guides_ = [-2.0, 2.0]
@@ -99,7 +99,7 @@ scale = Vector2(0.3, 0.55)
 
 [node name="HitboxComponent" parent="." instance=ExtResource("3_5k8xg")]
 collision_layer = 4
-collision_mask = 10
+collision_mask = 2
 
 [node name="SelfProjectileBox" type="CollisionShape2D" parent="HitboxComponent"]
 rotation = -1.5708

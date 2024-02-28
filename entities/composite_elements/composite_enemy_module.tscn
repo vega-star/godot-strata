@@ -18,7 +18,6 @@ health_component = NodePath("../HealthComponent")
 
 [node name="HealthComponent" parent="." node_paths=PackedStringArray("health_bar") instance=ExtResource("2_0d728")]
 health_bar = NodePath("../HealthBarComponent")
-max_health = 150
 
 [node name="HitboxComponent" parent="." node_paths=PackedStringArray("health_component", "combat_component") instance=ExtResource("3_cq3ul")]
 collision_layer = 2
