@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://m40j8p3ir8k"
-path="res://.godot/imported/primary_up.png-1d95e49b65dea6841d96147185d0b846.ctex"
+uid="uid://dtjnwo5c12dha"
+path="res://.godot/imported/composite_enemy_core.png-230d60394a6fb37a575917ce6d9ffa8c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://entities/items/primary_up.png"
-dest_files=["res://.godot/imported/primary_up.png-1d95e49b65dea6841d96147185d0b846.ctex"]
+source_file="res://assets/textures/prototypes/composite_enemy_core.png"
+dest_files=["res://.godot/imported/composite_enemy_core.png-230d60394a6fb37a575917ce6d9ffa8c.ctex"]
 
 [params]
 

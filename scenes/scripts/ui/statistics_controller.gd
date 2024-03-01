@@ -3,9 +3,6 @@ class_name StatisticsConsole extends Control
 @export var output_list : ItemList
 @export var values_list : ItemList
 
-func _on_visibility_changed():
-	update_data()
-
 func update_data():
 	if !output_list:
 		output_list = $DefaultStatisticsList

@@ -1,33 +1,30 @@
 extends Control
 
-@onready var transition_layer = $ScreenTransitionLayer
-@onready var transition_time = transition_layer.fade_time
 @onready var project_version = ProjectSettings.get_setting("application/config/version")
-@onready var version_label = $VersionLabel
+@onready var version_label = $MenuPages/CentralPage/VersionLabel
+@onready var menu_pages = $MenuPages
 
-# | Main Menu
+var screen_size : Vector2
+var page_position : int = 0
+var page_position_offset : int = 0
 
 func _ready():
-	transition_layer.visible = true
-	version_label.text = "v%s" % project_version
+	if UI.UIOverlay.visible: UI.UIOverlay.visible = false
 	
-	transition_layer.fade('IN')
-	await get_tree().create_timer(transition_time).timeout
-	$ButtonsContainer/StartButton.grab_focus()
-	transition_layer.visible = false
+	version_label.text = "v%s" % project_version
+	screen_size = get_viewport_rect().size
+	await UI.fade('IN')
+	$MenuPages/CentralPage/ButtonsContainer/StartButton.grab_focus()
 
-func _on_start_button_pressed(): # StartButton
-	transition_layer.fade('OUT')
-	transition_layer.visible = true
-	await get_tree().create_timer(transition_time).timeout
-	get_tree().change_scene_to_file("res://scenes/loadout_selection.tscn")
+func set_page_position(set_position):
+	page_position = set_position
+	var position_tween = get_tree().create_tween()
+	position_tween.tween_property(menu_pages, "position", Vector2((screen_size.x + page_position_offset) * page_position, 0), 0.95).set_trans(Tween.TRANS_EXPO)
+	match set_position:
+		-1: $MenuPages/LoadoutPage.set_focus()
+		0: $MenuPages/CentralPage.set_focus()
 
-func _on_quit_button_pressed(): # QuitButton
-	get_tree().quit()
-
-func _on_git_hub_link_pressed():
-	OS.shell_open("https://github.com/vega-star/godot-strata")
-
+## Reactive Signals
 func _on_config_button_pressed():
 	Options.visible = true
 

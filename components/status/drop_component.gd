@@ -38,7 +38,6 @@ func _on_enemy_died():
 	else: 
 		push_warning('Drop requested, but enemy has container_items turned off. Check the data file for the missing info')
 
-
 func gamble_drop(items, chances, max_range):
 	var drop_value = randi_range(1,max_range)
 	for i in items.size():

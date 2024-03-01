@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bfw1nw60hhtcy"
-path="res://.godot/imported/enemy_default_laser.png-45577c3aa49a92d8ed8fbdf7d322a049.ctex"
+uid="uid://bir22ts5blvfa"
+path="res://.godot/imported/composite_enemy_module_core_barrier.png-bf0dfdf03354eaefdeeee0383d839317.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/textures/entities/enemies/misc/enemy_default_laser.png"
-dest_files=["res://.godot/imported/enemy_default_laser.png-45577c3aa49a92d8ed8fbdf7d322a049.ctex"]
+source_file="res://assets/textures/prototypes/composite_enemy_module_core_barrier.png"
+dest_files=["res://.godot/imported/composite_enemy_module_core_barrier.png-bf0dfdf03354eaefdeeee0383d839317.ctex"]
 
 [params]
 

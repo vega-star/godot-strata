@@ -1,12 +1,11 @@
 extends Control
 
-@onready var transition_layer = $ScreenTransitionLayer
-@onready var transition_time = transition_layer.fade_time
 var run_started : bool = false
 var items_dict : Dictionary
 var weapons_dict : Dictionary
 const items_data_path = "res://data/items_data.json"
 const weapons_data_path = "res://data/weapons_data.json"
+const first_stage = "res://scenes/stages/strata_scene.tscn"
 
 var primary_weapons : Array
 var secondary_weapons : Array
@@ -19,9 +18,9 @@ var selected_item : String
 @export var debug : bool = false
 
 func _ready():
-	var primary_weapons_list = $CustomizeLoadout/CustomizeLoadoutContainer/LoadoutLists/PrimaryWeaponsList
-	var secondary_weapons_list = $CustomizeLoadout/CustomizeLoadoutContainer/LoadoutLists/SecondaryWeaponsList
-	var starter_items_list = $CustomizeLoadout/CustomizeLoadoutContainer/LoadoutLists/StarterItemsList
+	var primary_weapons_list = $CustomizeLoadoutContainer/LoadoutLists/PrimaryWeaponsList
+	var secondary_weapons_list = $CustomizeLoadoutContainer/LoadoutLists/SecondaryWeaponsList
+	var starter_items_list = $CustomizeLoadoutContainer/LoadoutLists/StarterItemsList
 	primary_weapons_list.clear()
 	secondary_weapons_list.clear()
 	starter_items_list.clear()
@@ -76,25 +75,19 @@ func _ready():
 				starter_items_list.select(i)
 				selected_item = saved_loadout[2]
 	
-	transition_layer.visible = true
-	transition_layer.fade('IN')
-	await get_tree().create_timer(transition_time).timeout
+	await UI.fade('IN')
+	set_focus()
+
+func set_focus():
 	$StartButton.grab_focus()
-	transition_layer.visible = false
 
 func _on_start_button_pressed(): # StartButton
 	confirm_selection()
-	
-	transition_layer.fade('OUT')
-	transition_layer.visible = true
-	await get_tree().create_timer(transition_time).timeout
-	get_tree().change_scene_to_file("res://scenes/strata_scene.tscn")
+	await UI.fade('OUT')
+	get_tree().change_scene_to_file(first_stage)
 
 func _on_return_to_main_menu_pressed():
-	transition_layer.visible = true
-	transition_layer.fade('OUT')
-	await get_tree().create_timer(transition_time).timeout
-	get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
+	owner.set_page_position(0)
 
 func _on_config_button_pressed():
 	Options.visible = true
@@ -127,5 +120,4 @@ func confirm_selection():
 	
 	Profile.current_run_data.set_value("INVENTORY", "PRIMARY_WEAPON", selected_primary)
 	Profile.current_run_data.set_value("INVENTORY", "SECONDARY_WEAPON", selected_secondary)
-	# Profile.current_run_data.set_value("INVENTORY", "ITEMS_STORED", item_array)
 	Profile.add_run_data("INVENTORY", "ITEMS_STORED", selected_item)

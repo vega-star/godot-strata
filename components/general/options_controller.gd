@@ -63,8 +63,9 @@ func _input(event): # Able the player to exit options screen using actions, need
 	if Input.is_action_pressed("quit") or Input.is_action_pressed("pause") and Options.visible == true:
 		_on_exit_menu_pressed()
 
-	if debug == true:
-		if event is InputEventKey: # Prints keycode int number to fill key_dict manually
+	if debug == true: ## This conditional prints every input as its keycode integer. 
+		# This is useful to fill key_dict manually, and I think it's faster than searching in docs.
+		if event is InputEventKey: 
 			print(event.get_keycode_with_modifiers()) 
 
 func _on_reset_default_keybinds_button(): # Prompt to reset keybindings, preventing players from resetting accidentally

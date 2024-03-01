@@ -10,6 +10,7 @@ script = ExtResource("1_ex08y")
 layer = 25
 
 [node name="SelectionControl" type="Control" parent="InventoryUILayer"]
+process_mode = 2
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

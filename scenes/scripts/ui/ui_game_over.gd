@@ -3,15 +3,17 @@ extends CanvasLayer
 signal retry_button_pressed()
 signal exit_button_pressed()
 
+@onready var statistics_list = $GameOverPanel/Screen/TitleBox/LayoutBox/StatisticsList
 @export var active_timeout = 1.5
 var player_killed_status : bool = false
 
-@onready var stage_timer = $"../../StageTimer"
-
 func game_over_prompt(): # Toggles node visibiliy, as well as quit and reset functions.
-	stage_timer.paused = true # Pauses stage timer
+	UI.stage_timer.paused = true # Pauses stage timer
+	statistics_list.update_data()
+	Profile.end_run(false)
+	
 	await get_tree().create_timer(active_timeout).timeout
-	self.visible = true
+	visible = true
 	$GameOverPanel/Screen/TitleBox/LayoutBox/TextBox/MenuButton.grab_focus()
 	player_killed_status = true
 
@@ -22,11 +24,14 @@ func _input(_event): # Able us to use hotkeys instead of clicking the buttons, b
 		elif Input.is_action_just_pressed("reset"):
 			_on_retry_button_pressed()
 
-func _on_retry_button_pressed(): # Recieves signal from 'RetryButton', reloads tree directly
+func _on_retry_button_pressed(): # Reloads scene directly
+	visible = false
 	get_tree().reload_current_scene()
 
-func _on_exit_button_pressed(): # Recieves signal from 'ExitButton', closes the game immediately
-	get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
+func _on_exit_button_pressed(): # Recieves signal from 'ExitButton', goes back to main menu
+	visible = false
+	UI.UIOverlay.visible = false
+	get_tree().change_scene_to_file(UI.main_menu_path)
 
 func _on_config_button_pressed():
 	Options.visible = true

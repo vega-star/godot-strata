@@ -69,6 +69,7 @@ func _on_config_changed():
 	config_load = config.load("user://config.cfg")
 	toggle_mode = config.get_value("MAIN_OPTIONS","TOGGLE_FIRE")
 
+## Controls, movement and animation
 func _process(delta): # Frequent listener for input with delay (weapons, items, etc.)
 	if toggle_mode:
 		if Input.is_action_just_pressed("shoot") and !primary_fire_toggled:
@@ -114,7 +115,14 @@ func _physics_process(delta): # General movement function
 		direction = Input.get_vector("move_left", "move_right", "move_up", "move_down", deadzone)
 	else:
 		direction = Vector2(-0.1,0)
-	velocity = velocity.lerp(direction * speed, 0.1) # Thanks DeeRaghooGames for blessing me with this secret sauce: https://www.youtube.com/watch?v=KadtbetXTGc
+	velocity = velocity.lerp(direction * speed, 0.1) # Thanks DeeRaghooGames for blessing me with this secret sauce. This makes movement really smooth. 
+	# Source: https://www.youtube.com/watch?v=KadtbetXTGc
+	
+	# Input and movement controls were based on a great tutorial video from Kaan Alpar. 
+	# I've modified heavily his code and added a bunch of stuff, but some lines of code still are literally the same. 
+	# It helped me a lot when I begun this project as I had no prior experience on Godot.
+	# It's awesome for learning your first steps. If you're reading this file to learn directly from code, check it out:
+	# Source: https://www.youtube.com/watch?v=QoNukqpolS8
 	
 	if Input.is_action_just_pressed("dash") and dash_cooldown == false:
 		dash_cooldown = true
@@ -170,11 +178,10 @@ func shoot_loop(delta):
 		await get_tree().create_timer(primary_fire_rof * delta).timeout
 		primary_fire_cooldown = false
 
-# Equipped weapon in primary.
+## Weapon firing signals
 func shoot_primary(): 
 	fire_primary.emit(muzzle.global_position)
-	
-# Equipped weapon in secondary. 
+
 func shoot_secondary():
 	if secondary_ammo > 0:
 		if debug: print("Bomb launched! %d ammo left" % int(secondary_ammo - 1))
@@ -182,15 +189,19 @@ func shoot_secondary():
 	else: 
 		if debug: print("No ammo left!")
 
+## Status change listeners
 func _on_ammo_changed(current_ammo, _previous_ammo):
 	secondary_ammo = current_ammo
+	UI.UIOverlay.set_ammo = secondary_ammo
 
-func _on_health_component_health_change(previous_value, new_value, negative): # Relaying health value as a signal, so it can be changed in the hud
+func _on_health_changed(previous_value, new_value, negative): # Relaying health value as a signal, so it can be changed in the hud
 	health_change.emit(previous_value, new_value)
 	if negative:
 		damage_knockback = true
 		stage_camera.start_shake()
+	UI.UIOverlay.set_hp = new_value
 
+## Additional controllers
 func controls_lock(switch_bool): # Control lock switch
 	is_control_locked = switch_bool
 
@@ -210,9 +221,3 @@ func die():
 		
 		await death_sequence()
 		queue_free()
-
-# Most code were based on tutorial video from Kaan Alpar, and it's a great tutorial detailing steps of building a fully complete game. 
-# Some parts that I've written are closely similar, while some others are literally the same line of code. 
-# It helped me a lot when I begun this project for I had no prior experience on Godot.
-# It's awesome for learning, if you're reading this to learn, go check it out:
-# Source: https://www.youtube.com/watch?v=QoNukqpolS8

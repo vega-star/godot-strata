@@ -1,29 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://c3nb8fj0knc2c"]
 
-[ext_resource type="Texture2D" uid="uid://m40j8p3ir8k" path="res://entities/items/primary_up.png" id="1_wr8vg"]
-
-[sub_resource type="GDScript" id="GDScript_6c4by"]
-script/source = "extends Area2D
-
-@export var heal_value : int = 1
-@export var item_drift : float = 1
-@export var max_item_drift : float = 120
-@export var buff_value : float = 2.0
-@export var buff_name : String = \"PrimaryUp\"
-
-func _physics_process(delta):
-	global_position.x -= item_drift * delta
-	get_tree().create_tween().tween_property(self, \"item_drift\", max_item_drift, 0.999)
-
-func _on_presence_checker_screen_exited(): # Deletes item if it goes away from the screen
-	queue_free()
-
-func _on_area_entered(area):
-	if area is HitboxComponent:
-		# (source, target_status, buff, buff_period = null, accumulate : bool = false)
-		area.get_owner().equipment_module.create_buff(buff_name, \"primary_damage_buff\", buff_value, 5)
-		queue_free()
-"
+[ext_resource type="Script" path="res://entities/items/primary_up.gd" id="1_l2mcm"]
+[ext_resource type="Texture2D" uid="uid://m40j8p3ir8k" path="res://assets/textures/prototypes/primary_up.png" id="1_wr8vg"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_mavwj"]
 radius = 7.0
@@ -32,7 +10,7 @@ radius = 7.0
 light_mask = 2
 visibility_layer = 2
 collision_layer = 16
-script = SubResource("GDScript_6c4by")
+script = ExtResource("1_l2mcm")
 
 [node name="CapsuleSprite" type="Sprite2D" parent="."]
 texture = ExtResource("1_wr8vg")

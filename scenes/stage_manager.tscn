@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://csdnju38rqee8"]
 
-[ext_resource type="Script" path="res://scenes/scripts/main/threat_manager.gd" id="1_7rybp"]
+[ext_resource type="Script" path="res://scenes/scripts/main/stage_manager.gd" id="1_7rybp"]
 [ext_resource type="Script" path="res://scenes/scripts/main/threat_generator.gd" id="1_x4heg"]
 
 [node name="StageManager" type="Node"]

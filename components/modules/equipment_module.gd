@@ -124,6 +124,7 @@ func update_player_values():
 	owner.set_secondary_rof = base_secondary_rof * secondary_rof_buff
 	
 	owner.status_change.emit()
+	UI.UIOverlay.update_hud()
 
 func reset_buffs():
 	primary_damage_buff = 1.0
@@ -131,7 +132,7 @@ func reset_buffs():
 	secondary_damage_buff = 1.0
 	secondary_rof_buff = 1.0
 	secondary_additional_amount = 0
-	Profile.add_run_data("EFFECT", "BONUS_AMMO", 0)
+	Profile.current_run_data.set_value("EFFECTS", "BONUS_AMMO", 0)
 	update_player_values()
 
 ## Weapon usage
@@ -153,22 +154,6 @@ func _on_player_secondary_fired(reference, _secondary_ammo):
 		projectile_container.add_child(secondary_shot)
 		if secondary_projectiles_amount > 1: await get_tree().create_timer(interval).timeout
 
-func add_buff(status, buff):
-	match status:
-		"primary_damage_buff":
-			primary_damage_buff *= buff
-		"primary_rof_buff":
-			primary_rof_buff /= buff
-		"secondary_rof_buff":
-			secondary_rof_buff /= buff
-		"secondary_additional_amount":
-			var loaded_bonus_ammo = Profile.current_run_data.get_value("EFFECTS", "BONUS_AMMO")
-			secondary_additional_amount = loaded_bonus_ammo + buff
-			Profile.current_run_data.set_value("EFFECTS", "BONUS_AMMO", secondary_additional_amount)
-			update_player_values()
-		_:
-			print('Buff request received, but status is invalid. No change has been made.')
-
 func add_ammo(ammo_value):
 	if secondary_ammo + ammo_value > max_secondary_ammo: # Cap the value to prevent overflow
 		secondary_ammo = max_secondary_ammo
@@ -182,6 +167,23 @@ func change_equipment(target_equipment, value):
 		0, "selected_primary": selected_primary = value
 		1, "selected_secondary": selected_secondary = value
 		_: push_error("Invalid equipment type")
+
+func add_buff(status, buff):
+	match status:
+		"primary_damage_buff":
+			primary_damage_buff *= buff
+		"primary_rof_buff":
+			primary_rof_buff /= buff
+		"secondary_rof_buff":
+			secondary_rof_buff /= buff
+		"secondary_additional_amount":
+			var loaded_bonus_ammo = Profile.current_run_data.get_value("EFFECTS", "BONUS_AMMO")
+			secondary_additional_amount = loaded_bonus_ammo + buff
+			Profile.current_run_data.set_value("EFFECTS", "BONUS_AMMO", secondary_additional_amount)
+			update_player_values()
+			add_ammo(secondary_additional_amount)
+		_:
+			print('Buff request received, but status is invalid. No change has been made.')
 
 func create_buff(source, target_status, value, period = null, accumulate : bool = false):
 	var temporary : bool = false
@@ -234,6 +236,8 @@ func _on_buff_deactivated(source):
 var buttons_available : Array
 
 func present_choice(items):
+	UI.set_pause(true)
+	
 	assert(items is Array)
 	for item in items:
 		var button_scene = load("res://scenes/selection_button.tscn")
@@ -253,6 +257,8 @@ func present_choice(items):
 	$InventoryUILayer/SelectionControl.visible = true
 
 func choose_item(item_id):
+	UI.set_pause(false)
+	
 	$InventoryUILayer/SelectionControl.visible = false
 	await Profile.add_run_data("INVENTORY", "ITEMS_STORED", item_id)
 	load_items()

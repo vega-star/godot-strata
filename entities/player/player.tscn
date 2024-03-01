@@ -847,4 +847,4 @@ hitbox = NodePath("PlayerHitbox")
 polygon = PackedVector2Array(6, -3, 17, -1, 43, 4, 8, 9, -32, 8, -43, -9, -21, 0)
 
 [connection signal="ammo_changed" from="EquipmentModule" to="." method="_on_ammo_changed"]
-[connection signal="health_change" from="HealthComponent" to="." method="_on_health_component_health_change"]
+[connection signal="health_change" from="HealthComponent" to="." method="_on_health_changed"]

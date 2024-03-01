@@ -6,7 +6,7 @@ extends Area2D
 
 func _physics_process(delta):
 	global_position.x -= item_drift * delta
-	get_tree().create_tween().tween_property(self, "item_drift", max_item_drift, 0.999)
+	get_tree().create_tween().tween_property(self, "item_drift", max_item_drift, 0.3)
 
 func _on_presence_checker_screen_exited(): # Deletes item if it goes away from the screen
 	queue_free()

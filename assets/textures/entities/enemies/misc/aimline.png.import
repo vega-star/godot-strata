@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://j8ejey5hdgmr"
-path="res://.godot/imported/composite_enemy_module_arm.png-91bbcc94e90e0600b203fbe36f7a4564.ctex"
+uid="uid://cnve83mws0p8y"
+path="res://.godot/imported/aimline.png-9f1d0c7b27c4e91f20c60f692ea1fd90.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/textures/entities/enemies/misc/composite_enemy_module_arm.png"
-dest_files=["res://.godot/imported/composite_enemy_module_arm.png-91bbcc94e90e0600b203fbe36f7a4564.ctex"]
+source_file="res://assets/textures/entities/enemies/misc/aimline.png"
+dest_files=["res://.godot/imported/aimline.png-9f1d0c7b27c4e91f20c60f692ea1fd90.ctex"]
 
 [params]
 
@@ -31,4 +31,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=1
+detect_3d/compress_to=0

@@ -42,6 +42,8 @@ func _ready():
 	await load_stage_file(raw_stage_file)
 	await owner.stage_started # The scene controls when the schedule starts
 	
+	UI.UIOverlay.set_stage_bar(stage_length_in_minutes * 60)
+	
 	load_events_file(raw_events_file)
 
 func _on_threat_spawned_relay(enemy_name, type):

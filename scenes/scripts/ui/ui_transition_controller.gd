@@ -7,9 +7,13 @@ extends CanvasLayer
 signal fade_output(mode)
 
 func fade(mode):
-	if mode == 'IN':
-		animation_node.play('FADE')
-		fade_output.emit(mode)
-	if mode == 'OUT':
-		animation_node.play_backwards('FADE')
-		fade_output.emit(mode)
+	match mode:
+		0, 'IN':
+			animation_node.play('FADE')
+			fade_output.emit(mode)
+		1, 'OUT':
+			animation_node.play_backwards('FADE')
+			fade_output.emit(mode)
+
+func stage_completed():
+	$StageCompleted.visible = true

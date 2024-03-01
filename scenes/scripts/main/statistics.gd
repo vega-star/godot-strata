@@ -56,7 +56,7 @@ func load_profile(profile = selected_profile):
 	var check_profile_folder = DirAccess.make_dir_recursive_absolute(selected_profile_folder) 
 	
 	profile_history_folder = "{0}/history".format({0:selected_profile_folder})
-	var check_history_folder = DirAccess.make_dir_recursive_absolute(selected_profile_folder) 
+	var check_history_folder = DirAccess.make_dir_recursive_absolute(profile_history_folder) 
 	
 	history_data_path = "{0}/history.cfg".format({0:selected_profile_folder})
 	data_load = history_data.load(history_data_path)
@@ -130,7 +130,7 @@ func start_run():
 	current_run_data.set_value("RUN_DETAILS", "STARTED_AT", start_time)
 	current_run_data.set_value("RUN_DETAILS", "TIME_ELAPSED", 0)
 
-func end_run(success : bool):
+func end_run(success : bool = false):
 	run_ended.emit()
 	
 	var start_time = current_run_data.get_value("RUN_DETAILS", "STARTED_AT")
@@ -140,7 +140,6 @@ func end_run(success : bool):
 	var time_sec = time_diff_in_sec % 60
 	var time_min = (time_diff_in_sec/60) % 60
 	var time_h = (time_diff_in_sec/60)/60
-	
 	var time_diff =  "%02d:%02d:%02d" % [time_h, time_min, time_sec]
 	
 	current_run_data.set_value("RUN_DETAILS", "ENDED_AT", final_time)

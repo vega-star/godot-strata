@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://dqge7meaumoi5"]
 
-[ext_resource type="Texture2D" uid="uid://dph1k44grln8n" path="res://assets/textures/entities/enemies/misc/enemy-gun.png" id="1_e72jq"]
+[ext_resource type="Texture2D" uid="uid://dph1k44grln8n" path="res://assets/textures/prototypes/enemy-gun.png" id="1_e72jq"]
 [ext_resource type="Script" path="res://entities/dummy_enemies/enemy_gun.gd" id="1_o7ikq"]
 [ext_resource type="PackedScene" uid="uid://bfy4edhtjb4rs" path="res://components/status/health_bar_component.tscn" id="3_45q46"]
 [ext_resource type="PackedScene" uid="uid://c4rkui846g2ue" path="res://components/status/combat_component.tscn" id="4_7tmbe"]

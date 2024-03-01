@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://o3y2tu6af11i"
-path="res://.godot/imported/composite_enemy.png-c63246a8f4ec0bc85ab0fe3d2e483d80.ctex"
+uid="uid://dup3rcwpxtgtp"
+path="res://.godot/imported/enemy-gun-long.png-ed0be5b5e79fac4550823ba3a1479b61.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/textures/entities/enemies/misc/composite_enemy.png"
-dest_files=["res://.godot/imported/composite_enemy.png-c63246a8f4ec0bc85ab0fe3d2e483d80.ctex"]
+source_file="res://assets/textures/prototypes/enemy-gun-long.png"
+dest_files=["res://.godot/imported/enemy-gun-long.png-ed0be5b5e79fac4550823ba3a1479b61.ctex"]
 
 [params]
 

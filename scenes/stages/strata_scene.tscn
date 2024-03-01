@@ -1,9 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://q5ddnm20kbtu"]
+[gd_scene load_steps=6 format=3 uid="uid://q5ddnm20kbtu"]
 
 [ext_resource type="Script" path="res://scenes/scripts/main/strata_scene.gd" id="1_yvb6t"]
 [ext_resource type="PackedScene" uid="uid://csdnju38rqee8" path="res://scenes/stage_manager.tscn" id="2_yuycq"]
 [ext_resource type="PackedScene" uid="uid://biim58k38oa7h" path="res://entities/player/player.tscn" id="3_2ft1y"]
-[ext_resource type="PackedScene" uid="uid://bungiyr4lpj25" path="res://scenes/singletons/ui_component.tscn" id="4_emk50"]
 [ext_resource type="PackedScene" uid="uid://b7d5rmrbmprps" path="res://components/parallax/first_stage_parallax.tscn" id="5_ng4qn"]
 [ext_resource type="Script" path="res://scenes/scripts/main/stage_camera.gd" id="6_cvf0c"]
 
@@ -30,9 +29,6 @@ remote_path = NodePath("../../StageCamera")
 [node name="StageTimer" type="Timer" parent="."]
 one_shot = true
 
-[node name="UIComponent" parent="." instance=ExtResource("4_emk50")]
-size_flags_horizontal = 0
-
 [node name="FirstStageParallax" parent="." instance=ExtResource("5_ng4qn")]
 
 [node name="StageCamera" type="Camera2D" parent="."]
@@ -47,6 +43,4 @@ position_smoothing_speed = 1.0
 editor_draw_limits = true
 script = ExtResource("6_cvf0c")
 
-[connection signal="fire_secondary" from="Player" to="." method="_on_player_fire_secondary"]
-[connection signal="health_change" from="Player" to="." method="_on_player_health_change"]
 [connection signal="timeout" from="StageTimer" to="." method="_on_stage_timer_timeout"]

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://fpi1mcgdolb0"
-path="res://.godot/imported/composite_enemy_laser_start.png-2aeece93f6454269f42a072c15287697.ctex"
+uid="uid://dph1k44grln8n"
+path="res://.godot/imported/enemy-gun.png-f25207704bc52bedf8239e1cc96baa62.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/textures/entities/enemies/misc/composite_enemy_laser_start.png"
-dest_files=["res://.godot/imported/composite_enemy_laser_start.png-2aeece93f6454269f42a072c15287697.ctex"]
+source_file="res://assets/textures/prototypes/enemy-gun.png"
+dest_files=["res://.godot/imported/enemy-gun.png-f25207704bc52bedf8239e1cc96baa62.ctex"]
 
 [params]
 

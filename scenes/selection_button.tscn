@@ -13,9 +13,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -115.0
-offset_top = -185.0
+offset_top = -189.0
 offset_right = 115.0
-offset_bottom = 193.0
+offset_bottom = 189.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
@@ -24,6 +24,7 @@ texture_click_mask = ExtResource("2_nqcjc")
 script = ExtResource("3_n4uw4")
 
 [node name="SizeRect" type="ColorRect" parent="."]
+modulate = Color(1, 1, 1, 0.32549)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -98,4 +99,6 @@ autowrap_mode = 3
 text_overrun_behavior = 3
 max_lines_visible = 10
 
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
 [connection signal="pressed" from="." to="." method="_on_pressed"]

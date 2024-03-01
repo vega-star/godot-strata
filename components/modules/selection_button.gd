@@ -1,12 +1,16 @@
 class_name SelectionButton extends TextureButton
 
 signal selected(item_id)
+signal movement_completed
 
 @onready var item_id
 @onready var title : String
 @onready var icon
 @onready var description : String
 @onready var rarity : int
+
+var movement : int = 20
+var movement_active : bool = false
 
 func set_button_properties(new_item_id, new_title, new_icon, new_description, new_rarity, update : bool = true):
 	item_id = new_item_id
@@ -26,3 +30,25 @@ func set_button_properties(new_item_id, new_title, new_icon, new_description, ne
 
 func _on_pressed():
 	selected.emit(item_id)
+
+func _on_mouse_entered():
+	arise(true)
+
+func _on_mouse_exited():
+	arise(false)
+
+func arise(mode : bool = true):
+	if movement_active:
+		await movement_completed
+	movement_active = true
+	
+	var movement_tween = get_tree().create_tween()
+	movement_tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
+	if mode:
+		movement_tween.tween_property(self, "position", Vector2(position.x, position.y - movement), 0.2).set_trans(Tween.TRANS_EXPO)
+	else:
+		movement_tween.tween_property(self, "position", Vector2(position.x, position.y + movement), 0.2).set_trans(Tween.TRANS_EXPO)
+		
+	await movement_tween.finished
+	movement_active = false
+	movement_completed.emit()

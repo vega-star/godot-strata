@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://d3q7qlol4wnfp"]
 
-[ext_resource type="Texture2D" uid="uid://bfw1nw60hhtcy" path="res://assets/textures/entities/enemies/misc/enemy_default_laser.png" id="1_jwiey"]
+[ext_resource type="Texture2D" uid="uid://bfw1nw60hhtcy" path="res://assets/textures/prototypes/enemy_default_laser.png" id="1_jwiey"]
 [ext_resource type="Script" path="res://entities/projectiles/projectiles_scripts/default_enemy_laser.gd" id="1_reim5"]
 [ext_resource type="PackedScene" uid="uid://c3atqdge540t0" path="res://components/status/hitbox_component.tscn" id="3_ptfmk"]
 

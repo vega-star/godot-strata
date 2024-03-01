@@ -2,12 +2,16 @@ extends RayCast2D
 
 @export var laser_damage : int = 1
 @export var laser_line : Line2D
+@export var aim_line : Line2D
 @export var charging_emitter : CPUParticles2D
 @export var source_emitter : CPUParticles2D
 @export var beam_emitter : CPUParticles2D
 @export var end_emitter : CPUParticles2D
+@export var debug : bool = false
 
 @onready var laser_tween : Tween
+var cast_point
+var charging : bool = false
 var cast_available : bool = true
 var casting : bool = false
 var target : Object
@@ -17,6 +21,7 @@ var laser_max_width = 25
 
 func _ready():
 	randomize()
+	
 	## Default node connections
 	if !laser_line: laser_line = $LaserLine
 	if !charging_emitter: charging_emitter = $Emitters/ChargingEmitter
@@ -25,20 +30,29 @@ func _ready():
 	if !end_emitter: end_emitter = $Emitters/EndEmitter
 	
 	laser_line.points[-1] = Vector2.ZERO
+	aim_line.points[-1] = Vector2.ZERO
+	
+	aim_line.width = 0
 
-func _process(delta):
-	var cast_point := target_position
+func _process(_delta):
+	cast_point = target_position
 	force_raycast_update()
 	
-	if is_colliding(): 
+	if is_colliding():
+		aim_line.modulate
 		cast_point = to_local(get_collision_point())
 		target = get_collider()
 		if enabled:
 			target.generate_damage(laser_damage)
 	
 	laser_line.points[-1] = cast_point
+	aim_line.points[-1] = cast_point
 	beam_emitter.position.x = cast_point.length() / 2
 	end_emitter.position = cast_point
+	
+	if debug:
+		if Input.is_action_just_pressed("dash"):
+			charge()
 
 func set_casting(cast):
 	casting = cast
@@ -47,24 +61,32 @@ func set_casting(cast):
 	else: deactivate()
 
 func charge():
-	enabled = false
+	if enabled: await deactivate()
+	charging = true
 	end_emitter.emitting = false
 	charging_emitter.emitting = true
 	charging_emitter.speed_scale = 0
-	laser_line.width = 1
+	
+	var aiming_tween = get_tree().create_tween()
+	aiming_tween.tween_property(aim_line, "width", 4, laser_speed)
 	
 	var charging_tween = get_tree().create_tween()
-	charging_tween.tween_property(charging_emitter, "speed_scale", 2, 0.4)
+	charging_tween.tween_property(charging_emitter, "speed_scale", 5, 5)
 	await get_tree().create_timer(5, false).timeout
 	
 	charging_emitter.emitting = false
 	charging_tween.kill()
+	aiming_tween.kill()
+	charging = false
 	set_casting(true)
 
 func activate():
+	charging_emitter.emitting = false
 	source_emitter.emitting = true
 	beam_emitter.emitting = true
 	end_emitter.emitting = true
+	
+	aim_line.width = 0
 	
 	laser_tween = get_tree().create_tween()
 	laser_tween.tween_property(laser_line, "width", laser_max_width, laser_speed)

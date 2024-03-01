@@ -43,11 +43,19 @@ extends CanvasLayer
 	set(progress_value):
 		stage_progress_bar.value = progress_value
 
+@onready var stage_progress_bar_size:
+	set(max):
+		stage_progress_bar.set_max(max)
+		Profile.statistics_changed.connect(update_ui_elements)
+		update_ui_elements()
+
 func _ready():
-	## Sets the progress bar max value equal to the stage total time
-	stage_progress_bar.set_max($"../../StageManager".stage_length_in_minutes * 60)
 	Profile.statistics_changed.connect(update_ui_elements)
 	update_hud()
+
+func set_stage_bar(max_value): ## Sets the progress bar max value equal to the StageTimer total time
+	stage_progress_bar.set_max(max_value)
+	$ProgressBar.visible = true
 
 var hud_constructed : bool = false
 func hud_constructor(hud_element, set_value, limit):
@@ -84,10 +92,10 @@ func hud_constructor(hud_element, set_value, limit):
 	if debug: print('{0} | BAR_SIZE\n{1} | SHORT_BAR_SIZE'.format({0:hud_element["cell_bar"].size.x,1:hud_element["short_cell_bar"].size.x}))
 
 func update_hud():
+	hud_constructed = false
 	set_hp = Profile.current_run_data.get_value("INVENTORY", "MAX_HEALTH")
 	hud_constructed = false
-	set_ammo = Profile.current_run_data.get_value("INVENTORY", "MAX_AMMO")
-	hud_constructed = false
+	set_ammo = Profile.current_run_data.get_value("INVENTORY", "MAX_AMMO") + Profile.current_run_data.get_value("EFFECTS", "BONUS_AMMO")
 
 func update_ui_elements():
 	var score = Profile.current_run_data.get_value("STATISTICS", "SCORE")

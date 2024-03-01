@@ -20,10 +20,9 @@ var config_load = config.load("user://config.cfg")
 @onready var threat_generator = $StageManager/ThreatGenerator
 
 # UIComponent
-@onready var hud_component = $UIComponent/UIOverlay
-@onready var gameoverscreen = $UIComponent/GameOver
-@onready var transition_controller = $UIComponent/ScreenTransitionLayer
-@onready var transition_time = transition_controller.fade_time
+@onready var hud_component = UI.UIOverlay
+@onready var gameoverscreen = UI.GameOver
+@onready var transition_controller = UI.ScreenTransition
 
 # Profile
 var stage_start_time
@@ -42,20 +41,16 @@ var random_loop_active : bool
 		random_loop_interval = value
 
 func _ready():
-	transition_controller.visible = true
 	assert(player!=null)
 	
 	Options.options_changed.connect(load_options)
 	load_options()
 	
-	player.equipment_module.ammo_changed.connect(_on_player_secondary_ammo_changed)
+	# player.equipment_module.ammo_changed.connect(_on_player_secondary_ammo_changed)
 	player.player_killed.connect(gameoverscreen.game_over_prompt)
 	
 	start_stage_sequence()
 	await stage_manager.scene_loaded
-	
-	await get_tree().create_timer(transition_time).timeout
-	transition_controller.visible = false
 
 func _process(_delta): # Updates stage timer bar
 	hud_component.stage_progress = stage_timer.time_left
@@ -67,12 +62,6 @@ func _process(_delta): # Updates stage timer bar
 		threat_generator.generate_threat(stage_manager.stage_dict["allowed_random_enemies"][select_random])
 		await get_tree().create_timer(random_loop_interval, false).timeout
 		random_loop_available = true
-
-func _on_player_health_change(_previous_value, new_value): # Update HP right only after change
-	hud_component.set_hp = new_value
-
-func _on_player_secondary_ammo_changed(current_ammo, _previous_ammo):
-	hud_component.set_ammo = current_ammo
 
 func _on_stage_timer_timeout(): # Executes when StageTimer finishes
 	end_stage_sequence()
@@ -88,13 +77,13 @@ func start_stage_sequence(): # Starting animations, fade-in, etc.
 	player_move_to_action.tween_property(player, "position", $PlayerSpawnPos.global_position, 0.99)
 	
 	player.controls_lock(true)
-	await get_tree().create_timer(2).timeout
+	await UI.fade('IN')
+	await get_tree().create_timer(2, false).timeout
 	
 	# Unlocking controls and starting timer
 	player.controls_lock(false)
 	
-	$UIComponent/UIOverlay/ProgressBar.visible = true
-	
+	UI.set_stage(stage_timer)
 	stage_started.emit()
 	stage_timer.start()
 	
@@ -105,23 +94,13 @@ func end_stage_sequence(): # Fade-out, stage finished screen, etc.
 	
 	save_stage_performance(stage_final_time)
 	
-	var stage_time = int(stage_final_time - stage_start_time)
-	var time_sec = stage_time % 60
-	var time_min = (stage_time/60) % 60
-	var time_h = (stage_time/60)/60
-	
-	var time_diff =  "%02d:%02d:%02d" % [time_h, time_min, time_sec]
-	
-	player.switch_controls_lock.emit()
+	player.controls_lock(true)
 	var player_move_to_center = get_tree().create_tween()
 	player_move_to_center.tween_property(player,"global_position.x",1200, 0.95)
 	
-	$UIComponent/ScreenTransitionLayer.visible = true
-	$UIComponent/ScreenTransitionLayer/StageCompleted.visible = true
-	
-	await get_tree().create_timer(transition_time).timeout
-	$UIComponent/ScreenTransitionLayer/ScreenTransition.visible = true
-	transition_controller.fade('out')
+	transition_controller.stage_completed()
+	await get_tree().create_timer(3).timeout
+	UI.fade('OUT')
 	await get_tree().create_timer(5).timeout
 	get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
 

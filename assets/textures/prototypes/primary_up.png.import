@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ddbwujrtlw3md"
-path="res://.godot/imported/cargo-ship.png-df4e76a3168cf5293849de19295d4208.ctex"
+uid="uid://m40j8p3ir8k"
+path="res://.godot/imported/primary_up.png-2ceb3eee374442463e3aa7d647e831ab.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/textures/entities/enemies/misc/cargo-ship.png"
-dest_files=["res://.godot/imported/cargo-ship.png-df4e76a3168cf5293849de19295d4208.ctex"]
+source_file="res://assets/textures/prototypes/primary_up.png"
+dest_files=["res://.godot/imported/primary_up.png-2ceb3eee374442463e3aa7d647e831ab.ctex"]
 
 [params]
 
