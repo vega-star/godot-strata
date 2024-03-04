@@ -11,6 +11,7 @@ const damage_effect_flicker_count = 3
 const damage_effect_flicker = 0.15
 const alpha_modulation = 0.5
 
+var enemy_name = "composite_enemy"
 var player_y_position : float
 var weapons_dict : Dictionary
 @export var speed = 150

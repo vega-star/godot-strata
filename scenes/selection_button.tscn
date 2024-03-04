@@ -3,10 +3,11 @@
 [ext_resource type="Texture2D" uid="uid://k3pvhcygsa10" path="res://assets/textures/prototypes/item_frame.png" id="1_jofa3"]
 [ext_resource type="BitMap" uid="uid://coc0racof7oca" path="res://assets/textures/prototypes/item_frame_bitmap.bmp" id="2_nqcjc"]
 [ext_resource type="Script" path="res://components/modules/selection_button.gd" id="3_n4uw4"]
-[ext_resource type="Theme" uid="uid://b1a5sjt2xibwo" path="res://assets/themes/strata_theme.tres" id="4_7hqab"]
+[ext_resource type="Theme" uid="uid://b1a5sjt2xibwo" path="res://assets/themes/strata_theme/strata_theme.tres" id="4_7hqab"]
 [ext_resource type="Texture2D" uid="uid://d17joid7wop0b" path="res://assets/textures/prototypes/player_test_sprite.png" id="5_wco63"]
 
 [node name="SelectionButton" type="TextureButton"]
+custom_minimum_size = Vector2(230, 378)
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -99,6 +100,8 @@ autowrap_mode = 3
 text_overrun_behavior = 3
 max_lines_visible = 10
 
+[connection signal="focus_entered" from="." to="." method="_on_focus_entered"]
+[connection signal="focus_exited" from="." to="." method="_on_focus_exited"]
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
 [connection signal="pressed" from="." to="." method="_on_pressed"]

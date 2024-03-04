@@ -31,6 +31,7 @@
 				"item_icon": "",
 				"item_tier": 0,
 				"item_category": 0,
+				"accumulate": true,
 				"temporary": false,
 				"starter": true
 			}
@@ -41,7 +42,7 @@
 			"item_type": "passive",
 			"item_effect": {
 				"type": "addition", 
-				"target": "secondary_additional_amount",
+				"target": "additional_ammo",
 				"value": 2
 			},
 			"item_properties": {
@@ -49,6 +50,7 @@
 				"item_icon": "",
 				"item_tier": 0,
 				"item_category": 0,
+				"accumulate": true,
 				"temporary": false,
 				"starter": true
 			}
@@ -67,6 +69,7 @@
 				"item_icon": "",
 				"item_tier": 0,
 				"item_category": 0,
+				"accumulate": true,
 				"temporary": false,
 				"starter": true
 			}
@@ -85,6 +88,7 @@
 				"item_icon": "",
 				"item_tier": 0,
 				"item_category": 0,
+				"accumulate": true,
 				"temporary": false,
 				"starter": true
 			}

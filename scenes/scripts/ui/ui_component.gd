@@ -24,6 +24,7 @@ func set_stage(timer):
 	UIOverlay.visible = true
 	UIOverlay.stage_progress_bar.visible = true
 	stage_timer = timer
+	Profile.save_active_data(false, true)
 
 func set_pause(mode : bool = true):
 	get_tree().paused = mode
@@ -42,4 +43,5 @@ func fade(mode):
 			ScreenTransition.fade(mode)
 			await get_tree().create_timer(fade_time).timeout
 			ScreenTransition.visible = false
-	
+
+

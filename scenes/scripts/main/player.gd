@@ -44,7 +44,7 @@ var roll_cooldown : bool = false
 
 # Inventory
 @onready var muzzle = $Muzzles/MuzzleRightWing
-@onready var secondary_ammo : int = equipment_module.secondary_ammo
+@onready var secondary_ammo : int = equipment_module.ammo
 var primary_fire_rof : float # The rate of fire already comes with added multipliers
 var set_primary_rof:
 	set(value):
@@ -192,7 +192,6 @@ func shoot_secondary():
 ## Status change listeners
 func _on_ammo_changed(current_ammo, _previous_ammo):
 	secondary_ammo = current_ammo
-	UI.UIOverlay.set_ammo = secondary_ammo
 
 func _on_health_changed(previous_value, new_value, negative): # Relaying health value as a signal, so it can be changed in the hud
 	health_change.emit(previous_value, new_value)

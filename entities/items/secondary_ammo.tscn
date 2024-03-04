@@ -1,20 +1,20 @@
 [gd_scene load_steps=4 format=3 uid="uid://q7j6u4wu2m20"]
 
-[ext_resource type="Texture2D" uid="uid://demcnjfhpei41" path="res://assets/textures/items/bomb-ammo.png" id="1_opkt1"]
 [ext_resource type="Script" path="res://entities/items/secondary_ammo.gd" id="1_qmiwu"]
+[ext_resource type="Texture2D" uid="uid://demcnjfhpei41" path="res://assets/textures/items/bomb-ammo.png" id="2_j0adw"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_0vq2t"]
-radius = 7.07107
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ueb0b"]
+height = 24.0
 
 [node name="SecondaryAmmo" type="Area2D" groups=["item"]]
 collision_layer = 16
 script = ExtResource("1_qmiwu")
 
 [node name="AmmoSprite" type="Sprite2D" parent="."]
-texture = ExtResource("1_opkt1")
+texture = ExtResource("2_j0adw")
 
 [node name="AmmoCollision" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_0vq2t")
+shape = SubResource("CapsuleShape2D_ueb0b")
 
 [node name="PresenceChecker" type="VisibleOnScreenNotifier2D" parent="."]
 position = Vector2(93, 0)

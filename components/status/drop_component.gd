@@ -1,15 +1,18 @@
 class_name DropComponent extends Node
 
 signal drop_selected
-signal item_dropped
+signal item_dropped(drop)
 
 @export var debug : bool = false
 
 # For each enemy in game, the drop list has two related arrays, one with the items and the other with the weights. The higher the weight respective to the item, the higher the odds for it to drop.
+const item_template_scene = "res://entities/items/item_component.tscn"
 const enemy_data = "res://data/enemy_data.json"
 const items_data = "res://data/items_data.json"
 var enemy_dict : Dictionary
 var items_dict : Dictionary
+var drop_type : int
+var items_array : Array
 
 @onready var root_scene = owner.get_parent()
 @onready var item_container = root_scene.get_parent().get_node("ItemsContainer")
@@ -29,12 +32,32 @@ func _ready(): # Needed for random results
 	items_dict = JSON.parse_string(load_items_data.get_as_text())
 	assert(items_dict is Dictionary)
 
+
 func _on_enemy_died():
 	var enemy_has_drops = enemy_dict[enemy]["contain_items"]
+	drop_type = enemy_dict[enemy]["drops"]["type"]
 	if enemy_has_drops:
-		var drop = gamble_drop(enemy_dict[enemy]["drops"]["items"], enemy_dict[enemy]["drops"]["chances"], enemy_dict[enemy]["drops"]["range"])
-		if drop:
-			item_dropped.emit(drop)
+		match drop_type:
+			0: # Drops
+				var drop = gamble_drop(enemy_dict[enemy]["drops"]["items"], enemy_dict[enemy]["drops"]["chances"], enemy_dict[enemy]["drops"]["range"])
+				if drop:
+					item_dropped.emit(drop)
+			1: # Items
+				var quantity = enemy_dict[enemy]["drops"]["quantity"]
+				if quantity > 1:
+					var sucessful_tries : int
+					while sucessful_tries != quantity:
+						var drop = gamble_drop(enemy_dict[enemy]["drops"]["items"], enemy_dict[enemy]["drops"]["chances"], enemy_dict[enemy]["drops"]["range"])
+						if !enemy_dict[enemy]["drops"]["repeat"] and items_array.has(drop):
+							pass
+						else:
+							sucessful_tries += 1
+							items_array.append(drop)
+					print(items_array)
+					item_dropped.emit(items_array)
+				else:
+					var drop = gamble_drop(enemy_dict[enemy]["drops"]["items"], enemy_dict[enemy]["drops"]["chances"], enemy_dict[enemy]["drops"]["range"])
+					item_dropped.emit(drop)
 	else: 
 		push_warning('Drop requested, but enemy has container_items turned off. Check the data file for the missing info')
 
@@ -54,17 +77,22 @@ func gamble_drop(items, chances, max_range):
 			pass
 
 func _on_item_dropped(drop):
+	var drop_is_array : bool = false
 	var item_scene
-	match items_dict["drops"][drop]["type"]:
-		0: # Consumable
-			if debug: print('CONSUMABLE')
-			item_scene = load(items_dict["drops"][drop]["scene"])
-		1: # Item Template
-			if debug: print('ITEM TEMPLATE')
-			item_scene = load(items_dict["drops"][drop]["scene"])
-		_: # Unset
-			if debug: print('UNSET')
-			item_scene = load(items_dict["drops"][drop]["scene"])
+	
+	if debug: print('ITEM DROPPED')
+	if drop is Array: 
+		drop_is_array = true
+	
+	if drop_is_array:
+		item_scene = load(item_template_scene)
+	else:
+		item_scene = load(items_dict["drops"][drop]["scene"])
 	drop = item_scene.instantiate()
+	
+	if drop_is_array:
+		drop.set_items(items_array)
+		drop.set_type(0)
+	
 	drop.global_position = owner.global_position
 	item_container.call_deferred("add_child", drop)

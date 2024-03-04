@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scenes/scripts/main/strata_scene.gd" id="1_de0a8"]
 [ext_resource type="PackedScene" uid="uid://csdnju38rqee8" path="res://scenes/stage_manager.tscn" id="2_s7e1r"]
 [ext_resource type="PackedScene" uid="uid://biim58k38oa7h" path="res://entities/player/player.tscn" id="3_y7uog"]
-[ext_resource type="PackedScene" uid="uid://bungiyr4lpj25" path="res://scenes/singletons/ui_component.tscn" id="4_raji4"]
+[ext_resource type="PackedScene" uid="uid://bungiyr4lpj25" path="res://scenes/singletons/ui.tscn" id="4_raji4"]
 [ext_resource type="PackedScene" uid="uid://b7d5rmrbmprps" path="res://components/parallax/first_stage_parallax.tscn" id="8_4wxm4"]
 
 [node name="StrataScene" type="Node2D"]

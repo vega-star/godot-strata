@@ -1,0 +1,10 @@
+[gd_resource type="StyleBoxTexture" load_steps=2 format=3 uid="uid://cb2bavdjvo14b"]
+
+[ext_resource type="Texture2D" uid="uid://dr4wu2nealxmp" path="res://assets/themes/strata_theme/elements/styleboxes/smaller/sb_disabled.png" id="1_n8spw"]
+
+[resource]
+texture = ExtResource("1_n8spw")
+texture_margin_left = 10.0
+texture_margin_top = 10.0
+texture_margin_right = 10.0
+texture_margin_bottom = 10.0

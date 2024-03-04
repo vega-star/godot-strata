@@ -1,7 +1,7 @@
 class_name SelectionButton extends TextureButton
 
+signal button_set
 signal selected(item_id)
-signal movement_completed
 
 @onready var item_id
 @onready var title : String
@@ -10,7 +10,10 @@ signal movement_completed
 @onready var rarity : int
 
 var movement : int = 20
+var movement_time : float = 0.2
 var movement_active : bool = false
+var initial_y : int
+var target_y : int
 
 func set_button_properties(new_item_id, new_title, new_icon, new_description, new_rarity, update : bool = true):
 	item_id = new_item_id
@@ -27,28 +30,34 @@ func set_button_properties(new_item_id, new_title, new_icon, new_description, ne
 			$SelectionIcon.set_texture(load("res://assets/textures/prototypes/player_test_sprite.png"))
 		$SelectionDescription.set_text(new_description)
 		rarity = new_rarity
+	button_set.emit()
+
+func _ready():
+	initial_y = position.y
+	target_y = position.y - movement
+	
+	await get_tree().create_timer(0.3).timeout
+	arise(false)
 
 func _on_pressed():
 	selected.emit(item_id)
 
-func _on_mouse_entered():
-	arise(true)
+# Focus in
+func _on_mouse_entered(): arise(true)
+func _on_focus_entered(): arise(true)
 
-func _on_mouse_exited():
-	arise(false)
+# Focus out
+func _on_mouse_exited(): arise(false)
+func _on_focus_exited(): arise(false)
 
 func arise(mode : bool = true):
-	if movement_active:
-		await movement_completed
-	movement_active = true
-	
 	var movement_tween = get_tree().create_tween()
 	movement_tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
 	if mode:
-		movement_tween.tween_property(self, "position", Vector2(position.x, position.y - movement), 0.2).set_trans(Tween.TRANS_EXPO)
+		movement_tween.tween_property(self, "position", Vector2(position.x, target_y), movement_time).set_trans(Tween.TRANS_EXPO)
 	else:
-		movement_tween.tween_property(self, "position", Vector2(position.x, position.y + movement), 0.2).set_trans(Tween.TRANS_EXPO)
-		
+		movement_tween.tween_property(self, "position", Vector2(position.x, initial_y), movement_time).set_trans(Tween.TRANS_EXPO)
 	await movement_tween.finished
-	movement_active = false
-	movement_completed.emit()
+
+
+

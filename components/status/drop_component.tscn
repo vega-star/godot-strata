@@ -4,3 +4,5 @@
 
 [node name="DropComponent" type="Node"]
 script = ExtResource("1_qsp4b")
+
+[connection signal="item_dropped" from="." to="." method="_on_item_dropped"]

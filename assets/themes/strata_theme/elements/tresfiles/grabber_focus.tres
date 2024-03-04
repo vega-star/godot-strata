@@ -1,0 +1,14 @@
+[gd_resource type="StyleBoxTexture" load_steps=2 format=3 uid="uid://ovdynfq6xm3p"]
+
+[ext_resource type="Texture2D" uid="uid://bihoe3r8lpls1" path="res://assets/themes/strata_theme/elements/bars/bar_grabber_focus.png" id="1_p2lm0"]
+
+[resource]
+texture = ExtResource("1_p2lm0")
+texture_margin_left = 5.0
+texture_margin_top = 5.0
+texture_margin_right = 5.0
+texture_margin_bottom = 5.0
+expand_margin_left = 1.0
+expand_margin_top = 2.0
+expand_margin_right = 1.0
+expand_margin_bottom = 2.0

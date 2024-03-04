@@ -1,0 +1,10 @@
+[gd_resource type="StyleBoxTexture" load_steps=2 format=3 uid="uid://cf6sjtgjviook"]
+
+[ext_resource type="Texture2D" uid="uid://dgd4mpatg6v7w" path="res://assets/themes/strata_theme/elements/bars/v_bar_frame.png" id="1_0uqfe"]
+
+[resource]
+texture = ExtResource("1_0uqfe")
+texture_margin_left = 5.0
+texture_margin_top = 5.0
+texture_margin_right = 5.0
+texture_margin_bottom = 5.0

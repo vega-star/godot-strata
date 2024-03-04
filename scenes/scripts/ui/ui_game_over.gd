@@ -14,6 +14,7 @@ func game_over_prompt(): # Toggles node visibiliy, as well as quit and reset fun
 	
 	await get_tree().create_timer(active_timeout).timeout
 	visible = true
+	UI.PauseMenu.lock(true)
 	$GameOverPanel/Screen/TitleBox/LayoutBox/TextBox/MenuButton.grab_focus()
 	player_killed_status = true
 
@@ -26,11 +27,16 @@ func _input(_event): # Able us to use hotkeys instead of clicking the buttons, b
 
 func _on_retry_button_pressed(): # Reloads scene directly
 	visible = false
+	UI.PauseMenu.lock(false)
+	
+	await Profile.load_previous_data()
 	get_tree().reload_current_scene()
 
 func _on_exit_button_pressed(): # Recieves signal from 'ExitButton', goes back to main menu
 	visible = false
 	UI.UIOverlay.visible = false
+	UI.PauseMenu.lock(false)
+	
 	get_tree().change_scene_to_file(UI.main_menu_path)
 
 func _on_config_button_pressed():

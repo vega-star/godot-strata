@@ -23,7 +23,8 @@ func _ready(): # Loads the max health of the entity. Can be set differently to e
 
 func reset_health():
 	var previous_value := current_health
-	set_max_health = max_health
+	
+	set_max_health = Profile.current_run_data.get_value("INVENTORY", "MAX_HEALTH")
 	if health_bar: health_bar.health_bar_sync = current_health
 	
 	health_change.emit(previous_value, current_health, false)

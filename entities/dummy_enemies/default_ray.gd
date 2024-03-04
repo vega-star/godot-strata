@@ -39,7 +39,7 @@ func _process(_delta):
 	force_raycast_update()
 	
 	if is_colliding():
-		aim_line.modulate
+		# aim_line.modulate
 		cast_point = to_local(get_collision_point())
 		target = get_collider()
 		if enabled:

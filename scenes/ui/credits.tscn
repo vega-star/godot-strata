@@ -1,0 +1,61 @@
+[gd_scene load_steps=3 format=3 uid="uid://dldj16ybumshf"]
+
+[ext_resource type="Script" path="res://scenes/scripts/credits.gd" id="1_v1mn1"]
+[ext_resource type="Theme" uid="uid://b1a5sjt2xibwo" path="res://assets/themes/strata_theme/strata_theme.tres" id="2_v38rq"]
+
+[node name="Credits" type="Control" node_paths=PackedStringArray("container")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_v1mn1")
+container = NodePath("CreditContainer")
+
+[node name="CreditContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -566.0
+offset_top = -261.0
+offset_right = -16.0
+offset_bottom = -16.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="CreditsHeader" type="RichTextLabel" parent="CreditContainer"]
+custom_minimum_size = Vector2(550, 45)
+layout_mode = 2
+theme = ExtResource("2_v38rq")
+theme_override_font_sizes/normal_font_size = 30
+theme_override_font_sizes/bold_font_size = 40
+bbcode_enabled = true
+text = "[center][b] CREATORS [/b][/center]"
+
+[node name="CaioV" type="RichTextLabel" parent="CreditContainer"]
+custom_minimum_size = Vector2(550, 70)
+layout_mode = 2
+theme = ExtResource("2_v38rq")
+theme_override_font_sizes/normal_font_size = 30
+theme_override_font_sizes/bold_font_size = 20
+theme_override_font_sizes/italics_font_size = 30
+bbcode_enabled = true
+text = "[center][b] PROGRAMMER & CONCEPTUAL ARTIST [/b]
+luminn | [i]Caio V.[/i][/center]"
+
+[node name="NathJ" type="RichTextLabel" parent="CreditContainer"]
+custom_minimum_size = Vector2(550, 70)
+layout_mode = 2
+theme = ExtResource("2_v38rq")
+theme_override_font_sizes/normal_font_size = 30
+theme_override_font_sizes/bold_font_size = 20
+theme_override_font_sizes/italics_font_size = 30
+bbcode_enabled = true
+text = "[center][b] DESIGNER & UI ARTIST [/b]
+zeronath | [i]Nathalia J.[/i][/center]"

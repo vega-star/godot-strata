@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scenes/scripts/ui/menu_loadout_selection.gd" id="1_wywrc"]
 [ext_resource type="Texture2D" uid="uid://24sxb8icxn75" path="res://assets/textures/prototypes/loadout-menu-concept.png" id="2_31rtj"]
-[ext_resource type="Theme" uid="uid://b1a5sjt2xibwo" path="res://assets/themes/strata_theme.tres" id="6_u0kst"]
+[ext_resource type="Theme" uid="uid://b1a5sjt2xibwo" path="res://assets/themes/strata_theme/strata_theme.tres" id="3_sltso"]
 [ext_resource type="Texture2D" uid="uid://daogoq1xsiexr" path="res://assets/textures/prototypes/return_icon.png" id="7_us3rs"]
 [ext_resource type="Texture2D" uid="uid://ddrwh5rjfsmko" path="res://assets/textures/prototypes/arrow.png" id="9_3c5an"]
 
@@ -28,7 +28,7 @@ offset_top = 8.0
 offset_right = 90.0
 offset_bottom = 90.0
 focus_neighbor_right = NodePath("../../../ConfigButton")
-theme = ExtResource("6_u0kst")
+theme = ExtResource("3_sltso")
 texture_normal = ExtResource("7_us3rs")
 
 [node name="StartButton" type="TextureButton" parent="."]
@@ -46,10 +46,11 @@ grow_horizontal = 0
 grow_vertical = 2
 scale = Vector2(-1, 1)
 focus_neighbor_right = NodePath("../../../ConfigButton")
-theme = ExtResource("6_u0kst")
+theme = ExtResource("3_sltso")
 texture_normal = ExtResource("7_us3rs")
 
 [node name="ColorBG" type="ColorRect" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -80,7 +81,7 @@ color = Color(0.356863, 0.356863, 0.356863, 1)
 layout_mode = 0
 offset_top = -23.0
 offset_right = 195.0
-theme = ExtResource("6_u0kst")
+theme = ExtResource("3_sltso")
 text = "SELECT LOADOUT"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -95,7 +96,7 @@ offset_left = -97.5
 offset_right = 97.5
 offset_bottom = 24.0
 grow_horizontal = 2
-theme = ExtResource("6_u0kst")
+theme = ExtResource("3_sltso")
 text = "LOADOUT1"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -107,7 +108,7 @@ offset_left = 1.0
 offset_top = -3.0
 offset_right = 197.0
 offset_bottom = 28.0
-theme = ExtResource("6_u0kst")
+theme = ExtResource("3_sltso")
 placeholder_text = "New Loadout"
 alignment = 1
 flat = true
@@ -134,14 +135,14 @@ layout_mode = 2
 [node name="PrimaryWeapon" type="Label" parent="CustomizeLoadoutContainer/LoadoutLabels"]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
-theme = ExtResource("6_u0kst")
+theme = ExtResource("3_sltso")
 text = "PRIMARY WEAPON"
 horizontal_alignment = 1
 
 [node name="SecondaryWeapon" type="Label" parent="CustomizeLoadoutContainer/LoadoutLabels"]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
-theme = ExtResource("6_u0kst")
+theme = ExtResource("3_sltso")
 text = "SECONDARY WEAPON
 "
 horizontal_alignment = 1
@@ -149,19 +150,20 @@ horizontal_alignment = 1
 [node name="StarterItem" type="Label" parent="CustomizeLoadoutContainer/LoadoutLabels"]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
-theme = ExtResource("6_u0kst")
+theme = ExtResource("3_sltso")
 text = "STARTER ITEM
 "
 horizontal_alignment = 1
 
 [node name="LoadoutLists" type="HBoxContainer" parent="CustomizeLoadoutContainer"]
 layout_mode = 2
+theme_override_constants/separation = 0
 
 [node name="PrimaryWeaponsList" type="ItemList" parent="CustomizeLoadoutContainer/LoadoutLists"]
 custom_minimum_size = Vector2(200, 100)
 layout_mode = 2
 mouse_filter = 1
-theme = ExtResource("6_u0kst")
+theme = ExtResource("3_sltso")
 item_count = 3
 item_0/text = "MINIGUN"
 item_1/text = "BURST LASER"
@@ -171,7 +173,7 @@ item_2/text = "RAILGUN"
 custom_minimum_size = Vector2(200, 100)
 layout_mode = 2
 mouse_filter = 1
-theme = ExtResource("6_u0kst")
+theme = ExtResource("3_sltso")
 item_count = 3
 item_0/text = "GUIDED MISSILES"
 item_1/text = "STASIS BOMB"
@@ -181,7 +183,7 @@ item_2/text = "CHARGED LASER"
 custom_minimum_size = Vector2(300, 100)
 layout_mode = 2
 mouse_filter = 1
-theme = ExtResource("6_u0kst")
+theme = ExtResource("3_sltso")
 item_count = 3
 item_0/text = "I.C. AMPLIFIER"
 item_1/text = "ADDITIONAL HARDPOINT"

@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://cgwbhdh1tc0bf"]
+[gd_scene load_steps=7 format=3 uid="uid://cgwbhdh1tc0bf"]
 
 [ext_resource type="Script" path="res://entities/dummy_enemies/enemy.gd" id="1_dkhgf"]
+[ext_resource type="Script" path="res://entities/dummy_enemies/enemy_group.gd" id="1_mk7bm"]
 [ext_resource type="Texture2D" uid="uid://dq4s3s0h3le1a" path="res://assets/textures/prototypes/enemy_test_sprite.png" id="2_rp8pv"]
 [ext_resource type="PackedScene" uid="uid://bdfaybp4djcn2" path="res://components/status/health_component.tscn" id="3_6t1oy"]
 [ext_resource type="PackedScene" uid="uid://c3atqdge540t0" path="res://components/status/hitbox_component.tscn" id="4_ni2dk"]
@@ -9,6 +10,7 @@
 size = Vector2(50, 50)
 
 [node name="EnemyGroup" type="Node2D"]
+script = ExtResource("1_mk7bm")
 
 [node name="Enemy1" type="Area2D" parent="." groups=["enemies"]]
 scale = Vector2(0.7, 0.7)

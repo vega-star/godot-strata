@@ -22,9 +22,11 @@ var check_data_folder = DirAccess.make_dir_recursive_absolute(data_folder_path)
 var profiles_data = ConfigFile.new()
 var history_data = ConfigFile.new()
 var current_run_data = ConfigFile.new()
+var previous_run_data = ConfigFile.new()
 
 var history_data_path : String
 var current_run_data_path : String
+var previous_run_data_path : String
 
 # Active
 var profile_data_path = "{0}/profiles.cfg".format({0:data_folder_path})
@@ -67,6 +69,11 @@ func load_profile(profile = selected_profile):
 	data_load = current_run_data.load(current_run_data_path)
 	if data_load != OK:
 		current_run_data.save(current_run_data_path)
+	
+	previous_run_data_path = "{0}/previous_data.cfg".format({0:selected_profile_folder})
+	data_load = previous_run_data.load(previous_run_data_path)
+	if data_load != OK:
+		previous_run_data.save(previous_run_data_path)
 
 func change_profile(profile):
 	var profile_list : Array = ['anonymous']
@@ -109,16 +116,22 @@ func reset_run_data():
 	## INVENTORY
 	current_run_data.set_value("INVENTORY", "PRIMARY_WEAPON", "default_laser")
 	current_run_data.set_value("INVENTORY", "SECONDARY_WEAPON", "default_bomb")
+	current_run_data.set_value("INVENTORY", "CURRENT_HEALTH", 1)
 	current_run_data.set_value("INVENTORY", "MAX_HEALTH", 5)
 	current_run_data.set_value("INVENTORY", "HEALTH_REGENERATION", false)
+	current_run_data.set_value("INVENTORY", "CURRENT_AMMO", 1)
 	current_run_data.set_value("INVENTORY", "MAX_AMMO", 7)
 	current_run_data.set_value("INVENTORY", "AMMO_REGENERATION", false)
 	current_run_data.set_value("INVENTORY", "ACTIVE_ITEM", "")
 	current_run_data.set_value("INVENTORY", "ITEMS_STORED", [])
 	
 	## BUFFS
+	current_run_data.set_value("EFFECTS", "ACTIVE_EFFECTS", [])
 	current_run_data.set_value("EFFECTS", "BONUS_HEALTH", 0)
 	current_run_data.set_value("EFFECTS", "BONUS_AMMO", 0)
+	
+	## RESET
+	if current_run_data.has_section("STAGES"): current_run_data.erase_section("STAGES")
 	
 	## START
 	save_active_data()
@@ -129,6 +142,7 @@ func start_run():
 	current_run_data.set_value("RUN_DETAILS", "SUCCESS", false)
 	current_run_data.set_value("RUN_DETAILS", "STARTED_AT", start_time)
 	current_run_data.set_value("RUN_DETAILS", "TIME_ELAPSED", 0)
+	reset_run_data()
 
 func end_run(success : bool = false):
 	run_ended.emit()
@@ -164,7 +178,7 @@ func add_run_data(section, statistic, value, bulk : bool = false): # Change one 
 			current_data.append(value)
 			data = current_data
 		TYPE_DICTIONARY:
-			data = current_data + value
+			current_data[data] = value
 		_:
 			push_warning('Type may not be supported by configuration file. Simple addition will be used')
 			data = current_data + value
@@ -182,10 +196,22 @@ func add_bulk_data(data): # Change multiple values in one execution, save change
 		add_run_data(section, stat, value, true)
 	save_active_data()
 
-func save_active_data(close : bool = false):
+func load_previous_data():
+	reset_run_data()
+	current_run_data = previous_run_data
+	save_active_data()
+
+func save_active_data(close : bool = false, path_override = null):
 	statistics_changed.emit()
 	run_data_changed.emit()
-	current_run_data.save(current_run_data_path)
+	
+	if path_override: match path_override:
+		true, 'previous_stage':
+			current_run_data.save(previous_run_data_path)
+		_:
+			current_run_data.save(path_override)
+	else: current_run_data.save(current_run_data_path)
+	
 	if close:
 		var timestamp = current_run_data.get_value("RUN_DETAILS", "STARTED_AT")
 		var final_run_data_path = "{0}/RUN_{1}.cfg".format({

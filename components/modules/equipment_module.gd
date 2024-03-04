@@ -1,12 +1,15 @@
 class_name EquipmentModule extends Node
 
+signal item_picked
+signal equipment_loaded
 signal ammo_changed(current_ammo, previous_ammo)
-signal buff_activated
-signal buff_deactivated(source)
+signal effect_changed
+signal effect_activated
+signal effect_deactivated(source)
 
 ## EquipmentModule reacts to the player inputs and uses equipped guns, ammo, active items, and such.
 #
-# Previously, most of these functions were present directly in the player script, which it's not so practical when adding new features.
+# Previously, most of these functions were present directly in the player script, which it's not practical for adding new features.
 # Modularization provides the developer with more control and perspective over the gameplay.
 
 #region - Variables
@@ -24,6 +27,7 @@ var secondary_weapon_scene : PackedScene
 @onready var projectile_container = $"../../ProjectileContainer"
 @onready var selection_control = $InventoryUILayer/SelectionControl
 @onready var selection_options = $InventoryUILayer/SelectionControl/SelectionOptions
+@export var debug : bool
 
 ## Equipped items and weapons
 var selected_primary : String
@@ -31,23 +35,28 @@ var selected_secondary : String
 var base_primary_rof
 var base_secondary_rof
 var secondary_projectiles_amount : int = 1
+
+var ammo : int
+var max_ammo : int
 var regenerate_ammo : bool
 var ammo_regeneration : bool
 var ammo_regeneration_cooldown : float
-var secondary_ammo : int
-var max_secondary_ammo : int
 
-## Buff variables
-var active_buffs : Dictionary = {}
-var regeneration_cooldown_buff : float = 1
-var primary_damage_buff : float = 1.0
-var primary_rof_buff : float = 1.0
-var secondary_damage_buff : float = 1.0
-var secondary_rof_buff : float = 1.0
-var secondary_additional_amount : int = 0
+## Effect variables
+var active_buffs : Array
+
+var primary_damage_factor : float = 1.0
+var primary_rof_factor : float = 1.0
+
+var additional_ammo : int = 0
+var ammo_regeneration_cd_factor : float = 1
+var secondary_damage_factor : float = 1.0
+var secondary_rof_factor : float = 1.0
 #endregion
 
 func _ready():
+	randomize()
+	
 	assert(FileAccess.file_exists(weapons_data_path))
 	var load_weapons_data = FileAccess.open(weapons_data_path, FileAccess.READ)
 	weapons_dict = JSON.parse_string(load_weapons_data.get_as_text())
@@ -60,11 +69,9 @@ func _ready():
 	owner.fire_primary.connect(_on_player_primary_fired)
 	owner.fire_secondary.connect(_on_player_secondary_fired)
 	
-	update_equipment()
-	load_items()
-	load_equipment()
-	
-	present_choice(["AdditionalHardpoint", "PlasteelWing", "ICAmplifier"])
+	await load_equipment()
+	await load_items(true)
+	update_player_values()
 
 func _process(_delta):
 	if regenerate_ammo:
@@ -74,7 +81,8 @@ func _process(_delta):
 			add_ammo(1)
 			ammo_regeneration = false
 
-func update_equipment(set_primary = null, set_secondary = null): ## Loads equipment properly at the start of the scene. Can be used again after changes in Inventory.
+#region Equipment
+func load_equipment(set_primary = null, set_secondary = null): ## Loads equipment properly at the start of the scene. Can be used again after changes in Inventory.
 	## Set or load primary
 	if set_primary: selected_primary = set_primary
 	else: selected_primary = Profile.current_run_data.get_value("INVENTORY", "PRIMARY_WEAPON")
@@ -86,18 +94,32 @@ func update_equipment(set_primary = null, set_secondary = null): ## Loads equipm
 	eqquiped_secondary = weapons_dict["secondary"][selected_secondary]
 	
 	## Load base values
+	primary_weapon_scene = load(eqquiped_primary["projectile_scene"])
+	secondary_weapon_scene = load(eqquiped_secondary["projectile_scene"])
+	
 	base_primary_rof = eqquiped_primary["base_rate_of_fire"]
 	base_secondary_rof = eqquiped_secondary["base_rate_of_fire"]
 	secondary_projectiles_amount = eqquiped_secondary["base_amount"]
 	regenerate_ammo = eqquiped_secondary["base_regeneration"]
-	if regenerate_ammo: ammo_regeneration_cooldown = eqquiped_secondary["base_regeneration_cooldown"] * regeneration_cooldown_buff
+	if regenerate_ammo: ammo_regeneration_cooldown = eqquiped_secondary["base_regeneration_cooldown"] * ammo_regeneration_cd_factor
 	
-	primary_weapon_scene = load(eqquiped_primary["projectile_scene"])
-	secondary_weapon_scene = load(eqquiped_secondary["projectile_scene"])
-	update_player_values()
+	equipment_loaded.emit()
 
-func load_items():
+func reload_ammo(start : bool = false):
+	max_ammo = (
+		Profile.current_run_data.get_value("INVENTORY", "MAX_AMMO") + Profile.current_run_data.get_value("EFFECTS", "BONUS_AMMO")
+	)
+	UI.UIOverlay.set_max_ammo = max_ammo
+	if start:
+		ammo = max_ammo
+		UI.UIOverlay.set_ammo = max_ammo
+		Profile.current_run_data.set_value("INVENTORY", "CURRENT_AMMO", max_ammo)
+		health_component.reset_health()
+
+func load_items(start : bool = false):
+	reset_buff()
 	for item in Profile.current_run_data.get_value("INVENTORY", "ITEMS_STORED"):
+		print(item)
 		match items_dict[item]["item_type"]:
 			"passive":
 				var buff_period = null
@@ -107,132 +129,151 @@ func load_items():
 					items_dict[item]["item_name"],
 					items_dict[item]["item_effect"]["target"],
 					items_dict[item]["item_effect"]["value"],
-					buff_period
+					buff_period,
+					items_dict[item]["item_properties"]["accumulate"]
 				)
-
-func load_equipment():
-	max_secondary_ammo = Profile.current_run_data.get_value("INVENTORY", "MAX_AMMO")
-	secondary_ammo = max_secondary_ammo
-
-func update_player_values():
-	var loaded_bonus_ammo = Profile.current_run_data.get_value("EFFECTS", "BONUS_AMMO")
-	var max_ammo = Profile.current_run_data.get_value("INVENTORY", "MAX_AMMO")
-	max_secondary_ammo = max_ammo + loaded_bonus_ammo
-	health_component.set_max_health = Profile.current_run_data.get_value("INVENTORY", "MAX_HEALTH")
-	
-	owner.set_primary_rof = base_primary_rof * primary_rof_buff
-	owner.set_secondary_rof = base_secondary_rof * secondary_rof_buff
-	
-	owner.status_change.emit()
-	UI.UIOverlay.update_hud()
-
-func reset_buffs():
-	primary_damage_buff = 1.0
-	primary_rof_buff = 1.0
-	secondary_damage_buff = 1.0
-	secondary_rof_buff = 1.0
-	secondary_additional_amount = 0
-	Profile.current_run_data.set_value("EFFECTS", "BONUS_AMMO", 0)
-	update_player_values()
-
-## Weapon usage
-func _on_player_primary_fired(start_position):
-	var primary_shot = primary_weapon_scene.instantiate()
-	primary_shot.global_position = start_position
-	primary_shot.projectile_damage *= primary_damage_buff
-	projectile_container.add_child(primary_shot)
-
-func _on_player_secondary_fired(reference, _secondary_ammo):
-	secondary_ammo -= 1
-	ammo_changed.emit(secondary_ammo, secondary_ammo + 1)
-	Profile.add_run_data("STATISTICS", "AMMO_CONSUMED", 1)
-	
-	var interval = (base_secondary_rof * secondary_rof_buff) / 30
-	for amount in secondary_projectiles_amount:
-		var secondary_shot = secondary_weapon_scene.instantiate()
-		secondary_shot.global_position = reference.global_position
-		projectile_container.add_child(secondary_shot)
-		if secondary_projectiles_amount > 1: await get_tree().create_timer(interval).timeout
-
-func add_ammo(ammo_value):
-	if secondary_ammo + ammo_value > max_secondary_ammo: # Cap the value to prevent overflow
-		secondary_ammo = max_secondary_ammo
-	else:
-		secondary_ammo += ammo_value
-		Profile.add_run_data("STATISTICS", "AMMO_RECOVERED", ammo_value)
-	ammo_changed.emit(secondary_ammo, secondary_ammo - 1)
+	# Patch certain effects
+	reload_ammo(start)
 
 func change_equipment(target_equipment, value):
 	match target_equipment:
 		0, "selected_primary": selected_primary = value
 		1, "selected_secondary": selected_secondary = value
 		_: push_error("Invalid equipment type")
+	load_equipment()
 
-func add_buff(status, buff):
-	match status:
+func update_player_values():
+	owner.set_primary_rof = base_primary_rof * primary_rof_factor
+	owner.set_secondary_rof = base_secondary_rof * secondary_rof_factor
+	
+	owner.status_change.emit()
+	UI.UIOverlay.update_hud()
+
+## Weapon usage
+func _on_player_primary_fired(start_position):
+	var primary_shot = primary_weapon_scene.instantiate()
+	primary_shot.global_position = start_position
+	primary_shot.projectile_damage *= primary_damage_factor
+	projectile_container.add_child(primary_shot)
+
+# Secondary weapon
+func _on_player_secondary_fired(reference, _secondary_ammo):
+	ammo -= 1
+	ammo_changed.emit(ammo, ammo + 1)
+	Profile.add_run_data("STATISTICS", "AMMO_CONSUMED", 1)
+	
+	var interval = (base_secondary_rof * secondary_rof_factor) / 30
+	for amount in secondary_projectiles_amount: # For multiple projectiles weapon
+		var secondary_shot = secondary_weapon_scene.instantiate()
+		secondary_shot.global_position = reference.global_position
+		projectile_container.add_child(secondary_shot)
+		if secondary_projectiles_amount > 1: await get_tree().create_timer(interval).timeout
+
+func update_ammo(new_ammo, _previous_ammo):
+	print(new_ammo)
+	ammo = new_ammo
+	Profile.current_run_data.set_value("INVENTORY", "CURRENT_AMMO", new_ammo)
+	UI.UIOverlay.set_ammo = new_ammo
+	UI.UIOverlay.update_hud()
+
+func add_ammo(ammo_value):
+	if ammo + ammo_value > max_ammo: # Cap the value to prevent overflow
+		ammo_changed.emit(max_ammo, ammo)
+	else: # Simply add ammo
+		ammo_changed.emit(ammo + ammo_value, ammo)
+		Profile.add_run_data("STATISTICS", "AMMO_RECOVERED", ammo_value)
+#endregion
+
+#region Buffs
+func reset_buff():
+	primary_damage_factor = 1.0
+	primary_rof_factor = 1.0
+	secondary_damage_factor = 1.0
+	secondary_rof_factor = 1.0
+	additional_ammo= 0
+	Profile.current_run_data.set_value("EFFECTS", "BONUS_AMMO", 0)
+	active_buffs.clear()
+
+func infer_effect(effect, value, positive : bool = true):
+	match effect:
 		"primary_damage_buff":
-			primary_damage_buff *= buff
+			if positive: 
+				primary_damage_factor *= value
+			else: 
+				primary_damage_factor /= value
 		"primary_rof_buff":
-			primary_rof_buff /= buff
+			if positive: 
+				primary_rof_factor /= value
+			else: 
+				primary_rof_factor *= value
 		"secondary_rof_buff":
-			secondary_rof_buff /= buff
-		"secondary_additional_amount":
-			var loaded_bonus_ammo = Profile.current_run_data.get_value("EFFECTS", "BONUS_AMMO")
-			secondary_additional_amount = loaded_bonus_ammo + buff
-			Profile.current_run_data.set_value("EFFECTS", "BONUS_AMMO", secondary_additional_amount)
-			update_player_values()
-			add_ammo(secondary_additional_amount)
+			if positive:
+				secondary_rof_factor /= value
+			else:
+				secondary_rof_factor *= value
+		"additional_ammo":
+			if positive:
+				additional_ammo += value
+				Profile.add_run_data("EFFECTS", "BONUS_AMMO", value)
+				await reload_ammo()
+				add_ammo(value)
+			else:
+				additional_ammo -= value
+				Profile.current_run_data.set_value("EFFECTS", "BONUS_AMMO", additional_ammo)
+				await reload_ammo()
+				if ammo - value > max_ammo: update_ammo(max_ammo, ammo)
+				elif ammo - value > 0: update_ammo(ammo - value, ammo)
+				else: update_ammo(0, ammo)
+		"dash_cooldown_factor":
+			pass
+		"dash_speed_buff":
+			pass
 		_:
-			print('Buff request received, but status is invalid. No change has been made.')
+			push_error('{0} | Buff request received, but status is invalid. No change has been made.'.format({0:effect}))
+	effect_changed.emit()
 
 func create_buff(source, target_status, value, period = null, accumulate : bool = false):
 	var temporary : bool = false
+	var source_found : bool = false
 	if period: temporary = true
 	
-	if !accumulate:
-		if active_buffs.has(source):
+	## Source management
+	if active_buffs.has(source): # Check if it already exists interpolate source name
+		source_found = true
+		var source_num = active_buffs.count(source)
+		source = '{0}_{1}'.format({0:source, 1:source_num})
+		print(source)
+	
+	if !accumulate: # Check if it can accumulate or not
+		if source_found:
+			if debug: print('Buff not valid because another one of this kind is active. Toggle accumulate on if you still want it to work.')
 			return
 	
-	if target_status is Array and value is Array:
+	if target_status is Array and value is Array: # Re-executes function from each item in a array
 		for target in target_status.size():
 			var target_index = target - 1
 			create_buff(source, target_status[target_index], value[target_index], period)
 		return
 	
-	match target_status:
-		0, "primary_damage_buff":
-			add_buff("primary_damage_buff", value)
-		1, "primary_rof_buff":
-			add_buff("primary_rof_buff", value)
-		2, "secondary_damage_buff":
-			add_buff("secondary_damage_buff", value)
-		3, "secondary_rof_buff":
-			add_buff("secondary_rof_buff", value)
-		4, "secondary_additional_amount":
-			add_buff("secondary_additional_amount", value)
-		5, "dash_cooldown_factor":
-			pass
-		6, "dash_speed_buff":
-			pass
+	## Apply buff. If prompted, wait for buff to timeout and deactivate it
+	infer_effect(target_status, value)
 	
-	active_buffs[source] = {
-		"buff" = target_status,
-		"buff_value" = value,
-		"buff_period" = period
-	}
+	active_buffs.append(source)
+	Profile.current_run_data.set_value("EFFECTS", "ACTIVE_EFFECTS", active_buffs)
 	
-	update_equipment()
-	buff_activated.emit()
+	effect_activated.emit()
 	if temporary:
 		await get_tree().create_timer(period).timeout
-		buff_deactivated.emit(source)
+		effect_deactivated.emit(source, target_status, value)
 
-func _on_buff_deactivated(source):
-	await reset_buffs()
-	load_items()
+func _on_effect_deactivated(source, target_status, value):
+	if debug: print('%s | Deactivated' % source)
+	infer_effect(target_status, value, false)
 	active_buffs.erase(source)
+	Profile.current_run_data.set_value("EFFECTS", "ACTIVE_EFFECTS", active_buffs)
+#endregion
 
-## Item Selection
+#region Item Selection
 var buttons_available : Array
 
 func present_choice(items):
@@ -254,11 +295,22 @@ func present_choice(items):
 		button.selected.connect(choose_item)
 		selection_options.call_deferred("add_child", button)
 		buttons_available.append(button)
+	
 	$InventoryUILayer/SelectionControl.visible = true
+	await get_tree().create_timer(0.5).timeout
+	print(buttons_available[int(buttons_available.size() / 2)])
+	buttons_available[int(buttons_available.size() / 2)].grab_focus()
 
 func choose_item(item_id):
 	UI.set_pause(false)
-	
+	buttons_available.clear()
 	$InventoryUILayer/SelectionControl.visible = false
+	
+	for n in selection_options.get_children():
+		selection_options.remove_child(n)
+		n.queue_free()
+	
 	await Profile.add_run_data("INVENTORY", "ITEMS_STORED", item_id)
+	item_picked.emit()
 	load_items()
+#endregion

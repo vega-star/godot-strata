@@ -1,7 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://bocnfn48ib66i"]
+[gd_scene load_steps=2 format=3 uid="uid://bocnfn48ib66i"]
 
 [ext_resource type="Script" path="res://components/modules/equipment_module.gd" id="1_ex08y"]
-[ext_resource type="PackedScene" uid="uid://co7x6mjl7feub" path="res://scenes/selection_button.tscn" id="2_20ij7"]
 
 [node name="EquipmentModule" type="Node"]
 script = ExtResource("1_ex08y")
@@ -27,15 +26,13 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -466.0
-offset_top = -145.5
+offset_top = -97.5
 offset_right = 466.0
-offset_bottom = 145.5
+offset_bottom = 193.5
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/separation = 20
 alignment = 1
 
-[node name="DebugSelectionButton" parent="InventoryUILayer/SelectionControl/SelectionOptions" instance=ExtResource("2_20ij7")]
-visible = false
-layout_mode = 2
-
-[connection signal="buff_deactivated" from="." to="." method="_on_buff_deactivated"]
+[connection signal="ammo_changed" from="." to="." method="update_ammo"]
+[connection signal="effect_deactivated" from="." to="." method="_on_effect_deactivated"]

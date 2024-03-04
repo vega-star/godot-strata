@@ -1,7 +1,12 @@
-[gd_scene load_steps=4 format=3 uid="uid://cyvtq5l03cyc1"]
+[gd_scene load_steps=6 format=3 uid="uid://cyvtq5l03cyc1"]
 
 [ext_resource type="Script" path="res://entities/items/health_capsule.gd" id="1_pjpoe"]
-[ext_resource type="Texture2D" uid="uid://8m4ijw2ttmjw" path="res://assets/textures/items/health-capsule.png" id="2_7tfqc"]
+[ext_resource type="Texture2D" uid="uid://hg4rllk56y3r" path="res://assets/textures/items/health-capsule.png" id="2_7tfqc"]
+[ext_resource type="Texture2D" uid="uid://bfkp78rrievst" path="res://assets/textures/items/health-capsule-particles.png" id="2_myw1t"]
+
+[sub_resource type="Gradient" id="Gradient_41xmr"]
+offsets = PackedFloat32Array(0.453488, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_mavwj"]
 radius = 7.0
@@ -12,10 +17,27 @@ visibility_layer = 2
 collision_layer = 16
 script = ExtResource("1_pjpoe")
 
+[node name="HealthParticles" type="CPUParticles2D" parent="."]
+amount = 15
+texture = ExtResource("2_myw1t")
+spread = 90.0
+gravity = Vector2(0, 15)
+initial_velocity_min = 40.0
+initial_velocity_max = 50.0
+orbit_velocity_min = 0.3
+orbit_velocity_max = 1.0
+scale_amount_min = 0.3
+scale_amount_max = 1.5
+split_scale = true
+scale_curve_x = null
+scale_curve_y = null
+color_ramp = SubResource("Gradient_41xmr")
+
 [node name="CapsuleSprite" type="Sprite2D" parent="."]
 texture = ExtResource("2_7tfqc")
 
 [node name="HealthCollision" type="CollisionShape2D" parent="."]
+visible = false
 shape = SubResource("CircleShape2D_mavwj")
 
 [node name="PresenceChecker" type="VisibleOnScreenNotifier2D" parent="."]

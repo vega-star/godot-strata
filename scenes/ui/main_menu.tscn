@@ -26,9 +26,21 @@ grow_vertical = 2
 
 [node name="LoadoutPage" parent="MenuPages" instance=ExtResource("11_4yjnj")]
 layout_mode = 1
+offset_left = 1000.0
+offset_right = 1000.0
 debug = true
 
 [node name="CentralPage" parent="MenuPages" instance=ExtResource("4_5j20p")]
+
+[node name="ProfilesPage" type="Control" parent="MenuPages"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -960.0
+offset_right = -960.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="ConfigButton" type="TextureButton" parent="."]
 layout_mode = 1

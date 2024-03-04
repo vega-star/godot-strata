@@ -1,0 +1,35 @@
+[gd_scene load_steps=6 format=3 uid="uid://bungiyr4lpj25"]
+
+[ext_resource type="Script" path="res://scenes/scripts/ui/ui_component.gd" id="1_cr0cx"]
+[ext_resource type="PackedScene" uid="uid://chy6yrcopxpke" path="res://scenes/ui/ui_layer.tscn" id="2_1txia"]
+[ext_resource type="PackedScene" uid="uid://be4idvqpl0pds" path="res://scenes/ui/ui_pause_menu.tscn" id="3_ssl58"]
+[ext_resource type="PackedScene" uid="uid://70mnen3idkqt" path="res://scenes/ui/ui_game_over.tscn" id="4_qb05l"]
+[ext_resource type="PackedScene" uid="uid://cx3klkrk3nesh" path="res://scenes/ui/ui_transition_scene.tscn" id="5_qtspi"]
+
+[node name="UIComponent" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_cr0cx")
+
+[node name="UIOverlay" parent="." instance=ExtResource("2_1txia")]
+layer = 5
+visible = false
+
+[node name="PauseMenuLayer" parent="." instance=ExtResource("3_ssl58")]
+layer = 50
+visible = false
+
+[node name="GameOver" parent="." instance=ExtResource("4_qb05l")]
+process_mode = 3
+layer = 15
+visible = false
+follow_viewport_enabled = true
+
+[node name="ScreenTransitionLayer" parent="." instance=ExtResource("5_qtspi")]
+layer = 10
+visible = false
+debug = true

@@ -18,7 +18,7 @@ signal item_set
 ## Main variables
 var value : int = 1
 var item_drift : float = 1
-var max_item_drift : float = 120
+var max_item_drift : float = 50
 var effect_name : String
 var type : int
 var items : Array = []
@@ -58,6 +58,8 @@ var items_data : Dictionary = {
 }
 var data : Dictionary
 
+var selectable_item_sprite = preload("res://assets/textures/prototypes/selectable_item.png")
+
 func _physics_process(delta):
 	global_position.x -= item_drift * delta
 	get_tree().create_tween().tween_property(self, "item_drift", max_item_drift, 2)
@@ -76,8 +78,10 @@ func set_values(new_value, drift, max_drift = null, new_effect_name = null):
 	if new_effect_name: effect_name = new_effect_name
 	else: effect_name = 'UNNAMED_EFFECT'
 
-func set_properties(sprite, hitbox_size):
-	sprite.set_texture(sprite)
+func set_properties(target_sprite, hitbox_size):
+	print(target_sprite)
+	
+	sprite.set_texture(target_sprite)
 	collision.shape.radius = hitbox_size
 
 func set_items(array): # For selectable items
@@ -85,19 +89,24 @@ func set_items(array): # For selectable items
 	items = array
 	item_set.emit()
 
-func set_type(value):
-	assert(value)
-	type = value
+func set_type(new_value):
+	var new_sprite
+	
+	type = new_value
+	assert(type is int)
 	match type:
 		0: # Selectable item
 			data = items_data["selectable_item"]
+			new_sprite = selectable_item_sprite
 		1: # Health Capsule
 			data = items_data["health_capsule"]
 		2: # Secondary Ammo
 			data = items_data["secondary_ammo"]
 		3: # Damage Boost
 			data = items_data["damage_boost"]
-	set_properties(data["item_sprite"], data["item_collision_size"])
+		_:
+			push_warning("TYPE UNSET | DICTIONARY FOR ITEMS WILL BE EMPTY")
+	# set_properties(new_sprite, data["item_collision_size"])
 
 func set_drop(area):
 	match type:

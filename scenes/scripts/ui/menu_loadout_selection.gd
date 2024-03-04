@@ -74,9 +74,13 @@ func _ready():
 			if starter_items[i] == saved_loadout[2]:
 				starter_items_list.select(i)
 				selected_item = saved_loadout[2]
+	else: # No previous selection in profile. Selecting the first of every option
+		selected_primary = primary_weapons[0]
+		selected_secondary = secondary_weapons[0]
+		selected_item = starter_items[0]
 	
-	await UI.fade('IN')
-	set_focus()
+	# await UI.fade('IN')
+	# set_focus()
 
 func set_focus():
 	$StartButton.grab_focus()

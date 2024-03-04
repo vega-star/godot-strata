@@ -28,6 +28,7 @@ const self_scene_path = "res://entities/dummy_enemies/enemy_gun.tscn"
 @export var rof_randomness : float = 1.15
  
 var shoot_cooldown : bool = false
+var shoot_lock : bool = false
 
 # Unique identifier for modularization
 
@@ -42,7 +43,7 @@ func _ready():
 func _physics_process(_delta):
 	if get_tree().has_group('Player'): look_at(player.global_position)
 	
-	if !shoot_cooldown:
+	if !shoot_cooldown and !shoot_lock:
 		shoot_cooldown = true
 		var projectile = projectile_scene.instantiate()
 		projectile.global_position = $GunMuzzle.global_position
@@ -65,14 +66,16 @@ func destroy(): # Destroys the enemy definetely
 	queue_free()
 
 func deactivate():
-	shoot_cooldown = true
+	shoot_lock = true
 	self.visible = false
+	for n in projectile_container.get_children():
+		n.queue_free()
 
 func reactivate():
 	health_component.reset_health()
 	health_component.lock_health(false)
 	self.visible = true
-	shoot_cooldown = false
+	shoot_lock = false
 
 func _on_health_component_health_change(_previous_value, _new_value, type):
 	if type:
