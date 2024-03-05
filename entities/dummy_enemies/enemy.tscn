@@ -39,6 +39,7 @@ health_bar = NodePath("../HealthBarComponent")
 max_health = 5
 
 [node name="DropComponent" parent="." instance=ExtResource("4_rx6yb")]
+debug = true
 
 [node name="HitboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("4_js4fs")]
 collision_layer = 2

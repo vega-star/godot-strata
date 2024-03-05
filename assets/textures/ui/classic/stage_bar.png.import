@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bkk1gtnus76ob"
-path="res://.godot/imported/v2-sun-color.png-c39ed463f5066e8b86fd900c2912888e.ctex"
+uid="uid://cano6k0rmkt8h"
+path="res://.godot/imported/stage_bar.png-4c8b9d0f40aa34dd451723931e886af4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/textures/static/v2-sun-color.png"
-dest_files=["res://.godot/imported/v2-sun-color.png-c39ed463f5066e8b86fd900c2912888e.ctex"]
+source_file="res://assets/textures/ui/classic/stage_bar.png"
+dest_files=["res://.godot/imported/stage_bar.png-4c8b9d0f40aa34dd451723931e886af4.ctex"]
 
 [params]
 

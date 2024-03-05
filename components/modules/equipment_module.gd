@@ -297,7 +297,7 @@ func present_choice(items):
 		buttons_available.append(button)
 	
 	$InventoryUILayer/SelectionControl.visible = true
-	await get_tree().create_timer(0.5).timeout
+	await get_tree().create_timer(0.2).timeout
 	print(buttons_available[int(buttons_available.size() / 2)])
 	buttons_available[int(buttons_available.size() / 2)].grab_focus()
 

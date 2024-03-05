@@ -123,37 +123,18 @@ scale = Vector2(-1, 1)
 texture = ExtResource("9_3c5an")
 
 [node name="CustomizeLoadoutContainer" type="VBoxContainer" parent="."]
-layout_mode = 2
-offset_left = 126.0
-offset_top = 408.0
-offset_right = 834.0
-offset_bottom = 534.0
-
-[node name="LoadoutLabels" type="HBoxContainer" parent="CustomizeLoadoutContainer"]
-layout_mode = 2
-
-[node name="PrimaryWeapon" type="Label" parent="CustomizeLoadoutContainer/LoadoutLabels"]
-custom_minimum_size = Vector2(200, 0)
-layout_mode = 2
-theme = ExtResource("3_sltso")
-text = "PRIMARY WEAPON"
-horizontal_alignment = 1
-
-[node name="SecondaryWeapon" type="Label" parent="CustomizeLoadoutContainer/LoadoutLabels"]
-custom_minimum_size = Vector2(200, 0)
-layout_mode = 2
-theme = ExtResource("3_sltso")
-text = "SECONDARY WEAPON
-"
-horizontal_alignment = 1
-
-[node name="StarterItem" type="Label" parent="CustomizeLoadoutContainer/LoadoutLabels"]
-custom_minimum_size = Vector2(300, 0)
-layout_mode = 2
-theme = ExtResource("3_sltso")
-text = "STARTER ITEM
-"
-horizontal_alignment = 1
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -354.0
+offset_top = -130.0
+offset_right = 354.0
+offset_bottom = -3.0
+grow_horizontal = 2
+grow_vertical = 0
 
 [node name="LoadoutLists" type="HBoxContainer" parent="CustomizeLoadoutContainer"]
 layout_mode = 2
@@ -188,6 +169,32 @@ item_count = 3
 item_0/text = "I.C. AMPLIFIER"
 item_1/text = "ADDITIONAL HARDPOINT"
 item_2/text = "PLASTEEL WING REINFORCEMENT"
+
+[node name="LoadoutLabels" type="HBoxContainer" parent="CustomizeLoadoutContainer"]
+layout_mode = 2
+
+[node name="PrimaryWeapon" type="Label" parent="CustomizeLoadoutContainer/LoadoutLabels"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme = ExtResource("3_sltso")
+text = "PRIMARY WEAPON"
+horizontal_alignment = 1
+
+[node name="SecondaryWeapon" type="Label" parent="CustomizeLoadoutContainer/LoadoutLabels"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme = ExtResource("3_sltso")
+text = "SECONDARY WEAPON
+"
+horizontal_alignment = 1
+
+[node name="StarterItem" type="Label" parent="CustomizeLoadoutContainer/LoadoutLabels"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+theme = ExtResource("3_sltso")
+text = "STARTER ITEM
+"
+horizontal_alignment = 1
 
 [connection signal="pressed" from="ReturnToMainMenu" to="." method="_on_return_to_main_menu_pressed"]
 [connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]

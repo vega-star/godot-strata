@@ -25,7 +25,6 @@ texture_click_mask = ExtResource("2_nqcjc")
 script = ExtResource("3_n4uw4")
 
 [node name="SizeRect" type="ColorRect" parent="."]
-modulate = Color(1, 1, 1, 0.32549)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -39,7 +38,7 @@ offset_bottom = 181.5
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-color = Color(0, 0, 0, 1)
+color = Color(0.384314, 0.333333, 0.396078, 1)
 
 [node name="SelectionTitle" type="Label" parent="."]
 layout_mode = 1

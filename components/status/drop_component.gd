@@ -63,18 +63,30 @@ func _on_enemy_died():
 
 func gamble_drop(items, chances, max_range):
 	var drop_value = randi_range(1,max_range)
-	for i in items.size():
+	var gamble_amount = items.size()
+	chances.append(20001)
+	for i in gamble_amount:
 		var next_item_chance : int
-		clamp(next_item_chance,0,chances.size())
 		next_item_chance = chances[i + 1]
 		
 		if debug: print('ITEM INDEX: {2} | VALUE ROLLED: {0} | NEXT_ITEM_CHANCE: {1}'.format({0:drop_value, 1:next_item_chance, 2:i}))
 		
+		if drop_type == 0 and items[i]:
+			match items_dict["drops"][str(items[i])]["item_function"]:
+				0: # Health
+					if Profile.current_run_data.get_value("INVENTORY", "CURRENT_HEALTH") == Profile.current_run_data.get_value("INVENTORY", "MAX_HEALTH"):
+						return
+				1: # Ammo
+					if Profile.current_run_data.get_value("INVENTORY", "CURRENT_AMMO") == Profile.current_run_data.get_value("INVENTORY", "MAX_AMMO"):
+						return
+				2: # Damage boost
+					pass
+				_:
+					print('UNSUPPORTED DROP ITEM')
+		
 		if next_item_chance > drop_value: 
 			if debug: print('ITEM GAMBLED: %s' % str(items[i]))
 			return items[i] # If next_value is bigger than random number chance, drop current item in loop
-		else:
-			pass
 
 func _on_item_dropped(drop):
 	var drop_is_array : bool = false

@@ -35,9 +35,6 @@ func set_button_properties(new_item_id, new_title, new_icon, new_description, ne
 func _ready():
 	initial_y = position.y
 	target_y = position.y - movement
-	
-	await get_tree().create_timer(0.3).timeout
-	arise(false)
 
 func _on_pressed():
 	selected.emit(item_id)

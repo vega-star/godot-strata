@@ -4,14 +4,14 @@
         "type": 0,
         "contain_rules": false,
         "contain_items": true,
-        "drops": {"type": 0, "items": [false,"secondary_ammo","health_capsule", "damage_boost"], "chances": [0,80,90,95,20001], "range": 100}
+        "drops": {"type": 0, "items": [false,"secondary_ammo","health_capsule", "damage_boost"], "chances": [0,80,90,95], "range": 100}
     },
     "striker_1": {
         "scene": "res://entities/dummy_enemies/enemy.tscn", 
         "type": 0,
         "contain_rules": false,
         "contain_items": true,
-        "drops": {"type": 0, "items": [false,"secondary_ammo","health_capsule", "damage_boost"], "chances": [0,80,90,95,20001], "range": 100}
+        "drops": {"type": 0, "items": [false,"secondary_ammo","health_capsule", "damage_boost"], "chances": [0,80,90,95], "range": 100}
     },
 	"striker_swarm_1": {
         "scene": "res://entities/dummy_enemies/enemy.tscn", 
@@ -59,7 +59,7 @@
             "quantity": 2,
             "repeat": false,
             "items": ["AdditionalHardpoint", "ICAmplifier", "PlasteelWing"],
-            "chances": [33,66,99,20001],
+            "chances": [33,66,99],
             "range": 100}
     }
 }

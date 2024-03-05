@@ -3,17 +3,20 @@
 		"health_capsule": {
 			"scene": "res://entities/items/health_capsule.tscn",
 			"accumulate": false,
-			"type": 0
+			"item_type": "drop",
+			"item_function": 0
 		},
 		"secondary_ammo": {
 			"scene": "res://entities/items/secondary_ammo.tscn",
 			"accumulate": false,
-			"type": 0
+			"item_type": "drop",
+			"item_function": 1
 		},
 		"damage_boost": {
 			"scene": "res://entities/items/primary_up.tscn",
 			"accumulate": true,
-			"type": 0
+			"item_type": "drop",
+			"item_function": 2
 		}
 	},
 	"items": {

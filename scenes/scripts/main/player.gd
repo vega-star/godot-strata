@@ -171,6 +171,7 @@ func update_animation_state():
 	animation_tree["parameters/Moving/blend_position"] = direction
 	animation_tree["parameters/Roll/blend_position"] = direction
 
+## Weapon firing
 func shoot_loop(delta):
 	if !primary_fire_cooldown:
 		primary_fire_cooldown = true
@@ -178,7 +179,6 @@ func shoot_loop(delta):
 		await get_tree().create_timer(primary_fire_rof * delta).timeout
 		primary_fire_cooldown = false
 
-## Weapon firing signals
 func shoot_primary(): 
 	fire_primary.emit(muzzle.global_position)
 

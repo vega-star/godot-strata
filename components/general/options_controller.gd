@@ -209,3 +209,34 @@ func _on_screen_mode_selected(index):
 # Even so, his tutorial is great and explore more details about registering and updating keybindings
 # Source: https://www.youtube.com/watch?v=WHGHevwhXCQ
 # Github: https://github.com/trolog/godotKeybindingTutorial
+
+## Sound controllers
+@onready var master_slider = $OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons/VolumeContainer/MasterVol/Master_Toggle/Master_Slider
+@onready var music_slider = $OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons/VolumeContainer/MusicVol/Music_Toggle/Music_Slider
+@onready var effect_slider = $OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons/VolumeContainer/SoundEffectVol/Effect_Toggle/Effect_Slider
+
+@onready var master_toggle = $OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons/VolumeContainer/MasterVol/Master_Toggle
+@onready var music_toggle = $OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons/VolumeContainer/MusicVol/Music_Toggle
+@onready var sound_effect_toggle = $OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons/VolumeContainer/SoundEffectVol/Effect_Toggle
+
+#region Toggle
+func _on_master_toggle_toggled(toggled_on): 
+	master_slider.editable = toggled_on
+
+func _on_music_toggle_toggled(toggled_on): 
+	music_slider.editable = toggled_on
+
+func _on_effect_toggle_toggled(toggled_on): 
+	effect_slider.editable = toggled_on
+#endregion
+
+#region Slider
+func _on_master_slider_value_changed(value):
+	print(master_slider.value)
+
+func _on_music_slider_value_changed(value):
+	print(music_slider.value)
+
+func _on_effect_slider_value_changed(value):
+	print(effect_slider.value)
+#endregion
