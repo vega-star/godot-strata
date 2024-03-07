@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://dfcj410iexn0a"]
 
-[ext_resource type="Script" path="res://entities/dummy_enemies/enemy.gd" id="1_bb4nu"]
+[ext_resource type="Script" path="res://entities/entity_scripts/enemy.gd" id="1_bb4nu"]
 [ext_resource type="Texture2D" uid="uid://ddbwujrtlw3md" path="res://assets/textures/prototypes/cargo-ship.png" id="2_r1feh"]
 [ext_resource type="PackedScene" uid="uid://bdfaybp4djcn2" path="res://components/status/health_component.tscn" id="3_dr6nw"]
 [ext_resource type="PackedScene" uid="uid://c3atqdge540t0" path="res://components/status/hitbox_component.tscn" id="4_a3yti"]

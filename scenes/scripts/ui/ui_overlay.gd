@@ -97,8 +97,6 @@ func adapt_hud(hud_element, set_value, limit):
 func update_hud():
 	set_max_hp = Profile.current_run_data.get_value("INVENTORY", "MAX_HEALTH")
 	set_max_ammo = Profile.current_run_data.get_value("INVENTORY", "MAX_AMMO") + Profile.current_run_data.get_value("EFFECTS", "BONUS_AMMO")
-	
-	print('{1} | BONUS: {0}'.format({0:Profile.current_run_data.get_value("EFFECTS", "BONUS_AMMO"),1:Profile.current_run_data.get_value("INVENTORY", "MAX_AMMO")}))
 
 func update_ui_elements():
 	var score = Profile.current_run_data.get_value("STATISTICS", "SCORE")

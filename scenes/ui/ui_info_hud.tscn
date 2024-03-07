@@ -1,0 +1,30 @@
+[gd_scene load_steps=3 format=3 uid="uid://d3w7m8tkl46pl"]
+
+[ext_resource type="Script" path="res://scenes/scripts/ui/info_hud.gd" id="1_h8rhl"]
+[ext_resource type="Theme" uid="uid://b1a5sjt2xibwo" path="res://assets/themes/strata_theme/strata_theme.tres" id="2_3vw07"]
+
+[node name="InfoHUD" type="CanvasLayer"]
+layer = 4
+script = ExtResource("1_h8rhl")
+
+[node name="TitleDisplay" type="RichTextLabel" parent="."]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -188.0
+offset_top = -46.5
+offset_right = 188.0
+offset_bottom = 46.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("2_3vw07")
+theme_override_font_sizes/normal_font_size = 30
+theme_override_font_sizes/bold_font_size = 40
+bbcode_enabled = true
+fit_content = true
+autowrap_mode = 0

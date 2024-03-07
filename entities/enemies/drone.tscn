@@ -1,0 +1,177 @@
+[gd_scene load_steps=12 format=3 uid="uid://ddynbhxi2y2xq"]
+
+[ext_resource type="Material" uid="uid://bhxdepbofekt5" path="res://assets/shaders/entities/default_outline.tres" id="2_ra0pf"]
+[ext_resource type="Texture2D" uid="uid://b34wv1v5ss0tf" path="res://assets/textures/entities/enemies/simple/enemy_drone.png" id="2_w0xxh"]
+[ext_resource type="PackedScene" uid="uid://c4rkui846g2ue" path="res://components/status/combat_component.tscn" id="3_q78sl"]
+[ext_resource type="PackedScene" uid="uid://cifxjpiop3cha" path="res://components/status/drop_component.tscn" id="4_2ns03"]
+[ext_resource type="PackedScene" uid="uid://bfy4edhtjb4rs" path="res://components/status/health_bar_component.tscn" id="5_ktko8"]
+[ext_resource type="PackedScene" uid="uid://bdfaybp4djcn2" path="res://components/status/health_component.tscn" id="6_q1w8h"]
+[ext_resource type="PackedScene" uid="uid://dqge7meaumoi5" path="res://entities/prototype_entities/enemy_gun.tscn" id="7_ftndn"]
+[ext_resource type="PackedScene" uid="uid://c3atqdge540t0" path="res://components/status/hitbox_component.tscn" id="7_tko7h"]
+[ext_resource type="Texture2D" uid="uid://bs4pkrrunu6wd" path="res://assets/textures/entities/enemies/simple/enemy_drone_turret.png" id="8_feky4"]
+
+[sub_resource type="GDScript" id="GDScript_okmx6"]
+script/source = "extends Area2D
+
+signal enemy_died
+
+const enemy_id = 0
+const enemy_name = \"drone_1\"
+const alpha_modulation = 0.5
+const despawn_timeout : float = 5
+
+@export var score_value = 10
+@export var speed = 100
+@export var contact_damage = 1
+@export var self_sprite : Sprite2D
+@onready var self_hitbox : HitboxComponent = $HitboxComponent
+@onready var combat_component : CombatComponent = $CombatComponent
+@onready var drop_component : DropComponent = $DropComponent
+@onready var despawn_timer : Timer = $DespawnTimer
+const damage_effect_flicker_count = 3
+const damage_effect_flicker = 0.15
+
+# Debug / testing
+@export var bulk_updating : bool = false
+var sine_time : float
+
+func _ready():
+	if !self_sprite: self_sprite = $EnemySprite
+
+func _physics_process(delta):
+	sine_time += delta
+	
+	global_position.x += (speed + get_sine()) * delta
+	global_position.y += get_sine()
+	
+	rotation_degrees += get_sine() / 8
+
+func get_sine():
+	return sin(sine_time * 1.2) * 2
+
+func _on_area_entered(body):
+	if body is Player: # Generate damage to itself if it collides with player
+		self_hitbox.generate_damage(contact_damage)
+		
+	if body is HitboxComponent:
+		body.generate_damage(contact_damage)
+
+func _on_outside_screen(): # Deletes the enemy entity if it somehow goes beyond the left side of the screen
+	despawn_timer.start(despawn_timeout)
+
+func _on_visible_on_screen():
+	despawn_timer.stop()
+
+func die(): # Entity death sequence, called by HealthComponent when health <= 0
+	enemy_died.emit()
+	
+	if !bulk_updating:
+		Profile.add_run_data(\"STATISTICS\", \"ENEMIES_DEFEATED\", 1)
+		Profile.add_run_data(\"STATISTICS\", \"SCORE\", score_value)
+	else:
+		# Bulk add example
+		var bulk_dict = {
+			\"Data1\": {
+				section = \"STATISTICS\",
+				stat = \"ENEMIES_DEFEATED\",
+				value = 1},
+			\"Data2\": {
+				section = \"STATISTICS\",
+				stat = \"SCORE\",
+				value = score_value}
+		}
+		Profile.add_bulk_data(bulk_dict)
+	
+	queue_free()
+
+func _on_despawn_timer_timeout():
+	queue_free()
+
+func _on_health_component_health_change(_previous_value, _new_value, type):
+	if type:
+		for n in damage_effect_flicker_count:
+			self_sprite.modulate = Color(0,0,0)
+			await get_tree().create_timer(damage_effect_flicker).timeout
+			self_sprite.modulate = Color(255,255,255)
+			await get_tree().create_timer(damage_effect_flicker).timeout
+
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tq5bo"]
+size = Vector2(50, 50)
+
+[node name="Drone" type="Area2D" node_paths=PackedStringArray("self_sprite") groups=["enemy"]]
+collision_layer = 2
+collision_mask = 5
+script = SubResource("GDScript_okmx6")
+self_sprite = NodePath("DroneSprite")
+
+[node name="DroneSprite" type="Sprite2D" parent="."]
+material = ExtResource("2_ra0pf")
+texture = ExtResource("2_w0xxh")
+
+[node name="SelfCollision" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("RectangleShape2D_tq5bo")
+debug_color = Color(0, 0.6, 0.701961, 0)
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(-217, 0)
+
+[node name="CombatComponent" parent="." instance=ExtResource("3_q78sl")]
+
+[node name="DropComponent" parent="." instance=ExtResource("4_2ns03")]
+debug = true
+
+[node name="HealthBarComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("5_ktko8")]
+position = Vector2(0, 43)
+health_component = NodePath("../HealthComponent")
+metadata/_edit_vertical_guides_ = [-28.0, 28.0]
+metadata/_edit_horizontal_guides_ = [9.0, 3.0]
+
+[node name="HealthComponent" parent="." node_paths=PackedStringArray("health_bar") instance=ExtResource("6_q1w8h")]
+health_bar = NodePath("../HealthBarComponent")
+max_health = 15
+
+[node name="DespawnTimer" type="Timer" parent="."]
+process_callback = 0
+wait_time = 50.0
+one_shot = true
+
+[node name="EnemyGun" parent="." node_paths=PackedStringArray("self_sprite", "health_component") instance=ExtResource("7_ftndn")]
+position = Vector2(-3, 6)
+self_sprite = NodePath("GunSprite")
+health_component = NodePath("../HealthComponent")
+limit_angle = true
+min_angle_limit = -70.0
+max_angle_limit = 140.0
+
+[node name="GunSprite" type="Sprite2D" parent="EnemyGun"]
+rotation = 3.14159
+texture = ExtResource("8_feky4")
+
+[node name="HitboxComponent" parent="." node_paths=PackedStringArray("health_component", "hitbox") instance=ExtResource("7_tko7h")]
+collision_layer = 2
+collision_mask = 5
+health_component = NodePath("../HealthComponent")
+hitbox = NodePath("CollisionPolygon2D")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="HitboxComponent"]
+self_modulate = Color(1, 1, 1, 0.211765)
+polygon = PackedVector2Array(-25, -2, -6, -11, -2, -12, 11, -6, 25, 0, 3, 20, -7, 22, -25, 22, -20, 15, -25, 12, -25, 10, -18, 7, -18, 3, -25, 0)
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+position = Vector2(-15, 24)
+emission_shape = 3
+emission_rect_extents = Vector2(10, 1)
+direction = Vector2(-1, 1)
+gravity = Vector2(-90, 98)
+initial_velocity_min = 10.0
+initial_velocity_max = 100.0
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="enemy_died" from="." to="DropComponent" method="_on_enemy_died"]
+[connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_outside_screen"]
+[connection signal="health_change" from="HealthComponent" to="." method="_on_health_component_health_change"]
+[connection signal="timeout" from="DespawnTimer" to="." method="_on_despawn_timer_timeout"]

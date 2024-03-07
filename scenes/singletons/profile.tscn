@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://b74dh8yfl7a0v"]
 
-[ext_resource type="Script" path="res://scenes/scripts/main/statistics.gd" id="1_or4tc"]
+[ext_resource type="Script" path="res://scenes/scripts/main/profile.gd" id="1_or4tc"]
 
 [node name="Profile" type="Node"]
 script = ExtResource("1_or4tc")

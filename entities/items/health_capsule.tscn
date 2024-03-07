@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://cyvtq5l03cyc1"]
 
-[ext_resource type="Script" path="res://entities/items/health_capsule.gd" id="1_pjpoe"]
+[ext_resource type="Script" path="res://entities/items/items_scripts/health_capsule.gd" id="1_pjpoe"]
 [ext_resource type="Texture2D" uid="uid://hg4rllk56y3r" path="res://assets/textures/items/health-capsule.png" id="2_7tfqc"]
 [ext_resource type="Texture2D" uid="uid://bfkp78rrievst" path="res://assets/textures/items/health-capsule-particles.png" id="2_myw1t"]
 

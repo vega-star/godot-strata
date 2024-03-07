@@ -1,19 +1,19 @@
 extends Area2D
 
-const base_rate_of_fire : float = 20
+const base_rate_of_fire : float = 5
 @export var projectile_speed = 1300
-@export var projectile_damage = 1
-@export var explosion_damage = 10
-@export var debug : bool = false
-@export var can_damage_player : bool = false
-@export var enemy_pass_limit : int = 1
+@export var projectile_damage = 2
 
 var enemy_pass_count = 0
 
 # Factors and multiplyers
+@export var can_damage_player : bool = false
+@export var enemy_pass_limit : int = 1
 var penetration_factor : float = 0.3
-var damage_factor_against_bosses : float = 2
+var damage_factor_against_bosses : float = 1
 var critical_damage_factor : float = 2
+
+@export var debug : bool = false
 
 func _physics_process(delta):
 	global_position.x += projectile_speed * delta

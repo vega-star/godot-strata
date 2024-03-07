@@ -19,7 +19,9 @@ func _ready(): # Loads the max health of the entity. Can be set differently to e
 	if max_health: set_max_health = max_health
 	if health_bar: health_bar.visible = true
 	
-	if owner is Player: component_on_player = true
+	if owner is Player: 
+		component_on_player = true
+		Profile.current_run_data.set_value("INVENTORY", "CURRENT_HEALTH", max_health)
 
 func reset_health():
 	var previous_value := current_health
@@ -31,18 +33,21 @@ func reset_health():
 
 func change_health(amount : int, negative : bool = true):
 	if !lock_health_changes:
-	# Negative = By default this function cause damage, but can also be used to heal.
 		var previous_value := current_health
 		
 		if negative: # Damaging value
 			current_health -= amount
-			if component_on_player: Profile.add_run_data("STATISTICS", "DAMAGE_TAKEN", amount)
+			if component_on_player: 
+				Profile.add_run_data("STATISTICS", "DAMAGE_TAKEN", amount)
+				Profile.current_run_data.set_value("INVENTORY", "CURRENT_HEALTH", current_health)
 		else: # Healing value, prevents health overflow, etc.
 			if current_health + amount > max_health: # Patch overflow
 				current_health = max_health
 			else:
 				current_health += amount
-				if component_on_player: Profile.add_run_data("STATISTICS", "HEALTH_RECOVERED", amount)
+				if component_on_player: 
+					Profile.add_run_data("STATISTICS", "HEALTH_RECOVERED", amount)
+					Profile.current_run_data.set_value("INVENTORY", "CURRENT_HEALTH", current_health)
 		
 		if current_health <= 0:
 			lock_health_changes = true

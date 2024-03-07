@@ -1,16 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://capsl03als0q0"]
+[gd_scene load_steps=8 format=3 uid="uid://capsl03als0q0"]
 
-[ext_resource type="Script" path="res://entities/dummy_enemies/default_ray.gd" id="1_dyjc3"]
+[ext_resource type="Script" path="res://entities/entity_scripts/default_ray.gd" id="1_dyjc3"]
 [ext_resource type="Texture2D" uid="uid://cnve83mws0p8y" path="res://assets/textures/entities/enemies/misc/aimline.png" id="2_3hkay"]
-[ext_resource type="Shader" path="res://assets/shaders/line_offset_movement.gdshader" id="2_v4my7"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_lqgt3"]
-shader = ExtResource("2_v4my7")
-shader_parameter/line_speed = 3.0
-shader_parameter/line_colliding = false
-
-[sub_resource type="Gradient" id="Gradient_tuma7"]
-colors = PackedColorArray(0.898275, 2.59906e-06, 1.2514e-06, 1, 0.886788, 3.08037e-06, 0.440717, 1)
+[ext_resource type="Material" uid="uid://bliwcb53eu063" path="res://assets/shaders/sprite_movement.tres" id="2_fpahj"]
+[ext_resource type="Texture2D" uid="uid://dcjknhla6rmgm" path="res://assets/textures/projectiles/laser_texture.png" id="4_cge0j"]
 
 [sub_resource type="Gradient" id="Gradient_upcad"]
 colors = PackedColorArray(0.824512, 0, 0.41841, 1, 0.945098, 0, 0.501961, 0)
@@ -38,11 +31,10 @@ aim_line = NodePath("AimLine")
 debug = true
 
 [node name="AimLine" type="Line2D" parent="."]
-modulate = Color(100, 0, 0, 1)
 light_mask = 2
 visibility_layer = 2
 texture_repeat = 2
-material = SubResource("ShaderMaterial_lqgt3")
+material = ExtResource("2_fpahj")
 points = PackedVector2Array(0, 0, -1799, 0)
 width = 0.0
 texture = ExtResource("2_3hkay")
@@ -55,8 +47,8 @@ light_mask = 2
 visibility_layer = 2
 points = PackedVector2Array(0, 0, -144, 0)
 width = 0.0
-default_color = Color(0.85098, 0, 0, 1)
-gradient = SubResource("Gradient_tuma7")
+texture = ExtResource("4_cge0j")
+texture_mode = 1
 joint_mode = 2
 begin_cap_mode = 2
 antialiased = true

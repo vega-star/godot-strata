@@ -1,0 +1,74 @@
+[gd_scene load_steps=5 format=3 uid="uid://b81qbneypd7pp"]
+
+[ext_resource type="Texture2D" uid="uid://cni6kbx3g8a3w" path="res://assets/textures/parallax/simulation/layer_3.png" id="2_0ynlc"]
+[ext_resource type="Texture2D" uid="uid://drkw3ljvmpb26" path="res://assets/textures/parallax/simulation/layer_2.png" id="3_4kpwk"]
+[ext_resource type="Texture2D" uid="uid://ngakqg1smd7n" path="res://assets/textures/parallax/simulation/layer_1.png" id="4_mhwg8"]
+
+[sub_resource type="GDScript" id="GDScript_d3pn1"]
+script/source = "extends ParallaxBackground
+
+@export var speed_factor : float = 1
+
+func _process(delta):
+	$Layer1.motion_offset.x -= speed_factor
+	$Layer2.motion_offset.x -= speed_factor
+	$Layer3.motion_offset.x -= speed_factor
+"
+
+[node name="SimulationParallax" type="ParallaxBackground"]
+script = SubResource("GDScript_d3pn1")
+
+[node name="BG" type="ParallaxLayer" parent="."]
+motion_mirroring = Vector2(960, 540)
+
+[node name="ColorRect" type="ColorRect" parent="BG"]
+custom_minimum_size = Vector2(960, 540)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 960.0
+offset_bottom = 540.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.180392, 0.133333, 0.184314, 1)
+
+[node name="Layer3" type="ParallaxLayer" parent="."]
+modulate = Color(1, 1, 1, 0.490196)
+motion_scale = Vector2(1, 0.3)
+motion_mirroring = Vector2(1152, 648)
+
+[node name="Wireframe1" type="Sprite2D" parent="Layer3"]
+position = Vector2(288, 324)
+scale = Vector2(2, 2)
+texture = ExtResource("2_0ynlc")
+
+[node name="Wireframe2" type="Sprite2D" parent="Layer3"]
+position = Vector2(864, 324)
+scale = Vector2(2, 2)
+texture = ExtResource("2_0ynlc")
+
+[node name="Layer2" type="ParallaxLayer" parent="."]
+modulate = Color(1, 1, 1, 0.490196)
+motion_scale = Vector2(1, 0.5)
+motion_mirroring = Vector2(1152, 648)
+
+[node name="Wireframe1" type="Sprite2D" parent="Layer2"]
+position = Vector2(288, 324)
+texture = ExtResource("3_4kpwk")
+
+[node name="Wireframe2" type="Sprite2D" parent="Layer2"]
+position = Vector2(864, 324)
+texture = ExtResource("3_4kpwk")
+
+[node name="Layer1" type="ParallaxLayer" parent="."]
+modulate = Color(1, 1, 1, 0.490196)
+motion_scale = Vector2(1, 0.7)
+motion_mirroring = Vector2(1152, 648)
+
+[node name="Wireframe1" type="Sprite2D" parent="Layer1"]
+position = Vector2(288, 324)
+texture = ExtResource("4_mhwg8")
+
+[node name="Wireframe2" type="Sprite2D" parent="Layer1"]
+position = Vector2(864, 324)
+texture = ExtResource("4_mhwg8")

@@ -52,6 +52,9 @@ var additional_ammo : int = 0
 var ammo_regeneration_cd_factor : float = 1
 var secondary_damage_factor : float = 1.0
 var secondary_rof_factor : float = 1.0
+
+var dash_cooldown_factor : float = 1.0
+var roll_cooldown_factor : float = 1.0
 #endregion
 
 func _ready():
@@ -146,6 +149,9 @@ func update_player_values():
 	owner.set_primary_rof = base_primary_rof * primary_rof_factor
 	owner.set_secondary_rof = base_secondary_rof * secondary_rof_factor
 	
+	owner.dash_cooldown_factor = dash_cooldown_factor
+	owner.roll_cooldown_factor = roll_cooldown_factor
+	
 	owner.status_change.emit()
 	UI.UIOverlay.update_hud()
 
@@ -225,9 +231,15 @@ func infer_effect(effect, value, positive : bool = true):
 				elif ammo - value > 0: update_ammo(ammo - value, ammo)
 				else: update_ammo(0, ammo)
 		"dash_cooldown_factor":
-			pass
-		"dash_speed_buff":
-			pass
+			if positive:
+				dash_cooldown_factor /= value
+			else:
+				dash_cooldown_factor *= value
+		"roll_cooldown_factor":
+			if positive:
+				roll_cooldown_factor /= value
+			else:
+				roll_cooldown_factor *= value
 		_:
 			push_error('{0} | Buff request received, but status is invalid. No change has been made.'.format({0:effect}))
 	effect_changed.emit()

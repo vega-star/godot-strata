@@ -7,7 +7,7 @@ signal shielding_destroyed
 @export var combat_component : CombatComponent
 
 # Properties
-@export var immunity_frame_limit : int = 4
+@export var immunity_frame_limit : int = 5
 @export var hitbox : CollisionPolygon2D
 @export var simple_hitbox : CollisionShape2D
 var active_hitbox

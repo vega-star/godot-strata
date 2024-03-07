@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://vi1edwldfrtq"]
 
-[ext_resource type="Script" path="res://entities/composite_elements/composite_enemy_module.gd" id="1_371ub"]
+[ext_resource type="Script" path="res://entities/entity_scripts/composite_enemy_module.gd" id="1_371ub"]
 [ext_resource type="PackedScene" uid="uid://bdfaybp4djcn2" path="res://components/status/health_component.tscn" id="2_0d728"]
 [ext_resource type="PackedScene" uid="uid://c4rkui846g2ue" path="res://components/status/combat_component.tscn" id="3_1pvw1"]
 [ext_resource type="PackedScene" uid="uid://c3atqdge540t0" path="res://components/status/hitbox_component.tscn" id="3_cq3ul"]

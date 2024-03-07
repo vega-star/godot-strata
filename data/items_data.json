@@ -23,11 +23,12 @@
 		"ICAmplifier": {
 			"item_name": "I.C. Amplifier",
 			"item_description": "Regulates pressure inside the internal cannon and dissipates heat more efficiently.\n\nPrimary weapon rate of fire increased by 15%",
+			"item_tooltip": "Primary weapon rate of fire increased by 15%",
 			"item_type": "passive",
 			"item_effect": {
 				"type": "multiply",
 				"target": "primary_rof_buff",
-				"value": 1.25
+				"value": 1.15
 			},
 			"item_properties": {
 				"item_small_icon": "",
@@ -42,6 +43,7 @@
 		"AdditionalHardpoint": {
 			"item_name": "Additional Hardpoint",
 			"item_description": "Multipurpose and modular storage for missiles, bombs, and similar.\n\nSecondary weapon ammo increased by 2",
+			"item_tooltip": "Secondary weapon ammo increased by 2",
 			"item_type": "passive",
 			"item_effect": {
 				"type": "addition", 
@@ -61,6 +63,7 @@
 		"PlasteelWing": {
 			"item_name": "Plasteel Wing Reinforcement",
 			"item_description": "Raises the flexibility of the wings without sacrificing its strength.\n\nRoll cooldown decreased by 20% and duration raised by 15%",
+			"item_tooltip": "Roll cooldown decreased by 20% and duration raised by 15%",
 			"item_type": "passive",
 			"item_effect": {
 				"type": "multiply", 
@@ -80,6 +83,7 @@
 		"OnDemandAfterburner": {
 			"item_name": "On-Demand Afterburner",
 			"item_description": "A thruster modification that ables a promptable afterburner burst.\n\nDash cooldown decreased by 20% and speed raised by 30%",
+			"item_tooltip": "Dash cooldown decreased by 20% and speed raised by 30%",
 			"item_type": "passive",
 			"item_effect": {
 				"type": "multiply", 

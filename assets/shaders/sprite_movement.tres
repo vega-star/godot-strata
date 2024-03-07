@@ -1,0 +1,8 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://bliwcb53eu063"]
+
+[ext_resource type="Shader" path="res://assets/shaders/entities/line_offset_movement.gdshader" id="1_rbj6a"]
+
+[resource]
+shader = ExtResource("1_rbj6a")
+shader_parameter/line_speed = 4.0
+shader_parameter/line_colliding = false

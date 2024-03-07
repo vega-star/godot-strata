@@ -59,7 +59,6 @@ func _ready():
 	## Pre-select items that were selected in the previous run
 	if Profile.profiles_data.has_section_key(Profile.selected_profile, "SAVED_LOADOUT"):
 		var saved_loadout = Profile.profiles_data.get_value(Profile.selected_profile, "SAVED_LOADOUT")
-		# selected_primary = Profile.profiles_data.get_value(Profile.selected_profile, "SAVED_LOADOUT", [0])
 		for i in primary_weapons.size():
 			if primary_weapons[i] == saved_loadout[0]:
 				primary_weapons_list.select(i)

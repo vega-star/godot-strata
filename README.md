@@ -1,8 +1,8 @@
-# Godot Strata Zero
+# Strata ZERO
 
-Strata Zero is a __horizontal sidescrolling shooter with some roguelike elements__ to spice things up. This is my first public game, and some of its contents are inspired by tutorials and based on the official Godot documentation, and I'll address every source in each section. The game will also be a part of series of videos made to teach the basics of Godot and present some aspects of development.
+Strata ZERO is a __horizontal sidescrolling shooter with some roguelike elements__ to spice things up. This is my first public game, and some of its contents are inspired by tutorials and based on the official Godot documentation, and I'll address every source in each section. The game will also be a part of series of videos made to teach the basics of Godot and present some aspects of development.
 
-This project purpose is to have a great variety of mechanisms and extensively documented info directed for people wanting to learn the foundations of Godot. This game will also be uploaded in __[itch.io](http://itch.io)__ after completion, and will always be *open source*, as there is no better way to learn than to teach.
+This project purpose is to have a great variety of mechanisms and extensively documented info directed for people wanting to learn the foundations of Godot. This game will also be uploaded in __[itch.io](http://itch.io)__ after completion while the alpha branch will always be *open source* here on GitHub, as there is no better way to learn than to teach.
 
 Some of the features of the game are:
 

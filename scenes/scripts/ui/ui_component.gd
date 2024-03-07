@@ -5,6 +5,7 @@ signal game_paused(mode)
 
 ## Node connections
 @onready var UIOverlay = $UIOverlay
+@onready var InfoHUD = $InfoHUD
 @onready var PauseMenu = $PauseMenuLayer
 @onready var GameOver = $GameOver
 @onready var ScreenTransition = $ScreenTransitionLayer
@@ -24,7 +25,8 @@ func set_stage(timer):
 	UIOverlay.visible = true
 	UIOverlay.stage_progress_bar.visible = true
 	stage_timer = timer
-	Profile.save_active_data(false, true)
+	
+	Profile.save_previous_data() # Sets a data checkpoint to rollback in case of retry
 
 func set_pause(mode : bool = true):
 	get_tree().paused = mode

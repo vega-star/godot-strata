@@ -1,0 +1,20 @@
+extends Area2D
+
+@export var heal_value : int = 1
+@export var item_drift : float = 1
+@export var max_item_drift : float = 120
+@export var buff_value : float = 2.0
+@export var buff_name : String = "PrimaryUp"
+
+func _physics_process(delta):
+	global_position.x -= item_drift * delta
+	get_tree().create_tween().tween_property(self, "item_drift", max_item_drift, 3)
+
+func _on_presence_checker_screen_exited(): # Deletes item if it goes away from the screen
+	queue_free()
+
+func _on_area_entered(area):
+	if area is HitboxComponent:
+		# (source, target_status, buff, buff_period = null, accumulate : bool = false)
+		area.get_owner().equipment_module.create_buff(buff_name, "primary_damage_buff", buff_value, 5)
+		queue_free()

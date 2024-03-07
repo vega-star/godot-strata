@@ -1,10 +1,14 @@
 extends Control
 
-func set_focus():
-	$ButtonsContainer/StartButton.grab_focus()
+func set_focus(): $ButtonsContainer/StartButton.grab_focus()
 
-func _on_start_button_pressed(): # StartButton
-	owner.set_page_position(-1)
+func _on_start_button_pressed(): owner.set_page_position(-1) # Loadout
+
+func _on_profile_button_pressed(): owner.set_page_position(1) # Profile
+
+func _on_credits_button_pressed(): owner.set_page_position(1, false) # Credits
+
+func _on_codex_button_pressed(): owner.set_page_position(-1, false) # Codex
 
 func _on_quit_button_pressed(): # QuitButton
 	get_tree().quit()

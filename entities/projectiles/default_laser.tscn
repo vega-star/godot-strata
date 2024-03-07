@@ -59,8 +59,9 @@ animations = [{
 radius = 4.0
 height = 20.0
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_gmn0s"]
-size = Vector2(4, 12)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_kcd5f"]
+radius = 2.0
+height = 12.0
 
 [node name="DefaultLaser" type="Area2D"]
 top_level = true
@@ -73,6 +74,7 @@ metadata/_edit_horizontal_guides_ = [-2.0, 2.0]
 metadata/_edit_vertical_guides_ = [-6.0, 6.0]
 
 [node name="LaserAnimatedSprite" type="AnimatedSprite2D" parent="."]
+visible = false
 position = Vector2(0, 0.5)
 sprite_frames = SubResource("SpriteFrames_pvj6k")
 animation = &"laser_spawned"
@@ -81,10 +83,7 @@ frame = 5
 frame_progress = 1.0
 
 [node name="LaserSprite" type="Sprite2D" parent="."]
-visible = false
-position = Vector2(0.420861, 5.22033e-05)
 rotation = 1.5708
-scale = Vector2(0.397513, 0.358178)
 texture = ExtResource("2_lky23")
 
 [node name="SelfHitbox" type="CollisionShape2D" parent="."]
@@ -103,7 +102,7 @@ collision_mask = 2
 
 [node name="SelfProjectileBox" type="CollisionShape2D" parent="HitboxComponent"]
 rotation = -1.5708
-shape = SubResource("RectangleShape2D_gmn0s")
+shape = SubResource("CapsuleShape2D_kcd5f")
 
 [connection signal="screen_exited" from="OutsideScreenCheck" to="." method="_on_outside_screen_check_exit_detected"]
 [connection signal="area_entered" from="HitboxComponent" to="." method="_on_hitbox_area_entered"]

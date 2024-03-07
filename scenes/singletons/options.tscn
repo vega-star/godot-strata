@@ -76,6 +76,7 @@ theme_override_constants/separation = 8
 alignment = 1
 
 [node name="ScreenMode" type="Label" parent="OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons"]
+visible = false
 custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
 text = "SCREEN"
@@ -497,7 +498,7 @@ keybind = "shoot"
 layout_mode = 2
 theme = ExtResource("1_yjy47")
 theme_override_font_sizes/font_size = 45
-text = "Bomb"
+text = "BOMB"
 uppercase = true
 
 [node name="BOMB_B" parent="OptionsControl/ConfigContainer/Binds/BindGrids/BindGridRight" instance=ExtResource("3_iy2y2")]

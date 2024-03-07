@@ -19,10 +19,10 @@ func _process(_delta):
 	if get_point_count() > trail_length:
 		remove_point(0)
 	
-	#for p in range(get_point_count()):
-	#	var rand_vector := Vector2( randf_range(-range_value, range_value), randf_range(-range_value, range_value) )
-	#	points[p] += (Vector2.LEFT * movement_speed + ( rand_vector * trail_size_flicker))
-	
 	for p in range(get_point_count()):
-		points[p] += (Vector2.LEFT * movement_speed)
+		var rand_vector := Vector2( randf_range(-range_value, range_value), randf_range(-range_value, range_value) )
+		points[p] += (Vector2.LEFT * movement_speed + ( rand_vector * trail_size_flicker))
+	
+	#for p in range(get_point_count()):
+	#	points[p] += (Vector2.LEFT * movement_speed)
 

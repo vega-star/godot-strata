@@ -39,7 +39,7 @@ grow_horizontal = 2
 grow_vertical = 0
 alignment = 1
 
-[node name="Continue" type="Button" parent="ButtonsContainer"]
+[node name="ContinueButton" type="Button" parent="ButtonsContainer"]
 visible = false
 layout_mode = 2
 focus_neighbor_right = NodePath("../../../../ConfigButton")
@@ -57,12 +57,14 @@ text = "START RUN"
 layout_mode = 2
 focus_neighbor_right = NodePath("../../../../ConfigButton")
 theme = ExtResource("3_l8my2")
+disabled = true
 text = "PROFILE"
 
 [node name="CodexButton" type="Button" parent="ButtonsContainer"]
 layout_mode = 2
 focus_neighbor_right = NodePath("../../../../ConfigButton")
 theme = ExtResource("3_l8my2")
+disabled = true
 text = "CODEX"
 
 [node name="CreditsButton" type="Button" parent="ButtonsContainer"]
@@ -120,5 +122,8 @@ texture_click_mask = ExtResource("5_lbftm")
 stretch_mode = 3
 
 [connection signal="pressed" from="ButtonsContainer/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="ButtonsContainer/ProfileButton" to="." method="_on_profile_button_pressed"]
+[connection signal="pressed" from="ButtonsContainer/CodexButton" to="." method="_on_codex_button_pressed"]
+[connection signal="pressed" from="ButtonsContainer/CreditsButton" to="." method="_on_credits_button_pressed"]
 [connection signal="pressed" from="ButtonsContainer/QuitButton" to="." method="_on_quit_button_pressed"]
 [connection signal="pressed" from="OtherLinks/GitHubLink" to="." method="_on_git_hub_link_pressed"]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://q7j6u4wu2m20"]
 
-[ext_resource type="Script" path="res://entities/items/secondary_ammo.gd" id="1_qmiwu"]
+[ext_resource type="Script" path="res://entities/items/items_scripts/secondary_ammo.gd" id="1_qmiwu"]
 [ext_resource type="Texture2D" uid="uid://demcnjfhpei41" path="res://assets/textures/items/bomb-ammo.png" id="2_j0adw"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ueb0b"]

@@ -10,7 +10,7 @@ var config = ConfigFile.new()
 var config_load = config.load("user://config.cfg")
 
 # Node variables
-@onready var player_spawn_pos = $PlayerSpawnPos
+@onready var player_spawn_pos = $PlayerStartPosition
 @onready var player_projectile_container = $ProjectileContainer
 @onready var player_health_component = $Player/HealthComponent
 @onready var player : CharacterBody2D = $Player
@@ -74,10 +74,13 @@ func start_stage_sequence(): # Starting animations, fade-in, etc.
 	
 	# Locking controls and starting animation
 	var player_move_to_action = get_tree().create_tween()
-	player_move_to_action.tween_property(player, "position", $PlayerSpawnPos.global_position, 0.99)
+	player_move_to_action.tween_property(player, "position", player_spawn_pos.global_position, 0.99)
 	
 	player.controls_lock(true)
 	await UI.fade('IN')
+	
+	UI.InfoHUD.display_title('STAGE ZERO', 'SIMULATION')
+	
 	await get_tree().create_timer(2, false).timeout
 	
 	# Unlocking controls and starting timer

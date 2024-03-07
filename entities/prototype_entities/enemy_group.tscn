@@ -1,0 +1,100 @@
+[gd_scene load_steps=7 format=3 uid="uid://cgwbhdh1tc0bf"]
+
+[ext_resource type="Script" path="res://entities/entity_scripts/enemy.gd" id="1_dkhgf"]
+[ext_resource type="Script" path="res://entities/entity_scripts/enemy_group.gd" id="1_mk7bm"]
+[ext_resource type="Texture2D" uid="uid://dq4s3s0h3le1a" path="res://assets/textures/prototypes/enemy_test_sprite.png" id="2_rp8pv"]
+[ext_resource type="PackedScene" uid="uid://bdfaybp4djcn2" path="res://components/status/health_component.tscn" id="3_6t1oy"]
+[ext_resource type="PackedScene" uid="uid://c3atqdge540t0" path="res://components/status/hitbox_component.tscn" id="4_ni2dk"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tq5bo"]
+size = Vector2(50, 50)
+
+[node name="EnemyGroup" type="Node2D"]
+script = ExtResource("1_mk7bm")
+
+[node name="Enemy1" type="Area2D" parent="." groups=["enemies"]]
+scale = Vector2(0.7, 0.7)
+collision_layer = 2
+collision_mask = 5
+script = ExtResource("1_dkhgf")
+
+[node name="EnemySprite" type="Sprite2D" parent="Enemy1"]
+texture = ExtResource("2_rp8pv")
+
+[node name="SelfCollision" type="CollisionShape2D" parent="Enemy1"]
+shape = SubResource("RectangleShape2D_tq5bo")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="Enemy1"]
+position = Vector2(130, 0)
+
+[node name="HealthComponent" parent="Enemy1" instance=ExtResource("3_6t1oy")]
+max_health = 5
+
+[node name="HitboxComponent" parent="Enemy1" node_paths=PackedStringArray("health_component") instance=ExtResource("4_ni2dk")]
+collision_layer = 2
+collision_mask = 5
+health_component = NodePath("../HealthComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy1/HitboxComponent"]
+shape = SubResource("RectangleShape2D_tq5bo")
+
+[node name="Enemy2" type="Area2D" parent="." groups=["enemies"]]
+position = Vector2(0, -100)
+scale = Vector2(0.7, 0.7)
+collision_layer = 2
+collision_mask = 5
+script = ExtResource("1_dkhgf")
+
+[node name="EnemySprite" type="Sprite2D" parent="Enemy2"]
+texture = ExtResource("2_rp8pv")
+
+[node name="SelfCollision" type="CollisionShape2D" parent="Enemy2"]
+shape = SubResource("RectangleShape2D_tq5bo")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="Enemy2"]
+position = Vector2(130, 0)
+
+[node name="HealthComponent" parent="Enemy2" instance=ExtResource("3_6t1oy")]
+max_health = 5
+
+[node name="HitboxComponent" parent="Enemy2" node_paths=PackedStringArray("health_component") instance=ExtResource("4_ni2dk")]
+collision_layer = 2
+collision_mask = 5
+health_component = NodePath("../../Enemy1/HealthComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy2/HitboxComponent"]
+shape = SubResource("RectangleShape2D_tq5bo")
+
+[node name="Enemy3" type="Area2D" parent="." groups=["enemies"]]
+position = Vector2(0, 100)
+scale = Vector2(0.7, 0.7)
+collision_layer = 2
+collision_mask = 5
+script = ExtResource("1_dkhgf")
+
+[node name="EnemySprite" type="Sprite2D" parent="Enemy3"]
+texture = ExtResource("2_rp8pv")
+
+[node name="SelfCollision" type="CollisionShape2D" parent="Enemy3"]
+shape = SubResource("RectangleShape2D_tq5bo")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="Enemy3"]
+position = Vector2(130, 0)
+
+[node name="HealthComponent" parent="Enemy3" instance=ExtResource("3_6t1oy")]
+max_health = 5
+
+[node name="HitboxComponent" parent="Enemy3" node_paths=PackedStringArray("health_component") instance=ExtResource("4_ni2dk")]
+collision_layer = 2
+collision_mask = 5
+health_component = NodePath("../../Enemy1/HealthComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy3/HitboxComponent"]
+shape = SubResource("RectangleShape2D_tq5bo")
+
+[connection signal="area_entered" from="Enemy1" to="Enemy1" method="_on_area_entered"]
+[connection signal="screen_exited" from="Enemy1/VisibleOnScreenNotifier2D" to="Enemy1" method="_on_visible_on_screen_notifier_2d_screen_exited"]
+[connection signal="area_entered" from="Enemy2" to="Enemy2" method="_on_area_entered"]
+[connection signal="screen_exited" from="Enemy2/VisibleOnScreenNotifier2D" to="Enemy2" method="_on_visible_on_screen_notifier_2d_screen_exited"]
+[connection signal="area_entered" from="Enemy3" to="Enemy3" method="_on_area_entered"]
+[connection signal="screen_exited" from="Enemy3/VisibleOnScreenNotifier2D" to="Enemy3" method="_on_visible_on_screen_notifier_2d_screen_exited"]

@@ -1,31 +1,38 @@
 {
     "enemy": {
-        "scene": "res://entities/dummy_enemies/enemy.tscn", 
+        "scene": "res://entities/prototype_entities/enemy.tscn", 
+        "type": 0,
+        "contain_rules": false,
+        "contain_items": true,
+        "drops": {"type": 0, "items": [false,"secondary_ammo","health_capsule", "damage_boost"], "chances": [0,80,90,95], "range": 100}
+    },
+    "drone_1": {
+        "scene": "res://entities/enemies/drone.tscn", 
         "type": 0,
         "contain_rules": false,
         "contain_items": true,
         "drops": {"type": 0, "items": [false,"secondary_ammo","health_capsule", "damage_boost"], "chances": [0,80,90,95], "range": 100}
     },
     "striker_1": {
-        "scene": "res://entities/dummy_enemies/enemy.tscn", 
+        "scene": "res://entities/prototype_entities/enemy.tscn", 
         "type": 0,
         "contain_rules": false,
         "contain_items": true,
         "drops": {"type": 0, "items": [false,"secondary_ammo","health_capsule", "damage_boost"], "chances": [0,80,90,95], "range": 100}
     },
 	"striker_swarm_1": {
-        "scene": "res://entities/dummy_enemies/enemy.tscn", 
+        "scene": "res://entities/prototype_entities/enemy.tscn", 
         "type": 1,
         "contain_rules": true,
         "contain_items": false,
-        "rules": {"spawn_override": "center", "swarm": {"method": 0, "separation": 30, "amount": 5}}
+        "rules": {"spawn_override": "center", "swarm": {"method": 0, "separation": 30, "amount": 5, "delay": 0}}
     },
 	"striker_swarm_2": {
-        "scene": "res://entities/dummy_enemies/enemy.tscn", 
+        "scene": "res://entities/prototype_entities/enemy.tscn", 
         "type": 1,
         "contain_rules": true,
         "contain_items": false,
-        "rules": {"spawn_override": "bottom", "swarm": {"method": 1, "separation": 50, "amount": 3}}
+        "rules": {"spawn_override": "bottom", "swarm": {"method": 1, "separation": 50, "amount": 3, "delay": 0}}
     },
 	"vanguard": {
         "scene": "res://entities/enemies/vanguard.tscn", 
@@ -35,7 +42,7 @@
         "rules": {"spawn_override": "center", "challenge": true}
     },
 	"aegis_1": {
-        "scene": "res://entities/dummy_enemies/enemy.tscn", 
+        "scene": "res://entities/prototype_entities/enemy.tscn", 
         "type": 4,
         "contain_rules": true,
         "contain_items": false,
@@ -49,7 +56,7 @@
         "rules": {"spawn_override": "bottom"}
     },
     "composite_enemy": {
-        "scene": "res://entities/dummy_enemies/composite_enemy.tscn", 
+        "scene": "res://entities/prototype_entities/composite_enemy.tscn", 
         "type": 2,
         "contain_rules": true,
         "contain_items": true,

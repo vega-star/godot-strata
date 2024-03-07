@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, user-scalable=no">
-		<title>Strata</title>
+		<title>Strata ZERO</title>
 		<style>
 body {
 	touch-action: none;
@@ -17,7 +17,7 @@ body {
 #canvas {
 	display: block;
 	margin: 0;
-	color: #2e222f;
+	color: white;
 }
 
 #canvas:focus {
@@ -26,10 +26,10 @@ body {
 
 .godot {
 	font-family: 'Noto Sans', 'Droid Sans', Arial, sans-serif;
-	color: #2e222f;
+	color: #e0e0e0;
 	background-color: #3b3943;
-	background-image: linear-gradient(to bottom, #2e222f, 3e3546);
-	border: 1px solid #ffffff;
+	background-image: linear-gradient(to bottom, #403e48, #35333c);
+	border: 1px solid #45434e;
 	box-shadow: 0 0 1px 1px #2f2d35;
 }
 
@@ -51,7 +51,7 @@ body {
 #status-progress {
 	width: 366px;
 	height: 7px;
-	background-color: #2e222f;
+	background-color: #38363A;
 	border: 1px solid #444246;
 	padding: 1px;
 	box-shadow: 0 0 2px 1px #1B1C22;
@@ -137,15 +137,13 @@ body {
 
 		<script src="test_export.js"></script>
 		<script>
-const GODOT_CONFIG = {"args":[],"canvasResizePolicy":2,"executable":"test_export","experimentalVK":false,"fileSizes":{"test_export.pck":1160720,"test_export.wasm":1758196},"focusCanvas":true,"gdextensionLibs":[]};
+const GODOT_CONFIG = {"args":[],"canvasResizePolicy":2,"executable":"test_export","experimentalVK":false,"fileSizes":{"test_export.pck":923360,"test_export.wasm":2866393},"focusCanvas":true,"gdextensionLibs":[]};
 const engine = new Engine(GODOT_CONFIG);
 
 (function () {
 	const INDETERMINATE_STATUS_STEP_MS = 100;
 	const statusProgress = document.getElementById('status-progress');
-	const statusProgressInner = document.getElementById(
-		'status-progress-inner'
-	);
+	const statusProgressInner = document.getElementById('status-progress-inner');
 	const statusIndeterminate = document.getElementById('status-indeterminate');
 	const statusNotice = document.getElementById('status-notice');
 
@@ -213,37 +211,9 @@ const engine = new Engine(GODOT_CONFIG);
 		const msg = err.message || err;
 		console.error(msg);
 		setStatusNotice(msg);
-		setStatusMode("notice");
+		setStatusMode('notice');
 		initializing = false;
-	  }
-	  if (!Engine.isWebGLAvailable()) {
-		displayFailureNotice("WebGL not available");
-	  } else {
-		setStatusMode("indeterminate");
-		engine
-		  .startGame({
-			onProgress: function (current, total) {
-			  if (total > 0) {
-				statusProgressInner.style.width =
-				  (current / total) * 100 + "%";
-				setStatusMode("progress");
-				if (current === total) {
-				  // wait for progress bar animation
-				  setTimeout(() => {
-					setStatusMode("indeterminate");
-				  }, 500);
-				}
-			  } else {
-				setStatusMode("indeterminate");
-			  }
-			},
-		  })
-		  .then(() => {
-			setStatusMode("hidden");
-			statusDiv.style.display = "none";
-			initializing = false;
-		  }, displayFailureNotice);
-	  }
+	}
 
 	const missing = Engine.getMissingFeatures();
 	if (missing.length !== 0) {

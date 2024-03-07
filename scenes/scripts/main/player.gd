@@ -16,6 +16,10 @@ signal status_change
 signal player_killed # Self explanatory
 
 # Movement
+const limit_offset : int = 16
+var vertical_limit : Vector2
+var horizontal_limit : Vector2
+
 @onready var is_control_locked : bool = false
 @onready var direction : Vector2 = Vector2.ZERO
 @export var speed : float = 400
@@ -23,9 +27,13 @@ signal player_killed # Self explanatory
 @export var acceleration = 1.1
 @export var deadzone = 0.25 # Useful for controller compatibility
 @export var air_friction = 0.5
+
 @export var dash_speed : float = 1200
 @export var dash_cooldown_timer : float = 75
 @export var roll_cooldown_timer : float = 120
+var dash_cooldown_factor : float = 1.0
+var roll_cooldown_factor : float = 1.0
+
 var damage_knockback : bool = false
 const knockback_speed = 1200
 const knockback_randomness = 0.2
@@ -37,12 +45,13 @@ const knockback_randomness = 0.2
 @onready var hitbox_component : HitboxComponent = $HitboxComponent
 @onready var animation_tree = $PlayerAnimationTree
 
+# Control booleans
 var primary_fire_cooldown : bool = false
 var secondary_fire_cooldown : bool = false
 var dash_cooldown : bool = false
 var roll_cooldown : bool = false
 
-# Inventory
+## Inventory
 @onready var muzzle = $Muzzles/MuzzleRightWing
 @onready var secondary_ammo : int = equipment_module.ammo
 var primary_fire_rof : float # The rate of fire already comes with added multipliers
@@ -64,6 +73,19 @@ func _ready():
 	# Loading config
 	toggle_mode = config.get_value("MAIN_OPTIONS","TOGGLE_FIRE")
 	Options.options_changed.connect(_on_config_changed)
+	
+	set_movement_limit()
+
+func set_movement_limit():
+	vertical_limit = Vector2(
+		(stage_camera.get_limit(1)) + (limit_offset),
+		(stage_camera.get_limit(3)) - (limit_offset)
+	)
+	
+	horizontal_limit = Vector2(
+		(stage_camera.get_limit(0)) + (limit_offset),
+		(stage_camera.get_limit(2)) - (limit_offset)
+	)
 
 func _on_config_changed(): 
 	config_load = config.load("user://config.cfg")
@@ -87,7 +109,7 @@ func _process(delta): # Frequent listener for input with delay (weapons, items, 
 			if !secondary_fire_cooldown:
 				secondary_fire_cooldown = true
 				shoot_secondary()
-				await get_tree().create_timer(secondary_fire_rof * (150 * delta)).timeout
+				await get_tree().create_timer(secondary_fire_rof * (150 * delta), false).timeout
 				secondary_fire_cooldown = false
 		else:
 			if debug: print("No ammo left!")
@@ -100,7 +122,7 @@ func _process(delta): # Frequent listener for input with delay (weapons, items, 
 			hitbox_component.set_collision_layer_value(1, false)
 			$HunterSprites.modulate.a = 0.5
 			
-			await get_tree().create_timer(roll_cooldown_timer * 1 * delta).timeout
+			await get_tree().create_timer((roll_cooldown_timer * roll_cooldown_factor) * delta, false).timeout
 			
 			hitbox_component.toggle_immunity(false)
 			hitbox_component.set_collision_layer_value(1, true)
@@ -131,7 +153,7 @@ func _physics_process(delta): # General movement function
 		var target_direction = direction.normalized()
 		velocity = target_direction * dash_speed
 		
-		await get_tree().create_timer(dash_cooldown_timer * delta).timeout
+		await get_tree().create_timer((dash_cooldown_timer * dash_cooldown_factor) * delta, false).timeout
 		
 		$HunterSprites.modulate.g = 1
 		$HunterSprites.modulate.b = 1
@@ -150,8 +172,17 @@ func _physics_process(delta): # General movement function
 	velocity *= 1.0 - (air_friction * delta)
 	move_and_slide()
 	
-	var limit_below = Vector2(get_viewport_rect().size.x - 30, get_viewport_rect().size.y - 25)
-	global_position = global_position.clamp(Vector2.ZERO,limit_below)
+	global_position.y = clampf(
+		global_position.y,
+		vertical_limit.x, # -60,
+		vertical_limit.y # 540
+	)
+	
+	global_position.x = clampf(
+		global_position.x,
+		horizontal_limit.x, # 0,
+		horizontal_limit.y # 960
+	)
 
 func update_animation_state(): 
 	## AnimationTree controls learned from Chris Tutorials | source: https://www.youtube.com/watch?v=WrMORzl3g1U

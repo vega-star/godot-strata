@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scenes/scripts/main/strata_scene.gd" id="1_yvb6t"]
 [ext_resource type="PackedScene" uid="uid://csdnju38rqee8" path="res://scenes/stage_manager.tscn" id="2_yuycq"]
 [ext_resource type="PackedScene" uid="uid://biim58k38oa7h" path="res://entities/player/player.tscn" id="3_2ft1y"]
-[ext_resource type="PackedScene" uid="uid://b7d5rmrbmprps" path="res://components/parallax/first_stage_parallax.tscn" id="5_ng4qn"]
+[ext_resource type="PackedScene" uid="uid://b81qbneypd7pp" path="res://scenes/stages/parallax/simulated_parallax.tscn" id="4_sk8ph"]
 [ext_resource type="Script" path="res://scenes/scripts/main/stage_camera.gd" id="6_cvf0c"]
 
 [node name="StrataScene" type="Node2D"]
@@ -13,7 +13,7 @@ script = ExtResource("1_yvb6t")
 
 [node name="StageManager" parent="." instance=ExtResource("2_yuycq")]
 
-[node name="PlayerSpawnPos" type="Marker2D" parent="."]
+[node name="PlayerStartPosition" type="Marker2D" parent="."]
 light_mask = 2
 visibility_layer = 2
 position = Vector2(185, 270)
@@ -29,17 +29,16 @@ remote_path = NodePath("../../StageCamera")
 [node name="StageTimer" type="Timer" parent="."]
 one_shot = true
 
-[node name="FirstStageParallax" parent="." instance=ExtResource("5_ng4qn")]
+[node name="SimulationParallax" parent="." instance=ExtResource("4_sk8ph")]
 
 [node name="StageCamera" type="Camera2D" parent="."]
 position = Vector2(-79, -60)
 limit_left = 0
-limit_top = 0
+limit_top = -60
 limit_right = 960
 limit_bottom = 540
 limit_smoothed = true
 position_smoothing_enabled = true
-position_smoothing_speed = 1.0
 editor_draw_limits = true
 script = ExtResource("6_cvf0c")
 

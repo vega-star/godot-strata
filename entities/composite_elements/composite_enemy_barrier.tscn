@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://dqkmbvpbyrhg0"]
 
-[ext_resource type="Script" path="res://entities/composite_elements/composite_enemy_barrier.gd" id="1_j2kjx"]
+[ext_resource type="Script" path="res://entities/entity_scripts/composite_enemy_barrier.gd" id="1_j2kjx"]
 [ext_resource type="Texture2D" uid="uid://bir22ts5blvfa" path="res://assets/textures/prototypes/composite_enemy_module_core_barrier.png" id="1_vwe36"]
 [ext_resource type="PackedScene" uid="uid://c4rkui846g2ue" path="res://components/status/combat_component.tscn" id="2_7smc5"]
 [ext_resource type="Script" path="res://components/status/health_component.gd" id="2_iay4x"]

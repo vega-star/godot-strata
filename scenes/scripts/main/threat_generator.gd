@@ -16,7 +16,10 @@ const enemy_data = "res://data/enemy_data.json"
 @onready var spawn_positions : Dictionary = {
 	"bottom": $ScreenArea/SpawnArea/BottomSpawnPos,
 	"center": $ScreenArea/SpawnArea/CenterSpawnPos,
-	"top": $ScreenArea/SpawnArea/TopSpawnPos
+	"top": $ScreenArea/SpawnArea/TopSpawnPos,
+	"bottom_forward": $ScreenArea/SpawnAreaForward/BottomSpawnPos,
+	"center_forward": $ScreenArea/SpawnAreaForward/CenterSpawnPos,
+	"top_forward": $ScreenArea/SpawnAreaForward/TopSpawnPos
 }
 
 @onready var initial_global_position : Vector2 = Vector2.ZERO
@@ -59,8 +62,9 @@ func generate_threat(enemy, rule_override = null):
 					var spawn_method = rule_property["method"]
 					var spawn_separation = rule_property["separation"]
 					var spawn_amount = rule_property["amount"]
+					var spawn_delay = rule_property["delay"]
 					if debug: print('{0} CHECK | Swarm of {1} queued in swarm_constructor, using method {2}'.format({0:enemy.to_upper(), 1:spawn_amount, 2:spawn_method}))
-					swarm_constructor(enemy_load, spawn_method, spawn_separation, spawn_amount)
+					swarm_constructor(enemy_load, spawn_method, spawn_separation, spawn_amount, spawn_delay)
 				"challenge":
 					if debug: print('Challenge initialized')
 					challenge = rule_property
@@ -82,7 +86,7 @@ func generate_threat(enemy, rule_override = null):
 	enemies_container.call_deferred("add_child", selected_enemy) # Adds enemy to EnemiesContainer
 	enemy_spawned.emit(enemy,enemy_dict[enemy]["type"])
 
-func swarm_constructor(enemy_load, method, separation, amount):
+func swarm_constructor(enemy_load, method, separation, amount, delay = 0):
 	for n in amount:
 		var enemy = enemy_load.instantiate()
 		enemy.global_position = initial_global_position
@@ -96,7 +100,9 @@ func swarm_constructor(enemy_load, method, separation, amount):
 				enemy.global_position = rand_position
 			_:
 				print('No method for swarm spawning, they will spawn on top of each other')
-		
+		if delay > 0:
+			print(amount, delay)
+			await get_tree().create_timer(delay).timeout
 		enemies_container.call_deferred("add_child", enemy) # Adds enemy to EnemiesContainer
 
 func _on_challenge_completed(): # Relays the signal to unpause timer

@@ -9,6 +9,28 @@
             "random_spawn_interval": 1.5
         }
     },
+    "test_new_enemy": {
+        "event_type": "spawn_enemy",
+        "event_description": "Spawn a single specific enemy in scene. Useful for certain controlled events.",
+        "set_timer": true,
+        "has_rules": true,
+        "event_properties": {
+            "enemy": "drone_1",
+            "event_timer": {
+                "pause_stage_timer": false,
+                "timer_period": 10.0
+            },
+            "rules": {
+                "spawn_override": "center_forward", 
+                "swarm": {
+                    "method": 0, 
+                    "separation": 80,
+                    "amount": 5,
+                    "delay": 0.5
+                }
+            }
+        }
+    },
     "test_composite_enemy": {
         "event_type": "spawn_challenge",
         "event_description": "Spawns a mini boss. Can pause stage timer if required, and only resumes when it recieves a signal from the enemy.",
@@ -43,7 +65,8 @@
                 "swarm": {
                     "method": 0, 
                     "separation": 30,
-                    "amount": 5
+                    "amount": 5,
+                    "delay": 0
                 }
             }
         }

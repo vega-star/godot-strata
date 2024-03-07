@@ -1,0 +1,82 @@
+[gd_scene load_steps=4 format=3 uid="uid://dldj16ybumshf"]
+
+[ext_resource type="Script" path="res://scenes/scripts/ui/credits.gd" id="1_v1mn1"]
+[ext_resource type="Theme" uid="uid://b1a5sjt2xibwo" path="res://assets/themes/strata_theme/strata_theme.tres" id="2_v38rq"]
+[ext_resource type="Texture2D" uid="uid://daogoq1xsiexr" path="res://assets/textures/prototypes/return_icon.png" id="3_tefjs"]
+
+[node name="Credits" type="Control" node_paths=PackedStringArray("container")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_v1mn1")
+container = NodePath("CreditContainer")
+
+[node name="CreditContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -275.0
+offset_top = -122.5
+offset_right = 275.0
+offset_bottom = 122.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="CreditsHeader" type="RichTextLabel" parent="CreditContainer"]
+custom_minimum_size = Vector2(550, 45)
+layout_mode = 2
+theme = ExtResource("2_v38rq")
+theme_override_font_sizes/normal_font_size = 30
+theme_override_font_sizes/bold_font_size = 40
+bbcode_enabled = true
+text = "[center][b] CREATORS [/b][/center]"
+
+[node name="CaioV" type="RichTextLabel" parent="CreditContainer"]
+custom_minimum_size = Vector2(550, 70)
+layout_mode = 2
+theme = ExtResource("2_v38rq")
+theme_override_font_sizes/normal_font_size = 30
+theme_override_font_sizes/bold_font_size = 20
+theme_override_font_sizes/italics_font_size = 30
+bbcode_enabled = true
+text = "[center][b] PROGRAMMER & ARTIST [/b]
+Nyeptun | [i]Caio V.[/i][/center]"
+
+[node name="NathJ" type="RichTextLabel" parent="CreditContainer"]
+custom_minimum_size = Vector2(550, 70)
+layout_mode = 2
+theme = ExtResource("2_v38rq")
+theme_override_font_sizes/normal_font_size = 30
+theme_override_font_sizes/bold_font_size = 20
+theme_override_font_sizes/italics_font_size = 30
+bbcode_enabled = true
+text = "[center][b] DESIGNER & ARTIST [/b]
+zeronath | [i]Nathalia J.[/i][/center]"
+
+[node name="ReturnToMainMenu" type="TextureButton" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -41.0
+offset_top = -10.0
+offset_right = 41.0
+offset_bottom = 72.0
+grow_horizontal = 2
+grow_vertical = 0
+rotation = -1.5708
+focus_neighbor_right = NodePath("../../../ConfigButton")
+theme = ExtResource("2_v38rq")
+texture_normal = ExtResource("3_tefjs")
+
+[connection signal="pressed" from="ReturnToMainMenu" to="." method="_on_return_to_main_menu_pressed"]

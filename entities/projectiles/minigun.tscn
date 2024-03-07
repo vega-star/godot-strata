@@ -1,0 +1,47 @@
+[gd_scene load_steps=6 format=3 uid="uid://b754kyc8mncbj"]
+
+[ext_resource type="Script" path="res://entities/projectiles/projectiles_scripts/minigun.gd" id="1_ev12r"]
+[ext_resource type="Texture2D" uid="uid://du56fi1xfs03s" path="res://assets/textures/projectiles/default-capsule.png" id="2_uqojs"]
+[ext_resource type="PackedScene" uid="uid://c3atqdge540t0" path="res://components/status/hitbox_component.tscn" id="4_hq7xm"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jewc2"]
+radius = 3.0
+height = 14.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mldny"]
+size = Vector2(4, 12)
+
+[node name="Minigun" type="Area2D"]
+top_level = true
+light_mask = 2
+collision_layer = 4
+collision_mask = 2
+script = ExtResource("1_ev12r")
+projectile_speed = 700
+
+[node name="CapsuleSprite" type="Sprite2D" parent="."]
+rotation = 1.5708
+texture = ExtResource("2_uqojs")
+
+[node name="SelfHitbox" type="CollisionShape2D" parent="."]
+visible = false
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_jewc2")
+disabled = true
+
+[node name="OutsideScreenCheck" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(-67, 0)
+scale = Vector2(0.3, 0.55)
+
+[node name="HitboxComponent" parent="." instance=ExtResource("4_hq7xm")]
+collision_layer = 4
+collision_mask = 2
+
+[node name="SelfProjectileBox" type="CollisionShape2D" parent="HitboxComponent"]
+position = Vector2(0.999998, 0)
+rotation = 1.5708
+shape = SubResource("RectangleShape2D_mldny")
+one_way_collision_margin = 0.0
+
+[connection signal="screen_exited" from="OutsideScreenCheck" to="." method="_on_outside_screen_check_exit_detected"]
+[connection signal="area_entered" from="HitboxComponent" to="." method="_on_hitbox_area_entered"]
