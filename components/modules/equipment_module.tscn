@@ -5,6 +5,8 @@
 [node name="EquipmentModule" type="Node"]
 script = ExtResource("1_ex08y")
 
+[node name="HeatTimer" type="Timer" parent="."]
+
 [node name="InventoryUILayer" type="CanvasLayer" parent="."]
 layer = 25
 
@@ -36,3 +38,5 @@ alignment = 1
 
 [connection signal="ammo_changed" from="." to="." method="update_ammo"]
 [connection signal="effect_deactivated" from="." to="." method="_on_effect_deactivated"]
+[connection signal="heat_updated" from="." to="." method="update_heat"]
+[connection signal="timeout" from="HeatTimer" to="." method="_on_heat_timer_timeout"]

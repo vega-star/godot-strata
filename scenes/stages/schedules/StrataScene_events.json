@@ -9,6 +9,16 @@
             "random_spawn_interval": 1.5
         }
     },
+    "show_message": {
+        "event_type": "message",
+        "event_description": "Requests a message to MessagePlayer. Can send as an ID or a manually set text. If timer is set, the scene will wait for the message_displayed signal",
+        "set_timer": false,
+        "has_rules": false,
+        "event_properties": {
+            "message_set": false,
+            "message_content": 1
+        }
+    },
     "test_new_enemy": {
         "event_type": "spawn_enemy",
         "event_description": "Spawn a single specific enemy in scene. Useful for certain controlled events.",
@@ -28,6 +38,19 @@
                     "amount": 5,
                     "delay": 0.5
                 }
+            }
+        }
+    },
+    "show_message_with_pause": {
+        "event_type": "message",
+        "event_description": "Requests a message to MessagePlayer. Can send as an ID or a manually set text. If timer is set, the scene will wait for the message_displayed signal",
+        "set_timer": true,
+        "has_rules": false,
+        "event_properties": {
+            "message_set": true,
+            "message_content": "[center]This is message number 2.\nTest 2 successful[/center]",
+            "event_timer": {
+                "wait_for_message": true
             }
         }
     },

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ut7h7v0wsmy6"
-path="res://.godot/imported/hpbar_start_v1.png-d39ca10ceb07a738842837ab231c8f98.ctex"
+uid="uid://bugvfxxmiwklr"
+path="res://.godot/imported/diamond_cell.png-aa1bae5ebed8f0290a6992efedc59e49.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/textures/ui/classic/hpbar_start_v1.png"
-dest_files=["res://.godot/imported/hpbar_start_v1.png-d39ca10ceb07a738842837ab231c8f98.ctex"]
+source_file="res://assets/textures/ui/hud/diamond/diamond_cell.png"
+dest_files=["res://.godot/imported/diamond_cell.png-aa1bae5ebed8f0290a6992efedc59e49.ctex"]
 
 [params]
 

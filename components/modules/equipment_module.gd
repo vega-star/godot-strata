@@ -3,6 +3,8 @@ class_name EquipmentModule extends Node
 signal item_picked
 signal equipment_loaded
 signal ammo_changed(current_ammo, previous_ammo)
+signal heat_updated(value : float, positive : bool)
+signal heat_changed(current_heat : float, previous_heat : float)
 signal effect_changed
 signal effect_activated
 signal effect_deactivated(source)
@@ -35,6 +37,15 @@ var selected_secondary : String
 var base_primary_rof
 var base_secondary_rof
 var secondary_projectiles_amount : int = 1
+
+
+var primary_heat : float = 0
+var selected_primary_heat : float = 1.5
+var primary_linear_cooling : float = 0.5
+var primary_quick_cooling : float = 0.2
+var max_primary_heat : float = 70
+var primary_on_cooldown : bool = false
+var primary_overheat : bool = false
 
 var ammo : int
 var max_ammo : int
@@ -84,6 +95,18 @@ func _process(_delta):
 			add_ammo(1)
 			ammo_regeneration = false
 
+func _physics_process(delta):
+	if primary_on_cooldown:
+		if primary_heat <= 0:
+			primary_heat = 0
+			primary_overheat = false
+		
+		heat_updated.emit(primary_linear_cooling, false)
+		primary_heat = lerpf(primary_heat, 0, primary_quick_cooling)
+	
+	if primary_heat > 0 and !primary_on_cooldown:
+		heat_updated.emit(primary_linear_cooling, false)
+
 #region Equipment
 func load_equipment(set_primary = null, set_secondary = null): ## Loads equipment properly at the start of the scene. Can be used again after changes in Inventory.
 	## Set or load primary
@@ -104,6 +127,12 @@ func load_equipment(set_primary = null, set_secondary = null): ## Loads equipmen
 	base_secondary_rof = eqquiped_secondary["base_rate_of_fire"]
 	secondary_projectiles_amount = eqquiped_secondary["base_amount"]
 	regenerate_ammo = eqquiped_secondary["base_regeneration"]
+	
+	selected_primary_heat = eqquiped_primary["base_heat"]
+	primary_linear_cooling = eqquiped_primary["base_linear_cooling"]
+	primary_quick_cooling = eqquiped_primary["base_quick_cooling"]
+	max_primary_heat = eqquiped_primary["base_max_heat"]
+	
 	if regenerate_ammo: ammo_regeneration_cooldown = eqquiped_secondary["base_regeneration_cooldown"] * ammo_regeneration_cd_factor
 	
 	equipment_loaded.emit()
@@ -153,14 +182,20 @@ func update_player_values():
 	owner.roll_cooldown_factor = roll_cooldown_factor
 	
 	owner.status_change.emit()
+	UI.UIOverlay.update_heat(primary_heat, max_primary_heat)
 	UI.UIOverlay.update_hud()
 
 ## Weapon usage
 func _on_player_primary_fired(start_position):
-	var primary_shot = primary_weapon_scene.instantiate()
-	primary_shot.global_position = start_position
-	primary_shot.projectile_damage *= primary_damage_factor
-	projectile_container.add_child(primary_shot)
+	if !primary_overheat:
+		heat_updated.emit(selected_primary_heat, true)
+		
+		var primary_shot = primary_weapon_scene.instantiate()
+		primary_shot.global_position = start_position
+		primary_shot.projectile_damage *= primary_damage_factor
+		projectile_container.add_child(primary_shot)
+	else:
+		print('Gun stuck! Cooling down')
 
 # Secondary weapon
 func _on_player_secondary_fired(reference, _secondary_ammo):
@@ -174,6 +209,23 @@ func _on_player_secondary_fired(reference, _secondary_ammo):
 		secondary_shot.global_position = reference.global_position
 		projectile_container.add_child(secondary_shot)
 		if secondary_projectiles_amount > 1: await get_tree().create_timer(interval).timeout
+
+func update_heat(value, positive : bool):
+	var previous_heat = primary_heat
+	if positive:
+		$HeatTimer.start(1)
+		primary_on_cooldown = false
+		primary_heat += value
+	else: primary_heat -= value
+	
+	if primary_heat >= max_primary_heat:
+		primary_overheat = true
+	
+	UI.UIOverlay.update_heat(primary_heat)
+	heat_changed.emit(primary_heat, previous_heat)
+
+func _on_heat_timer_timeout():
+	primary_on_cooldown = true
 
 func update_ammo(new_ammo, _previous_ammo):
 	print(new_ammo)
@@ -326,3 +378,4 @@ func choose_item(item_id):
 	item_picked.emit()
 	load_items()
 #endregion
+

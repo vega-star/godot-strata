@@ -31,7 +31,6 @@ position = Vector2(130, 0)
 [node name="CombatComponent" parent="." instance=ExtResource("4_r3whd")]
 
 [node name="DropComponent" parent="." instance=ExtResource("4_rx6yb")]
-debug = true
 
 [node name="HealthBarComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("3_tv501")]
 position = Vector2(0, 30)

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cano6k0rmkt8h"
-path="res://.godot/imported/stage_bar.png-4c8b9d0f40aa34dd451723931e886af4.ctex"
+uid="uid://cnafgvhwn8x3f"
+path="res://.godot/imported/bomb_short_cell.png-3b9e6a913fe5193d3c2fa1e8619ff9f9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/textures/ui/classic/stage_bar.png"
-dest_files=["res://.godot/imported/stage_bar.png-4c8b9d0f40aa34dd451723931e886af4.ctex"]
+source_file="res://assets/textures/ui/hud/classic/bomb_short_cell.png"
+dest_files=["res://.godot/imported/bomb_short_cell.png-3b9e6a913fe5193d3c2fa1e8619ff9f9.ctex"]
 
 [params]
 

@@ -22,6 +22,7 @@ var challenge_enemy
 @onready var current_stage = owner.get_name()
 @export var debug : bool = false
 @export var debug_generator : bool = false
+var message_player = UI.InfoHUD.message_player
 
 # Dictionaries
 var stage_dict : Dictionary
@@ -90,6 +91,12 @@ func execute_event(event, event_name = "UNNAMED_EVENT"):
 		"filler":
 			filler_time = $"../StageTimer".get_time_left() - float(event["event_properties"]["event_timer"]["filler_stop_before"])
 			print('\tFILLER QUEUED | Filler timer/Real time remaining: {0}/{1}'.format({0:filler_time,1:$"../StageTimer".get_time_left()}))
+		"message":
+			var message_set : bool = event["event_properties"]["message_set"]
+			if !message_set:
+				message_player.request_message(int(event["event_properties"]["message_content"]), false)
+			else:
+				message_player.request_message(str(event["event_properties"]["message_content"]), true)
 		"toggle_random":
 			var toggle_value = event["event_properties"]["active"]
 			owner.set_random_loop = toggle_value
@@ -120,7 +127,7 @@ func set_event_timer(event, event_name = "UNNAMED EVENT", override = null): # Se
 		var property_value = event["event_properties"]["event_timer"][property]
 		match property:
 			"pause_stage_timer":
-				if property_value == true: # Switch that only unpauses the game after the challenge is completed
+				if property_value: # Switch that only unpauses the game after the challenge is completed
 					# Note that if the signal isn't connected to the enemy, ThreatGenerator will not send the signal and timer will stay paused forever
 					# Also, if the enemy spawned by the ThreatGenerator doesn't emit a enemy_defeated signal, it will not pause at all
 					pause_stage_timer(true)
@@ -132,6 +139,11 @@ func set_event_timer(event, event_name = "UNNAMED EVENT", override = null): # Se
 				if debug: print("\tEVENT TIMER INITIATED WITH {0} SECONDS | APPROXIMATELY {1} STAGE SECONDS LEFT".format({0:property_value, 1:int(stage_timer.get_time_left())}))
 				await get_tree().create_timer(property_value, false).timeout
 				if debug: print("\tEVENT TIMER ENDED")
+			"wait_for_message":
+				if property_value:
+					pause_stage_timer(true)
+					await message_player.message_displayed
+					pause_stage_timer(false)
 	
 	event_completed.emit()
 	return

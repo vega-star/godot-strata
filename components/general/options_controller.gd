@@ -26,6 +26,7 @@ var default_key_dict : Dictionary = {
 var key_dict : Dictionary = {}
 var setting_key : bool = false
 var settings_changed : bool = false
+var photosens_mode : bool
 
 func _ready():
 	await load_keys()
@@ -36,6 +37,7 @@ func _ready():
 		var current_toggle_state = config_file.get_value("MAIN_OPTIONS","TOGGLE_FIRE")
 		if current_toggle_state: $OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons/ToggleFiring.button_pressed = true
 		var current_photosens_state = config_file.get_value("MAIN_OPTIONS","PHOTOSENS_MODE")
+		photosens_mode = current_photosens_state
 		if current_photosens_state: $OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons/Photosens_Mode.button_pressed = true
 		var current_screenshake_state = config_file.get_value("MAIN_OPTIONS","SCREEN_SHAKE")
 		if current_screenshake_state: $OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons/ScreenShake.button_pressed = true

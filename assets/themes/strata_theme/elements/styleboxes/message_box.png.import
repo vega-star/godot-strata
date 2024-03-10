@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://451teuktm8oy"
-path="res://.godot/imported/bomb_cell_filled_v1.png-674daba687d12f01b431d8d3b8beee04.ctex"
+uid="uid://cnb8oqqa21pmx"
+path="res://.godot/imported/message_box.png-fea91ab8695aab7ef175f21c1a822b5e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/textures/ui/classic/bomb_cell_filled_v1.png"
-dest_files=["res://.godot/imported/bomb_cell_filled_v1.png-674daba687d12f01b431d8d3b8beee04.ctex"]
+source_file="res://assets/themes/strata_theme/elements/styleboxes/message_box.png"
+dest_files=["res://.godot/imported/message_box.png-fea91ab8695aab7ef175f21c1a822b5e.ctex"]
 
 [params]
 

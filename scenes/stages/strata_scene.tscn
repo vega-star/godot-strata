@@ -12,6 +12,7 @@ visibility_layer = 2
 script = ExtResource("1_yvb6t")
 
 [node name="StageManager" parent="." instance=ExtResource("2_yuycq")]
+debug_generator = false
 
 [node name="PlayerStartPosition" type="Marker2D" parent="."]
 light_mask = 2

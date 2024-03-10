@@ -1,0 +1,10 @@
+[gd_resource type="StyleBoxTexture" load_steps=2 format=3 uid="uid://ly4qyjpxi5pe"]
+
+[ext_resource type="Texture2D" uid="uid://cnb8oqqa21pmx" path="res://assets/themes/strata_theme/elements/styleboxes/message_box.png" id="1_8imwp"]
+
+[resource]
+texture = ExtResource("1_8imwp")
+texture_margin_left = 10.0
+texture_margin_top = 10.0
+texture_margin_right = 10.0
+texture_margin_bottom = 10.0

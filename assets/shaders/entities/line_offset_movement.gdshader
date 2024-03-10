@@ -2,9 +2,16 @@ shader_type canvas_item;
 
 uniform float line_speed = 1.0;
 uniform bool line_colliding = false;
+uniform bool horizontal_movement = true;
 
 void fragment() {
-	vec2 moving_vector = vec2(UV.x-(TIME * line_speed), UV.y);
+	vec2 moving_vector;
+	if (horizontal_movement == true) {
+		moving_vector = vec2(UV.x-(TIME * line_speed), UV.y);
+	} else {
+		moving_vector = vec2(UV.x, UV.y-(TIME * line_speed));
+	}
+	
 	vec4 in_texture = texture(TEXTURE, moving_vector);
 	COLOR = in_texture;
 	

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cnafgvhwn8x3f"
-path="res://.godot/imported/bomb_shortcell_filled_v1.png-1260ac9926194266ea901daa8f657dfe.ctex"
+uid="uid://3dn1dt62oo7f"
+path="res://.godot/imported/bomb_container.png-4d7f954292da3d391b74eb8a4d0fb4c0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/textures/ui/classic/bomb_shortcell_filled_v1.png"
-dest_files=["res://.godot/imported/bomb_shortcell_filled_v1.png-1260ac9926194266ea901daa8f657dfe.ctex"]
+source_file="res://assets/textures/ui/hud/classic/bomb_container.png"
+dest_files=["res://.godot/imported/bomb_container.png-4d7f954292da3d391b74eb8a4d0fb4c0.ctex"]
 
 [params]
 

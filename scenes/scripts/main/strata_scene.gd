@@ -18,6 +18,7 @@ var config_load = config.load("user://config.cfg")
 @onready var stage_timer = $StageTimer
 @onready var stage_manager = $StageManager
 @onready var threat_generator = $StageManager/ThreatGenerator
+@onready var stage_parallax = $SimulationParallax
 
 # UIComponent
 @onready var hud_component = UI.UIOverlay
@@ -76,6 +77,10 @@ func start_stage_sequence(): # Starting animations, fade-in, etc.
 	var player_move_to_action = get_tree().create_tween()
 	player_move_to_action.tween_property(player, "position", player_spawn_pos.global_position, 0.99)
 	
+	var parallax_tween = get_tree().create_tween()
+	stage_parallax.speed_factor = 3
+	parallax_tween.tween_property(stage_parallax, "speed_factor", 1, 3)
+	
 	player.controls_lock(true)
 	await UI.fade('IN')
 	
@@ -89,6 +94,10 @@ func start_stage_sequence(): # Starting animations, fade-in, etc.
 	UI.set_stage(stage_timer)
 	stage_started.emit()
 	stage_timer.start()
+	
+	# UI.InfoHUD.message_player.request_message(1)
+	UI.InfoHUD.danger_player.display_danger(true)
+	# (left : bool = true, timeout : float = 4, modulate_color : Color = Color.WHITE)
 	
 	stage_start_time = Time.get_unix_time_from_system()
 

@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c6nrrcsu7x2hh"
-path="res://.godot/imported/hp_shortcell_v1.png-9dd1cb7ab2dcea7eab84cf5db30a641e.ctex"
+path="res://.godot/imported/hp_short_cell.png-2fe20e65d1c23911c63f4c670bc7a1e4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/textures/ui/classic/hp_shortcell_v1.png"
-dest_files=["res://.godot/imported/hp_shortcell_v1.png-9dd1cb7ab2dcea7eab84cf5db30a641e.ctex"]
+source_file="res://assets/textures/ui/hud/classic/hp_short_cell.png"
+dest_files=["res://.godot/imported/hp_short_cell.png-2fe20e65d1c23911c63f4c670bc7a1e4.ctex"]
 
 [params]
 

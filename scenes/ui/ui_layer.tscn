@@ -1,19 +1,21 @@
-[gd_scene load_steps=17 format=3 uid="uid://chy6yrcopxpke"]
+[gd_scene load_steps=19 format=3 uid="uid://chy6yrcopxpke"]
 
 [ext_resource type="Script" path="res://scenes/scripts/ui/ui_overlay.gd" id="1_khion"]
-[ext_resource type="Texture2D" uid="uid://ut7h7v0wsmy6" path="res://assets/textures/ui/classic/hpbar_start_v1.png" id="2_5qp5u"]
-[ext_resource type="Texture2D" uid="uid://c07e0wdpksuuj" path="res://assets/textures/ui/classic/hpbar_module_v1.png" id="3_quvbh"]
-[ext_resource type="Texture2D" uid="uid://ckafr2pt6i1cj" path="res://assets/textures/ui/classic/hpbar_module_short_v1.png" id="4_ih1c1"]
-[ext_resource type="Texture2D" uid="uid://denrlug3k85bi" path="res://assets/textures/ui/classic/hpbar_end_v1.png" id="5_kv3n0"]
-[ext_resource type="Texture2D" uid="uid://3dn1dt62oo7f" path="res://assets/textures/ui/classic/bomb_cell_v1.png" id="6_sfeck"]
-[ext_resource type="Texture2D" uid="uid://dn767jx01lhy4" path="res://assets/textures/ui/classic/bomb_shortcell_v1.png" id="7_rry28"]
-[ext_resource type="Texture2D" uid="uid://451teuktm8oy" path="res://assets/textures/ui/classic/bomb_cell_filled_v1.png" id="8_jj8k0"]
-[ext_resource type="Texture2D" uid="uid://cnafgvhwn8x3f" path="res://assets/textures/ui/classic/bomb_shortcell_filled_v1.png" id="9_2n0vy"]
-[ext_resource type="Texture2D" uid="uid://dg4bawag1gvsx" path="res://assets/textures/ui/classic/hp_cell_v1.png" id="10_nw322"]
-[ext_resource type="Texture2D" uid="uid://c6nrrcsu7x2hh" path="res://assets/textures/ui/classic/hp_shortcell_v1.png" id="11_gqqrl"]
-[ext_resource type="Texture2D" uid="uid://cano6k0rmkt8h" path="res://assets/textures/ui/classic/stage_bar.png" id="13_8mbx5"]
+[ext_resource type="Texture2D" uid="uid://d4kflkwb5sakl" path="res://assets/themes/strata_theme/elements/styleboxes/enemy_health_bar.png" id="3_inpba"]
+[ext_resource type="Texture2D" uid="uid://by6dsndftqqym" path="res://assets/themes/strata_theme/elements/bars/heat_bar.png" id="4_5fna7"]
+[ext_resource type="Texture2D" uid="uid://ut7h7v0wsmy6" path="res://assets/textures/ui/hud/classic/hpbar_start.png" id="5_j7g2v"]
+[ext_resource type="Texture2D" uid="uid://c07e0wdpksuuj" path="res://assets/textures/ui/hud/classic/hpbar_container.png" id="6_g2k23"]
+[ext_resource type="Texture2D" uid="uid://ckafr2pt6i1cj" path="res://assets/textures/ui/hud/classic/hpbar_container_short.png" id="7_0mp74"]
+[ext_resource type="Texture2D" uid="uid://denrlug3k85bi" path="res://assets/textures/ui/hud/classic/hpbar_end.png" id="8_knmas"]
+[ext_resource type="Texture2D" uid="uid://3dn1dt62oo7f" path="res://assets/textures/ui/hud/classic/bomb_container.png" id="9_vbydy"]
+[ext_resource type="Texture2D" uid="uid://dn767jx01lhy4" path="res://assets/textures/ui/hud/classic/bomb_short_container.png" id="10_hqspw"]
+[ext_resource type="Texture2D" uid="uid://dg4bawag1gvsx" path="res://assets/textures/ui/hud/classic/hp_cell.png" id="11_s60dq"]
+[ext_resource type="Texture2D" uid="uid://c6nrrcsu7x2hh" path="res://assets/textures/ui/hud/classic/hp_short_cell.png" id="12_m8gnf"]
+[ext_resource type="Texture2D" uid="uid://451teuktm8oy" path="res://assets/textures/ui/hud/classic/bomb_cell.png" id="13_4k00c"]
 [ext_resource type="Theme" uid="uid://b1a5sjt2xibwo" path="res://assets/themes/strata_theme/strata_theme.tres" id="13_chyk2"]
+[ext_resource type="Texture2D" uid="uid://cnafgvhwn8x3f" path="res://assets/textures/ui/hud/classic/bomb_short_cell.png" id="14_bq438"]
 [ext_resource type="FontFile" uid="uid://0bmvakfotygp" path="res://assets/themes/VT323-Regular.ttf" id="14_f31xd"]
+[ext_resource type="Texture2D" uid="uid://cano6k0rmkt8h" path="res://assets/textures/ui/hud/classic/stage_bar.png" id="15_5b0wf"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_32oi1"]
 bg_color = Color(1, 1, 1, 1)
@@ -33,82 +35,69 @@ offset_bottom = 37.0
 size_flags_horizontal = 0
 size_flags_vertical = 0
 
-[node name="HP_StartSprite" type="TextureRect" parent="HP"]
+[node name="HP_Start" type="TextureRect" parent="HP"]
 custom_minimum_size = Vector2(8, 0)
-layout_mode = 0
+layout_mode = 1
 offset_right = 8.0
 offset_bottom = 37.0
-texture = ExtResource("2_5qp5u")
+texture = ExtResource("5_j7g2v")
+expand_mode = 1
 stretch_mode = 2
 
 [node name="HP_Container" type="TextureRect" parent="HP"]
 custom_minimum_size = Vector2(52, 0)
-layout_mode = 0
+layout_mode = 1
 offset_left = 8.0
-offset_right = 60.0
+offset_right = 164.0
 offset_bottom = 37.0
-texture = ExtResource("3_quvbh")
+texture = ExtResource("6_g2k23")
+expand_mode = 1
 stretch_mode = 1
 
-[node name="HP_ShortContainer" type="TextureRect" parent="HP"]
+[node name="HP_Short_Container" type="TextureRect" parent="HP"]
 visible = false
-layout_mode = 0
+layout_mode = 1
 offset_left = 60.0
 offset_right = 86.0
 offset_bottom = 37.0
 size_flags_horizontal = 4
-texture = ExtResource("4_ih1c1")
+texture = ExtResource("7_0mp74")
+expand_mode = 1
 stretch_mode = 1
 
-[node name="HP_EndSprite" type="TextureRect" parent="HP"]
-layout_mode = 0
-offset_left = 60.0
-offset_right = 84.0
+[node name="HP_End" type="TextureRect" parent="HP"]
+layout_mode = 1
+offset_left = 164.0
+offset_right = 188.0
 offset_bottom = 37.0
-texture = ExtResource("5_kv3n0")
+texture = ExtResource("8_knmas")
+expand_mode = 1
 stretch_mode = 2
 
 [node name="SecondaryAmmo" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
 offset_left = 5.0
-offset_top = 42.0
+offset_top = 43.0
 offset_right = 28.0
-offset_bottom = 65.0
+offset_bottom = 66.0
 
-[node name="SecondaryAmmo_Container" type="TextureRect" parent="SecondaryAmmo"]
+[node name="Ammo_Container" type="TextureRect" parent="SecondaryAmmo"]
 custom_minimum_size = Vector2(22, 0)
 layout_mode = 1
 offset_right = 22.0
 offset_bottom = 22.0
-texture = ExtResource("6_sfeck")
+texture = ExtResource("9_vbydy")
 stretch_mode = 1
 
-[node name="SecondaryAmmo_ShortContainer" type="TextureRect" parent="SecondaryAmmo"]
+[node name="Ammo_Short_Container" type="TextureRect" parent="SecondaryAmmo"]
 custom_minimum_size = Vector2(11, 0)
 layout_mode = 1
 offset_left = 23.0
 offset_right = 34.0
 offset_bottom = 22.0
 size_flags_horizontal = 4
-texture = ExtResource("7_rry28")
-stretch_mode = 1
-
-[node name="SecondaryAmmo_Bar" type="TextureRect" parent="SecondaryAmmo"]
-layout_mode = 1
-offset_right = 22.0
-offset_bottom = 22.0
-texture = ExtResource("8_jj8k0")
-expand_mode = 1
-stretch_mode = 1
-
-[node name="SecondaryAmmo_ShortBar" type="TextureRect" parent="SecondaryAmmo"]
-layout_mode = 1
-offset_left = 23.0
-offset_right = 34.0
-offset_bottom = 22.0
-texture = ExtResource("9_2n0vy")
-expand_mode = 1
+texture = ExtResource("10_hqspw")
 stretch_mode = 1
 
 [node name="HUD" type="Control" parent="."]
@@ -120,24 +109,44 @@ grow_horizontal = 2
 grow_vertical = 2
 metadata/_edit_use_anchors_ = true
 
-[node name="HP_Bar" type="TextureRect" parent="HUD"]
+[node name="HP_Cells" type="TextureRect" parent="HUD"]
 layout_mode = 0
 offset_left = 8.0
 offset_top = 8.0
 offset_right = 60.0
 offset_bottom = 28.0
-texture = ExtResource("10_nw322")
+texture = ExtResource("11_s60dq")
 expand_mode = 1
 stretch_mode = 1
 
-[node name="HP_ShortBar" type="TextureRect" parent="HUD"]
+[node name="HP_Short_Cells" type="TextureRect" parent="HUD"]
 visible = false
 layout_mode = 0
 offset_left = 64.0
 offset_top = 8.0
 offset_right = 90.0
 offset_bottom = 28.0
-texture = ExtResource("11_gqqrl")
+texture = ExtResource("12_m8gnf")
+expand_mode = 1
+stretch_mode = 1
+
+[node name="Ammo_Cells" type="TextureRect" parent="HUD"]
+layout_mode = 1
+offset_left = 5.0
+offset_top = 43.0
+offset_right = 27.0
+offset_bottom = 65.0
+texture = ExtResource("13_4k00c")
+expand_mode = 1
+stretch_mode = 1
+
+[node name="Ammo_Short_Cells" type="TextureRect" parent="HUD"]
+layout_mode = 1
+offset_left = 28.0
+offset_top = 43.0
+offset_right = 39.0
+offset_bottom = 65.0
+texture = ExtResource("14_bq438")
 expand_mode = 1
 stretch_mode = 1
 
@@ -178,18 +187,35 @@ show_percentage = false
 
 [node name="ProgressBarFrame" type="Sprite2D" parent="ProgressBar"]
 position = Vector2(480, 31)
-texture = ExtResource("13_8mbx5")
+texture = ExtResource("15_5b0wf")
 
-[node name="ScoreBar" type="LineEdit" parent="."]
+[node name="HeatBar" type="TextureProgressBar" parent="."]
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -217.0
-offset_bottom = 46.0
+offset_left = -109.0
+offset_top = 11.0
+offset_right = -11.0
+offset_bottom = 31.0
 grow_horizontal = 0
+theme = ExtResource("13_chyk2")
+texture_under = ExtResource("3_inpba")
+texture_progress = ExtResource("4_5fna7")
+texture_progress_offset = Vector2(4, 6)
+
+[node name="ScoreBar" type="LineEdit" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -108.5
+offset_right = 108.5
+offset_bottom = 46.0
+grow_horizontal = 2
 theme = ExtResource("13_chyk2")
 theme_override_fonts/font = ExtResource("14_f31xd")
 theme_override_font_sizes/font_size = 32
 placeholder_text = "SCORE: 0"
-alignment = 2
+alignment = 1
+expand_to_text_length = true
+selecting_enabled = false
 flat = true

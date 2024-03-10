@@ -10,9 +10,9 @@ script/source = "extends ParallaxBackground
 @export var speed_factor : float = 1
 
 func _process(delta):
-	$Layer1.motion_offset.x -= speed_factor
-	$Layer2.motion_offset.x -= speed_factor
-	$Layer3.motion_offset.x -= speed_factor
+	$Layer1.motion_offset.x -= 1.5 * speed_factor
+	$Layer2.motion_offset.x -= 1.25 * speed_factor
+	$Layer3.motion_offset.x -= 1 * speed_factor
 "
 
 [node name="SimulationParallax" type="ParallaxBackground"]
