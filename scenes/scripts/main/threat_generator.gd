@@ -6,6 +6,8 @@ extends Node
 signal enemy_spawned(enemy_name, type)
 signal challenge_completed()
 
+var danger_player = UI.InfoHUD.danger_player
+
 var debug : bool: # Inherits debug from ThreatManager var
 	set(debug_toggle):
 		debug = debug_toggle
@@ -58,6 +60,10 @@ func generate_threat(enemy, rule_override = null):
 					if debug: print('{0} CHECK | Spawn override forced {0} to spawn in {1}'.format({0:enemy.to_upper(), 1:spawn_override}))
 					selected_enemy.global_position = spawn_positions[spawn_override].global_position
 					initial_global_position = selected_enemy.global_position
+				"notify_danger":
+					var modulate_color : Color = Color.WHITE
+					var timeout : float = 4
+					danger_player.display_danger(rule_property, timeout, modulate_color)
 				"swarm":
 					var spawn_method = rule_property["method"]
 					var spawn_separation = rule_property["separation"]

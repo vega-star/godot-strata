@@ -1,0 +1,9 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://2jdunc2lohis"]
+
+[ext_resource type="Shader" path="res://assets/shaders/entities/line_offset_movement.gdshader" id="1_ranet"]
+
+[resource]
+shader = ExtResource("1_ranet")
+shader_parameter/line_speed = 2.0
+shader_parameter/line_colliding = false
+shader_parameter/horizontal_movement = false

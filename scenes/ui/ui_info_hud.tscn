@@ -1,139 +1,21 @@
-[gd_scene load_steps=8 format=3 uid="uid://d3w7m8tkl46pl"]
+[gd_scene load_steps=5 format=3 uid="uid://d3w7m8tkl46pl"]
 
 [ext_resource type="Script" path="res://scenes/scripts/ui/info_hud.gd" id="1_h8rhl"]
 [ext_resource type="Theme" uid="uid://b1a5sjt2xibwo" path="res://assets/themes/strata_theme/strata_theme.tres" id="2_3vw07"]
-[ext_resource type="Script" path="res://scenes/scripts/ui/info_popup_message.gd" id="3_rw7a5"]
-[ext_resource type="StyleBox" uid="uid://ly4qyjpxi5pe" path="res://assets/themes/strata_theme/elements/tresfiles/message_box.tres" id="4_5k0rr"]
-[ext_resource type="Script" path="res://scenes/scripts/ui/info_danger_indicator.gd" id="5_006yd"]
-[ext_resource type="Material" uid="uid://bliwcb53eu063" path="res://assets/shaders/sprite_movement.tres" id="6_aifqg"]
-[ext_resource type="Texture2D" uid="uid://q8558fmkf5io" path="res://assets/themes/strata_theme/elements/misc/danger_area.png" id="7_4pinr"]
+[ext_resource type="PackedScene" uid="uid://ciqbjj8f75v0v" path="res://scenes/ui/ui_info_message_player.tscn" id="2_tkq24"]
+[ext_resource type="PackedScene" uid="uid://bgcvgx0ijxwib" path="res://scenes/ui/ui_info_danger_player.tscn" id="3_51jvq"]
 
 [node name="InfoHUD" type="CanvasLayer"]
-layer = 4
+layer = -1
 script = ExtResource("1_h8rhl")
 
-[node name="MessageLayer" type="CanvasLayer" parent="."]
-layer = 3
-
-[node name="MessagePlayer" type="Control" parent="MessageLayer"]
+[node name="InfoLayer" type="CanvasLayer" parent="."]
+layer = 0
 visible = false
-layout_mode = 3
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -448.0
-offset_top = -60.0
-offset_right = -48.0
-offset_bottom = 60.0
-grow_horizontal = 0
-grow_vertical = 2
-theme = ExtResource("2_3vw07")
-script = ExtResource("3_rw7a5")
 
-[node name="MessagePanel" type="Panel" parent="MessageLayer/MessagePlayer"]
-light_mask = 16
-visibility_layer = 16
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme = ExtResource("2_3vw07")
-theme_override_styles/panel = ExtResource("4_5k0rr")
+[node name="MessagePlayer" parent="InfoLayer" instance=ExtResource("2_tkq24")]
 
-[node name="MessageText" type="RichTextLabel" parent="MessageLayer/MessagePlayer"]
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 7.0
-offset_top = 7.0
-offset_right = -7.0
-offset_bottom = -7.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_font_sizes/normal_font_size = 30
-theme_override_font_sizes/bold_font_size = 32
-bbcode_enabled = true
-text = "[b]This is a test message.[/b] This text should not appear in game."
-
-[node name="DangerPlayer" type="Control" parent="MessageLayer"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("5_006yd")
-
-[node name="DangerOnRight" type="TextureRect" parent="MessageLayer/DangerPlayer"]
-visible = false
-material = ExtResource("6_aifqg")
-custom_minimum_size = Vector2(22, 0)
-layout_mode = 1
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -46.0
-offset_top = -210.0
-offset_right = -24.0
-offset_bottom = 210.0
-grow_horizontal = 0
-grow_vertical = 2
-texture = ExtResource("7_4pinr")
-stretch_mode = 1
-
-[node name="DangerLabel" type="Label" parent="MessageLayer/DangerPlayer/DangerOnRight"]
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_left = -8.0
-offset_top = -44.5
-offset_right = 82.0
-offset_bottom = -21.5
-grow_vertical = 2
-rotation = 1.5708
-theme = ExtResource("2_3vw07")
-text = "! DANGER !"
-
-[node name="DangerOnLeft" type="TextureRect" parent="MessageLayer/DangerPlayer"]
-visible = false
-material = ExtResource("6_aifqg")
-custom_minimum_size = Vector2(22, 0)
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_left = 24.0
-offset_top = -210.0
-offset_right = 46.0
-offset_bottom = 210.0
-grow_vertical = 2
-texture = ExtResource("7_4pinr")
-stretch_mode = 1
-
-[node name="DangerLabel" type="Label" parent="MessageLayer/DangerPlayer/DangerOnLeft"]
-layout_mode = 1
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = 8.0
-offset_top = 45.5
-offset_right = 98.0
-offset_bottom = 68.5
-grow_horizontal = 0
-grow_vertical = 2
-rotation = -1.5708
-theme = ExtResource("2_3vw07")
-text = "! DANGER !"
+[node name="DangerPlayer" parent="InfoLayer" instance=ExtResource("3_51jvq")]
 
 [node name="TitleDisplay" type="RichTextLabel" parent="."]
 anchors_preset = 15
@@ -149,5 +31,3 @@ theme_override_font_sizes/normal_font_size = 30
 theme_override_font_sizes/bold_font_size = 40
 bbcode_enabled = true
 autowrap_mode = 1
-
-[connection signal="message_displayed" from="MessageLayer/MessagePlayer" to="." method="_on_message_displayed"]

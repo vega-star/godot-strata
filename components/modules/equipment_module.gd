@@ -38,11 +38,13 @@ var base_primary_rof
 var base_secondary_rof
 var secondary_projectiles_amount : int = 1
 
-
+var primary_burst : bool
+var primary_burst_quantity : int
 var primary_heat : float = 0
 var selected_primary_heat : float = 1.5
 var primary_linear_cooling : float = 0.5
 var primary_quick_cooling : float = 0.2
+var primary_quick_cooling_timeout : float = 1
 var max_primary_heat : float = 70
 var primary_on_cooldown : bool = false
 var primary_overheat : bool = false
@@ -131,7 +133,10 @@ func load_equipment(set_primary = null, set_secondary = null): ## Loads equipmen
 	selected_primary_heat = eqquiped_primary["base_heat"]
 	primary_linear_cooling = eqquiped_primary["base_linear_cooling"]
 	primary_quick_cooling = eqquiped_primary["base_quick_cooling"]
+	primary_quick_cooling_timeout = eqquiped_primary["base_quick_cooling_timeout"]
 	max_primary_heat = eqquiped_primary["base_max_heat"]
+	primary_burst = eqquiped_primary["base_burst"]
+	primary_burst_quantity = eqquiped_primary["base_burst_quantity"]
 	
 	if regenerate_ammo: ammo_regeneration_cooldown = eqquiped_secondary["base_regeneration_cooldown"] * ammo_regeneration_cd_factor
 	
@@ -151,7 +156,6 @@ func reload_ammo(start : bool = false):
 func load_items(start : bool = false):
 	reset_buff()
 	for item in Profile.current_run_data.get_value("INVENTORY", "ITEMS_STORED"):
-		print(item)
 		match items_dict[item]["item_type"]:
 			"passive":
 				var buff_period = null
@@ -180,6 +184,9 @@ func update_player_values():
 	
 	owner.dash_cooldown_factor = dash_cooldown_factor
 	owner.roll_cooldown_factor = roll_cooldown_factor
+	
+	owner.burst = primary_burst
+	owner.burst_quantity = primary_burst_quantity
 	
 	owner.status_change.emit()
 	UI.UIOverlay.update_heat(primary_heat, max_primary_heat)
@@ -213,7 +220,7 @@ func _on_player_secondary_fired(reference, _secondary_ammo):
 func update_heat(value, positive : bool):
 	var previous_heat = primary_heat
 	if positive:
-		$HeatTimer.start(1)
+		$HeatTimer.start(primary_quick_cooling_timeout)
 		primary_on_cooldown = false
 		primary_heat += value
 	else: primary_heat -= value
@@ -228,7 +235,6 @@ func _on_heat_timer_timeout():
 	primary_on_cooldown = true
 
 func update_ammo(new_ammo, _previous_ammo):
-	print(new_ammo)
 	ammo = new_ammo
 	Profile.current_run_data.set_value("INVENTORY", "CURRENT_AMMO", new_ammo)
 	UI.UIOverlay.set_ammo = new_ammo

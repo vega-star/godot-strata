@@ -1,0 +1,81 @@
+[gd_scene load_steps=5 format=3 uid="uid://bgcvgx0ijxwib"]
+
+[ext_resource type="Script" path="res://scenes/scripts/ui/info_danger_indicator.gd" id="1_3uuv0"]
+[ext_resource type="Material" uid="uid://2jdunc2lohis" path="res://assets/shaders/sprite_movement_vertical.tres" id="2_jjqu4"]
+[ext_resource type="Texture2D" uid="uid://q8558fmkf5io" path="res://assets/themes/strata_theme/elements/misc/danger_area.png" id="3_bxrvi"]
+[ext_resource type="Theme" uid="uid://b1a5sjt2xibwo" path="res://assets/themes/strata_theme/strata_theme.tres" id="4_0uimw"]
+
+[node name="DangerPlayer" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_3uuv0")
+
+[node name="DangerOnRight" type="TextureRect" parent="."]
+visible = false
+material = ExtResource("2_jjqu4")
+custom_minimum_size = Vector2(22, 0)
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -46.0
+offset_top = -186.0
+offset_right = -24.0
+offset_bottom = 234.0
+grow_horizontal = 0
+grow_vertical = 2
+texture = ExtResource("3_bxrvi")
+stretch_mode = 1
+
+[node name="DangerLabel" type="Label" parent="DangerOnRight"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = -8.0
+offset_top = -44.5
+offset_right = 82.0
+offset_bottom = -21.5
+grow_vertical = 2
+rotation = 1.5708
+theme = ExtResource("4_0uimw")
+text = "! DANGER !"
+
+[node name="DangerOnLeft" type="TextureRect" parent="."]
+visible = false
+material = ExtResource("2_jjqu4")
+custom_minimum_size = Vector2(22, 0)
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 24.0
+offset_top = -186.0
+offset_right = 46.0
+offset_bottom = 234.0
+grow_vertical = 2
+texture = ExtResource("3_bxrvi")
+stretch_mode = 1
+
+[node name="DangerLabel" type="Label" parent="DangerOnLeft"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 8.0
+offset_top = 45.5
+offset_right = 98.0
+offset_bottom = 68.5
+grow_horizontal = 0
+grow_vertical = 2
+rotation = -1.5708
+theme = ExtResource("4_0uimw")
+text = "! DANGER !"

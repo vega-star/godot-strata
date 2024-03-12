@@ -2,11 +2,14 @@
     "primary": {
         "default_laser": {
             "projectile_scene": "res://entities/projectiles/default_laser.tscn",
-            "base_rate_of_fire": 20,
+            "base_burst": true,
+            "base_burst_quantity": 3,
+            "base_rate_of_fire": 0.25,
             "base_damage": 2,
             "base_max_heat": 100,
-            "base_heat": 2.5,
-            "base_linear_cooling": 0.2,
+            "base_heat": 3.0,
+            "base_linear_cooling": 0.1,
+            "base_quick_cooling_timeout": 1.5,
             "base_quick_cooling": 0.05,
             "weapon_properties": {
                 "weapon_name": "Burst Laser",
@@ -17,11 +20,14 @@
             },
         "minigun": {
             "projectile_scene": "res://entities/projectiles/minigun.tscn",
-            "base_rate_of_fire": 20,
+            "base_burst": false,
+            "base_burst_quantity": 1,
+            "base_rate_of_fire": 0.15,
             "base_damage": 1,
             "base_max_heat": 150,
             "base_heat": 1.5,
             "base_linear_cooling": 0.15,
+            "base_quick_cooling_timeout": 1.5,
             "base_quick_cooling": 0.08,
             "weapon_properties": {
                 "weapon_name": "Mounted Minigun",

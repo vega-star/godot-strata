@@ -164,6 +164,7 @@ func save_keys(): # Save the new key bindings to file
 
 func _on_exit_check_confirmed():
 	save_keys()
+	options_changed.emit()
 	_exit()
 
 func _on_exit_check_canceled():

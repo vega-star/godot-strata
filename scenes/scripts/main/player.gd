@@ -28,15 +28,16 @@ var horizontal_limit : Vector2
 @export var deadzone = 0.25 # Useful for controller compatibility
 @export var air_friction = 0.5
 
-@export var dash_speed : float = 1200
-@export var dash_cooldown_timer : float = 75
-@export var roll_cooldown_timer : float = 120
+@export var dash_speed : float = 2300
+@export var dash_cooldown_timer : float = 2.5
+@export var roll_cooldown_timer : float = 4
 var dash_cooldown_factor : float = 1.0
 var roll_cooldown_factor : float = 1.0
 
 var damage_knockback : bool = false
 const knockback_speed = 1200
 const knockback_randomness = 0.2
+const roll_timer : float = 1
 
 # Status
 @onready var stage_camera : Camera2D = $"../StageCamera"
@@ -52,8 +53,12 @@ var dash_cooldown : bool = false
 var roll_cooldown : bool = false
 
 ## Inventory
-@onready var muzzle = $Muzzles/MuzzleRightWing
+@onready var muzzle_node = $Muzzles
+@onready var main_muzzle = $Muzzles/MainMuzzle
 @onready var secondary_ammo : int = equipment_module.ammo
+
+var muzzles : Array
+
 var primary_fire_rof : float # The rate of fire already comes with added multipliers
 var set_primary_rof:
 	set(value):
@@ -62,6 +67,9 @@ var secondary_fire_rof : float
 var set_secondary_rof:
 	set(value):
 		secondary_fire_rof = value
+
+var burst : bool = false
+var burst_quantity : int = 3
 
 # Debug
 @export var debug : bool = true
@@ -74,7 +82,12 @@ func _ready():
 	toggle_mode = config.get_value("MAIN_OPTIONS","TOGGLE_FIRE")
 	Options.options_changed.connect(_on_config_changed)
 	
+	set_muzzles()
 	set_movement_limit()
+
+func set_muzzles():
+	for m in muzzle_node.get_children():
+		muzzles.append(m)
 
 func set_movement_limit():
 	vertical_limit = Vector2(
@@ -99,17 +112,17 @@ func _process(delta): # Frequent listener for input with delay (weapons, items, 
 		elif Input.is_action_just_pressed("shoot") and primary_fire_toggled:
 			primary_fire_toggled = false
 		
-		if primary_fire_toggled: shoot_loop(delta)
+		if primary_fire_toggled: shoot_loop()
 	else: # Toggle firing off
 		if Input.is_action_pressed("shoot"): 
-			if !primary_fire_cooldown: shoot_loop(delta)
+			if !primary_fire_cooldown: shoot_loop()
 	
 	if Input.is_action_just_pressed("bomb"):
 		if secondary_ammo >= 1:
 			if !secondary_fire_cooldown:
 				secondary_fire_cooldown = true
 				shoot_secondary()
-				await get_tree().create_timer(secondary_fire_rof * (150 * delta), false).timeout
+				await get_tree().create_timer(secondary_fire_rof, false).timeout
 				secondary_fire_cooldown = false
 		else:
 			if debug: print("No ammo left!")
@@ -122,7 +135,8 @@ func _process(delta): # Frequent listener for input with delay (weapons, items, 
 			hitbox_component.set_collision_layer_value(1, false)
 			$HunterSprites.modulate.a = 0.5
 			
-			await get_tree().create_timer((roll_cooldown_timer * roll_cooldown_factor) * delta, false).timeout
+			# await get_tree().create_timer((roll_cooldown_timer * roll_cooldown_factor) * delta, false, true).timeout
+			await get_tree().create_timer(roll_timer / roll_cooldown_factor, false).timeout
 			
 			hitbox_component.toggle_immunity(false)
 			hitbox_component.set_collision_layer_value(1, true)
@@ -153,7 +167,8 @@ func _physics_process(delta): # General movement function
 		var target_direction = direction.normalized()
 		velocity = target_direction * dash_speed
 		
-		await get_tree().create_timer((dash_cooldown_timer * dash_cooldown_factor) * delta, false).timeout
+		# await get_tree().create_timer((dash_cooldown_timer * dash_cooldown_factor) * delta, false, true).timeout
+		await get_tree().create_timer(dash_cooldown_timer * dash_cooldown_factor, false).timeout
 		
 		$HunterSprites.modulate.g = 1
 		$HunterSprites.modulate.b = 1
@@ -203,20 +218,27 @@ func update_animation_state():
 	animation_tree["parameters/Roll/blend_position"] = direction
 
 ## Weapon firing
-func shoot_loop(delta):
+func shoot_loop():
 	if !primary_fire_cooldown:
 		primary_fire_cooldown = true
-		shoot_primary()
-		await get_tree().create_timer(primary_fire_rof * delta).timeout
+		
+		if burst:
+			for n in burst_quantity:
+				shoot_primary()
+				await get_tree().create_timer(primary_fire_rof / 2, false).timeout
+		else:
+			shoot_primary()
+		await get_tree().create_timer(primary_fire_rof, false).timeout
 		primary_fire_cooldown = false
 
-func shoot_primary(): 
-	fire_primary.emit(muzzle.global_position)
+func shoot_primary():
+	for m in muzzles:
+		fire_primary.emit(m.global_position)
 
 func shoot_secondary():
 	if secondary_ammo > 0:
 		if debug: print("Bomb launched! %d ammo left" % int(secondary_ammo - 1))
-		fire_secondary.emit(muzzle, secondary_ammo) # This signal both alters the hud value and emits the projectile at the same time
+		fire_secondary.emit(main_muzzle, secondary_ammo) # This signal both alters the hud value and emits the projectile at the same time
 	else: 
 		if debug: print("No ammo left!")
 

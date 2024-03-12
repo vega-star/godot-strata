@@ -96,7 +96,7 @@ func start_stage_sequence(): # Starting animations, fade-in, etc.
 	stage_timer.start()
 	
 	# UI.InfoHUD.message_player.request_message(1)
-	UI.InfoHUD.danger_player.display_danger(true)
+	# UI.InfoHUD.danger_player.display_danger(true)
 	# (left : bool = true, timeout : float = 4, modulate_color : Color = Color.WHITE)
 	
 	stage_start_time = Time.get_unix_time_from_system()

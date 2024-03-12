@@ -16,7 +16,7 @@ const self_scene_path = "res://entities/dummy_enemies/enemy_gun.tscn"
 @onready var combat_component : CombatComponent = $CombatComponent
 @onready var health_bar_component : HealthBarComponent = $HealthBarComponent
 @onready var hitbox_component : HitboxComponent = $HitboxComponent
-@onready var projectile_container = $TemporaryContainer
+@onready var projectile_container = get_tree().get_first_node_in_group('ProjectileContainer')
 
 ## Properties
 @export var limit_angle : bool = false

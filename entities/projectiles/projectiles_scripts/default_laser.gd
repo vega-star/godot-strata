@@ -8,7 +8,7 @@ var enemy_pass_count = 0
 
 # Factors and multiplyers
 @export var can_damage_player : bool = false
-@export var enemy_pass_limit : int = 1
+@export var enemy_pass_limit : int = 2
 var penetration_factor : float = 0.3
 var damage_factor_against_bosses : float = 1
 var critical_damage_factor : float = 2

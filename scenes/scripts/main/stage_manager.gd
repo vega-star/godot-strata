@@ -19,6 +19,7 @@ var challenge_enemy
 @onready var stage_timer = $"../StageTimer"
 @onready var threat_generator = $ThreatGenerator
 @onready var enemy_container = $EnemiesContainer
+@onready var drop_component = $DropComponent
 @onready var current_stage = owner.get_name()
 @export var debug : bool = false
 @export var debug_generator : bool = false
@@ -44,6 +45,7 @@ func _ready():
 	await owner.stage_started # The scene controls when the schedule starts
 	
 	UI.UIOverlay.set_stage_bar(stage_length_in_minutes * 60)
+	UI.InfoHUD.toggle_message_layer(true)
 	
 	load_events_file(raw_events_file)
 
@@ -93,10 +95,19 @@ func execute_event(event, event_name = "UNNAMED_EVENT"):
 			print('\tFILLER QUEUED | Filler timer/Real time remaining: {0}/{1}'.format({0:filler_time,1:$"../StageTimer".get_time_left()}))
 		"message":
 			var message_set : bool = event["event_properties"]["message_set"]
+			var message_timeout : float = event["event_properties"]["message_timeout"]
 			if !message_set:
-				message_player.request_message(int(event["event_properties"]["message_content"]), false)
+				message_player.request_message(
+					int(event["event_properties"]["message_content"]),
+					false,
+					message_timeout
+				)
 			else:
-				message_player.request_message(str(event["event_properties"]["message_content"]), true)
+				message_player.request_message(
+					str(event["event_properties"]["message_content"]),
+					true,
+					message_timeout
+				)
 		"toggle_random":
 			var toggle_value = event["event_properties"]["active"]
 			owner.set_random_loop = toggle_value
@@ -110,6 +121,24 @@ func execute_event(event, event_name = "UNNAMED_EVENT"):
 			spawn_sequence(event["event_properties"]["enemy_array"], event["event_properties"]["sequence_cooldown"], rule_override)
 		"spawn_challenge":
 			threat_generator.generate_threat(event["event_properties"]["enemy"], rule_override)
+		"spawn_item":
+			var drop_dict = event["event_properties"]["item_selection"]
+			var override_drop : bool = event["event_properties"]["override_drop"]
+			var drop_position = $ThreatGenerator/ScreenArea/SpawnArea/CenterSpawnPos.global_position
+			
+			if override_drop:
+				drop_component.drop_item(drop_dict["items"], drop_position)
+			else:
+				await drop_component.config_drop(
+					drop_dict["type"],
+					drop_dict["items"],
+					drop_dict["chances"],
+					drop_dict["range"],
+					drop_dict["quantity"],
+					drop_dict["repeat"],
+					drop_position
+				)
+				drop_component.request_drop()
 		_:
 			push_error('%s | INVALID EVENT TYPE' % event_name)
 	
@@ -158,4 +187,4 @@ func pause_stage_timer(toggle : bool):
 	stage_timer.set_paused(toggle)
 
 func _exit_tree():
-	pass
+	UI.InfoHUD.toggle_message_layer(false)

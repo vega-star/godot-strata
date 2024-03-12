@@ -55,7 +55,5 @@ simple_hitbox = NodePath("CollisionShape2D")
 shape = SubResource("CircleShape2D_effn3")
 debug_color = Color(0.701961, 0, 0.152941, 0.2)
 
-[node name="TemporaryContainer" type="Node2D" parent="."]
-
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="health_change" from="HealthComponent" to="." method="_on_health_component_health_change"]

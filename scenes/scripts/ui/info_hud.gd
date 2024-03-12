@@ -1,7 +1,8 @@
 extends CanvasLayer
 
-@onready var message_player = $MessageLayer/MessagePlayer
-@onready var danger_player = $MessageLayer/DangerPlayer
+@onready var info_layer = $InfoLayer
+@onready var message_player = $InfoLayer/MessagePlayer
+@onready var danger_player = $InfoLayer/DangerPlayer
 
 func display_title(title, title_description, title_timer : float = 3):
 	$TitleDisplay.visible = true
@@ -13,3 +14,6 @@ func display_title(title, title_description, title_timer : float = 3):
 
 func _on_message_displayed():
 	print('Message successfully displayed')
+
+func toggle_message_layer(toggle):
+	info_layer.visible = toggle

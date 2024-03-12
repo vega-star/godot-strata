@@ -14,7 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://cxk85efxpd3at" path="res://entities/composite_elements/composite_shielding.tscn" id="10_pe2ax"]
 [ext_resource type="PackedScene" uid="uid://dqge7meaumoi5" path="res://entities/prototype_entities/enemy_gun.tscn" id="11_gbfv8"]
 [ext_resource type="Texture2D" uid="uid://j8ejey5hdgmr" path="res://assets/textures/prototypes/composite_enemy_module_arm.png" id="12_oafk8"]
-[ext_resource type="PackedScene" uid="uid://capsl03als0q0" path="res://entities/projectiles/default_ray.tscn" id="14_f8fdk"]
+[ext_resource type="PackedScene" uid="uid://capsl03als0q0" path="res://entities/projectiles/enemy_ray.tscn" id="14_f8fdk"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y4one"]
 size = Vector2(4, 28)
@@ -30,7 +30,6 @@ collision_mask = 5
 script = ExtResource("1_shyos")
 
 [node name="DropComponent" parent="." instance=ExtResource("2_rygv7")]
-debug = true
 
 [node name="CESprite" type="Sprite2D" parent="."]
 light_mask = 2

@@ -10,85 +10,11 @@
             "message_timeout": 5,
             "event_timer": {
                 "pause_stage_timer": false,
-                "timer_period": 6.0
+                "timer_period": 5.0
             }
         }
     },
-    "message_about_primary_weapon": {
-        "event_type": "message",
-        "event_description": "Requests a message to MessagePlayer. Can send as an ID or a manually set text. If timer is set, the scene will wait for the message_displayed signal",
-        "set_timer": true,
-        "has_rules": false,
-        "event_properties": {
-            "message_set": false,
-            "message_content": 3,
-            "message_timeout": 5,
-            "event_timer": {
-                "pause_stage_timer": false,
-                "timer_period": 6.0
-            }
-        }
-    },
-    "spawn_few_enemies": {
-        "event_type": "spawn_enemy",
-        "event_description": "Spawn a cluster of enemies using the swarm rule set.",
-        "set_timer": true,
-        "has_rules": true,
-        "event_properties": {
-            "enemy": "striker_1",
-            "event_timer": {
-                "pause_stage_timer": false,
-                "timer_period": 12.0
-            },
-            "rules": {
-                "spawn_override": "center", 
-                "swarm": {
-                    "method": 0, 
-                    "separation": 30,
-                    "amount": 5,
-                    "delay": 2
-                }
-            }
-        }
-    },
-    "message_about_bombs": {
-        "event_type": "message",
-        "event_description": "Requests a message to MessagePlayer. Can send as an ID or a manually set text. If timer is set, the scene will wait for the message_displayed signal",
-        "set_timer": true,
-        "has_rules": false,
-        "event_properties": {
-            "message_set": false,
-            "message_content": 4,
-            "message_timeout": 5,
-            "event_timer": {
-                "pause_stage_timer": false,
-                "timer_period": 4.0
-            }
-        }
-    },
-    "spawn_enemy_wall": {
-        "event_type": "spawn_enemy",
-        "event_description": "Spawn a cluster of enemies using the swarm rule set.",
-        "set_timer": true,
-        "has_rules": true,
-        "event_properties": {
-            "enemy": "striker_1",
-            "event_timer": {
-                "pause_stage_timer": false,
-                "timer_period": 7.0
-            },
-            "rules": {
-                "spawn_override": "center", 
-                "swarm": {
-                    "method": 0, 
-                    "separation": 35,
-                    "amount": 5,
-                    "delay": 0
-                }
-            }
-        }
-    },
-    "turn_on_random_period_01": {
+    "turn_on_random_period": {
         "event_type": "toggle_random",
         "event_description": "Toggles the period on which random enemies can spawn on screen",
         "set_timer": false,
@@ -98,113 +24,22 @@
             "random_spawn_interval": 1.5
         }
     },
-    "message_ammo_retrieval": {
+    "show_message": {
         "event_type": "message",
         "event_description": "Requests a message to MessagePlayer. Can send as an ID or a manually set text. If timer is set, the scene will wait for the message_displayed signal",
         "set_timer": true,
         "has_rules": false,
         "event_properties": {
             "message_set": false,
-            "message_content": 5,
-            "message_timeout": 7,
-            "event_timer": {
-                "pause_stage_timer": false,
-                "timer_period": 8.0
-            }
-        }
-    },
-    "turn_off_random_period_01": {
-        "event_type": "toggle_random",
-        "event_description": "Toggles the period on which random enemies can spawn on screen",
-        "set_timer": false,
-        "has_rules": false,
-        "event_properties": {
-            "active": false
-        }
-    },
-    "spawn_enemy_diagonally": {
-        "event_type": "spawn_enemy",
-        "event_description": "Spawn a cluster of enemies using the swarm rule set.",
-        "set_timer": true,
-        "has_rules": true,
-        "event_properties": {
-            "enemy": "striker_1",
-            "event_timer": {
-                "pause_stage_timer": false,
-                "timer_period": 4.0
-            },
-            "rules": {
-                "spawn_override": "center", 
-                "swarm": {
-                    "method": 1, 
-                    "separation": 35,
-                    "amount": 5,
-                    "delay": 0.5
-                }
-            }
-        }
-    },
-    "message_about_mobility": {
-        "event_type": "message",
-        "event_description": "Requests a message to MessagePlayer. Can send as an ID or a manually set text. If timer is set, the scene will wait for the message_displayed signal",
-        "set_timer": true,
-        "has_rules": false,
-        "event_properties": {
-            "message_set": false,
-            "message_content": 6,
-            "message_timeout": 10,
-            "event_timer": {
-                "pause_stage_timer": false,
-                "timer_period": 11.0
-            }
-        }
-    },
-    "message_about_roll": {
-        "event_type": "message",
-        "event_description": "Requests a message to MessagePlayer. Can send as an ID or a manually set text. If timer is set, the scene will wait for the message_displayed signal",
-        "set_timer": true,
-        "has_rules": false,
-        "event_properties": {
-            "message_set": false,
-            "message_content": 7,
-            "message_timeout": 10,
-            "event_timer": {
-                "pause_stage_timer": false,
-                "timer_period": 11.0
-            }
-        }
-    },
-    "message_about_resetting_keybinds": {
-        "event_type": "message",
-        "event_description": "Requests a message to MessagePlayer. Can send as an ID or a manually set text. If timer is set, the scene will wait for the message_displayed signal",
-        "set_timer": true,
-        "has_rules": false,
-        "event_properties": {
-            "message_set": false,
-            "message_content": 8,
+            "message_content": 3,
             "message_timeout": 6,
             "event_timer": {
                 "pause_stage_timer": false,
-                "timer_period": 7.0
+                "timer_period": 3.0
             }
         }
     },
-    "message_about_enemies_from_behind": {
-        "event_type": "message",
-        "event_description": "Requests a message to MessagePlayer. Can send as an ID or a manually set text. If timer is set, the scene will wait for the message_displayed signal",
-        "set_timer": true,
-        "has_rules": false,
-        "event_properties": {
-            "message_set": false,
-            "message_content": 9,
-            "message_timeout": 6,
-            "event_timer": {
-                "pause_stage_timer": false,
-                "timer_period": 7.0
-            }
-        }
-    },
-    "test_enemy_from_behind": {
+    "test_new_enemy": {
         "event_type": "spawn_enemy",
         "event_description": "Spawn a single specific enemy in scene. Useful for certain controlled events.",
         "set_timer": true,
@@ -227,53 +62,17 @@
             }
         }
     },
-    "message_with_pause": {
+    "show_message_with_pause": {
         "event_type": "message",
         "event_description": "Requests a message to MessagePlayer. Can send as an ID or a manually set text. If timer is set, the scene will wait for the message_displayed signal",
         "set_timer": true,
         "has_rules": false,
         "event_properties": {
-            "message_set": false,
-            "message_content": 10,
-            "message_timeout": 12,
+            "message_set": true,
+            "message_content": "[center]This is message number 2.\nTest 2 successful[/center]",
+            "message_timeout": 4,
             "event_timer": {
                 "wait_for_message": true
-            }
-        }
-    },
-    "spawn_item_selectable": {
-        "event_type": "spawn_item",
-        "event_description": "Requests a message to MessagePlayer. Can send as an ID or a manually set text. If timer is set, the scene will wait for the message_displayed signal",
-        "set_timer": true,
-        "has_rules": false,
-        "event_properties": {
-            "override_drop": true,
-            "item_selection": {
-                "type": 1,
-                "quantity": 2,
-                "repeat": false,
-                "chances": [33,66,99],
-                "range": 100,
-                "items": ["AdditionalHardpoint", "ICAmplifier", "PlasteelWing"]
-            },
-            "event_timer": {
-                "pause_stage_timer": false,
-                "timer_period": 2.0
-            }
-        }
-    },
-    "message_about_items": {
-        "event_type": "message",
-        "event_description": "Requests a message to MessagePlayer. Can send as an ID or a manually set text. If timer is set, the scene will wait for the message_displayed signal",
-        "set_timer": true,
-        "has_rules": false,
-        "event_properties": {
-            "message_set": false,
-            "message_content": 11,
-            "message_timeout": 9,
-            "event_timer": {
-                "pause_stage_timer": false,
-                "timer_period": 8.0
             }
         }
     },
@@ -295,9 +94,9 @@
             }
         }
     },
-    "spawn_swarm": {
+    "spawn_single_enemy_1": {
         "event_type": "spawn_enemy",
-        "event_description": "Spawn a cluster of enemies using the swarm rule set.",
+        "event_description": "Spawn a single specific enemy in scene. Useful for certain controlled events.",
         "set_timer": true,
         "has_rules": true,
         "event_properties": {

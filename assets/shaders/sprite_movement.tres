@@ -6,4 +6,4 @@
 shader = ExtResource("1_rbj6a")
 shader_parameter/line_speed = 2.0
 shader_parameter/line_colliding = false
-shader_parameter/horizontal_movement = false
+shader_parameter/horizontal_movement = true

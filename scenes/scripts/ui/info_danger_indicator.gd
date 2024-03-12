@@ -20,8 +20,13 @@ func _physics_process(delta):
 		frames_passed += 1
 		if frames_passed == target_frame:
 			frames_passed = 0
-			if side_label.visible: side_label.visible = false
-			else: side_label.visible = true
+			print('frame limit reached')
+			if side_label.visible:
+				$DangerOnRight/DangerLabel.visible = false
+				$DangerOnLeft/DangerLabel.visible = false
+			else: 
+				$DangerOnRight/DangerLabel.visible = true
+				$DangerOnLeft/DangerLabel.visible = true
 	
 func display_danger(
 		left : bool = true, 

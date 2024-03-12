@@ -1,12 +1,17 @@
-[gd_scene load_steps=3 format=3 uid="uid://csdnju38rqee8"]
+[gd_scene load_steps=4 format=3 uid="uid://csdnju38rqee8"]
 
 [ext_resource type="Script" path="res://scenes/scripts/main/stage_manager.gd" id="1_7rybp"]
 [ext_resource type="Script" path="res://scenes/scripts/main/threat_generator.gd" id="1_x4heg"]
+[ext_resource type="PackedScene" uid="uid://cifxjpiop3cha" path="res://components/status/drop_component.tscn" id="2_gx0mp"]
 
 [node name="StageManager" type="Node"]
 script = ExtResource("1_7rybp")
 debug = true
 debug_generator = true
+
+[node name="DropComponent" parent="." instance=ExtResource("2_gx0mp")]
+stage_dropper = true
+debug = true
 
 [node name="ThreatGenerator" type="Node" parent="."]
 script = ExtResource("1_x4heg")

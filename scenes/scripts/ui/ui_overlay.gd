@@ -97,7 +97,7 @@ extends CanvasLayer
 		"containers": {
 			"container_size_h": 26,
 			"container_size_y": 32,
-			"short_container_size_h": 16,
+			"short_container_size_h": 0,
 			"short_container_size_y": 32
 		},
 		"cells": {

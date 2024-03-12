@@ -1,0 +1,55 @@
+[gd_scene load_steps=4 format=3 uid="uid://ciqbjj8f75v0v"]
+
+[ext_resource type="Theme" uid="uid://b1a5sjt2xibwo" path="res://assets/themes/strata_theme/strata_theme.tres" id="1_e8tqe"]
+[ext_resource type="Script" path="res://scenes/scripts/ui/info_popup_message.gd" id="2_6nf0b"]
+[ext_resource type="StyleBox" uid="uid://ly4qyjpxi5pe" path="res://assets/themes/strata_theme/elements/tresfiles/message_box.tres" id="3_pfh27"]
+
+[node name="MessagePlayer" type="Control"]
+light_mask = 4
+visibility_layer = 4
+layout_mode = 3
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -448.0
+offset_top = -223.0
+offset_right = -48.0
+offset_bottom = -103.0
+grow_horizontal = 0
+grow_vertical = 2
+theme = ExtResource("1_e8tqe")
+script = ExtResource("2_6nf0b")
+
+[node name="MessageText" type="RichTextLabel" parent="."]
+clip_contents = false
+custom_minimum_size = Vector2(0, 7)
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 7.0
+offset_top = 7.0
+offset_right = -7.0
+offset_bottom = -107.0
+grow_horizontal = 2
+theme = ExtResource("1_e8tqe")
+theme_override_font_sizes/normal_font_size = 30
+theme_override_font_sizes/bold_font_size = 32
+bbcode_enabled = true
+fit_content = true
+scroll_active = false
+shortcut_keys_enabled = false
+
+[node name="MessagePanel" type="Panel" parent="MessageText"]
+light_mask = 16
+visibility_layer = 16
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_e8tqe")
+theme_override_styles/panel = ExtResource("3_pfh27")

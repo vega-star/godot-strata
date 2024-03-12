@@ -1,9 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://capsl03als0q0"]
+[gd_scene load_steps=8 format=3 uid="uid://byptpgcrj52dh"]
 
-[ext_resource type="Script" path="res://entities/entity_scripts/default_ray.gd" id="1_dyjc3"]
-[ext_resource type="Texture2D" uid="uid://cnve83mws0p8y" path="res://assets/textures/entities/enemies/misc/aimline.png" id="2_3hkay"]
-[ext_resource type="Material" uid="uid://bliwcb53eu063" path="res://assets/shaders/sprite_movement.tres" id="2_fpahj"]
-[ext_resource type="Texture2D" uid="uid://dcjknhla6rmgm" path="res://assets/textures/projectiles/laser_texture.png" id="4_cge0j"]
+[ext_resource type="Script" path="res://entities/entity_scripts/default_ray.gd" id="1_kgohs"]
+[ext_resource type="Material" uid="uid://ce6elcaqhqekp" path="res://assets/shaders/sprite_movement_horizontal.tres" id="2_f7qfw"]
+[ext_resource type="Texture2D" uid="uid://cnve83mws0p8y" path="res://assets/textures/entities/enemies/misc/aimline.png" id="3_kkc8o"]
+[ext_resource type="Texture2D" uid="uid://dcjknhla6rmgm" path="res://assets/textures/projectiles/laser_texture.png" id="4_uo15j"]
 
 [sub_resource type="Gradient" id="Gradient_upcad"]
 colors = PackedColorArray(0.824512, 0, 0.41841, 1, 0.945098, 0, 0.501961, 0)
@@ -25,7 +25,7 @@ target_position = Vector2(-1800, 0)
 collision_mask = 5
 collide_with_areas = true
 collide_with_bodies = false
-script = ExtResource("1_dyjc3")
+script = ExtResource("1_kgohs")
 laser_line = NodePath("LaserLine")
 aim_line = NodePath("AimLine")
 debug = true
@@ -34,10 +34,10 @@ debug = true
 light_mask = 2
 visibility_layer = 2
 texture_repeat = 2
-material = ExtResource("2_fpahj")
+material = ExtResource("2_f7qfw")
 points = PackedVector2Array(0, 0, -1799, 0)
 width = 0.0
-texture = ExtResource("2_3hkay")
+texture = ExtResource("3_kkc8o")
 texture_mode = 1
 begin_cap_mode = 2
 end_cap_mode = 2
@@ -47,7 +47,7 @@ light_mask = 2
 visibility_layer = 2
 points = PackedVector2Array(0, 0, -144, 0)
 width = 0.0
-texture = ExtResource("4_cge0j")
+texture = ExtResource("4_uo15j")
 texture_mode = 1
 joint_mode = 2
 begin_cap_mode = 2

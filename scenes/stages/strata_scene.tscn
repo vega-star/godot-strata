@@ -25,7 +25,7 @@ position = Vector2(-79, -60)
 [node name="CameraConnection" type="RemoteTransform2D" parent="Player"]
 remote_path = NodePath("../../StageCamera")
 
-[node name="ProjectileContainer" type="Node2D" parent="."]
+[node name="ProjectileContainer" type="Node2D" parent="." groups=["ProjectileContainer"]]
 
 [node name="StageTimer" type="Timer" parent="."]
 one_shot = true
