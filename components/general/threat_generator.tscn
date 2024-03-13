@@ -1,0 +1,58 @@
+[gd_scene load_steps=2 format=3 uid="uid://lwymw1nsuiem"]
+
+[ext_resource type="Script" path="res://scenes/scripts/main/threat_generator.gd" id="1_sluet"]
+
+[node name="ThreatGenerator" type="Node"]
+script = ExtResource("1_sluet")
+
+[node name="ScreenArea" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SpawnArea" type="ReferenceRect" parent="ScreenArea"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 64.0
+offset_top = -219.0
+offset_right = 144.0
+offset_bottom = 219.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="BottomSpawnPos" type="Marker2D" parent="ScreenArea/SpawnArea"]
+position = Vector2(39, 438)
+
+[node name="CenterSpawnPos" type="Marker2D" parent="ScreenArea/SpawnArea"]
+position = Vector2(39, 219)
+
+[node name="TopSpawnPos" type="Marker2D" parent="ScreenArea/SpawnArea"]
+position = Vector2(39, 0)
+
+[node name="SpawnAreaForward" type="ReferenceRect" parent="ScreenArea"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = -152.0
+offset_top = -219.0
+offset_right = -72.0
+offset_bottom = 219.0
+grow_vertical = 2
+
+[node name="BottomSpawnPos" type="Marker2D" parent="ScreenArea/SpawnAreaForward"]
+position = Vector2(39, 438)
+
+[node name="CenterSpawnPos" type="Marker2D" parent="ScreenArea/SpawnAreaForward"]
+position = Vector2(39, 219)
+
+[node name="TopSpawnPos" type="Marker2D" parent="ScreenArea/SpawnAreaForward"]
+position = Vector2(39, 0)

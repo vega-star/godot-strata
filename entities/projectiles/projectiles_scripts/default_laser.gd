@@ -31,6 +31,7 @@ func _on_hitbox_area_entered(area):
 		for group in area.owner.get_groups():
 			match group:
 				'shielding':
+					enemy_pass_count += 20
 					damage_buildup = projectile_damage * penetration_factor
 				'miniboss', 'boss':
 					damage_buildup = projectile_damage * damage_factor_against_bosses

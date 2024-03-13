@@ -87,7 +87,7 @@ func set_focus():
 func _on_start_button_pressed(): # StartButton
 	confirm_selection()
 	await UI.fade('OUT')
-	get_tree().change_scene_to_file(first_stage)
+	LoadManager.load_scene(first_stage)
 
 func _on_return_to_main_menu_pressed():
 	owner.set_page_position(0)

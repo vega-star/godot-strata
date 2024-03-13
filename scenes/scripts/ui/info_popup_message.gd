@@ -14,7 +14,7 @@ const default_timeout : float = 3
 	2: "Welcome! This is a tutorial stage meant to test your movement and action.",
 	3: "Press [color=#f9c22b][b][{shoot}][/b][/color] to fire the [color=#4d9be6]primary weapon[/color]. Firing can be also be toggled in the configuration menu.",
 	4: "Press [color=#f9c22b][b][{bomb}][/b][/color] to fire the [color=#4d9be6]secondary weapon[/color]. It consumes ammo, but deals a lot more damage.",
-	5: "Ammo can be retrieved from fallen enemies, but the maximum cannot by these consumables.\n\nYou can increase it with items, or even get ammo regeneration! Same thing with health.",
+	5: "Ammo can be retrieved from fallen enemies, but its maximum cannot be increased by consumables.\n\nYou can increase it with certain items.",
 	6: "For more mobility, you can press [color=#f9c22b][b][{dash}][/b][/color] and dash in a direction.\n\nThe trail emits a burst when it resets.",
 	7: "You can also roll by pressing [color=#f9c22b][b][{roll}][/b][/color] and evade projectiles and collisions.\n\nBoth a light flicker and a sound is emitted when it resets, and be used simultaneously with dash.",
 	8: "If the current settings aren't confortable to you, you can set your own keybinds in options.\n\nThe game also supports controllers, even on web!",

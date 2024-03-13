@@ -17,6 +17,7 @@ debug = true
 script = ExtResource("1_x4heg")
 
 [node name="ScreenArea" type="Control" parent="ThreatGenerator"]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

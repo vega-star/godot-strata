@@ -1,3 +1,5 @@
 [gd_scene format=3 uid="uid://2k1rruf5kint"]
 
-[node name="StageSelection" type="Node2D"]
+[node name="StageSelection" type="Control"]
+layout_mode = 3
+anchors_preset = 0

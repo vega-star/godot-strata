@@ -3,7 +3,9 @@ extends Node2D
 signal stage_started
 
 # Stage Properties
-@export var stage_name : String = "StrataScene"
+var stage_id : String = "StrataScene"
+@export var stage_title : String = 'STAGE ZERO'
+@export var stage_description : String = 'SIMULATION'
 
 # Options
 var config = ConfigFile.new()
@@ -84,7 +86,7 @@ func start_stage_sequence(): # Starting animations, fade-in, etc.
 	player.controls_lock(true)
 	await UI.fade('IN')
 	
-	UI.InfoHUD.display_title('STAGE ZERO', 'SIMULATION')
+	UI.InfoHUD.display_title(stage_title, stage_description)
 	
 	await get_tree().create_timer(2, false).timeout
 	
@@ -94,11 +96,6 @@ func start_stage_sequence(): # Starting animations, fade-in, etc.
 	UI.set_stage(stage_timer)
 	stage_started.emit()
 	stage_timer.start()
-	
-	# UI.InfoHUD.message_player.request_message(1)
-	# UI.InfoHUD.danger_player.display_danger(true)
-	# (left : bool = true, timeout : float = 4, modulate_color : Color = Color.WHITE)
-	
 	stage_start_time = Time.get_unix_time_from_system()
 
 func end_stage_sequence(): # Fade-out, stage finished screen, etc.
@@ -128,7 +125,7 @@ func save_stage_performance(final_time):
 		"ITEMS_COLLECTED_AT_STAGE": ["Item1","Item2"],
 		"TIME_ELAPSED_AT_STAGE": time_diff
 	}
-	Profile.add_run_data("STAGES", stage_name, stage_performance)
+	Profile.add_run_data("STAGES", stage_id, stage_performance)
 
 func load_options():
 	config_load = config.load("user://config.cfg")

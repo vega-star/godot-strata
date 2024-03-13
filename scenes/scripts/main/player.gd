@@ -28,7 +28,7 @@ var horizontal_limit : Vector2
 @export var deadzone = 0.25 # Useful for controller compatibility
 @export var air_friction = 0.5
 
-@export var dash_speed : float = 2300
+@export var dash_speed : float = 1800
 @export var dash_cooldown_timer : float = 2.5
 @export var roll_cooldown_timer : float = 4
 var dash_cooldown_factor : float = 1.0

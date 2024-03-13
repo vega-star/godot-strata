@@ -1,9 +1,114 @@
 [gd_scene load_steps=8 format=3 uid="uid://byptpgcrj52dh"]
 
-[ext_resource type="Script" path="res://entities/entity_scripts/default_ray.gd" id="1_kgohs"]
 [ext_resource type="Material" uid="uid://ce6elcaqhqekp" path="res://assets/shaders/sprite_movement_horizontal.tres" id="2_f7qfw"]
 [ext_resource type="Texture2D" uid="uid://cnve83mws0p8y" path="res://assets/textures/entities/enemies/misc/aimline.png" id="3_kkc8o"]
 [ext_resource type="Texture2D" uid="uid://dcjknhla6rmgm" path="res://assets/textures/projectiles/laser_texture.png" id="4_uo15j"]
+
+[sub_resource type="GDScript" id="GDScript_3jlwf"]
+script/source = "extends RayCast2D
+
+@export var laser_damage : int = 1
+@export var laser_line : Line2D
+@export var aim_line : Line2D
+@export var charging_emitter : CPUParticles2D
+@export var source_emitter : CPUParticles2D
+@export var beam_emitter : CPUParticles2D
+@export var end_emitter : CPUParticles2D
+@export var debug : bool = false
+
+@onready var laser_tween : Tween
+var cast_point
+var charging : bool = false
+var cast_available : bool = true
+var casting : bool = false
+var target : Object
+
+var laser_speed = 0.2
+var laser_max_width = 6
+
+func _ready():
+	randomize()
+	
+	## Default node connections
+	if !laser_line: laser_line = $LaserLine
+	if !charging_emitter: charging_emitter = $Emitters/ChargingEmitter
+	if !source_emitter: source_emitter = $Emitters/SourceEmitter
+	if !beam_emitter: beam_emitter = $Emitters/BeamEmitter
+	if !end_emitter: end_emitter = $Emitters/EndEmitter
+	
+	laser_line.points[-1] = Vector2.ZERO
+	aim_line.points[-1] = Vector2.ZERO
+
+func _process(_delta):
+	cast_point = target_position
+	force_raycast_update()
+	
+	if is_colliding():
+		aim_line.material.set_shader_parameter(\"line_colliding\", true)
+		cast_point = to_local(get_collision_point())
+		target = get_collider()
+		if enabled:
+			target.generate_damage(laser_damage)
+	else:
+		aim_line.material.set_shader_parameter(\"line_colliding\", false)
+	
+	laser_line.points[-1] = cast_point
+	aim_line.points[-1] = cast_point
+	beam_emitter.position.x = cast_point.length() / 2
+	end_emitter.position = cast_point
+
+
+func set_casting(cast):
+	casting = cast
+	set_physics_process(cast)
+	if casting: activate()
+	else: deactivate()
+
+func charge():
+	if enabled: await deactivate()
+	charging = true
+	end_emitter.emitting = false
+	charging_emitter.emitting = true
+	charging_emitter.speed_scale = 0
+	
+	var aiming_tween = get_tree().create_tween()
+	aiming_tween.tween_property(aim_line, \"width\", 4, laser_speed)
+	
+	var charging_tween = get_tree().create_tween()
+	charging_tween.tween_property(charging_emitter, \"speed_scale\", 5, 5)
+	await get_tree().create_timer(2, false).timeout
+	
+	charging_emitter.emitting = false
+	charging_tween.kill()
+	aiming_tween.kill()
+	charging = false
+	set_casting(true)
+
+func activate():
+	charging_emitter.emitting = false
+	source_emitter.emitting = true
+	beam_emitter.emitting = true
+	end_emitter.emitting = true
+	
+	aim_line.width = 0
+	
+	laser_tween = get_tree().create_tween()
+	laser_tween.tween_property(laser_line, \"width\", laser_max_width, laser_speed)
+	enabled = true
+	await laser_tween.finished
+	laser_tween.kill()
+
+func deactivate():
+	source_emitter.emitting = false
+	beam_emitter.emitting = false
+	end_emitter.emitting = false
+	
+	laser_tween = get_tree().create_tween()
+	laser_tween.tween_property(laser_line, \"width\", 0, laser_speed)
+	await laser_tween.finished
+	enabled = false
+	laser_tween.kill()
+"
 
 [sub_resource type="Gradient" id="Gradient_upcad"]
 colors = PackedColorArray(0.824512, 0, 0.41841, 1, 0.945098, 0, 0.501961, 0)
@@ -18,16 +123,13 @@ point_count = 2
 offsets = PackedFloat32Array(0.661157, 0.991736)
 colors = PackedColorArray(1, 0, 0, 1, 1, 0, 0, 0)
 
-[node name="Laser" type="RayCast2D" node_paths=PackedStringArray("laser_line", "aim_line")]
-position = Vector2(932, 262)
+[node name="Laser" type="RayCast2D"]
 enabled = false
 target_position = Vector2(-1800, 0)
 collision_mask = 5
 collide_with_areas = true
 collide_with_bodies = false
-script = ExtResource("1_kgohs")
-laser_line = NodePath("LaserLine")
-aim_line = NodePath("AimLine")
+script = SubResource("GDScript_3jlwf")
 debug = true
 
 [node name="AimLine" type="Line2D" parent="."]
@@ -35,7 +137,7 @@ light_mask = 2
 visibility_layer = 2
 texture_repeat = 2
 material = ExtResource("2_f7qfw")
-points = PackedVector2Array(0, 0, -1799, 0)
+points = PackedVector2Array(0, 0, 983, 0)
 width = 0.0
 texture = ExtResource("3_kkc8o")
 texture_mode = 1
@@ -45,7 +147,7 @@ end_cap_mode = 2
 [node name="LaserLine" type="Line2D" parent="."]
 light_mask = 2
 visibility_layer = 2
-points = PackedVector2Array(0, 0, -144, 0)
+points = PackedVector2Array(0, 0, 137, 0)
 width = 0.0
 texture = ExtResource("4_uo15j")
 texture_mode = 1
