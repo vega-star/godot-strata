@@ -1,6 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://3rg0s4tovqj4"]
+[gd_scene load_steps=11 format=3 uid="uid://3rg0s4tovqj4"]
 
 [ext_resource type="Script" path="res://entities/projectiles/projectiles_scripts/default_missile.gd" id="1_n2dqw"]
+[ext_resource type="AudioStream" uid="uid://cedoets3qpebs" path="res://assets/audio/effects/missile_explosion.wav" id="2_ahtdo"]
 [ext_resource type="Material" uid="uid://ctffue8yt8d8b" path="res://entities/projectiles/projectiles_scripts/missile_trail.tres" id="2_g5118"]
 [ext_resource type="Texture2D" uid="uid://cbun8bbb2ep1r" path="res://assets/textures/projectiles/default_missile_thrust_trail.png" id="3_g85lq"]
 [ext_resource type="Texture2D" uid="uid://dt1xcc7ykfdhp" path="res://assets/textures/prototypes/explosion_area.png" id="3_hbpxc"]
@@ -40,6 +41,10 @@ projectile_damage = 5
 immune_to_enemy_shots = true
 metadata/_edit_vertical_guides_ = [-15.0, 15.0]
 metadata/_edit_horizontal_guides_ = [-5.0, 5.0]
+
+[node name="ExplosionSound" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(11, 0)
+stream = ExtResource("2_ahtdo")
 
 [node name="MissileTrail" type="GPUParticles2D" parent="."]
 position = Vector2(-13, 0)

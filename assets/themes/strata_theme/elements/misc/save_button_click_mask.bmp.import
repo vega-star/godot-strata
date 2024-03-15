@@ -1,0 +1,16 @@
+[remap]
+
+importer="bitmap"
+type="BitMap"
+uid="uid://dupnmu3lriidv"
+path="res://.godot/imported/save_button_click_mask.bmp-1b5323f3159551f29c6bccf6165059dd.res"
+
+[deps]
+
+source_file="res://assets/themes/strata_theme/elements/misc/save_button_click_mask.bmp"
+dest_files=["res://.godot/imported/save_button_click_mask.bmp-1b5323f3159551f29c6bccf6165059dd.res"]
+
+[params]
+
+create_from=0
+threshold=0.5

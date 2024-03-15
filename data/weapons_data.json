@@ -1,6 +1,6 @@
 {
     "primary": {
-        "default_laser": {
+        "burst_laser": {
             "projectile_scene": "res://entities/projectiles/default_laser.tscn",
             "base_burst": true,
             "base_burst_quantity": 3,
@@ -38,20 +38,7 @@
             }
     },
     "secondary": {
-        "default_bomb": {
-            "projectile_scene": "res://entities/projectiles/default_bomb.tscn",
-            "base_rate_of_fire": 5,
-            "base_damage": 10,
-            "base_amount": 1,
-            "base_regeneration": false,
-            "weapon_properties": {
-                "weapon_name": "Stasis Bomb",
-                "weapon_description": "Slows down on air until stopped, and explodes soon after. Also explodes if in contact with enemy.",
-                "weapon_small_icon": null,
-                "weapon_icon": null
-            }
-        },
-        "default_missile": {
+        "simple_missile": {
             "projectile_scene": "res://entities/projectiles/default_missile.tscn",
             "base_rate_of_fire": 5,
             "base_damage": 5,
@@ -61,6 +48,19 @@
             "weapon_properties": {
                 "weapon_name": "Guided Missile",
                 "weapon_description": "Missiles with an internal guidance system. Tends to seek untargeted enemies.",
+                "weapon_small_icon": null,
+                "weapon_icon": null
+            }
+        },
+        "stasis_bomb": {
+            "projectile_scene": "res://entities/projectiles/default_bomb.tscn",
+            "base_rate_of_fire": 5,
+            "base_damage": 10,
+            "base_amount": 1,
+            "base_regeneration": false,
+            "weapon_properties": {
+                "weapon_name": "Stasis Bomb",
+                "weapon_description": "Slows down on air until stopped, and explodes soon after. Also explodes if in contact with enemy.",
                 "weapon_small_icon": null,
                 "weapon_icon": null
             }

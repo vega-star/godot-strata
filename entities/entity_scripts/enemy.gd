@@ -6,6 +6,7 @@ const enemy_id = 0
 const enemy_name = "enemy"
 const alpha_modulation = 0.5
 
+@export var set_health_bar : bool = true
 @export var score_value = 10
 @export var speed = 150
 @export var contact_damage = 1
@@ -15,8 +16,10 @@ const alpha_modulation = 0.5
 @onready var drop_component : DropComponent = $DropComponent
 const damage_effect_flicker_count = 3
 const damage_effect_flicker = 0.15
+const outside_screen_timeout = 10
 
 # Debug / testing
+var present_on_screen : bool
 @export var bulk_updating : bool = false
 
 func _ready():
@@ -32,8 +35,17 @@ func _on_area_entered(body):
 	if body is HitboxComponent:
 		body.generate_damage(contact_damage)
 
+func _on_screen_reentered():
+	present_on_screen = true
+
 func _on_visible_on_screen_notifier_2d_screen_exited(): # Deletes the enemy entity if it somehow goes beyond the left side of the screen
-	queue_free()
+	present_on_screen = false
+	request_deletion()
+
+func request_deletion():
+	await get_tree().create_timer(outside_screen_timeout).timeout
+	
+	if !present_on_screen: queue_free()
 
 func die(): # Entity death sequence, called by HealthComponent when health <= 0
 	enemy_died.emit()

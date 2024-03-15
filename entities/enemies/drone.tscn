@@ -24,6 +24,7 @@ const despawn_timeout : float = 5
 @export var speed = 100
 @export var contact_damage = 1
 @export var self_sprite : Sprite2D
+@export var set_health_bar : bool = true
 @onready var self_hitbox : HitboxComponent = $HitboxComponent
 @onready var combat_component : CombatComponent = $CombatComponent
 @onready var drop_component : DropComponent = $DropComponent
@@ -137,10 +138,9 @@ process_callback = 0
 wait_time = 50.0
 one_shot = true
 
-[node name="EnemyGun" parent="." node_paths=PackedStringArray("self_sprite", "health_component") instance=ExtResource("7_ftndn")]
+[node name="EnemyGun" parent="." node_paths=PackedStringArray("self_sprite") instance=ExtResource("7_ftndn")]
 position = Vector2(-3, 6)
 self_sprite = NodePath("GunSprite")
-health_component = NodePath("../HealthComponent")
 limit_angle = true
 min_angle_limit = -70.0
 max_angle_limit = 140.0

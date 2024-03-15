@@ -14,6 +14,3 @@ func fade(mode):
 		1, 'OUT':
 			animation_node.play_backwards('FADE')
 			fade_output.emit(mode)
-
-func stage_completed():
-	$StageCompleted.visible = true

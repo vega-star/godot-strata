@@ -27,7 +27,7 @@ var horizontal_limit : Vector2
 @export var acceleration = 1.1
 @export var deadzone = 0.25 # Useful for controller compatibility
 @export var air_friction = 0.5
-
+@export var set_health_bar : bool = false
 @export var dash_speed : float = 1800
 @export var dash_cooldown_timer : float = 2.5
 @export var roll_cooldown_timer : float = 4
@@ -249,6 +249,8 @@ func _on_ammo_changed(current_ammo, _previous_ammo):
 func _on_health_changed(previous_value, new_value, negative): # Relaying health value as a signal, so it can be changed in the hud
 	health_change.emit(previous_value, new_value)
 	if negative:
+		if new_value > 0: AudioManager.emit_sound_effect(self.global_position, "player_damage")
+		
 		damage_knockback = true
 		stage_camera.start_shake()
 	UI.UIOverlay.set_hp = new_value
@@ -262,14 +264,16 @@ func death_sequence():
 	await get_tree().create_timer(2).timeout
 
 func die():
-	if health_component.current_health <= 0:
-		controls_lock(true)
-		stage_camera.config_shake(30, 6, true)
-		
-		primary_fire_toggled = false
-		player_killed.emit()
-		
-		Profile.end_run(false)
-		
-		await death_sequence()
-		queue_free()
+	controls_lock(true)
+	
+	AudioManager.emit_sound_effect(self.global_position, "game_over_explosion")
+	
+	stage_camera.config_shake(30, 6, true)
+	
+	primary_fire_toggled = false
+	player_killed.emit()
+	
+	Profile.end_run(false)
+	
+	await death_sequence()
+	queue_free()

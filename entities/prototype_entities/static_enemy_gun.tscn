@@ -1,0 +1,80 @@
+[gd_scene load_steps=11 format=3 uid="uid://ct5l6tfdijv3a"]
+
+[ext_resource type="Script" path="res://entities/entity_scripts/static_enemy_gun.gd" id="1_rf7da"]
+[ext_resource type="Material" uid="uid://ce6elcaqhqekp" path="res://assets/shaders/sprite_movement_horizontal.tres" id="2_iycs2"]
+[ext_resource type="Texture2D" uid="uid://dph1k44grln8n" path="res://assets/textures/prototypes/enemy-gun.png" id="2_kkpsc"]
+[ext_resource type="PackedScene" uid="uid://bfy4edhtjb4rs" path="res://components/status/health_bar_component.tscn" id="3_o1djp"]
+[ext_resource type="Texture2D" uid="uid://cnve83mws0p8y" path="res://assets/textures/entities/enemies/misc/aimline.png" id="3_xwels"]
+[ext_resource type="PackedScene" uid="uid://c4rkui846g2ue" path="res://components/status/combat_component.tscn" id="4_uwwx3"]
+[ext_resource type="PackedScene" uid="uid://bdfaybp4djcn2" path="res://components/status/health_component.tscn" id="5_kqv71"]
+[ext_resource type="PackedScene" uid="uid://c3atqdge540t0" path="res://components/status/hitbox_component.tscn" id="6_jthuo"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_57ns0"]
+radius = 14.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_effn3"]
+radius = 14.0
+
+[node name="StaticEnemyGun" type="Area2D" groups=["object"]]
+collision_layer = 2
+collision_mask = 5
+script = ExtResource("1_rf7da")
+rate_of_fire = 0.6
+
+[node name="Aim" type="RayCast2D" parent="."]
+enabled = false
+target_position = Vector2(1098, 0)
+
+[node name="AimLine" type="Line2D" parent="Aim"]
+light_mask = 2
+visibility_layer = 2
+texture_repeat = 2
+material = ExtResource("2_iycs2")
+position = Vector2(14, 0)
+scale = Vector2(0.987226, 1)
+points = PackedVector2Array(0, 0, 1096, 0)
+width = 2.0
+texture = ExtResource("3_xwels")
+texture_mode = 1
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[node name="GunMuzzle" type="Marker2D" parent="."]
+position = Vector2(19, 0)
+
+[node name="EnemySprite" type="Sprite2D" parent="."]
+rotation = 3.14159
+texture = ExtResource("2_kkpsc")
+
+[node name="SelfCollision" type="CollisionShape2D" parent="."]
+position = Vector2(9.53674e-07, 9.53674e-07)
+shape = SubResource("CircleShape2D_57ns0")
+debug_color = Color(0, 0.6, 0.701961, 0)
+
+[node name="HealthBarComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("3_o1djp")]
+visible = false
+position = Vector2(0, 27.8571)
+health_component = NodePath("../HealthComponent")
+metadata/_edit_vertical_guides_ = [-28.0, 28.0]
+metadata/_edit_horizontal_guides_ = [9.0, 3.0]
+
+[node name="CombatComponent" parent="." instance=ExtResource("4_uwwx3")]
+
+[node name="HealthComponent" parent="." node_paths=PackedStringArray("health_bar") instance=ExtResource("5_kqv71")]
+health_bar = NodePath("../HealthBarComponent")
+max_health = 250
+
+[node name="HitboxComponent" parent="." node_paths=PackedStringArray("health_component", "simple_hitbox") instance=ExtResource("6_jthuo")]
+collision_layer = 2
+collision_mask = 5
+health_component = NodePath("../HealthComponent")
+simple_hitbox = NodePath("CollisionShape2D")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
+shape = SubResource("CircleShape2D_effn3")
+debug_color = Color(0.701961, 0, 0.152941, 0.2)
+
+[node name="TemporaryContainer" type="Node2D" parent="."]
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="health_change" from="HealthComponent" to="." method="_on_health_component_health_change"]

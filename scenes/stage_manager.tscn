@@ -11,13 +11,11 @@ debug_generator = true
 
 [node name="DropComponent" parent="." instance=ExtResource("2_gx0mp")]
 stage_dropper = true
-debug = true
 
 [node name="ThreatGenerator" type="Node" parent="."]
 script = ExtResource("1_x4heg")
 
 [node name="ScreenArea" type="Control" parent="ThreatGenerator"]
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -39,6 +37,9 @@ offset_bottom = 219.0
 grow_horizontal = 0
 grow_vertical = 2
 
+[node name="FarBottom" type="Marker2D" parent="ThreatGenerator/ScreenArea/SpawnArea"]
+position = Vector2(38, 591)
+
 [node name="BottomSpawnPos" type="Marker2D" parent="ThreatGenerator/ScreenArea/SpawnArea"]
 position = Vector2(39, 438)
 
@@ -47,6 +48,9 @@ position = Vector2(39, 219)
 
 [node name="TopSpawnPos" type="Marker2D" parent="ThreatGenerator/ScreenArea/SpawnArea"]
 position = Vector2(39, 0)
+
+[node name="FarTop" type="Marker2D" parent="ThreatGenerator/ScreenArea/SpawnArea"]
+position = Vector2(38, -177)
 
 [node name="SpawnAreaForward" type="ReferenceRect" parent="ThreatGenerator/ScreenArea"]
 layout_mode = 1

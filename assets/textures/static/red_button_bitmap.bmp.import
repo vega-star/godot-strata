@@ -1,0 +1,16 @@
+[remap]
+
+importer="bitmap"
+type="BitMap"
+uid="uid://dyy8flx0t02gv"
+path="res://.godot/imported/red_button_bitmap.bmp-dea714c810675e7107ac3edd2353271a.res"
+
+[deps]
+
+source_file="res://assets/textures/static/red_button_bitmap.bmp"
+dest_files=["res://.godot/imported/red_button_bitmap.bmp-dea714c810675e7107ac3edd2353271a.res"]
+
+[params]
+
+create_from=0
+threshold=0.5

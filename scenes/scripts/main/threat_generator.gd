@@ -7,7 +7,7 @@ signal enemy_spawned(enemy_name, type)
 signal challenge_completed()
 
 var danger_player = UI.InfoHUD.danger_player
-
+var rotation_angle : float = 0
 var debug : bool: # Inherits debug from ThreatManager var
 	set(debug_toggle):
 		debug = debug_toggle
@@ -21,7 +21,9 @@ const enemy_data = "res://data/enemy_data.json"
 	"top": $ScreenArea/SpawnArea/TopSpawnPos,
 	"bottom_forward": $ScreenArea/SpawnAreaForward/BottomSpawnPos,
 	"center_forward": $ScreenArea/SpawnAreaForward/CenterSpawnPos,
-	"top_forward": $ScreenArea/SpawnAreaForward/TopSpawnPos
+	"top_forward": $ScreenArea/SpawnAreaForward/TopSpawnPos,
+	"far_top": $ScreenArea/SpawnArea/FarTop,
+	"far_bottom": $ScreenArea/SpawnArea/FarBottom
 }
 
 @onready var initial_global_position : Vector2 = Vector2.ZERO
@@ -48,6 +50,7 @@ func generate_threat(enemy, rule_override = null):
 	if rule_override: # Rules forced by events
 		assert(rule_override is Dictionary)
 		rules = rule_override
+		print(rules)
 	elif enemy_dict[enemy]["contain_rules"]: # Default rules inherited by enemy data
 		rules = enemy_dict[enemy]["rules"]
 	
@@ -60,6 +63,10 @@ func generate_threat(enemy, rule_override = null):
 					if debug: print('{0} CHECK | Spawn override forced {0} to spawn in {1}'.format({0:enemy.to_upper(), 1:spawn_override}))
 					selected_enemy.global_position = spawn_positions[spawn_override].global_position
 					initial_global_position = selected_enemy.global_position
+				"rotated":
+					print("ENEMY ROTATED")
+					rotation_angle = rule_property
+					selected_enemy.rotation = rotation_angle
 				"notify_danger":
 					var modulate_color : Color = Color.WHITE
 					var timeout : float = 4
@@ -71,6 +78,7 @@ func generate_threat(enemy, rule_override = null):
 					var spawn_delay = rule_property["delay"]
 					if debug: print('{0} CHECK | Swarm of {1} queued in swarm_constructor, using method {2}'.format({0:enemy.to_upper(), 1:spawn_amount, 2:spawn_method}))
 					swarm_constructor(enemy_load, spawn_method, spawn_separation, spawn_amount, spawn_delay)
+					return
 				"challenge":
 					if debug: print('Challenge initialized')
 					challenge = rule_property
@@ -95,6 +103,7 @@ func generate_threat(enemy, rule_override = null):
 func swarm_constructor(enemy_load, method, separation, amount, delay = 0):
 	for n in amount:
 		var enemy = enemy_load.instantiate()
+		enemy.set_rotation_degrees(rotation_angle)
 		enemy.global_position = initial_global_position
 		match int(method): # Defines the format the swarm will be spawned
 			0: # Vertical
@@ -109,7 +118,11 @@ func swarm_constructor(enemy_load, method, separation, amount, delay = 0):
 		if delay > 0:
 			print(amount, delay)
 			await get_tree().create_timer(delay).timeout
+		
 		enemies_container.call_deferred("add_child", enemy) # Adds enemy to EnemiesContainer
+	
+	## Reset previous values
+	rotation_angle = 0
 
 func _on_challenge_completed(): # Relays the signal to unpause timer
 	challenge_completed.emit()

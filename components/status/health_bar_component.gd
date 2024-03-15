@@ -5,6 +5,7 @@ const check_cooldown : int = 3
 @export var health_component : HealthComponent
 @export var lock_rotation : bool = true
 @export var visibility_threshold : float = 80
+@export var lock_bar : bool = false
 
 @onready var health_bar : Node = $HealthBar
 @onready var checker : Timer = $CheckTimer
@@ -41,11 +42,12 @@ func _process(_delta):
 		global_rotation = 0.0
 
 func _on_health_bar_value_changed(value):
-	if value < max_health:
-		health_bar.visible = true
-	
-	if value > visibility_threshold:
-		checker.start(check_cooldown)
+	if !lock_bar:
+		if value < max_health:
+			health_bar.visible = true
+		
+		if value > visibility_threshold:
+			checker.start(check_cooldown)
 
 func _on_check_timer_timeout():
 	health_bar.visible = false

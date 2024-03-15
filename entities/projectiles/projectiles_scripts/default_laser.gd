@@ -1,25 +1,38 @@
 extends Area2D
 
+@onready var projectile_sound = $ProjectileSound
 const base_rate_of_fire : float = 5
-@export var projectile_speed = 1300
-@export var projectile_damage = 2
-
 var enemy_pass_count = 0
 
+
 # Factors and multiplyers
-@export var can_damage_player : bool = false
-@export var enemy_pass_limit : int = 2
+var projectile_speed = 1300
+var projectile_damage = 2
+var can_damage_player : bool = false
+var enemy_pass_limit : int = 2
 var penetration_factor : float = 0.3
 var damage_factor_against_bosses : float = 1
 var critical_damage_factor : float = 2
 
 @export var debug : bool = false
+@export var modulate_pitch : bool = false
+var pitch_variation = 0.05
+
+func _ready():
+	randomize()
+	
+	if modulate_pitch: projectile_sound.set_pitch_scale(randf_range(1 - pitch_variation, 1 + pitch_variation))
+	projectile_sound.play()
 
 func _physics_process(delta):
 	global_position.x += projectile_speed * delta
 
 func _on_outside_screen_check_exit_detected():
 	queue_free()
+
+func check_pass_count():
+	if enemy_pass_count == enemy_pass_limit:
+		queue_free()
 
 func _on_hitbox_area_entered(area):
 	var damage_buildup : float
@@ -31,8 +44,9 @@ func _on_hitbox_area_entered(area):
 		for group in area.owner.get_groups():
 			match group:
 				'shielding':
-					enemy_pass_count += 20
+					enemy_pass_count += 10
 					damage_buildup = projectile_damage * penetration_factor
+					check_pass_count()
 				'miniboss', 'boss':
 					damage_buildup = projectile_damage * damage_factor_against_bosses
 				'core':
@@ -42,7 +56,7 @@ func _on_hitbox_area_entered(area):
 		
 		real_damage = int(damage_buildup)
 		area.generate_damage(real_damage)
-	
-	if enemy_pass_count == enemy_pass_limit:
-		queue_free()
+		
+		check_pass_count()
+
 

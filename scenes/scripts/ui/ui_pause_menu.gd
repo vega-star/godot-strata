@@ -9,13 +9,19 @@ var lock_pause : bool = false
 
 func pause():
 	unpause_button.grab_focus()
-	UI.set_pause(true)
 	pause_state = true
+	
+	UI.set_pause(true)
+	AudioManager.set_pause(true)
+	
 	show()
 
 func unpause():
-	UI.set_pause(false)
 	pause_state = false
+	
+	UI.set_pause(false)
+	AudioManager.set_pause(false)
+	
 	hide()
 
 func lock(lock_bool):

@@ -3,6 +3,8 @@ class_name HitboxComponent extends Node
 signal shielding_destroyed
 
 # Linked components
+@onready var hitsound_emitter = $HitsoundEmitter
+
 @export var health_component : HealthComponent
 @export var combat_component : CombatComponent
 
@@ -15,6 +17,7 @@ var immunity_frames_count = 0
 var is_immune : bool = false
 
 # Toggle behaviors
+@export var set_health_bar : bool = true
 @export var is_shielding : bool = false
 @export var immune_to_damage : bool = false
 @export var is_composite_module : bool = false
@@ -42,8 +45,12 @@ func _ready():
 		# Hitbox still works as it inherits the child hitbox node, but will not flicker when recieving constant damage, rendering some weapons useless.
 	
 	if is_shielding:
-		health_component = get_child(0)
-		active_hitbox = get_child(1)
+		for child in get_children():
+			if child is HealthComponent:
+				health_component = child
+			elif child is CollisionPolygon2D or child is CollisionShape2D:
+				active_hitbox = child
+		
 		self.add_to_group('shielding')
 	elif is_composite_module:
 		var hitbox_position = get_parent().get_child_count()
@@ -63,6 +70,8 @@ func toggle_immunity(boolean_value):
 
 func generate_damage(damage):
 	if !immune_to_damage:
+		hitsound_emitter.play()
+		
 		if health_component and !is_immune:
 			is_immune = true
 			immunity_frames_count = 0

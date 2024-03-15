@@ -120,12 +120,11 @@ func _on_screen_reentered():
 	returned_to_screen = true
 
 func _on_outside_screen_check_exit_detected():
-	while true: # If the missile goes out of the screen, we give it a short time to come back before deleting it
-		await get_tree().create_timer(3, false).timeout
-		if returned_to_screen:
-			returned_to_screen = false
-			break
-		else: queue_free()
+	await get_tree().create_timer(3, false).timeout
+	if returned_to_screen:
+		returned_to_screen = false
+	else: 
+		queue_free()
 
 func _on_hitbox_area_entered(area): # Causes damage to where it collides
 	var damage_buildup : float
@@ -155,6 +154,7 @@ func _bomb_exploded():
 	$MissileSprite.visible = false
 	$BombExplosionSprite.visible = true
 	$MissileTrail.emitting = false
+	$ExplosionSound.play()
 	
 	set_deferred("$SelfProjectileBox.disabled",true)
 	

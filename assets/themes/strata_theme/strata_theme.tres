@@ -1,6 +1,6 @@
-[gd_resource type="Theme" load_steps=67 format=3 uid="uid://b1a5sjt2xibwo"]
+[gd_resource type="Theme" load_steps=73 format=3 uid="uid://b1a5sjt2xibwo"]
 
-[ext_resource type="FontFile" uid="uid://0bmvakfotygp" path="res://assets/themes/VT323-Regular.ttf" id="1_gsnjr"]
+[ext_resource type="Texture2D" uid="uid://bq4h2bfsxvxrv" path="res://assets/themes/strata_theme/elements/styleboxes/smaller/sb_normal.png" id="1_6ekk0"]
 [ext_resource type="Texture2D" uid="uid://cmdf58qhbgll" path="res://assets/themes/strata_theme/elements/styleboxes/default_box_disabled.png" id="2_o3frv"]
 [ext_resource type="Texture2D" uid="uid://4i8480w5b041" path="res://assets/themes/strata_theme/elements/styleboxes/default_box_focus.png" id="3_5b1pw"]
 [ext_resource type="Texture2D" uid="uid://w060p8aabiwt" path="res://assets/themes/strata_theme/elements/styleboxes/default_box_hover.png" id="4_05oaq"]
@@ -23,6 +23,7 @@
 [ext_resource type="Texture2D" uid="uid://dmk38hkgs3x7" path="res://assets/themes/strata_theme/elements/styleboxes/smaller/sb_focus.png" id="21_8nkm3"]
 [ext_resource type="StyleBox" uid="uid://6yeaw88gf7r3" path="res://assets/themes/strata_theme/elements/tresfiles/panel_outline.tres" id="21_eqf1m"]
 [ext_resource type="Texture2D" uid="uid://bgsrp803hlkfe" path="res://assets/themes/strata_theme/elements/linetext/linebar_normal.png" id="22_n6u2u"]
+[ext_resource type="Texture2D" uid="uid://cjmvrv0winhto" path="res://assets/themes/strata_theme/elements/styleboxes/item_list_test.png" id="22_yq80r"]
 [ext_resource type="Texture2D" uid="uid://dvdhqlp70npgl" path="res://assets/themes/strata_theme/elements/linetext/linebar_disabled.png" id="23_rjv4y"]
 [ext_resource type="StyleBox" uid="uid://cb2bavdjvo14b" path="res://assets/themes/strata_theme/elements/tresfiles/menu_popup_panel.tres" id="24_dupgl"]
 [ext_resource type="Texture2D" uid="uid://bac7156pvu7dv" path="res://assets/themes/strata_theme/elements/icons/up_down.png" id="25_l72nw"]
@@ -32,6 +33,14 @@
 [ext_resource type="Texture2D" uid="uid://cueaakss7p51r" path="res://assets/themes/strata_theme/elements/bars/v_bar_slider_normal.png" id="29_215n0"]
 [ext_resource type="Texture2D" uid="uid://cs2offlhnaqu8" path="res://assets/themes/strata_theme/elements/bars/v_bar_slider_disabled.png" id="30_np2x8"]
 [ext_resource type="Texture2D" uid="uid://cptqdrjryetv7" path="res://assets/themes/strata_theme/elements/bars/v_bar_slider.png" id="31_4kuhg"]
+[ext_resource type="FontFile" uid="uid://0bmvakfotygp" path="res://assets/themes/fonts/VT323-Regular.ttf" id="34_4jjrs"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wwkjc"]
+content_margin_left = 5.0
+content_margin_top = 20.0
+content_margin_right = 5.0
+content_margin_bottom = 15.0
+bg_color = Color(0.384314, 0.333333, 0.396078, 1)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_x5hhf"]
 texture = ExtResource("2_o3frv")
@@ -93,11 +102,21 @@ texture_margin_bottom = 3.0
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ly84f"]
 bg_color = Color(1, 1, 1, 1)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dmn8g"]
+bg_color = Color(0.431373, 0.152941, 0.152941, 1)
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d8dkp"]
 bg_color = Color(0.054902, 0.686275, 0.607843, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ixpar"]
 bg_color = Color(0.498039, 0.439216, 0.541176, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_eamb5"]
+texture = ExtResource("22_yq80r")
+texture_margin_left = 7.0
+texture_margin_top = 7.0
+texture_margin_right = 15.0
+texture_margin_bottom = 7.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_02j73"]
 bg_color = Color(0.0862745, 0.352941, 0.298039, 1)
@@ -224,11 +243,24 @@ bg_color = Color(1, 1, 1, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ob6bn"]
 bg_color = Color(0.054902, 0.686275, 0.607843, 1)
 
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rm6lf"]
+texture = ExtResource("1_6ekk0")
+texture_margin_left = 5.0
+texture_margin_top = 5.0
+texture_margin_right = 5.0
+texture_margin_bottom = 5.0
+expand_margin_left = 5.0
+expand_margin_top = 32.0
+expand_margin_right = 5.0
+expand_margin_bottom = 5.0
+
 [resource]
 default_base_scale = 1.0
-default_font = ExtResource("1_gsnjr")
+default_font = ExtResource("34_4jjrs")
 default_font_size = 22
-Button/fonts/font = ExtResource("1_gsnjr")
+AcceptDialog/constants/buttons_separation = 10
+AcceptDialog/styles/panel = SubResource("StyleBoxFlat_wwkjc")
+Button/fonts/font = ExtResource("34_4jjrs")
 Button/styles/disabled = SubResource("StyleBoxTexture_x5hhf")
 Button/styles/focus = SubResource("StyleBoxTexture_epub3")
 Button/styles/hover = SubResource("StyleBoxTexture_ykhna")
@@ -253,14 +285,15 @@ HSlider/icons/grabber = ExtResource("18_xomgj")
 HSlider/icons/grabber_disabled = ExtResource("19_sxngm")
 HSlider/icons/grabber_highlight = ExtResource("20_tvi08")
 HSlider/styles/grabber_area = SubResource("StyleBoxFlat_ly84f")
+HSlider/styles/grabber_area_disabled = SubResource("StyleBoxFlat_dmn8g")
 HSlider/styles/grabber_area_highlight = SubResource("StyleBoxFlat_d8dkp")
 HSlider/styles/slider = ExtResource("17_fjqv3")
 ItemList/styles/focus = ExtResource("21_eqf1m")
 ItemList/styles/hovered = SubResource("StyleBoxFlat_ixpar")
-ItemList/styles/panel = ExtResource("24_dupgl")
+ItemList/styles/panel = SubResource("StyleBoxTexture_eamb5")
 ItemList/styles/selected = SubResource("StyleBoxFlat_02j73")
 ItemList/styles/selected_focus = SubResource("StyleBoxFlat_d2ghq")
-LineEdit/fonts/font = ExtResource("1_gsnjr")
+LineEdit/fonts/font = ExtResource("34_4jjrs")
 LineEdit/styles/focus = SubResource("StyleBoxTexture_26mg5")
 LineEdit/styles/normal = SubResource("StyleBoxTexture_7wvvj")
 LineEdit/styles/read_only = SubResource("StyleBoxTexture_yh6n7")
@@ -305,3 +338,4 @@ VSlider/icons/grabber_highlight = ExtResource("31_4kuhg")
 VSlider/styles/grabber_area = SubResource("StyleBoxFlat_4cp2r")
 VSlider/styles/grabber_area_highlight = SubResource("StyleBoxFlat_ob6bn")
 VSlider/styles/slider = ExtResource("17_fjqv3")
+Window/styles/embedded_border = SubResource("StyleBoxTexture_rm6lf")

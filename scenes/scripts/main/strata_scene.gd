@@ -6,6 +6,7 @@ signal stage_started
 var stage_id : String = "StrataScene"
 @export var stage_title : String = 'STAGE ZERO'
 @export var stage_description : String = 'SIMULATION'
+@export var save_stage_data : bool = true
 
 # Options
 var config = ConfigFile.new()
@@ -101,17 +102,20 @@ func start_stage_sequence(): # Starting animations, fade-in, etc.
 func end_stage_sequence(): # Fade-out, stage finished screen, etc.
 	stage_final_time = Time.get_unix_time_from_system()
 	
-	save_stage_performance(stage_final_time)
+	if save_stage_data:
+		save_stage_performance(stage_final_time)
 	
 	player.controls_lock(true)
 	var player_move_to_center = get_tree().create_tween()
 	player_move_to_center.tween_property(player,"global_position.x",1200, 0.95)
 	
-	transition_controller.stage_completed()
+	UI.InfoHUD.display_title("{0} COMPLETED".format({0:stage_title}), "", 5)
+	await get_tree().create_timer(2).timeout
+	UI.InfoHUD.display_title("{0} COMPLETED".format({0:stage_title}), "RETURNING TO MAIN MENU", 5)
 	await get_tree().create_timer(3).timeout
-	UI.fade('OUT')
-	await get_tree().create_timer(5).timeout
-	get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
+	
+	await UI.fade('OUT')
+	get_tree().change_scene_to_file("res://scenes/ui/main_menu.tscn")
 
 func save_stage_performance(final_time):
 	var stage_time = int(final_time - stage_start_time)

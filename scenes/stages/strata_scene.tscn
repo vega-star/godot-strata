@@ -10,6 +10,7 @@
 light_mask = 2
 visibility_layer = 2
 script = ExtResource("1_yvb6t")
+save_stage_data = false
 
 [node name="StageManager" parent="." instance=ExtResource("2_yuycq")]
 debug_generator = false

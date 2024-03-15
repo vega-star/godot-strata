@@ -24,6 +24,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_yjy47")
 
 [node name="ConfigContainer" type="HSplitContainer" parent="OptionsControl"]
 layout_mode = 1
@@ -72,6 +73,7 @@ offset_right = -5.0
 offset_bottom = 194.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_yjy47")
 theme_override_constants/separation = 8
 alignment = 1
 
@@ -154,9 +156,9 @@ offset_bottom = 9.0
 grow_vertical = 2
 focus_neighbor_top = NodePath("..")
 focus_neighbor_bottom = NodePath("../../../MusicVol/Music_Toggle")
-value = 50.0
-rounded = true
-allow_greater = true
+max_value = 1.0
+step = 0.001
+value = 0.7
 
 [node name="MusicVol" type="Label" parent="OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons/VolumeContainer"]
 layout_mode = 2
@@ -195,9 +197,9 @@ offset_bottom = 9.0
 grow_vertical = 2
 focus_neighbor_top = NodePath("..")
 focus_neighbor_bottom = NodePath("../../../SoundEffectVol/Effect_Toggle")
-value = 50.0
-rounded = true
-allow_greater = true
+max_value = 1.0
+step = 0.001
+value = 0.7
 
 [node name="SoundEffectVol" type="Label" parent="OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons/VolumeContainer"]
 layout_mode = 2
@@ -235,16 +237,15 @@ offset_bottom = 9.0
 grow_vertical = 2
 focus_neighbor_top = NodePath("..")
 focus_neighbor_bottom = NodePath("../../../../ToggleFiring")
-value = 50.0
-rounded = true
-allow_greater = true
+max_value = 1.0
+step = 0.001
+value = 0.7
 
 [node name="ToggleFiring" type="CheckButton" parent="OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons"]
 layout_mode = 2
 focus_neighbor_top = NodePath("../VolumeContainer/SoundEffectVol/Effect_Toggle/Effect_Slider")
 focus_neighbor_right = NodePath("../../../Binds/BindGrids/BindGridLeft/LEFT_B")
 focus_neighbor_bottom = NodePath("../Photosens_Mode")
-theme = ExtResource("1_yjy47")
 text = "TOGGLE FIRING"
 alignment = 1
 
@@ -253,7 +254,6 @@ layout_mode = 2
 focus_neighbor_top = NodePath("../VolumeContainer/SoundEffectVol/Effect_Toggle/Effect_Slider")
 focus_neighbor_right = NodePath("../../../Binds/BindGrids/BindGridLeft/LEFT_B")
 focus_neighbor_bottom = NodePath("../Photosens_Mode")
-theme = ExtResource("1_yjy47")
 text = "SCREEN SHAKE"
 alignment = 1
 
@@ -262,7 +262,6 @@ layout_mode = 2
 focus_neighbor_top = NodePath("../ToggleFiring")
 focus_neighbor_right = NodePath("../../../Binds/BindGrids/BindGridLeft/RIGHT_B")
 focus_neighbor_bottom = NodePath("../ResetDefKeybind")
-theme = ExtResource("1_yjy47")
 text = "PHOTOSENSIBILITY MODE"
 alignment = 1
 
@@ -270,7 +269,6 @@ alignment = 1
 layout_mode = 2
 focus_neighbor_top = NodePath("../Photosens_Mode")
 focus_neighbor_right = NodePath("../../../Binds/BindGrids/BindGridLeft/PAUSE_B")
-theme = ExtResource("1_yjy47")
 theme_override_colors/font_hover_color = Color(0.909804, 0.231373, 0.231373, 1)
 text = "RESET DEFAULT KEYBINDS"
 
@@ -524,17 +522,17 @@ offset_bottom = 57.0
 grow_horizontal = 0
 focus_neighbor_left = NodePath("../ConfigContainer/Binds/BindGrids/BindGridRight/DASH_B")
 focus_neighbor_bottom = NodePath("../ConfigContainer/Binds/BindGrids/BindGridRight/DASH_B")
-theme = ExtResource("1_yjy47")
 theme_override_font_sizes/font_size = 30
 text = "X"
 
 [node name="ExitCheck" type="ConfirmationDialog" parent="OptionsControl"]
 title = "EXIT"
 initial_position = 1
-size = Vector2i(200, 80)
+size = Vector2i(200, 116)
 theme = ExtResource("1_yjy47")
 ok_button_text = "Save"
-dialog_text = "  Save keybinds?"
+dialog_text = "  Save new options?"
+dialog_autowrap = true
 
 [node name="ResetBinds" type="ConfirmationDialog" parent="OptionsControl"]
 title = "CONFIRM"
@@ -547,10 +545,13 @@ dialog_text = "Reset default keybinds?"
 [connection signal="visibility_changed" from="." to="." method="_on_options_visibility_changed"]
 [connection signal="item_selected" from="OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons/ScreenMode/ScreenModeMenu" to="." method="_on_screen_mode_selected"]
 [connection signal="toggled" from="OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons/VolumeContainer/MasterVol/Master_Toggle" to="." method="_on_master_toggle_toggled"]
+[connection signal="drag_ended" from="OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons/VolumeContainer/MasterVol/Master_Toggle/Master_Slider" to="." method="_on_master_slider_drag_ended"]
 [connection signal="value_changed" from="OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons/VolumeContainer/MasterVol/Master_Toggle/Master_Slider" to="." method="_on_master_slider_value_changed"]
 [connection signal="toggled" from="OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons/VolumeContainer/MusicVol/Music_Toggle" to="." method="_on_music_toggle_toggled"]
+[connection signal="drag_ended" from="OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons/VolumeContainer/MusicVol/Music_Toggle/Music_Slider" to="." method="_on_music_slider_drag_ended"]
 [connection signal="value_changed" from="OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons/VolumeContainer/MusicVol/Music_Toggle/Music_Slider" to="." method="_on_music_slider_value_changed"]
 [connection signal="toggled" from="OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons/VolumeContainer/SoundEffectVol/Effect_Toggle" to="." method="_on_effect_toggle_toggled"]
+[connection signal="drag_ended" from="OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons/VolumeContainer/SoundEffectVol/Effect_Toggle/Effect_Slider" to="." method="_on_effect_slider_drag_ended"]
 [connection signal="value_changed" from="OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons/VolumeContainer/SoundEffectVol/Effect_Toggle/Effect_Slider" to="." method="_on_effect_slider_value_changed"]
 [connection signal="pressed" from="OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons/ToggleFiring" to="." method="_on_toggle_firing_pressed"]
 [connection signal="pressed" from="OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons/ScreenShake" to="." method="_on_screen_shake_pressed"]

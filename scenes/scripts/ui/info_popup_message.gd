@@ -11,16 +11,16 @@ const default_timeout : float = 3
 @onready var text_dict : Dictionary = {
 	0: "This is a debug message and should [b]NOT[/b] be appearing in normal gameplay",
 	1: "This is message number 1.\nTest 1 successful",
-	2: "Welcome! This is a tutorial stage meant to test your movement and action.",
+	2: "Welcome! This stage is a simulation meant to test your movement and action.",
 	3: "Press [color=#f9c22b][b][{shoot}][/b][/color] to fire the [color=#4d9be6]primary weapon[/color]. Firing can be also be toggled in the configuration menu.",
 	4: "Press [color=#f9c22b][b][{bomb}][/b][/color] to fire the [color=#4d9be6]secondary weapon[/color]. It consumes ammo, but deals a lot more damage.",
-	5: "Ammo can be retrieved from fallen enemies, but its maximum cannot be increased by consumables.\n\nYou can increase it with certain items.",
+	5: "Ammo can be retrieved from fallen enemies, but its limited by a max amount.\n\nYou can increase it with items.",
 	6: "For more mobility, you can press [color=#f9c22b][b][{dash}][/b][/color] and dash in a direction.\n\nThe trail emits a burst when it resets.",
-	7: "You can also roll by pressing [color=#f9c22b][b][{roll}][/b][/color] and evade projectiles and collisions.\n\nBoth a light flicker and a sound is emitted when it resets, and be used simultaneously with dash.",
+	7: "You can also roll by pressing [color=#f9c22b][b][{roll}][/b][/color] and evade projectiles and collisions.\n\nIt also can be used simultaneously with dash.",
 	8: "If the current settings aren't confortable to you, you can set your own keybinds in options.\n\nThe game also supports controllers, even on web!",
-	9: "[color=#ea4f36][b]Enemies[/b][/color] can also spawn from behind, but your fighter comes with a radar. If suddenly, a [color=#f9c22b][b]danger indicator[/b][/color] will appear on screen.\n\nIn specific situations it may not, so be careful!",
-	10: "Stages have a progress bar indicates how close you are to completing it and marks dangers further ahead.\n\nSometimes the bar pauses and only resumes after completion of some challenge, like defeating a boss.\nFor example, this message is locking the bar.",
-	11: "Items that aren't consumables are not easily found and mostly dropped by [color=#ea4f36][b]challenging foes[/b][/color], but combining them is essential to progress.\n\nNot only they can accumulate and stack, you can also fuse them into stronger items!",
+	9: "[color=#ea4f36][b]Enemies[/b][/color] can also spawn from far behind. A [color=#f9c22b][b]danger indicator[/b][/color] will appear on screen.",
+	10: "Stages have a progress bar.\n\nSometimes the bar pauses and only resumes after completion of an event.",
+	11: "Items are mostly dropped by [color=#ea4f36][b]challenging foes[/b][/color], but combining them is essential.",
 	14: "Everything you discover in the game will be registered in the codex [currently WIP], so you can further research them and plan your future runs",
 	15: "That's all for now. Thanks for playing, and good luck!"
 }

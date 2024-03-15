@@ -123,8 +123,8 @@ func reset_run_data():
 	current_run_data.set_value("STATISTICS", "AMMO_RECOVERED", 0)
 	
 	## INVENTORY
-	current_run_data.set_value("INVENTORY", "PRIMARY_WEAPON", "default_laser")
-	current_run_data.set_value("INVENTORY", "SECONDARY_WEAPON", "default_bomb")
+	current_run_data.set_value("INVENTORY", "PRIMARY_WEAPON", "")
+	current_run_data.set_value("INVENTORY", "SECONDARY_WEAPON", "")
 	current_run_data.set_value("INVENTORY", "CURRENT_HEALTH", 1)
 	current_run_data.set_value("INVENTORY", "MAX_HEALTH", 5)
 	current_run_data.set_value("INVENTORY", "HEALTH_REGENERATION", false)

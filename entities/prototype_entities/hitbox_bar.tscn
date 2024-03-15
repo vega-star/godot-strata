@@ -1,0 +1,43 @@
+[gd_scene load_steps=5 format=3 uid="uid://jxc3fedic2hm"]
+
+[ext_resource type="Script" path="res://entities/entity_scripts/hitbox_bar.gd" id="1_aeh8c"]
+[ext_resource type="Texture2D" uid="uid://dea3eaanbvulw" path="res://assets/textures/projectiles/hitbox_bar_texture.png" id="2_8y3t4"]
+[ext_resource type="PackedScene" uid="uid://c3atqdge540t0" path="res://components/status/hitbox_component.tscn" id="7_t7rsv"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tq5bo"]
+size = Vector2(32.8572, 1574.29)
+
+[node name="HitboxBar" type="Area2D" groups=["debug_entity"]]
+scale = Vector2(0.7, 0.7)
+collision_layer = 2
+collision_mask = 5
+script = ExtResource("1_aeh8c")
+bulk_updating = true
+
+[node name="EnemySprite" type="Sprite2D" parent="."]
+texture_repeat = 3
+position = Vector2(0.285718, 730.255)
+scale = Vector2(1.92857, 126.39)
+texture = ExtResource("2_8y3t4")
+
+[node name="SelfCollision" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(0, -3.54222e-05)
+shape = SubResource("RectangleShape2D_tq5bo")
+debug_color = Color(0, 0.6, 0.701961, 0)
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(130, 0)
+
+[node name="HitboxComponent" parent="." instance=ExtResource("7_t7rsv")]
+collision_layer = 2
+collision_mask = 5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
+position = Vector2(0.714284, 0)
+scale = Vector2(0.999999, 0.999999)
+shape = SubResource("RectangleShape2D_tq5bo")
+debug_color = Color(0.701961, 0, 0.152941, 0.2)
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

@@ -3,12 +3,12 @@
 importer="font_data_dynamic"
 type="FontFile"
 uid="uid://dwtntl5rvhwgr"
-path="res://.godot/imported/CRYSRG__.TTF-70cd96321ac348f477751e30af90ea32.fontdata"
+path="res://.godot/imported/CRYSRG__.TTF-ae3ea41583df6c2181a4eeb25d95e520.fontdata"
 
 [deps]
 
-source_file="res://assets/themes/CRYSRG__.TTF"
-dest_files=["res://.godot/imported/CRYSRG__.TTF-70cd96321ac348f477751e30af90ea32.fontdata"]
+source_file="res://assets/themes/fonts/CRYSRG__.TTF"
+dest_files=["res://.godot/imported/CRYSRG__.TTF-ae3ea41583df6c2181a4eeb25d95e520.fontdata"]
 
 [params]
 

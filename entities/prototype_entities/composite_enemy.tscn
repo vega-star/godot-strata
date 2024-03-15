@@ -115,6 +115,7 @@ position = Vector2(-43, -10)
 rotation = 3.14159
 deactivate_instead = true
 self_sprite = NodePath("SpriteOverride")
+set_health_bar = true
 
 [node name="SpriteOverride" type="Sprite2D" parent="CompositeParts/CompositeEnemyModule1/EnemyGun"]
 rotation = 3.14159
@@ -136,6 +137,7 @@ position = Vector2(-43, -10)
 rotation = 3.14159
 deactivate_instead = true
 self_sprite = NodePath("SpriteOverride")
+set_health_bar = true
 min_angle_limit = -45.0
 max_angle_limit = 45.0
 

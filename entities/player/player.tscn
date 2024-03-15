@@ -719,6 +719,7 @@ collision_mask = 26
 motion_mode = 1
 platform_wall_layers = 2
 script = ExtResource("1_hermy")
+dash_cooldown_timer = 1.7
 
 [node name="TrailComponent" parent="." instance=ExtResource("2_ev3b1")]
 position = Vector2(-19, 7)

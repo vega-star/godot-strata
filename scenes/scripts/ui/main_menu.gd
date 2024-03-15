@@ -25,6 +25,8 @@ func _ready():
 	screen_size = get_viewport_rect().size
 	await UI.fade('IN')
 	$MenuPages/CentralPage/ButtonsContainer/StartButton.grab_focus()
+	
+	AudioManager.set_music("first_in_line-placeholder")
 
 func set_focus(focus_position, direction):
 	match page_direction:
@@ -39,8 +41,8 @@ func set_focus(focus_position, direction):
 				0: $MenuPages/CentralPage.set_focus()
 				1: pass # Codex
 
-func set_page_position(set_position, direction : bool = true):
-	page_position = set_position
+func set_page_position(new_position, direction : bool = true):
+	page_position = new_position
 	page_direction = direction
 	
 	var position_tween = get_tree().create_tween()
@@ -58,3 +60,6 @@ func _on_config_button_pressed():
 func _on_options_visibility_changed():
 	if !Options.visible:
 		set_focus(page_position, page_direction)
+
+func _exiting_menu():
+	AudioManager.set_pause(true)

@@ -55,8 +55,9 @@ func change_health(amount : int, negative : bool = true):
 		
 		health_change.emit(previous_value, current_health, negative)
 		
-		if health_bar: health_bar.visible = true # Turns the health_bar visible after the first change
-		if health_bar: health_bar.health_bar_sync = current_health # Sync with health_bar ONLY if there's a health_bar node attributed
+		if owner.set_health_bar and health_bar:
+			health_bar.visible = true # Turns the health_bar visible after the first change
+			health_bar.health_bar_sync = current_health # Sync with health_bar ONLY if there's a health_bar node attributed
 
 func lock_health(lock): # A switch for invulnerability
 	lock_health_changes = lock

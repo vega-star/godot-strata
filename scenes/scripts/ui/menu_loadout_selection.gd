@@ -6,6 +6,7 @@ var weapons_dict : Dictionary
 const items_data_path = "res://data/items_data.json"
 const weapons_data_path = "res://data/weapons_data.json"
 const first_stage = "res://scenes/stages/strata_scene.tscn"
+const tutorial_stage_path = "res://scenes/stages/strata_scene.tscn"
 
 var primary_weapons : Array
 var secondary_weapons : Array
@@ -15,6 +16,7 @@ var selected_primary : String
 var selected_secondary : String
 var selected_item : String
 
+@onready var main_menu = get_parent().get_parent()
 @export var debug : bool = false
 
 func _ready():
@@ -78,16 +80,18 @@ func _ready():
 		selected_secondary = secondary_weapons[0]
 		selected_item = starter_items[0]
 	
-	# await UI.fade('IN')
-	# set_focus()
+	## Patches
+	# $StartButton.position = Vector2(802, 368)
 
 func set_focus():
 	$StartButton.grab_focus()
 
 func _on_start_button_pressed(): # StartButton
-	confirm_selection()
-	await UI.fade('OUT')
-	LoadManager.load_scene(first_stage)
+	$AnimationPlayer.play("press_button")
+	start_run(first_stage)
+
+func _on_tutorial_button_pressed():
+	start_run(tutorial_stage_path)
 
 func _on_return_to_main_menu_pressed():
 	owner.set_page_position(0)
@@ -102,17 +106,20 @@ func _on_options_visibility_changed():
 func _on_primary_weapons_list_item_selected(index):
 	if debug: print(primary_weapons[index])
 	selected_primary = primary_weapons[index]
+	AudioManager.emit_sound_effect(null, "select_sound_1", false, true)
 
 func _on_secondary_weapons_list_item_selected(index):
 	if debug: print(secondary_weapons[index])
 	selected_secondary = secondary_weapons[index]
+	AudioManager.emit_sound_effect(null, "select_sound_1", false, true)
 
 func _on_starter_items_list_item_selected(index):
 	if debug: print(starter_items[index])
 	selected_item = starter_items[index]
+	AudioManager.emit_sound_effect(null, "select_sound_1", false, true)
 
 func confirm_selection():
-	Profile.start_run()
+	Profile.start_run() 
 	
 	Profile.profiles_data.set_value(Profile.selected_profile, "SAVED_LOADOUT", [
 		selected_primary,
@@ -124,3 +131,10 @@ func confirm_selection():
 	Profile.current_run_data.set_value("INVENTORY", "PRIMARY_WEAPON", selected_primary)
 	Profile.current_run_data.set_value("INVENTORY", "SECONDARY_WEAPON", selected_secondary)
 	Profile.add_run_data("INVENTORY", "ITEMS_STORED", selected_item)
+
+func start_run(stage_path):
+	confirm_selection()
+	main_menu._exiting_menu()
+	
+	await UI.fade('OUT')
+	LoadManager.load_scene(stage_path)

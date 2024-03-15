@@ -17,6 +17,7 @@ var weapons_dict : Dictionary
 @export var speed = 150
 @export var rotation_speed = 0.9
 @export var contact_damage = 1
+@export var set_health_bar : bool = true
 @onready var self_sprite = $CESprite
 @onready var self_hitbox = $HitboxComponent
 @onready var composite_parts_root = $CompositeParts

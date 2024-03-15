@@ -1,6 +1,7 @@
-[gd_scene load_steps=14 format=3 uid="uid://c1q12be6jjyek"]
+[gd_scene load_steps=15 format=3 uid="uid://c1q12be6jjyek"]
 
 [ext_resource type="Script" path="res://entities/projectiles/projectiles_scripts/default_laser.gd" id="1_24mmu"]
+[ext_resource type="AudioStream" uid="uid://oqrv4o4ltuu" path="res://assets/audio/effects/burst_laser.wav" id="2_albon"]
 [ext_resource type="Texture2D" uid="uid://c868sysa766fa" path="res://assets/textures/projectiles/default-laser.png" id="2_lky23"]
 [ext_resource type="Texture2D" uid="uid://d2lma1gj77n10" path="res://assets/textures/projectiles/laser_spawn_sequence.png" id="2_mbnwi"]
 [ext_resource type="PackedScene" uid="uid://c3atqdge540t0" path="res://components/status/hitbox_component.tscn" id="3_5k8xg"]
@@ -69,9 +70,12 @@ light_mask = 2
 collision_layer = 4
 collision_mask = 2
 script = ExtResource("1_24mmu")
-projectile_speed = 700
+modulate_pitch = true
 metadata/_edit_horizontal_guides_ = [-2.0, 2.0]
 metadata/_edit_vertical_guides_ = [-6.0, 6.0]
+
+[node name="ProjectileSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_albon")
 
 [node name="GPUParticles2D" type="CPUParticles2D" parent="."]
 position = Vector2(-9, 0)

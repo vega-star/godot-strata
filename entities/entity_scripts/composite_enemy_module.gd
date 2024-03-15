@@ -12,6 +12,7 @@ signal weapon_toggled
 @export var health_component : HealthComponent
 
 @export var set_health : int
+@export var set_health_bar : bool = true
 @export var vertical_inversion : bool
 @export var has_respawn_limit : bool
 @export var weapon_respawn_limit = 100

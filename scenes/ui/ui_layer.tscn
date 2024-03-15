@@ -14,7 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://451teuktm8oy" path="res://assets/textures/ui/hud/classic/bomb_cell.png" id="13_4k00c"]
 [ext_resource type="Theme" uid="uid://b1a5sjt2xibwo" path="res://assets/themes/strata_theme/strata_theme.tres" id="13_chyk2"]
 [ext_resource type="Texture2D" uid="uid://cnafgvhwn8x3f" path="res://assets/textures/ui/hud/classic/bomb_short_cell.png" id="14_bq438"]
-[ext_resource type="FontFile" uid="uid://0bmvakfotygp" path="res://assets/themes/VT323-Regular.ttf" id="14_f31xd"]
+[ext_resource type="FontFile" uid="uid://0bmvakfotygp" path="res://assets/themes/fonts/VT323-Regular.ttf" id="14_f31xd"]
 [ext_resource type="Texture2D" uid="uid://cano6k0rmkt8h" path="res://assets/textures/ui/hud/classic/stage_bar.png" id="15_5b0wf"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_32oi1"]

@@ -6,6 +6,18 @@
         "contain_items": true,
         "drops": {"type": 0, "items": [false,"secondary_ammo","health_capsule", "damage_boost"], "chances": [0,80,90,95], "range": 100}
     },
+    "hitbox_bar": {
+        "scene": "res://entities/prototype_entities/hitbox_bar.tscn", 
+        "type": 0,
+        "contain_rules": false,
+        "contain_items": false
+    },
+    "static_gun": {
+        "scene": "res://entities/prototype_entities/static_enemy_gun.tscn", 
+        "type": 0,
+        "contain_rules": false,
+        "contain_items": false
+    },
     "drone_1": {
         "scene": "res://entities/enemies/drone.tscn", 
         "type": 0,

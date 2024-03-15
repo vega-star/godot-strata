@@ -19,16 +19,17 @@ const self_scene_path = "res://entities/dummy_enemies/enemy_gun.tscn"
 @onready var projectile_container = get_tree().get_first_node_in_group('ProjectileContainer')
 
 ## Properties
+@export var set_health_bar : bool = false
 @export var limit_angle : bool = false
 @export var min_angle_limit : float = -90
 @export var max_angle_limit : float = 90
+@export var contact_damage = 1
+@export var rate_of_fire : float = 1
+@export var rof_randomness : float = 1.15
 
 @onready var projectile_scene = preload("res://entities/projectiles/default_enemy_laser.tscn")
 @onready var player = get_tree().get_first_node_in_group('Player')
-@export var contact_damage = 1
-@export var set_health_bar : bool = false
-@export var rate_of_fire : float = 1
-@export var rof_randomness : float = 1.15
+
  
 var shoot_cooldown : bool = false
 var shoot_lock : bool = false
@@ -47,7 +48,7 @@ func _ready():
 	if !muzzle: muzzle = $GunMuzzle
 	
 	randomize()
-	health_bar_component.visible = set_health_bar
+	health_bar_component.lock_bar = set_health_bar
 
 func _physics_process(_delta):
 	if get_tree().has_group('Player'): 

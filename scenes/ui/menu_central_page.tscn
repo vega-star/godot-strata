@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://3js2ufvdnk2k"]
+[gd_scene load_steps=10 format=3 uid="uid://3js2ufvdnk2k"]
 
 [ext_resource type="Script" path="res://scenes/scripts/ui/menu_central_page.gd" id="1_gad2b"]
 [ext_resource type="PackedScene" uid="uid://c8sis2bmuopvk" path="res://scenes/ui/menu_bg.tscn" id="1_ijhm3"]
 [ext_resource type="Texture2D" uid="uid://b1gfbx416f357" path="res://assets/textures/static/github_icon_outline.png" id="3_hf2uu"]
 [ext_resource type="Theme" uid="uid://b1a5sjt2xibwo" path="res://assets/themes/strata_theme/strata_theme.tres" id="3_l8my2"]
 [ext_resource type="Texture2D" uid="uid://choj350rc1swa" path="res://assets/textures/static/github_icon_filling.png" id="4_04cwg"]
+[ext_resource type="PackedScene" uid="uid://c2vd5a4tvc1kw" path="res://scenes/ui/ui_default_button.tscn" id="4_hujtw"]
 [ext_resource type="Texture2D" uid="uid://dlke7x7tilc7i" path="res://assets/textures/static/strata_logo_wireframe.png" id="4_k3w4p"]
 [ext_resource type="Texture2D" uid="uid://bmpah4ugbbs2w" path="res://assets/textures/static/zero.png" id="5_6d0yf"]
 [ext_resource type="BitMap" uid="uid://c3wks6bj3r8k3" path="res://assets/textures/static/github_icon.bmp" id="5_lbftm"]
@@ -42,41 +43,28 @@ alignment = 1
 [node name="ContinueButton" type="Button" parent="ButtonsContainer"]
 visible = false
 layout_mode = 2
-focus_neighbor_right = NodePath("../../../../ConfigButton")
 theme = ExtResource("3_l8my2")
 disabled = true
 text = "CONTINUE"
 
-[node name="StartButton" type="Button" parent="ButtonsContainer"]
+[node name="StartButton" parent="ButtonsContainer" instance=ExtResource("4_hujtw")]
 layout_mode = 2
-focus_neighbor_right = NodePath("../../../../ConfigButton")
-theme = ExtResource("3_l8my2")
-text = "START RUN"
+text = "START"
 
-[node name="ProfileButton" type="Button" parent="ButtonsContainer"]
+[node name="ProfileButton" parent="ButtonsContainer" instance=ExtResource("4_hujtw")]
 layout_mode = 2
-focus_neighbor_right = NodePath("../../../../ConfigButton")
-theme = ExtResource("3_l8my2")
-disabled = true
 text = "PROFILE"
 
-[node name="CodexButton" type="Button" parent="ButtonsContainer"]
+[node name="CodexButton" parent="ButtonsContainer" instance=ExtResource("4_hujtw")]
 layout_mode = 2
-focus_neighbor_right = NodePath("../../../../ConfigButton")
-theme = ExtResource("3_l8my2")
-disabled = true
 text = "CODEX"
 
-[node name="CreditsButton" type="Button" parent="ButtonsContainer"]
+[node name="CreditsButton" parent="ButtonsContainer" instance=ExtResource("4_hujtw")]
 layout_mode = 2
-focus_neighbor_right = NodePath("../../../../ConfigButton")
-theme = ExtResource("3_l8my2")
 text = "CREDITS"
 
-[node name="QuitButton" type="Button" parent="ButtonsContainer"]
+[node name="QuitButton" parent="ButtonsContainer" instance=ExtResource("4_hujtw")]
 layout_mode = 2
-focus_neighbor_bottom = NodePath("../StartButton")
-theme = ExtResource("3_l8my2")
 text = "QUIT"
 
 [node name="VersionLabel" type="Label" parent="."]
