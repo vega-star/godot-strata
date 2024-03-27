@@ -6,6 +6,7 @@ signal bomb_exploded()
 const base_rate_of_fire : float = 50
 const self_damage : int = 1
 const explosion_duration : float = 0.5
+const pitch_variation : float = 0.25
 @export var projectile_damage : int = 10
 @export var can_damage_player : bool = false
 @export var immune_to_enemy_shots : bool = false
@@ -30,12 +31,14 @@ var available_targets = []
 
 # Movement
 var stage_speed = 5
-@export var initial_projectile_speed = 4
-@export var projectile_max_speed : int = 30
-@export var projectile_acceleration_rate = 0.5
-var projectile_speed : int = initial_projectile_speed
-var missile_manueverability : float = 2
-var max_manueverability : float = 7
+
+@export var initial_projectile_speed : float = 2
+@export var projectile_max_speed : float = 5
+@export var projectile_acceleration_rate = 1.05
+
+var projectile_speed : float = initial_projectile_speed
+var missile_maneuverability : float = 2
+var max_maneuverability : float = 7
 const bomb_expansion_factor : float = 0.3
 const bomb_imploding_factor : float = 0.4
 
@@ -45,7 +48,7 @@ var chaos_range : float = 3
 var rand_vector : Vector2
 
 func _ready():
-	if chaotic_movement: randomize()
+	randomize()
 	
 	if can_damage_player:
 		$HitboxComponent.set_collision_layer_value(1, true)
@@ -53,8 +56,6 @@ func _ready():
 	
 	if immune_to_enemy_shots:
 		$HitboxComponent.set_collision_mask_value(4, false)
-	
-	var player = get_tree().get_nodes_in_group("player")
 
 func _physics_process(delta):
 	if chaotic_movement:
@@ -68,7 +69,7 @@ func _physics_process(delta):
 			for enemy in enemies_on_screen: # Fills an array with all the enemies on screen
 				var distance_to_enemy = enemy.global_position.distance_to(self.global_position)
 				
-				if enemy.combat_component.is_being_targeted: 
+				if enemy.combat_component.is_being_targeted or !enemy.combat_component.is_valid_target: 
 					pass # Ignore enemy if it's already targeted by another projectile
 				else:
 					available_targets.append([enemy,distance_to_enemy])
@@ -94,10 +95,17 @@ func _physics_process(delta):
 		$HitboxComponent/ProjectileRadius.scale = $HitboxComponent/ProjectileRadius.scale.lerp(Vector2(0,0), bomb_imploding_factor)
 	
 	if lock_sucessful and !has_exploded: # Targed adquired
-		if is_instance_valid(locked_target[0]): 
+		if is_instance_valid(locked_target[0]):
+			if !locked_target[0].combat_component.is_valid_target: # Check if target is valid. 
+				# This is useful because the target can still exist in tree but in an inactive state. Ex.: death animation, disabled, etc.
+				locked_target
+				
+				locked = false
+				lock_sucessful = false
+			
 			target_position = locked_target[0].global_position
 			var target_angle = (target_position - self.global_position).angle()
-			self.global_rotation = lerp_angle(self.global_rotation, target_angle, missile_manueverability * delta)
+			self.global_rotation = lerp_angle(self.global_rotation, target_angle, missile_maneuverability * delta)
 			self.global_position += Vector2(2, 0).rotated(rotation) * projectile_speed + rand_vector
 		else: # Target adquired, but lost. Will try to find another target
 			locked = false
@@ -110,8 +118,8 @@ func _physics_process(delta):
 	else: # Seeking target
 		self.global_position += Vector2(2, 0).rotated(rotation) * projectile_speed + rand_vector
 	
-	if missile_manueverability < max_manueverability:
-		missile_manueverability += 0.3
+	if missile_maneuverability < max_maneuverability:
+		missile_maneuverability += 0.3
 	
 	if projectile_speed < projectile_max_speed:
 		projectile_speed += projectile_acceleration_rate
@@ -154,6 +162,8 @@ func _bomb_exploded():
 	$MissileSprite.visible = false
 	$BombExplosionSprite.visible = true
 	$MissileTrail.emitting = false
+	
+	$ExplosionSound.pitch_scale = randf_range(1 - pitch_variation, 1 + pitch_variation)
 	$ExplosionSound.play()
 	
 	set_deferred("$SelfProjectileBox.disabled",true)

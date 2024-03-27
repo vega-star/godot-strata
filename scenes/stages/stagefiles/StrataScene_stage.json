@@ -3,6 +3,10 @@
     "stage_name": "StrataScene",
     "stage_description": "First stage developed for the game, most of the game functionalities were tied to it and tested on it. This file will use most if not all functions present in ThreatManager.",
     "stage_length_in_minutes": 2.4,
-    "allowed_random_enemies": ["striker_1","striker_swarm_2"],
-    "final_stage": false
+    "allowed_random_enemies": ["scout"],
+    "stage_properies": {
+        "stage_id": 0,
+        "stage_type": 0,
+        "checkpoints": {}
+    }
 }

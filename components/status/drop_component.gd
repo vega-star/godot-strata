@@ -3,6 +3,7 @@ class_name DropComponent extends Node
 signal drop_selected
 signal item_dropped(drop)
 
+const item_container_group = 'items_container'
 const item_template_scene = "res://entities/items/item_component.tscn"
 const enemy_data = "res://data/enemy_data.json"
 const items_data = "res://data/items_data.json"
@@ -39,7 +40,7 @@ func _ready(): # Needed for random results
 	if stage_dropper:
 		item_container = $"../ItemsContainer"
 	else:
-		item_container = root_scene.get_parent().get_node("ItemsContainer")
+		item_container = get_tree().get_first_node_in_group(item_container_group)
 	
 	var load_enemy_data = FileAccess.open(enemy_data, FileAccess.READ)
 	enemy_dict = JSON.parse_string(load_enemy_data.get_as_text())

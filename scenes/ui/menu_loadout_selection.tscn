@@ -19,7 +19,7 @@ length = 0.001
 tracks/0/type = "bezier"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("StartButton:position:x")
+tracks/0/path = NodePath("Dashboard/StartButton:position:x")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -30,7 +30,7 @@ tracks/0/keys = {
 tracks/1/type = "bezier"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("StartButton:position:y")
+tracks/1/path = NodePath("Dashboard/StartButton:position:y")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -45,7 +45,7 @@ length = 0.3
 tracks/0/type = "bezier"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("StartButton:position:x")
+tracks/0/path = NodePath("Dashboard/StartButton:position:x")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -56,7 +56,7 @@ tracks/0/keys = {
 tracks/1/type = "bezier"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("StartButton:position:y")
+tracks/1/path = NodePath("Dashboard/StartButton:position:y")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -76,8 +76,6 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 960.0
-offset_right = 960.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_wywrc")
@@ -91,22 +89,19 @@ libraries = {
 position = Vector2(480, 270)
 texture = ExtResource("2_31rtj")
 
-[node name="MenuFrame" type="Sprite2D" parent="."]
+[node name="Dashboard" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MenuFrame" type="Sprite2D" parent="Dashboard"]
 position = Vector2(480, 428)
 texture = ExtResource("3_4v5ak")
 
-[node name="ReturnToMainMenu" type="TextureButton" parent="."]
-layout_mode = 1
-offset_left = 94.0
-offset_top = 11.0
-offset_right = 176.0
-offset_bottom = 93.0
-scale = Vector2(-1, 1)
-tooltip_text = "Return to main menu"
-theme = ExtResource("3_sltso")
-texture_normal = ExtResource("4_lfkuq")
-
-[node name="StartButton" type="TextureButton" parent="."]
+[node name="StartButton" type="TextureButton" parent="Dashboard"]
 layout_mode = 0
 offset_left = 806.0
 offset_top = 368.0
@@ -117,26 +112,11 @@ theme = ExtResource("3_sltso")
 texture_normal = ExtResource("6_f1of6")
 texture_click_mask = ExtResource("7_665qi")
 
-[node name="RedButtonCover" type="Sprite2D" parent="."]
+[node name="RedButtonCover" type="Sprite2D" parent="Dashboard"]
 position = Vector2(870, 498)
 texture = ExtResource("7_amcjc")
 
-[node name="ColorBG" type="ColorRect" parent="."]
-visible = false
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -360.5
-offset_top = -111.0
-offset_right = 360.5
-grow_horizontal = 2
-grow_vertical = 0
-color = Color(0.184314, 0.184314, 0.184314, 1)
-
-[node name="TutorialButton" type="Button" parent="."]
+[node name="TutorialButton" type="Button" parent="Dashboard"]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -146,11 +126,28 @@ offset_top = -175.0
 offset_right = 130.0
 offset_bottom = -132.0
 grow_vertical = 0
+tooltip_text = "Learn and test the basics"
 focus_neighbor_right = NodePath("../../../../ConfigButton")
 theme = ExtResource("3_sltso")
 text = "TUTORIAL"
 
-[node name="LoadoutSelection" type="Control" parent="."]
+[node name="PracticeButton" type="Button" parent="Dashboard"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 140.0
+offset_top = -175.0
+offset_right = 232.0
+offset_bottom = -132.0
+grow_vertical = 0
+tooltip_text = "Simulate items and enemies present in codex"
+focus_neighbor_right = NodePath("../../../../ConfigButton")
+theme = ExtResource("3_sltso")
+disabled = true
+text = "PRACTICE"
+
+[node name="LoadoutSelection" type="Control" parent="Dashboard"]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -164,7 +161,7 @@ offset_bottom = -147.0
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="LoadoutOption" type="OptionButton" parent="LoadoutSelection"]
+[node name="LoadoutOption" type="OptionButton" parent="Dashboard/LoadoutSelection"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -186,7 +183,7 @@ selected = 0
 popup/item_0/text = "Pilot 1"
 popup/item_0/id = 0
 
-[node name="NewLoadoutEdit" type="LineEdit" parent="LoadoutSelection/LoadoutOption"]
+[node name="NewLoadoutEdit" type="LineEdit" parent="Dashboard/LoadoutSelection/LoadoutOption"]
 visible = false
 layout_mode = 1
 anchors_preset = 8
@@ -206,7 +203,7 @@ alignment = 1
 max_length = 20
 flat = true
 
-[node name="SelectLoadout" type="Label" parent="LoadoutSelection"]
+[node name="SelectLoadout" type="Label" parent="Dashboard/LoadoutSelection"]
 layout_mode = 0
 offset_left = 15.0
 offset_top = -46.0
@@ -218,7 +215,7 @@ text = "SELECT LOADOUT"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="SaveLoadoutButton" type="TextureButton" parent="LoadoutSelection"]
+[node name="SaveLoadoutButton" type="TextureButton" parent="Dashboard/LoadoutSelection"]
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
@@ -239,7 +236,7 @@ texture_disabled = ExtResource("8_2x7y7")
 texture_focused = ExtResource("7_4ibbr")
 texture_click_mask = ExtResource("9_2o3y0")
 
-[node name="CustomizeLoadoutContainer" type="VBoxContainer" parent="."]
+[node name="CustomizeLoadoutContainer" type="VBoxContainer" parent="Dashboard"]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -252,11 +249,11 @@ offset_right = 266.0
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="LoadoutLists" type="HBoxContainer" parent="CustomizeLoadoutContainer"]
+[node name="LoadoutLists" type="HBoxContainer" parent="Dashboard/CustomizeLoadoutContainer"]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="PrimaryWeaponsList" type="ItemList" parent="CustomizeLoadoutContainer/LoadoutLists"]
+[node name="PrimaryWeaponsList" type="ItemList" parent="Dashboard/CustomizeLoadoutContainer/LoadoutLists"]
 custom_minimum_size = Vector2(200, 100)
 layout_mode = 2
 mouse_filter = 1
@@ -266,7 +263,7 @@ item_0/text = "MINIGUN"
 item_1/text = "BURST LASER"
 item_2/text = "RAILGUN"
 
-[node name="SecondaryWeaponsList" type="ItemList" parent="CustomizeLoadoutContainer/LoadoutLists"]
+[node name="SecondaryWeaponsList" type="ItemList" parent="Dashboard/CustomizeLoadoutContainer/LoadoutLists"]
 custom_minimum_size = Vector2(200, 100)
 layout_mode = 2
 mouse_filter = 1
@@ -276,7 +273,7 @@ item_0/text = "GUIDED MISSILES"
 item_1/text = "STASIS BOMB"
 item_2/text = "CHARGED LASER"
 
-[node name="StarterItemsList" type="ItemList" parent="CustomizeLoadoutContainer/LoadoutLists"]
+[node name="StarterItemsList" type="ItemList" parent="Dashboard/CustomizeLoadoutContainer/LoadoutLists"]
 custom_minimum_size = Vector2(300, 100)
 layout_mode = 2
 mouse_filter = 1
@@ -286,18 +283,18 @@ item_0/text = "I.C. AMPLIFIER"
 item_1/text = "ADDITIONAL HARDPOINT"
 item_2/text = "PLASTEEL WING REINFORCEMENT"
 
-[node name="LoadoutLabels" type="HBoxContainer" parent="CustomizeLoadoutContainer"]
+[node name="LoadoutLabels" type="HBoxContainer" parent="Dashboard/CustomizeLoadoutContainer"]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="PrimaryWeapon" type="Label" parent="CustomizeLoadoutContainer/LoadoutLabels"]
+[node name="PrimaryWeapon" type="Label" parent="Dashboard/CustomizeLoadoutContainer/LoadoutLabels"]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 theme = ExtResource("3_sltso")
 text = "PRIMARY WEAPON"
 horizontal_alignment = 1
 
-[node name="SecondaryWeapon" type="Label" parent="CustomizeLoadoutContainer/LoadoutLabels"]
+[node name="SecondaryWeapon" type="Label" parent="Dashboard/CustomizeLoadoutContainer/LoadoutLabels"]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 theme = ExtResource("3_sltso")
@@ -305,7 +302,7 @@ text = "SECONDARY WEAPON
 "
 horizontal_alignment = 1
 
-[node name="StarterItem" type="Label" parent="CustomizeLoadoutContainer/LoadoutLabels"]
+[node name="StarterItem" type="Label" parent="Dashboard/CustomizeLoadoutContainer/LoadoutLabels"]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 theme = ExtResource("3_sltso")
@@ -313,7 +310,7 @@ text = "STARTER ITEM
 "
 horizontal_alignment = 1
 
-[node name="PredictorContainer" type="VBoxContainer" parent="."]
+[node name="PredictorContainer" type="VBoxContainer" parent="Dashboard"]
 visible = false
 layout_mode = 1
 anchors_preset = 1
@@ -325,67 +322,79 @@ offset_bottom = 357.0
 grow_horizontal = 0
 theme = ExtResource("3_sltso")
 
-[node name="Label" type="Label" parent="PredictorContainer"]
+[node name="Label" type="Label" parent="Dashboard/PredictorContainer"]
 layout_mode = 2
 theme = ExtResource("3_sltso")
 theme_override_font_sizes/font_size = 30
 text = "STATS"
 horizontal_alignment = 1
 
-[node name="HealthStatus" type="HBoxContainer" parent="PredictorContainer"]
+[node name="HealthStatus" type="HBoxContainer" parent="Dashboard/PredictorContainer"]
 layout_mode = 2
 
-[node name="ContainerLabel" type="Label" parent="PredictorContainer/HealthStatus"]
+[node name="ContainerLabel" type="Label" parent="Dashboard/PredictorContainer/HealthStatus"]
 custom_minimum_size = Vector2(65, 0)
 layout_mode = 2
 text = "HEALTH"
 
-[node name="Test" type="Label" parent="PredictorContainer/HealthStatus"]
+[node name="Test" type="Label" parent="Dashboard/PredictorContainer/HealthStatus"]
 layout_mode = 2
 text = "|"
 
-[node name="MaxAmmoStatus" type="HBoxContainer" parent="PredictorContainer"]
+[node name="MaxAmmoStatus" type="HBoxContainer" parent="Dashboard/PredictorContainer"]
 layout_mode = 2
 
-[node name="ContainerLabel" type="Label" parent="PredictorContainer/MaxAmmoStatus"]
+[node name="ContainerLabel" type="Label" parent="Dashboard/PredictorContainer/MaxAmmoStatus"]
 custom_minimum_size = Vector2(65, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 25
 text = "AMMO"
 
-[node name="Test" type="Label" parent="PredictorContainer/MaxAmmoStatus"]
+[node name="Test" type="Label" parent="Dashboard/PredictorContainer/MaxAmmoStatus"]
 layout_mode = 2
 text = "|"
 
-[node name="DashStatus" type="HBoxContainer" parent="PredictorContainer"]
+[node name="DashStatus" type="HBoxContainer" parent="Dashboard/PredictorContainer"]
 layout_mode = 2
 
-[node name="ContainerLabel" type="Label" parent="PredictorContainer/DashStatus"]
+[node name="ContainerLabel" type="Label" parent="Dashboard/PredictorContainer/DashStatus"]
 custom_minimum_size = Vector2(65, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 25
 text = "DASH"
 
-[node name="Test" type="Label" parent="PredictorContainer/DashStatus"]
+[node name="Test" type="Label" parent="Dashboard/PredictorContainer/DashStatus"]
 layout_mode = 2
 text = "|"
 
-[node name="RollStatus" type="HBoxContainer" parent="PredictorContainer"]
+[node name="RollStatus" type="HBoxContainer" parent="Dashboard/PredictorContainer"]
 layout_mode = 2
 
-[node name="ContainerLabel" type="Label" parent="PredictorContainer/RollStatus"]
+[node name="ContainerLabel" type="Label" parent="Dashboard/PredictorContainer/RollStatus"]
 custom_minimum_size = Vector2(65, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 25
 text = "ROLL"
 
-[node name="Test" type="Label" parent="PredictorContainer/RollStatus"]
+[node name="Test" type="Label" parent="Dashboard/PredictorContainer/RollStatus"]
 layout_mode = 2
 text = "|"
 
+[node name="ReturnToMainMenu" type="TextureButton" parent="."]
+layout_mode = 1
+offset_left = 94.0
+offset_top = 11.0
+offset_right = 176.0
+offset_bottom = 93.0
+scale = Vector2(-1, 1)
+tooltip_text = "Return to main menu"
+theme = ExtResource("3_sltso")
+texture_normal = ExtResource("4_lfkuq")
+
+[connection signal="pressed" from="Dashboard/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="Dashboard/TutorialButton" to="." method="_on_tutorial_button_pressed"]
+[connection signal="pressed" from="Dashboard/PracticeButton" to="." method="_on_practice_button_pressed"]
+[connection signal="item_selected" from="Dashboard/CustomizeLoadoutContainer/LoadoutLists/PrimaryWeaponsList" to="." method="_on_primary_weapons_list_item_selected"]
+[connection signal="item_selected" from="Dashboard/CustomizeLoadoutContainer/LoadoutLists/SecondaryWeaponsList" to="." method="_on_secondary_weapons_list_item_selected"]
+[connection signal="item_selected" from="Dashboard/CustomizeLoadoutContainer/LoadoutLists/StarterItemsList" to="." method="_on_starter_items_list_item_selected"]
 [connection signal="pressed" from="ReturnToMainMenu" to="." method="_on_return_to_main_menu_pressed"]
-[connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]
-[connection signal="pressed" from="TutorialButton" to="." method="_on_tutorial_button_pressed"]
-[connection signal="item_selected" from="CustomizeLoadoutContainer/LoadoutLists/PrimaryWeaponsList" to="." method="_on_primary_weapons_list_item_selected"]
-[connection signal="item_selected" from="CustomizeLoadoutContainer/LoadoutLists/SecondaryWeaponsList" to="." method="_on_secondary_weapons_list_item_selected"]
-[connection signal="item_selected" from="CustomizeLoadoutContainer/LoadoutLists/StarterItemsList" to="." method="_on_starter_items_list_item_selected"]

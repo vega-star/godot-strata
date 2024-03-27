@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://bwsqppicnq8oh"]
+[gd_scene load_steps=19 format=3 uid="uid://bwsqppicnq8oh"]
 
 [ext_resource type="Script" path="res://entities/entity_scripts/composite_enemy.gd" id="1_shyos"]
 [ext_resource type="Texture2D" uid="uid://o3y2tu6af11i" path="res://assets/textures/prototypes/composite_enemy.png" id="2_f3mua"]
@@ -15,6 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://dqge7meaumoi5" path="res://entities/prototype_entities/enemy_gun.tscn" id="11_gbfv8"]
 [ext_resource type="Texture2D" uid="uid://j8ejey5hdgmr" path="res://assets/textures/prototypes/composite_enemy_module_arm.png" id="12_oafk8"]
 [ext_resource type="PackedScene" uid="uid://capsl03als0q0" path="res://entities/projectiles/enemy_ray.tscn" id="14_f8fdk"]
+[ext_resource type="PackedScene" uid="uid://ctksiqxkq8ue5" path="res://entities/prototype_entities/enemy_missile_launcher.tscn" id="16_ip1xj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y4one"]
 size = Vector2(4, 28)
@@ -188,6 +189,10 @@ texture = ExtResource("6_td030")
 [node name="Laser" parent="." instance=ExtResource("14_f8fdk")]
 position = Vector2(60, 0)
 collision_mask = 1
+
+[node name="EnemyMissileLauncher" parent="." instance=ExtResource("16_ip1xj")]
+position = Vector2(168, 0)
+deactivate_instead = true
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="enemy_defeated" from="." to="DropComponent" method="_on_enemy_died"]

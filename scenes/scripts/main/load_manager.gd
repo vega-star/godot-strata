@@ -3,7 +3,7 @@ extends Node
 signal progress_changed(progress)
 signal load_completed
 
-var _loading_scene_path : String = "res://scenes/loading_scene.tscn"
+const _loading_scene_path : String = "res://scenes/loading_scene.tscn"
 var _loading_scene = load(_loading_scene_path)
 var _loaded_resource : PackedScene
 var _scene_path : String

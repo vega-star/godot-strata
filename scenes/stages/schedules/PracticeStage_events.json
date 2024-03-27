@@ -1,0 +1,13 @@
+{
+    "test_filler": {
+        "event_type": "filler",
+        "event_description": "Acts as a empty filler between previous events and a certain portion of the stage. It just needs the 'stop_before' variable for it to work. Also serves as a tool to find the ideal stage length!",
+        "set_timer": true,
+        "has_rules": false,
+        "event_properties": {
+            "event_timer": {
+                "filler_stop_before": 2
+            }
+        }
+    }
+}

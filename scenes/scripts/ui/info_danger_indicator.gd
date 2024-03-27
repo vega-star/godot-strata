@@ -43,11 +43,14 @@ func display_danger(
 	
 	side.modulate = modulate_color
 	side.visible = true
+	self.visible = true
+	
 	print(Options.photosens_mode)
 	if !Options.photosens_mode: activated = true
 	
 	await get_tree().create_timer(timeout, false).timeout
 	side.visible = false
 	activated = false
+	self.visible = false
 	
 	danger_displayed.emit()

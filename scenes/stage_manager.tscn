@@ -12,7 +12,7 @@ debug_generator = true
 [node name="DropComponent" parent="." instance=ExtResource("2_gx0mp")]
 stage_dropper = true
 
-[node name="ThreatGenerator" type="Node" parent="."]
+[node name="ThreatGenerator" type="Node" parent="." groups=["threat_generator"]]
 script = ExtResource("1_x4heg")
 
 [node name="ScreenArea" type="Control" parent="ThreatGenerator"]
@@ -72,8 +72,8 @@ position = Vector2(39, 219)
 [node name="TopSpawnPos" type="Marker2D" parent="ThreatGenerator/ScreenArea/SpawnAreaForward"]
 position = Vector2(39, 0)
 
-[node name="EnemiesContainer" type="Node2D" parent="."]
+[node name="EnemiesContainer" type="Node2D" parent="." groups=["enemy_container"]]
 
-[node name="ItemsContainer" type="Node2D" parent="."]
+[node name="ItemsContainer" type="Node2D" parent="." groups=["items_container"]]
 
 [connection signal="enemy_spawned" from="ThreatGenerator" to="." method="_on_threat_spawned_relay"]

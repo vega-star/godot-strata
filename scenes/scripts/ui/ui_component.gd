@@ -21,11 +21,12 @@ func _ready():
 	
 	fade_time = ScreenTransition.fade_time
 
-func set_stage(timer):
+func set_stage(timer, start_run : bool = false):
 	UIOverlay.visible = true
 	UIOverlay.stage_progress_bar.visible = true
 	stage_timer = timer
 	
+	if start_run: Profile.start_run()
 	Profile.save_previous_data() # Sets a data checkpoint to rollback in case of retry
 
 func set_pause(mode : bool = true):

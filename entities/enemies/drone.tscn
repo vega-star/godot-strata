@@ -63,7 +63,7 @@ func _on_outside_screen(): # Deletes the enemy entity if it somehow goes beyond 
 func _on_visible_on_screen():
 	despawn_timer.stop()
 
-func die(): # Entity death sequence, called by HealthComponent when health <= 0
+func die(_source): # Entity death sequence, called by HealthComponent when health <= 0
 	enemy_died.emit()
 	
 	if !bulk_updating:
@@ -149,11 +149,11 @@ max_angle_limit = 140.0
 rotation = 3.14159
 texture = ExtResource("8_feky4")
 
-[node name="HitboxComponent" parent="." node_paths=PackedStringArray("health_component", "hitbox") instance=ExtResource("7_tko7h")]
+[node name="HitboxComponent" parent="." node_paths=PackedStringArray("hitbox", "health_component") instance=ExtResource("7_tko7h")]
 collision_layer = 2
 collision_mask = 5
-health_component = NodePath("../HealthComponent")
 hitbox = NodePath("CollisionPolygon2D")
+health_component = NodePath("../HealthComponent")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="HitboxComponent"]
 self_modulate = Color(1, 1, 1, 0.211765)

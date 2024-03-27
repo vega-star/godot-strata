@@ -1,0 +1,92 @@
+[gd_scene load_steps=8 format=3 uid="uid://gv2k7bkk15tp"]
+
+[ext_resource type="Script" path="res://entities/entity_scripts/diver-carrier.gd" id="1_e8jw2"]
+[ext_resource type="Material" uid="uid://cvfmn1g3c8nd3" path="res://assets/shaders/entities/enemy_outline.tres" id="2_sx8d6"]
+[ext_resource type="Texture2D" uid="uid://dyyf00sr6o6gd" path="res://assets/textures/entities/enemies/simple/carrier.png" id="3_6obrh"]
+[ext_resource type="PackedScene" uid="uid://c4rkui846g2ue" path="res://components/status/combat_component.tscn" id="4_las26"]
+[ext_resource type="PackedScene" uid="uid://cifxjpiop3cha" path="res://components/status/drop_component.tscn" id="5_686hw"]
+[ext_resource type="PackedScene" uid="uid://bdfaybp4djcn2" path="res://components/status/health_component.tscn" id="6_ngcrw"]
+[ext_resource type="PackedScene" uid="uid://c3atqdge540t0" path="res://components/status/hitbox_component.tscn" id="7_koiem"]
+
+[node name="DiverCarrier" type="Area2D" node_paths=PackedStringArray("self_sprite") groups=["enemy"]]
+light_mask = 2
+visibility_layer = 2
+collision_layer = 2
+collision_mask = 5
+script = ExtResource("1_e8jw2")
+score_value = 50
+speed = 85
+self_sprite = NodePath("EnemySprite")
+
+[node name="TopSlots" type="Node2D" parent="."]
+
+[node name="Slot1" type="Marker2D" parent="TopSlots"]
+position = Vector2(-92, -48)
+
+[node name="Slot2" type="Marker2D" parent="TopSlots"]
+position = Vector2(-46, -48)
+
+[node name="Slot3" type="Marker2D" parent="TopSlots"]
+position = Vector2(0, -48)
+
+[node name="Slot4" type="Marker2D" parent="TopSlots"]
+position = Vector2(46, -48)
+
+[node name="Slot5" type="Marker2D" parent="TopSlots"]
+position = Vector2(92, -48)
+
+[node name="BottomSlots" type="Node2D" parent="."]
+
+[node name="Slot1" type="Marker2D" parent="BottomSlots"]
+position = Vector2(-92, 48)
+
+[node name="Slot2" type="Marker2D" parent="BottomSlots"]
+position = Vector2(-46, 48)
+
+[node name="Slot3" type="Marker2D" parent="BottomSlots"]
+position = Vector2(0, 48)
+
+[node name="Slot4" type="Marker2D" parent="BottomSlots"]
+position = Vector2(46, 48)
+
+[node name="Slot5" type="Marker2D" parent="BottomSlots"]
+position = Vector2(92, 48)
+
+[node name="EnemySprite" type="Sprite2D" parent="."]
+material = ExtResource("2_sx8d6")
+texture = ExtResource("3_6obrh")
+
+[node name="SelfCollisionShape" type="CollisionPolygon2D" parent="."]
+visible = false
+polygon = PackedVector2Array(107, -29, -109, -29, -118, -53, -148, -52, -160, -17, -160, 17, -147, 51, -119, 54, -108, 29, 108, 29, 119, 54, 148, 52, 160, 17, 160, -17, 148, -51, 119, -53)
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(130, 0)
+
+[node name="CombatComponent" parent="." instance=ExtResource("4_las26")]
+
+[node name="DropComponent" parent="." instance=ExtResource("5_686hw")]
+
+[node name="HealthComponent" parent="." instance=ExtResource("6_ngcrw")]
+max_health = 40
+
+[node name="ReleaseTimer" type="Timer" parent="."]
+
+[node name="HitboxComponent" parent="." node_paths=PackedStringArray("hitbox", "health_component", "combat_component") instance=ExtResource("7_koiem")]
+collision_layer = 2
+collision_mask = 5
+hitbox = NodePath("CollisionShape2D")
+health_component = NodePath("../HealthComponent")
+combat_component = NodePath("../CombatComponent")
+
+[node name="CollisionShape2D" type="CollisionPolygon2D" parent="HitboxComponent"]
+visible = false
+polygon = PackedVector2Array(107, -29, -109, -29, -118, -53, -148, -52, -160, -17, -160, 17, -147, 51, -119, 54, -108, 29, 108, 29, 119, 54, 148, 52, 160, 17, 160, -17, 148, -51, 119, -53)
+
+[node name="TemporaryContainer" type="Node2D" parent="."]
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="enemy_died" from="." to="DropComponent" method="_on_enemy_died"]
+[connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_screen_reentered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
+[connection signal="health_change" from="HealthComponent" to="." method="_on_health_component_health_change"]

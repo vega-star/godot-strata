@@ -13,7 +13,6 @@ signal scene_loaded()
 var stage_scene : String = ""
 var stage_allowed_random_enemies : Array = []
 var stage_length_in_minutes : float = 0.0
-var final_stage : bool = false
 var challenge_enemy
 
 @onready var stage_timer = $"../StageTimer"
@@ -60,7 +59,6 @@ func load_stage_file(file_path):
 	stage_scene = stage_dict["stage_scene"]
 	stage_allowed_random_enemies = stage_dict["allowed_random_enemies"]
 	stage_length_in_minutes = stage_dict["stage_length_in_minutes"]
-	final_stage = stage_dict["final_stage"]
 	var stage_length_in_seconds = stage_length_in_minutes * 60
 	
 	stage_timer.set_wait_time(stage_length_in_seconds)

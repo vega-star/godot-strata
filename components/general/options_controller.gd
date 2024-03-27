@@ -192,6 +192,7 @@ func _on_toggle_firing_pressed():
 
 func _on_photosens_mode_pressed():
 	button_toggle($OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons/Photosens_Mode, "PHOTOSENS_MODE")
+	photosens_mode = $OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons/Photosens_Mode.button_pressed
 
 func _on_screen_shake_pressed():
 	button_toggle($OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons/ScreenShake, "SCREEN_SHAKE")

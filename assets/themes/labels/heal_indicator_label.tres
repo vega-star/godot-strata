@@ -1,0 +1,10 @@
+[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://c2hrlg8jhj58f"]
+
+[ext_resource type="FontFile" uid="uid://dtusi5ojlx75v" path="res://assets/themes/fonts/DePixelKlein.otf" id="1_tnuk6"]
+
+[resource]
+font = ExtResource("1_tnuk6")
+font_size = 26
+font_color = Color(0.568627, 0.858824, 0.411765, 1)
+shadow_size = 4
+shadow_color = Color(0.568627, 1, 0.411765, 0.239216)

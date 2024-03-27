@@ -11,11 +11,15 @@ script = ExtResource("1_h8rhl")
 
 [node name="InfoLayer" type="CanvasLayer" parent="."]
 layer = 0
-visible = false
+
+[node name="InfoContainer" type="Node2D" parent="InfoLayer"]
 
 [node name="MessagePlayer" parent="InfoLayer" instance=ExtResource("2_tkq24")]
+process_mode = 3
+visible = false
 
 [node name="DangerPlayer" parent="InfoLayer" instance=ExtResource("3_51jvq")]
+visible = false
 
 [node name="TitleDisplay" type="RichTextLabel" parent="."]
 anchors_preset = 15
@@ -31,3 +35,5 @@ theme_override_font_sizes/normal_font_size = 30
 theme_override_font_sizes/bold_font_size = 40
 bbcode_enabled = true
 autowrap_mode = 1
+
+[connection signal="message_displayed" from="InfoLayer/MessagePlayer" to="." method="_on_message_displayed"]

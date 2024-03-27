@@ -64,7 +64,7 @@ height = 20.0
 radius = 3.0
 height = 18.0
 
-[node name="DefaultLaser" type="Area2D"]
+[node name="DefaultLaser" type="Area2D" groups=["player_projectile"]]
 top_level = true
 light_mask = 2
 collision_layer = 4

@@ -6,8 +6,8 @@
 [ext_resource type="Theme" uid="uid://b1a5sjt2xibwo" path="res://assets/themes/strata_theme/strata_theme.tres" id="3_l8my2"]
 [ext_resource type="Texture2D" uid="uid://choj350rc1swa" path="res://assets/textures/static/github_icon_filling.png" id="4_04cwg"]
 [ext_resource type="PackedScene" uid="uid://c2vd5a4tvc1kw" path="res://scenes/ui/ui_default_button.tscn" id="4_hujtw"]
-[ext_resource type="Texture2D" uid="uid://dlke7x7tilc7i" path="res://assets/textures/static/strata_logo_wireframe.png" id="4_k3w4p"]
 [ext_resource type="Texture2D" uid="uid://bmpah4ugbbs2w" path="res://assets/textures/static/zero.png" id="5_6d0yf"]
+[ext_resource type="Texture2D" uid="uid://b7ng4wgr4xch8" path="res://assets/textures/static/strata_logo.png" id="5_61mfq"]
 [ext_resource type="BitMap" uid="uid://c3wks6bj3r8k3" path="res://assets/textures/static/github_icon.bmp" id="5_lbftm"]
 
 [node name="CentralPage" type="Control"]
@@ -53,10 +53,12 @@ text = "START"
 
 [node name="ProfileButton" parent="ButtonsContainer" instance=ExtResource("4_hujtw")]
 layout_mode = 2
+disabled = true
 text = "PROFILE"
 
 [node name="CodexButton" parent="ButtonsContainer" instance=ExtResource("4_hujtw")]
 layout_mode = 2
+disabled = true
 text = "CODEX"
 
 [node name="CreditsButton" parent="ButtonsContainer" instance=ExtResource("4_hujtw")]
@@ -72,14 +74,16 @@ layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_top = -23.0
-offset_right = 235.0
+offset_left = 7.0
+offset_top = -30.0
+offset_right = 242.0
+offset_bottom = -7.0
 grow_vertical = 0
 theme = ExtResource("3_l8my2")
 
 [node name="StrataLogo" type="Sprite2D" parent="."]
 position = Vector2(478, 138)
-texture = ExtResource("4_k3w4p")
+texture = ExtResource("5_61mfq")
 
 [node name="Zero" type="Sprite2D" parent="StrataLogo"]
 position = Vector2(306, 55)

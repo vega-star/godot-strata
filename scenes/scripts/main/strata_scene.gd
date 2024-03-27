@@ -3,10 +3,13 @@ extends Node2D
 signal stage_started
 
 # Stage Properties
-var stage_id : String = "StrataScene"
+@export var stage_id : String = "StrataScene"
 @export var stage_title : String = 'STAGE ZERO'
 @export var stage_description : String = 'SIMULATION'
+@export var stage_ending_text : String = 'RETURNING TO MAIN MENU'
+@export var next_stage_path : String = "res://scenes/ui/main_menu.tscn"
 @export var save_stage_data : bool = true
+@export var stage_parallax : ParallaxBackground
 
 # Options
 var config = ConfigFile.new()
@@ -21,7 +24,6 @@ var config_load = config.load("user://config.cfg")
 @onready var stage_timer = $StageTimer
 @onready var stage_manager = $StageManager
 @onready var threat_generator = $StageManager/ThreatGenerator
-@onready var stage_parallax = $SimulationParallax
 
 # UIComponent
 @onready var hud_component = UI.UIOverlay
@@ -54,7 +56,7 @@ func _ready():
 	player.player_killed.connect(gameoverscreen.game_over_prompt)
 	
 	start_stage_sequence()
-	await stage_manager.scene_loaded
+	await Signal(stage_manager, "scene_loaded")
 
 func _process(_delta): # Updates stage timer bar
 	hud_component.stage_progress = stage_timer.time_left
@@ -94,7 +96,7 @@ func start_stage_sequence(): # Starting animations, fade-in, etc.
 	# Unlocking controls and starting timer
 	player.controls_lock(false)
 	
-	UI.set_stage(stage_timer)
+	UI.set_stage(stage_timer, true)
 	stage_started.emit()
 	stage_timer.start()
 	stage_start_time = Time.get_unix_time_from_system()
@@ -107,15 +109,15 @@ func end_stage_sequence(): # Fade-out, stage finished screen, etc.
 	
 	player.controls_lock(true)
 	var player_move_to_center = get_tree().create_tween()
-	player_move_to_center.tween_property(player,"global_position.x",1200, 0.95)
+	player_move_to_center.tween_property(player,"global_position.x",1200, 2)
 	
 	UI.InfoHUD.display_title("{0} COMPLETED".format({0:stage_title}), "", 5)
 	await get_tree().create_timer(2).timeout
-	UI.InfoHUD.display_title("{0} COMPLETED".format({0:stage_title}), "RETURNING TO MAIN MENU", 5)
+	UI.InfoHUD.display_title("{0} COMPLETED".format({0:stage_title}), "%s" % stage_ending_text, 5)
 	await get_tree().create_timer(3).timeout
 	
 	await UI.fade('OUT')
-	get_tree().change_scene_to_file("res://scenes/ui/main_menu.tscn")
+	LoadManager.load_scene(next_stage_path)
 
 func save_stage_performance(final_time):
 	var stage_time = int(final_time - stage_start_time)

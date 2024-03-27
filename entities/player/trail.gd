@@ -19,7 +19,7 @@ func _ready():
 	if line_gradient:
 		gradient = line_gradient
 
-func _process(_delta):
+func _physics_process(_delta):
 	var pos = _get_pos()
 	
 	add_point(pos)

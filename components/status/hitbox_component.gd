@@ -2,16 +2,15 @@ class_name HitboxComponent extends Node
 
 signal shielding_destroyed
 
-# Linked components
+# Main variables
 @onready var hitsound_emitter = $HitsoundEmitter
-
-@export var health_component : HealthComponent
-@export var combat_component : CombatComponent
-
-# Properties
-@export var immunity_frame_limit : int = 5
 @export var hitbox : CollisionPolygon2D
 @export var simple_hitbox : CollisionShape2D
+@export var health_component : HealthComponent
+@export var combat_component : CombatComponent
+@export var immunity_frame_limit : int = 5
+
+# Properties
 var active_hitbox
 var immunity_frames_count = 0
 var is_immune : bool = false
@@ -41,8 +40,8 @@ func _ready():
 		active_hitbox = simple_hitbox
 	else:
 		pass
-		# In that case, the entity without an active hitbox.
-		# Hitbox still works as it inherits the child hitbox node, but will not flicker when recieving constant damage, rendering some weapons useless.
+		# In that case, the entity is missing an 'active' hitbox.
+		# Collisions still works as it inherits the child hitbox node, but will not flicker when recieving constant damage, rendering some weapons useless.
 	
 	if is_shielding:
 		for child in get_children():
@@ -56,7 +55,9 @@ func _ready():
 		var hitbox_position = get_parent().get_child_count()
 		active_hitbox = get_parent().get_child(hitbox_position)
 
-func _physics_process(_delta): # As it updates 60 times per second, we could calculate really short immunity frames without creating a timer node
+func _physics_process(_delta): 
+	# As it updates 60 times per second, we could calculate really short immunity frames without creating a timer node
+	# This is actually recommended by Godot's documentation and works fine. Tiny timers are unreliable and inneficient.
 	if immunity_frames_count < immunity_frame_limit:
 		if active_hitbox: active_hitbox.disabled = true
 		immunity_frames_count += 1
@@ -68,14 +69,14 @@ func _physics_process(_delta): # As it updates 60 times per second, we could cal
 func toggle_immunity(boolean_value):
 	immune_to_damage = boolean_value
 
-func generate_damage(damage):
+func generate_damage(damage, source = null):
 	if !immune_to_damage:
 		hitsound_emitter.play()
 		
 		if health_component and !is_immune:
 			is_immune = true
 			immunity_frames_count = 0
-			health_component.change_health(damage)
+			health_component.change_health(damage, true, source)
 
 func die(): # Deletes itself. Should only be invoked when the component is shielding
 	shielding_destroyed.emit()

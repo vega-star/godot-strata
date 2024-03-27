@@ -1,0 +1,51 @@
+[gd_scene load_steps=6 format=3 uid="uid://dthul4jryam4m"]
+
+[ext_resource type="Script" path="res://scenes/scripts/main/strata_scene.gd" id="1_c7hg7"]
+[ext_resource type="PackedScene" uid="uid://csdnju38rqee8" path="res://scenes/stage_manager.tscn" id="2_0si3s"]
+[ext_resource type="PackedScene" uid="uid://biim58k38oa7h" path="res://entities/player/player.tscn" id="3_7g816"]
+[ext_resource type="PackedScene" uid="uid://b7d5rmrbmprps" path="res://scenes/stages/parallax/first_stage_parallax.tscn" id="4_6tpw4"]
+[ext_resource type="Script" path="res://scenes/scripts/main/stage_camera.gd" id="5_l7laj"]
+
+[node name="StageOne" type="Node2D" node_paths=PackedStringArray("stage_parallax")]
+light_mask = 2
+visibility_layer = 2
+script = ExtResource("1_c7hg7")
+stage_id = "StageOne"
+stage_title = "STAGE ONE"
+stage_description = "INVASION"
+stage_ending_text = "RETURNING TO STAGE SELECTION"
+stage_parallax = NodePath("FirstStageParallax")
+
+[node name="StageManager" parent="." instance=ExtResource("2_0si3s")]
+debug_generator = false
+
+[node name="PlayerStartPosition" type="Marker2D" parent="."]
+light_mask = 2
+visibility_layer = 2
+position = Vector2(185, 270)
+
+[node name="Player" parent="." instance=ExtResource("3_7g816")]
+position = Vector2(-79, -60)
+
+[node name="CameraConnection" type="RemoteTransform2D" parent="Player"]
+remote_path = NodePath("../../StageCamera")
+
+[node name="ProjectileContainer" type="Node2D" parent="." groups=["ProjectileContainer"]]
+
+[node name="StageTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="FirstStageParallax" parent="." instance=ExtResource("4_6tpw4")]
+
+[node name="StageCamera" type="Camera2D" parent="."]
+position = Vector2(-79, -60)
+limit_left = 0
+limit_top = -60
+limit_right = 960
+limit_bottom = 540
+limit_smoothed = true
+position_smoothing_enabled = true
+editor_draw_limits = true
+script = ExtResource("5_l7laj")
+
+[connection signal="timeout" from="StageTimer" to="." method="_on_stage_timer_timeout"]

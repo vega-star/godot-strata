@@ -2,8 +2,12 @@ class_name HealthComponent extends Node
 
 signal health_change(previous_value: int, new_value: int, type : bool)
 
+# Main variables
+@onready var damage_indicator = preload("res://scenes/ui/ui_damage_indicator.tscn")
 @export var health_bar : HealthBarComponent
 @export var max_health: int
+
+# Properties
 var set_max_health:
 	set(override):
 		max_health = override
@@ -31,7 +35,14 @@ func reset_health():
 	
 	health_change.emit(previous_value, current_health, false)
 
-func change_health(amount : int, negative : bool = true):
+func change_health(amount : int, negative : bool = true, source = null):
+	## Show change
+	var indicator = damage_indicator.instantiate()
+	indicator.global_position = owner.global_position
+	indicator.set_indicator(amount, negative)
+	UI.InfoHUD.info_container.call_deferred("add_child", indicator)
+	
+	# Apply change
 	if !lock_health_changes:
 		var previous_value := current_health
 		
@@ -51,10 +62,11 @@ func change_health(amount : int, negative : bool = true):
 		
 		if current_health <= 0:
 			lock_health_changes = true
-			owner.die() # Let the owner itself execute its death sequence, including queue_free()
+			owner.die(source) # Let the owner itself execute its death sequence, including queue_free()
 		
 		health_change.emit(previous_value, current_health, negative)
 		
+		## Update change on bar if there's one
 		if owner.set_health_bar and health_bar:
 			health_bar.visible = true # Turns the health_bar visible after the first change
 			health_bar.health_bar_sync = current_health # Sync with health_bar ONLY if there's a health_bar node attributed

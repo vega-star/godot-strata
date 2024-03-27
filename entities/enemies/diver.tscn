@@ -1,0 +1,62 @@
+[gd_scene load_steps=8 format=3 uid="uid://copc43elkshoa"]
+
+[ext_resource type="Script" path="res://entities/entity_scripts/diver.gd" id="1_2iv1h"]
+[ext_resource type="Material" uid="uid://cvfmn1g3c8nd3" path="res://assets/shaders/entities/enemy_outline.tres" id="2_mwyaq"]
+[ext_resource type="Texture2D" uid="uid://dxjy1yebwr8m8" path="res://assets/textures/entities/enemies/simple/diver.png" id="3_xrg1a"]
+[ext_resource type="PackedScene" uid="uid://c4rkui846g2ue" path="res://components/status/combat_component.tscn" id="4_qet5q"]
+[ext_resource type="PackedScene" uid="uid://cifxjpiop3cha" path="res://components/status/drop_component.tscn" id="5_midmp"]
+[ext_resource type="PackedScene" uid="uid://bdfaybp4djcn2" path="res://components/status/health_component.tscn" id="6_h12tl"]
+[ext_resource type="PackedScene" uid="uid://c3atqdge540t0" path="res://components/status/hitbox_component.tscn" id="7_wfhjd"]
+
+[node name="Diver" type="Area2D" node_paths=PackedStringArray("self_sprite") groups=["enemy"]]
+collision_layer = 2
+collision_mask = 5
+script = ExtResource("1_2iv1h")
+timeout_for_flee = 8.0
+max_maneuverability = 4.0
+enemy_name = "diver"
+score_value = 5
+speed = 250
+self_contact_damage = 100
+self_sprite = NodePath("EnemySprite")
+drifting = false
+bulk_updating = true
+
+[node name="EnemySprite" type="Sprite2D" parent="."]
+material = ExtResource("2_mwyaq")
+rotation = 3.14159
+texture = ExtResource("3_xrg1a")
+
+[node name="SelfCollision" type="CollisionPolygon2D" parent="."]
+visible = false
+polygon = PackedVector2Array(6, -23, -2, -18, -10, -12, -25, -4, -25, 5, -10, 12, -2, 18, 6, 23, 17, 21, 17, 5, 27, 0, 17, -5, 17, -21)
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(130, 0)
+
+[node name="CombatComponent" parent="." instance=ExtResource("4_qet5q")]
+
+[node name="DropComponent" parent="." instance=ExtResource("5_midmp")]
+
+[node name="HealthComponent" parent="." instance=ExtResource("6_h12tl")]
+max_health = 7
+
+[node name="Charge" type="Timer" parent="."]
+
+[node name="HitboxComponent" parent="." node_paths=PackedStringArray("hitbox", "health_component", "combat_component") instance=ExtResource("7_wfhjd")]
+collision_layer = 2
+collision_mask = 5
+hitbox = NodePath("CollisionShape2D")
+health_component = NodePath("../HealthComponent")
+combat_component = NodePath("../CombatComponent")
+immunity_frame_limit = 15
+
+[node name="CollisionShape2D" type="CollisionPolygon2D" parent="HitboxComponent"]
+visible = false
+polygon = PackedVector2Array(6, -23, -2, -18, -10, -12, -25, -4, -25, 5, -10, 12, -2, 18, 6, 23, 17, 21, 17, 5, 27, 0, 17, -5, 17, -21)
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="enemy_died" from="." to="DropComponent" method="_on_enemy_died"]
+[connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_screen_reentered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
+[connection signal="health_change" from="HealthComponent" to="." method="_on_health_component_health_change"]

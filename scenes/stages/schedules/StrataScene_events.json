@@ -10,25 +10,7 @@
             "message_timeout": 5,
             "event_timer": {
                 "pause_stage_timer": false,
-                "timer_period": 6.0
-            }
-        }
-    },
-    "test_composite_enemy": {
-        "event_type": "spawn_challenge",
-        "event_description": "Spawns a mini boss. Can pause stage timer if required, and only resumes when it recieves a signal from the enemy.",
-        "set_timer": true,
-        "has_rules": true,
-        "event_properties": {
-            "enemy": "composite_enemy",
-            "challenge_type": 1,
-            "event_timer": {
-                "pause_stage_timer": true,
-                "timer_period": 2.0
-            },
-            "rules": {
-                "challenge": true,
-                "spawn_override": "center"
+                "timer_period": 4.0
             }
         }
     },
@@ -38,7 +20,7 @@
         "set_timer": true,
         "has_rules": true,
         "event_properties": {
-            "enemy": "striker_1",
+            "enemy": "scout",
             "event_timer": {
                 "pause_stage_timer": false,
                 "timer_period": 2.0
@@ -84,22 +66,88 @@
             }
         }
     },
-    "spawn_enemy_wall": {
+    "spawn_enemy_wall_top": {
         "event_type": "spawn_enemy",
         "event_description": "Spawn a cluster of enemies using the swarm rule set.",
         "set_timer": true,
         "has_rules": true,
         "event_properties": {
-            "enemy": "striker_1",
+            "enemy": "wingman",
             "event_timer": {
                 "pause_stage_timer": false,
-                "timer_period": 7.0
+                "timer_period": 2.0
             },
             "rules": {
-                "spawn_override": "center", 
+                "spawn_override": "top", 
                 "swarm": {
                     "method": 0, 
-                    "separation": 35,
+                    "separation": 40,
+                    "amount": 5,
+                    "delay": 0
+                }
+            }
+        }
+    },
+    "spawn_enemy_wall_bottom": {
+        "event_type": "spawn_enemy",
+        "event_description": "Spawn a cluster of enemies using the swarm rule set.",
+        "set_timer": true,
+        "has_rules": true,
+        "event_properties": {
+            "enemy": "wingman",
+            "event_timer": {
+                "pause_stage_timer": false,
+                "timer_period": 6.0
+            },
+            "rules": {
+                "spawn_override": "bottom", 
+                "swarm": {
+                    "method": 0, 
+                    "separation": 40,
+                    "amount": 5,
+                    "delay": 0
+                }
+            }
+        }
+    },
+    "spawn_enemy_line_bottom": {
+        "event_type": "spawn_enemy",
+        "event_description": "Spawn a cluster of enemies using the swarm rule set.",
+        "set_timer": true,
+        "has_rules": true,
+        "event_properties": {
+            "enemy": "wingman",
+            "event_timer": {
+                "pause_stage_timer": false,
+                "timer_period": 2.0
+            },
+            "rules": {
+                "spawn_override": "far_bottom", 
+                "swarm": {
+                    "method": 1, 
+                    "separation": 40,
+                    "amount": 5,
+                    "delay": 0
+                }
+            }
+        }
+    },
+    "spawn_enemy_line_top": {
+        "event_type": "spawn_enemy",
+        "event_description": "Spawn a cluster of enemies using the swarm rule set.",
+        "set_timer": true,
+        "has_rules": true,
+        "event_properties": {
+            "enemy": "wingman",
+            "event_timer": {
+                "pause_stage_timer": false,
+                "timer_period": 6.0
+            },
+            "rules": {
+                "spawn_override": "far_top", 
+                "swarm": {
+                    "method": 1, 
+                    "separation": 40,
                     "amount": 5,
                     "delay": 0
                 }
@@ -138,28 +186,6 @@
         "has_rules": false,
         "event_properties": {
             "active": false
-        }
-    },
-    "spawn_enemy_diagonally": {
-        "event_type": "spawn_enemy",
-        "event_description": "Spawn a cluster of enemies using the swarm rule set.",
-        "set_timer": true,
-        "has_rules": true,
-        "event_properties": {
-            "enemy": "striker_1",
-            "event_timer": {
-                "pause_stage_timer": false,
-                "timer_period": 4.0
-            },
-            "rules": {
-                "spawn_override": "center", 
-                "swarm": {
-                    "method": 1, 
-                    "separation": 35,
-                    "amount": 5,
-                    "delay": 0.5
-                }
-            }
         }
     },
     "spawn_bottom_turrets": {
@@ -419,7 +445,7 @@
             "message_timeout": 9,
             "event_timer": {
                 "pause_stage_timer": false,
-                "timer_period": 10.0
+                "timer_period": 5.0
             }
         }
     },
@@ -430,7 +456,7 @@
         "has_rules": false,
         "event_properties": {
             "event_timer": {
-                "filler_stop_before": 5
+                "filler_stop_before": 2
             }
         }
     }

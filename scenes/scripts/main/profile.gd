@@ -94,15 +94,17 @@ func change_profile(profile):
 	else:
 		push_error('INVALID PROFILE | No profile with this name found')
 
-func save_new_profile(profile_name, pilot_name, icon, color, xp, save_data : bool = true):
+func save_new_profile(profile_name, pilot_name, icon, color, xp : int = 0, save_data : bool = true):
 	var profile_data_load = profiles_data.load(profile_data_path)
 	
-	# data_folder.make_dir(profile_name)
 	profiles_data.set_value(profile_name, "PROFILE_PILOT_NAME", pilot_name)
 	profiles_data.set_value(profile_name, "PROFILE_ICON", icon)
 	profiles_data.set_value(profile_name, "PROFILE_COLOR", color)
 	profiles_data.set_value(profile_name, "PROFILE_EXPERIENCE", xp)
 	profiles_data.set_value(profile_name, "SAVE_DATA", save_data)
+	
+	profiles_data.set(profile_name, "ACHIEVEMENTS")
+	profiles_data.set(profile_name, "CODEX")
 	
 	profiles_data.save(profile_data_path)
 
@@ -141,6 +143,8 @@ func reset_run_data():
 	
 	## RESET
 	if current_run_data.has_section("STAGES"): current_run_data.erase_section("STAGES")
+	if current_run_data.has_section("RUN_DETAILS"): current_run_data.erase_section("RUN_DETAILS")
+	if current_run_data.has_section_key("STATISTICS", "DEFEATED_BY"): current_run_data.erase_section_key("STATISTICS", "DEFEATED_BY")
 	
 	## START
 	save_active_data()
@@ -148,12 +152,13 @@ func reset_run_data():
 
 func start_run():
 	var start_time = Time.get_unix_time_from_system()
+	reset_run_data()
+	
 	current_run_data.set_value("RUN_DETAILS", "SUCCESS", false)
 	current_run_data.set_value("RUN_DETAILS", "STARTED_AT", start_time)
 	current_run_data.set_value("RUN_DETAILS", "TIME_ELAPSED", 0)
-	reset_run_data()
 
-func end_run(success : bool = false):
+func end_run(success : bool = false, source : Variant = null):
 	run_ended.emit()
 	
 	var start_time = current_run_data.get_value("RUN_DETAILS", "STARTED_AT")
@@ -168,6 +173,14 @@ func end_run(success : bool = false):
 	current_run_data.set_value("RUN_DETAILS", "ENDED_AT", final_time)
 	current_run_data.set_value("STATISTICS", "RUN_TIME_ELAPSED", time_diff)
 	current_run_data.set_value("RUN_DETAILS", "SUCCESS", success)
+	
+	if !success:
+		## Source patching
+		if !source:
+			current_run_data.set_value("RUN_DETAILS", "DEFEATED_BY", "UNKNOWN")
+		else:
+			current_run_data.set_value("RUN_DETAILS", "DEFEATED_BY", source.enemy_name)
+	
 	save_active_data(true)
 
 func add_run_data(section, statistic, value, bulk : bool = false): # Change one value, save changes in file
@@ -210,13 +223,12 @@ func save_previous_data():
 	previous_run_data.save(previous_run_data_path)
 
 func load_previous_data():
-	await reset_run_data()
+	# await reset_run_data()
+	print(previous_run_data.get_sections())
 	current_run_data = previous_run_data
 	save_active_data()
 
 func save_active_data(close : bool = false):
-	statistics_changed.emit()
-	run_data_changed.emit()
 	current_run_data.save(current_run_data_path)
 	
 	if close:
@@ -226,3 +238,6 @@ func save_active_data(close : bool = false):
 			1:timestamp
 		})
 		current_run_data.save(final_run_data_path)
+	
+	statistics_changed.emit()
+	run_data_changed.emit()

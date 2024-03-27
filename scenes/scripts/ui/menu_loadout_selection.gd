@@ -5,8 +5,10 @@ var items_dict : Dictionary
 var weapons_dict : Dictionary
 const items_data_path = "res://data/items_data.json"
 const weapons_data_path = "res://data/weapons_data.json"
-const first_stage = "res://scenes/stages/strata_scene.tscn"
+const first_stage = "res://scenes/stages/stage_one.tscn"
+
 const tutorial_stage_path = "res://scenes/stages/strata_scene.tscn"
+const practice_stage_path = "res://scenes/stages/practice_stage.tscn"
 
 var primary_weapons : Array
 var secondary_weapons : Array
@@ -20,9 +22,14 @@ var selected_item : String
 @export var debug : bool = false
 
 func _ready():
-	var primary_weapons_list = $CustomizeLoadoutContainer/LoadoutLists/PrimaryWeaponsList
-	var secondary_weapons_list = $CustomizeLoadoutContainer/LoadoutLists/SecondaryWeaponsList
-	var starter_items_list = $CustomizeLoadoutContainer/LoadoutLists/StarterItemsList
+	## Patch debug
+	if OS.is_debug_build():
+		$Dashboard/PracticeButton.disabled = false
+	
+	## Make ready
+	var primary_weapons_list = $Dashboard/CustomizeLoadoutContainer/LoadoutLists/PrimaryWeaponsList
+	var secondary_weapons_list = $Dashboard/CustomizeLoadoutContainer/LoadoutLists/SecondaryWeaponsList
+	var starter_items_list = $Dashboard/CustomizeLoadoutContainer/LoadoutLists/StarterItemsList
 	primary_weapons_list.clear()
 	secondary_weapons_list.clear()
 	starter_items_list.clear()
@@ -84,7 +91,7 @@ func _ready():
 	# $StartButton.position = Vector2(802, 368)
 
 func set_focus():
-	$StartButton.grab_focus()
+	$Dashboard/StartButton.grab_focus()
 
 func _on_start_button_pressed(): # StartButton
 	$AnimationPlayer.play("press_button")
@@ -93,8 +100,11 @@ func _on_start_button_pressed(): # StartButton
 func _on_tutorial_button_pressed():
 	start_run(tutorial_stage_path)
 
+func _on_practice_button_pressed():
+	start_run(practice_stage_path)
+
 func _on_return_to_main_menu_pressed():
-	owner.set_page_position(0)
+	owner.set_page_position(0, true)
 
 func _on_config_button_pressed():
 	Options.visible = true

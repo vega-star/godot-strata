@@ -1,9 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://berd4tu2gfm0b"]
+[gd_scene load_steps=8 format=3 uid="uid://berd4tu2gfm0b"]
 
 [ext_resource type="Script" path="res://entities/entity_scripts/enemy.gd" id="1_uscle"]
 [ext_resource type="Texture2D" uid="uid://dq4s3s0h3le1a" path="res://assets/textures/prototypes/enemy_test_sprite.png" id="2_npmfq"]
 [ext_resource type="PackedScene" uid="uid://bdfaybp4djcn2" path="res://components/status/health_component.tscn" id="3_r8fkk"]
-[ext_resource type="PackedScene" uid="uid://bfy4edhtjb4rs" path="res://components/status/health_bar_component.tscn" id="3_tv501"]
 [ext_resource type="PackedScene" uid="uid://c3atqdge540t0" path="res://components/status/hitbox_component.tscn" id="4_js4fs"]
 [ext_resource type="PackedScene" uid="uid://c4rkui846g2ue" path="res://components/status/combat_component.tscn" id="4_r3whd"]
 [ext_resource type="PackedScene" uid="uid://cifxjpiop3cha" path="res://components/status/drop_component.tscn" id="4_rx6yb"]
@@ -11,7 +10,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tq5bo"]
 size = Vector2(50, 50)
 
-[node name="Enemy" type="Area2D" groups=["enemy"]]
+[node name="DebugEnemy" type="Area2D" groups=["enemy"]]
 scale = Vector2(0.7, 0.7)
 collision_layer = 2
 collision_mask = 5
@@ -32,14 +31,7 @@ position = Vector2(130, 0)
 
 [node name="DropComponent" parent="." instance=ExtResource("4_rx6yb")]
 
-[node name="HealthBarComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("3_tv501")]
-position = Vector2(0, 30)
-health_component = NodePath("../HealthComponent")
-metadata/_edit_vertical_guides_ = [-28.0, 28.0]
-metadata/_edit_horizontal_guides_ = [9.0, 3.0]
-
-[node name="HealthComponent" parent="." node_paths=PackedStringArray("health_bar") instance=ExtResource("3_r8fkk")]
-health_bar = NodePath("../HealthBarComponent")
+[node name="HealthComponent" parent="." instance=ExtResource("3_r8fkk")]
 max_health = 5
 
 [node name="HitboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("4_js4fs")]

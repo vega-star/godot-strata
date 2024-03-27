@@ -9,6 +9,9 @@ signal effect_removed(effect)
 		is_being_targeted = value
 		target_status_changed.emit(value)
 @export var is_being_targeted : bool = false
+var is_valid_target : bool = true
+
+# Other variables
 @export var debug : bool = false
 
 func _on_target_status_changed(status):

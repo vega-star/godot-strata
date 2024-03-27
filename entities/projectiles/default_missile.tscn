@@ -31,7 +31,7 @@ height = 32.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_o2017"]
 radius = 4.0
 
-[node name="DefaultMissile" type="Area2D"]
+[node name="DefaultMissile" type="Area2D" groups=["player_projectile"]]
 light_mask = 2
 visibility_layer = 2
 collision_layer = 4
@@ -45,6 +45,7 @@ metadata/_edit_horizontal_guides_ = [-5.0, 5.0]
 [node name="ExplosionSound" type="AudioStreamPlayer2D" parent="."]
 position = Vector2(11, 0)
 stream = ExtResource("2_ahtdo")
+volume_db = -7.5
 
 [node name="MissileTrail" type="GPUParticles2D" parent="."]
 position = Vector2(-13, 0)

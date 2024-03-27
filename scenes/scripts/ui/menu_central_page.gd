@@ -3,6 +3,13 @@ extends Control
 func set_focus(): $ButtonsContainer/StartButton.grab_focus()
 
 func emit_button_sound(button_status):
+	if OS.is_debug_build():
+		$ButtonsContainer/ProfileButton.disabled = false
+		$ButtonsContainer/CodexButton.disabled = false
+	else:
+		$ButtonsContainer/ProfileButton.set_tooltip_text('WORK IN PROGRESS')
+		$ButtonsContainer/CodexButton.set_tooltip_text('WORK IN PROGRESS')
+	
 	if button_status:
 		AudioManager.emit_sound_effect(null, "error_select", false, true)
 	else:

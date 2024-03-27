@@ -1,0 +1,78 @@
+[gd_scene load_steps=11 format=3 uid="uid://bpeo5wnhsxeu4"]
+
+[ext_resource type="Script" path="res://entities/entity_scripts/scout_extension.gd" id="1_amn3b"]
+[ext_resource type="Material" uid="uid://cvfmn1g3c8nd3" path="res://assets/shaders/entities/enemy_outline.tres" id="2_4jjui"]
+[ext_resource type="Texture2D" uid="uid://0vlsco0egdce" path="res://assets/textures/entities/enemies/simple/scout.png" id="3_mouw2"]
+[ext_resource type="PackedScene" uid="uid://c4rkui846g2ue" path="res://components/status/combat_component.tscn" id="4_3irmm"]
+[ext_resource type="PackedScene" uid="uid://cifxjpiop3cha" path="res://components/status/drop_component.tscn" id="5_y2pke"]
+[ext_resource type="PackedScene" uid="uid://bfy4edhtjb4rs" path="res://components/status/health_bar_component.tscn" id="6_mkwie"]
+[ext_resource type="PackedScene" uid="uid://bdfaybp4djcn2" path="res://components/status/health_component.tscn" id="7_w0l3j"]
+[ext_resource type="PackedScene" uid="uid://c3atqdge540t0" path="res://components/status/hitbox_component.tscn" id="8_atugd"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jbbrr"]
+radius = 18.5714
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_kqkq0"]
+radius = 18.5714
+
+[node name="Scout" type="Area2D" node_paths=PackedStringArray("self_sprite") groups=["enemy"]]
+collision_layer = 2
+collision_mask = 5
+script = ExtResource("1_amn3b")
+enemy_name = "scout"
+self_sprite = NodePath("EnemySprite")
+bulk_updating = true
+
+[node name="EnemySprite" type="Sprite2D" parent="."]
+material = ExtResource("2_4jjui")
+texture = ExtResource("3_mouw2")
+
+[node name="SelfCollision" type="CollisionShape2D" parent="."]
+position = Vector2(-14.2857, 0)
+shape = SubResource("CircleShape2D_jbbrr")
+debug_color = Color(0, 0.6, 0.701961, 0)
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(130, 0)
+
+[node name="CombatComponent" parent="." instance=ExtResource("4_3irmm")]
+
+[node name="DropComponent" parent="." instance=ExtResource("5_y2pke")]
+
+[node name="HealthBarComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("6_mkwie")]
+position = Vector2(0, 47.1429)
+health_component = NodePath("../HealthComponent")
+metadata/_edit_vertical_guides_ = [-28.0, 28.0]
+metadata/_edit_horizontal_guides_ = [9.0, 3.0]
+
+[node name="HealthComponent" parent="." node_paths=PackedStringArray("health_bar") instance=ExtResource("7_w0l3j")]
+health_bar = NodePath("../HealthBarComponent")
+max_health = 7
+
+[node name="HitboxComponent" parent="." node_paths=PackedStringArray("simple_hitbox", "health_component", "combat_component") instance=ExtResource("8_atugd")]
+collision_layer = 2
+collision_mask = 5
+simple_hitbox = NodePath("MainBody")
+health_component = NodePath("../HealthComponent")
+combat_component = NodePath("../CombatComponent")
+
+[node name="SideAntenna" type="CollisionPolygon2D" parent="HitboxComponent"]
+polygon = PackedVector2Array(38.5714, 10, 0, 11.4286, 2.85714, 2.85714)
+
+[node name="TopAntenna" type="CollisionPolygon2D" parent="HitboxComponent"]
+polygon = PackedVector2Array(20, -28.5714, -10, -18.5714, -4.28571, -14.2857)
+
+[node name="BottomAntenna" type="CollisionPolygon2D" parent="HitboxComponent"]
+position = Vector2(-5.71429, 11.4286)
+polygon = PackedVector2Array(25.7143, 17.1429, -4.28571, 7.14286, 2.85714, 2.85714)
+
+[node name="MainBody" type="CollisionShape2D" parent="HitboxComponent"]
+position = Vector2(-14.2857, 0)
+shape = SubResource("CircleShape2D_kqkq0")
+debug_color = Color(0.580392, 0.113725, 0.172549, 0.419608)
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="enemy_died" from="." to="DropComponent" method="_on_enemy_died"]
+[connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_screen_reentered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
+[connection signal="health_change" from="HealthComponent" to="." method="_on_health_component_health_change"]

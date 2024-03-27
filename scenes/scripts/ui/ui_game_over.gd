@@ -30,6 +30,7 @@ func _on_retry_button_pressed(): # Reloads scene directly
 	UI.PauseMenu.lock(false)
 	
 	await Profile.load_previous_data()
+	statistics_list.update_data()
 	get_tree().reload_current_scene()
 
 func _on_exit_button_pressed(): # Recieves signal from 'ExitButton', goes back to main menu

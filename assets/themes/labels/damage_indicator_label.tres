@@ -1,0 +1,10 @@
+[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://fdgg2amw5aqh"]
+
+[ext_resource type="FontFile" uid="uid://dtusi5ojlx75v" path="res://assets/themes/fonts/DePixelKlein.otf" id="1_5mc3p"]
+
+[resource]
+font = ExtResource("1_5mc3p")
+font_size = 26
+font_color = Color(0.917647, 0.309804, 0.211765, 1)
+shadow_size = 4
+shadow_color = Color(1, 0, 0, 0.278431)

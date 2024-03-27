@@ -97,7 +97,6 @@ func _physics_process(delta):
 	if move_available:
 		change_behavior()
 
-
 var behaviors : Dictionary = {
 	"KeepStatic": {
 		"activate": ["stop"],

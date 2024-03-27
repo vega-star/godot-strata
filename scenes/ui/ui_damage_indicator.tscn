@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://bqs0xa1oocd3j"]
+
+[ext_resource type="Script" path="res://scenes/scripts/ui/ui_damage_indicator.gd" id="1_jiabb"]
+[ext_resource type="LabelSettings" uid="uid://fdgg2amw5aqh" path="res://assets/themes/labels/damage_indicator_label.tres" id="2_b3tna"]
+
+[node name="UIDamageIndicator" type="Node2D"]
+light_mask = 2
+visibility_layer = 2
+script = ExtResource("1_jiabb")
+
+[node name="Indicator" type="Label" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_right = 40.0
+offset_bottom = 27.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "0"
+label_settings = ExtResource("2_b3tna")
+horizontal_alignment = 1

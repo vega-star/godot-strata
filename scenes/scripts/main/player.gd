@@ -24,9 +24,9 @@ var horizontal_limit : Vector2
 @onready var direction : Vector2 = Vector2.ZERO
 @export var speed : float = 400
 @export var max_speed_factor : float = 2
-@export var acceleration = 1.1
-@export var deadzone = 0.25 # Useful for controller compatibility
-@export var air_friction = 0.5
+@export var acceleration : float = 1.1
+@export var deadzone : float = 0.25 # Useful for controller compatibility
+@export var air_friction : float = 0.5
 @export var set_health_bar : bool = false
 @export var dash_speed : float = 1800
 @export var dash_cooldown_timer : float = 2.5
@@ -44,6 +44,7 @@ const roll_timer : float = 1
 @onready var health_component : HealthComponent = $HealthComponent
 @onready var equipment_module : EquipmentModule = $EquipmentModule
 @onready var hitbox_component : HitboxComponent = $HitboxComponent
+@onready var combat_component : CombatComponent = $CombatComponent
 @onready var animation_tree = $PlayerAnimationTree
 
 # Control booleans
@@ -263,7 +264,7 @@ func death_sequence():
 	# Death animation
 	await get_tree().create_timer(2).timeout
 
-func die():
+func die(source : Variant = null):
 	controls_lock(true)
 	
 	AudioManager.emit_sound_effect(self.global_position, "game_over_explosion")
@@ -273,7 +274,7 @@ func die():
 	primary_fire_toggled = false
 	player_killed.emit()
 	
-	Profile.end_run(false)
+	Profile.end_run(false, source)
 	
 	await death_sequence()
 	queue_free()

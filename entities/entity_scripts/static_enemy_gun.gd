@@ -15,10 +15,10 @@ var speed = 150
 @export var self_sprite : Sprite2D
 @export var muzzle : Marker2D
 @export var health_component : HealthComponent
+@export var health_bar_component : HealthBarComponent
 
 @onready var self_hitbox = $HitboxComponent
 @onready var combat_component : CombatComponent = $CombatComponent
-@onready var health_bar_component : HealthBarComponent = $HealthBarComponent
 @onready var hitbox_component : HitboxComponent = $HitboxComponent
 @onready var projectile_container = get_tree().get_first_node_in_group('ProjectileContainer')
 
@@ -32,8 +32,6 @@ var speed = 150
 var shoot_cooldown : bool = false
 var shoot_lock : bool = false
 
-# Unique identifier for modularization
-
 func _ready():
 	# Default node connections
 	if !health_component:
@@ -46,7 +44,7 @@ func _ready():
 	if !muzzle: muzzle = $GunMuzzle
 	
 	randomize()
-	health_bar_component.lock_bar = set_health_bar
+	if health_bar_component: health_bar_component.lock_bar = set_health_bar
 	
 	set_timed_destroy(15)
 

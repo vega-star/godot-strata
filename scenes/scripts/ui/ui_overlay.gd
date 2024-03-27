@@ -175,12 +175,12 @@ func construct_hud(hud_element, type, set_value, limit):
 	
 	hud_nodes["cell"].set_texture(load(hud_element["sprites"]["cell_sprite_path"]))
 	hud_nodes["cell"].set_custom_minimum_size(Vector2(
-		hud_element["cells"]["short_cell_size_h"],
+		0,
 		hud_element["cells"]["short_cell_size_y"])
 	)
 	hud_nodes["short_cell"].set_texture(load(hud_element["sprites"]["short_cell_sprite_path"]))
 	hud_nodes["short_cell"].set_custom_minimum_size(Vector2(
-		hud_element["cells"]["short_cell_size_h"],
+		0,
 		hud_element["cells"]["short_cell_size_y"])
 	)
 	

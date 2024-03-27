@@ -45,7 +45,7 @@ func request_message(text_id, manual_text : bool = false, timeout : float = defa
 	## Open box
 	size = Vector2(0, 0)
 	var size_tween = get_tree().create_tween()
-	size_tween.set_process_mode(Tween.TWEEN_PROCESS_IDLE)
+	size_tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
 	size_tween.tween_property(self, "size", default_growth, growth_speed).as_relative().set_trans(Tween.TRANS_EXPO)
 	await size_tween.finished
 	size_tween.kill()
@@ -61,6 +61,7 @@ func request_message(text_id, manual_text : bool = false, timeout : float = defa
 	## Close box
 	text_node.set_text("")
 	size_tween = get_tree().create_tween()
+	size_tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
 	size_tween.tween_property(self, "size", Vector2(0, 0), growth_speed).set_trans(Tween.TRANS_EXPO)
 	await size_tween.finished
 	size_tween.kill()

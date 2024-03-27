@@ -1,0 +1,158 @@
+[gd_scene load_steps=8 format=3 uid="uid://ctksiqxkq8ue5"]
+
+[ext_resource type="Texture2D" uid="uid://dph1k44grln8n" path="res://assets/textures/prototypes/enemy-gun.png" id="2_t3tf3"]
+[ext_resource type="PackedScene" uid="uid://c4rkui846g2ue" path="res://components/status/combat_component.tscn" id="4_5vc8c"]
+[ext_resource type="PackedScene" uid="uid://bdfaybp4djcn2" path="res://components/status/health_component.tscn" id="5_6e6y1"]
+[ext_resource type="PackedScene" uid="uid://c3atqdge540t0" path="res://components/status/hitbox_component.tscn" id="6_2ayaf"]
+
+[sub_resource type="GDScript" id="GDScript_my1ic"]
+script/source = "extends Area2D
+
+signal weapon_destroyed(gun_name)
+
+const alpha_modulation = 0.5
+const damage_effect_flicker_count = 3
+const damage_effect_flicker = 0.15
+const self_scene_path = \"res://entities/dummy_enemies/enemy_gun.tscn\"
+
+## Nodes
+@export var deactivate_instead : bool = false
+@export var self_sprite : Sprite2D
+@export var muzzle : Marker2D
+@export var health_component : HealthComponent
+@onready var self_hitbox = $HitboxComponent
+@onready var combat_component : CombatComponent = $CombatComponent
+@onready var health_bar_component : HealthBarComponent
+@onready var hitbox_component : HitboxComponent = $HitboxComponent
+@onready var projectile_container = get_tree().get_first_node_in_group('ProjectileContainer')
+
+## Properties
+@export var set_health_bar : bool = false
+@export var limit_angle : bool = false
+@export var min_angle_limit : float = -90
+@export var max_angle_limit : float = 90
+@export var contact_damage = 1
+@export var rate_of_fire : float = 1
+@export var rof_randomness : float = 1.15
+
+@onready var projectile_scene = preload(\"res://entities/projectiles/enemy_missile.tscn\")
+@onready var player = get_tree().get_first_node_in_group('Player')
+
+ 
+var shoot_cooldown : bool = false
+var shoot_lock : bool = false
+
+# Unique identifier for modularization
+
+func _ready():
+	# Default node connections
+	if !health_component:
+		health_component = $HealthComponent
+	
+	if !self_sprite: 
+		self_sprite = $EnemySprite
+		self_sprite.visible = true
+	
+	if !muzzle: muzzle = $GunMuzzle
+	
+	randomize()
+	if health_bar_component: health_bar_component.lock_bar = set_health_bar
+
+func _physics_process(_delta):
+	if get_tree().has_group('Player'): 
+		look_at(player.global_position)
+	
+	if limit_angle:
+		rotation_degrees = clamp(rotation_degrees, min_angle_limit, max_angle_limit)
+	
+	if !shoot_cooldown and !shoot_lock:
+		shoot_cooldown = true
+		var projectile = projectile_scene.instantiate()
+		projectile.global_position = $GunMuzzle.global_position
+		projectile.rotation = global_rotation
+		projectile_container.call_deferred(\"add_child\", projectile)
+		var shuffle_rof = randf_range(rate_of_fire * rof_randomness, rate_of_fire / rof_randomness)
+		await get_tree().create_timer(shuffle_rof).timeout
+		shoot_cooldown = false
+
+func _on_area_entered(body):
+	if body is Player: # Generate damage to itself if it collides with player
+		self_hitbox.generate_damage(contact_damage)
+	if body is HitboxComponent:
+		body.generate_damage(contact_damage)
+
+func die(): # Temporarily destroys the enemy, but not really
+	if deactivate_instead: weapon_destroyed.emit(self)
+	else: destroy()
+
+func destroy(): # Destroys the enemy definetely
+	queue_free()
+
+func deactivate():
+	shoot_lock = true
+	self.visible = false
+	for n in projectile_container.get_children():
+		n.queue_free()
+
+func reactivate():
+	health_component.reset_health()
+	health_component.lock_health(false)
+	self.visible = true
+	shoot_lock = false
+
+func _on_health_component_health_change(_previous_value, _new_value, type):
+	if type:
+		for n in damage_effect_flicker_count:
+			self_sprite.modulate = Color(0,0,0)
+			await get_tree().create_timer(damage_effect_flicker).timeout
+			self_sprite.modulate = Color(255,255,255)
+			await get_tree().create_timer(damage_effect_flicker).timeout
+
+"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_57ns0"]
+radius = 14.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_effn3"]
+radius = 14.0
+
+[node name="EnemyMissileLauncher" type="Area2D" groups=["object"]]
+modulate = Color(0.741176, 0, 0.74902, 1)
+collision_layer = 2
+collision_mask = 5
+script = SubResource("GDScript_my1ic")
+set_health_bar = true
+limit_angle = true
+min_angle_limit = -25.0
+max_angle_limit = 25.0
+rate_of_fire = 3.0
+
+[node name="GunMuzzle" type="Marker2D" parent="."]
+position = Vector2(16, 0)
+
+[node name="EnemySprite" type="Sprite2D" parent="."]
+rotation = 3.14159
+texture = ExtResource("2_t3tf3")
+
+[node name="SelfCollision" type="CollisionShape2D" parent="."]
+position = Vector2(9.53674e-07, 9.53674e-07)
+shape = SubResource("CircleShape2D_57ns0")
+debug_color = Color(0, 0.6, 0.701961, 0)
+
+[node name="CombatComponent" parent="." instance=ExtResource("4_5vc8c")]
+
+[node name="HealthComponent" parent="." instance=ExtResource("5_6e6y1")]
+max_health = 35
+
+[node name="HitboxComponent" parent="." node_paths=PackedStringArray("simple_hitbox", "health_component") instance=ExtResource("6_2ayaf")]
+collision_layer = 2
+collision_mask = 5
+simple_hitbox = NodePath("CollisionShape2D")
+health_component = NodePath("../HealthComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
+shape = SubResource("CircleShape2D_effn3")
+debug_color = Color(0.701961, 0, 0.152941, 0.2)
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="health_change" from="HealthComponent" to="." method="_on_health_component_health_change"]

@@ -1,0 +1,355 @@
+[gd_scene load_steps=6 format=3 uid="uid://cfmi0lq8hncjn"]
+
+[ext_resource type="Texture2D" uid="uid://b3i4hbjvi68ry" path="res://assets/textures/ui/misc/hide_show_menu.png" id="1_1eba4"]
+[ext_resource type="Script" path="res://scenes/scripts/ui/practice_menu_layer.gd" id="1_di2ne"]
+[ext_resource type="Theme" uid="uid://b1a5sjt2xibwo" path="res://assets/themes/strata_theme/strata_theme.tres" id="2_1retd"]
+[ext_resource type="Texture2D" uid="uid://bq4h2bfsxvxrv" path="res://assets/themes/strata_theme/elements/styleboxes/smaller/sb_normal.png" id="3_k0kjd"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ipdpi"]
+texture = ExtResource("3_k0kjd")
+texture_margin_left = 7.0
+texture_margin_top = 2.0
+texture_margin_right = 7.0
+texture_margin_bottom = 2.0
+
+[node name="PracticeMenuLayer" type="CanvasLayer"]
+layer = 25
+script = ExtResource("1_di2ne")
+
+[node name="PracticeMenu" type="Control" parent="."]
+top_level = true
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HideButton" type="TextureButton" parent="PracticeMenu"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.95
+anchor_top = 0.741
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 15.9999
+offset_top = -93.14
+offset_right = -4.0
+offset_bottom = -192.0
+grow_horizontal = 0
+grow_vertical = 0
+texture_normal = ExtResource("1_1eba4")
+stretch_mode = 4
+
+[node name="PracticeTabs" type="TabContainer" parent="PracticeMenu"]
+custom_minimum_size = Vector2(0, 220)
+layout_mode = 2
+anchor_top = 0.593
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -0.220032
+grow_horizontal = 2
+grow_vertical = 0
+current_tab = 1
+
+[node name="Main" type="Control" parent="PracticeMenu/PracticeTabs"]
+visible = false
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PracticeMenu/PracticeTabs/Main"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 11.0
+offset_right = 60.0
+offset_bottom = 34.0
+text = "TEST 1"
+
+[node name="Player" type="Control" parent="PracticeMenu/PracticeTabs"]
+layout_mode = 2
+theme = ExtResource("2_1retd")
+
+[node name="ContainerSeparator" type="HBoxContainer" parent="PracticeMenu/PracticeTabs/Player"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 9.0
+offset_top = 8.0
+offset_right = -9.0
+offset_bottom = -7.00003
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 10
+
+[node name="StatusContainer" type="VBoxContainer" parent="PracticeMenu/PracticeTabs/Player/ContainerSeparator"]
+custom_minimum_size = Vector2(185, 0)
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="ContainerLabel" type="Label" parent="PracticeMenu/PracticeTabs/Player/ContainerSeparator/StatusContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 26
+text = "STATUS"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Health" type="Label" parent="PracticeMenu/PracticeTabs/Player/ContainerSeparator/StatusContainer"]
+layout_mode = 2
+text = "HEALTH"
+
+[node name="HSlider" type="HSlider" parent="PracticeMenu/PracticeTabs/Player/ContainerSeparator/StatusContainer/Health"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -123.0
+offset_top = -9.0
+offset_bottom = 9.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="MaxHealth" type="Label" parent="PracticeMenu/PracticeTabs/Player/ContainerSeparator/StatusContainer"]
+layout_mode = 2
+text = "MAX HEALTH"
+
+[node name="SpinBox" type="SpinBox" parent="PracticeMenu/PracticeTabs/Player/ContainerSeparator/StatusContainer/MaxHealth"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -65.0
+offset_top = -14.5
+offset_bottom = 14.5
+grow_horizontal = 0
+grow_vertical = 2
+theme = ExtResource("2_1retd")
+min_value = 1.0
+max_value = 30.0
+value = 30.0
+alignment = 2
+
+[node name="Ammo" type="Label" parent="PracticeMenu/PracticeTabs/Player/ContainerSeparator/StatusContainer"]
+layout_mode = 2
+text = "AMMO"
+
+[node name="HSlider" type="HSlider" parent="PracticeMenu/PracticeTabs/Player/ContainerSeparator/StatusContainer/Ammo"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -123.0
+offset_top = -9.0
+offset_bottom = 9.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="MaxAmmo" type="Label" parent="PracticeMenu/PracticeTabs/Player/ContainerSeparator/StatusContainer"]
+layout_mode = 2
+text = "MAX AMMO"
+
+[node name="SpinBox" type="SpinBox" parent="PracticeMenu/PracticeTabs/Player/ContainerSeparator/StatusContainer/MaxAmmo"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -65.0
+offset_top = -14.5
+offset_bottom = 14.5
+grow_horizontal = 0
+grow_vertical = 2
+theme = ExtResource("2_1retd")
+min_value = 1.0
+max_value = 50.0
+value = 1.0
+alignment = 2
+
+[node name="ResetButton" type="Button" parent="PracticeMenu/PracticeTabs/Player/ContainerSeparator/StatusContainer"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_ipdpi")
+text = "RESET TO DEFAULT"
+
+[node name="WeaponsContainer" type="VBoxContainer" parent="PracticeMenu/PracticeTabs/Player/ContainerSeparator"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="ContainerLabel" type="Label" parent="PracticeMenu/PracticeTabs/Player/ContainerSeparator/WeaponsContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 26
+text = "WEAPONS"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LoadoutLists" type="HBoxContainer" parent="PracticeMenu/PracticeTabs/Player/ContainerSeparator/WeaponsContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="PrimaryWeaponsList" type="ItemList" parent="PracticeMenu/PracticeTabs/Player/ContainerSeparator/WeaponsContainer/LoadoutLists"]
+custom_minimum_size = Vector2(200, 105)
+layout_mode = 2
+mouse_filter = 1
+theme = ExtResource("2_1retd")
+item_count = 3
+item_0/text = "MINIGUN"
+item_1/text = "BURST LASER"
+item_2/text = "RAILGUN"
+
+[node name="SecondaryWeaponsList" type="ItemList" parent="PracticeMenu/PracticeTabs/Player/ContainerSeparator/WeaponsContainer/LoadoutLists"]
+custom_minimum_size = Vector2(200, 105)
+layout_mode = 2
+mouse_filter = 1
+theme = ExtResource("2_1retd")
+item_count = 3
+item_0/text = "GUIDED MISSILES"
+item_1/text = "STASIS BOMB"
+item_2/text = "CHARGED LASER"
+
+[node name="WeaponTypes" type="HBoxContainer" parent="PracticeMenu/PracticeTabs/Player/ContainerSeparator/WeaponsContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="PrimaryWeapon" type="Label" parent="PracticeMenu/PracticeTabs/Player/ContainerSeparator/WeaponsContainer/WeaponTypes"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme = ExtResource("2_1retd")
+text = "PRIMARY WEAPON"
+horizontal_alignment = 1
+
+[node name="SecondaryWeapon" type="Label" parent="PracticeMenu/PracticeTabs/Player/ContainerSeparator/WeaponsContainer/WeaponTypes"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme = ExtResource("2_1retd")
+text = "SECONDARY WEAPON
+"
+horizontal_alignment = 1
+
+[node name="WeaponProperties" type="VBoxContainer" parent="PracticeMenu/PracticeTabs/Player/ContainerSeparator"]
+custom_minimum_size = Vector2(195, 0)
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="ContainerLabel" type="Label" parent="PracticeMenu/PracticeTabs/Player/ContainerSeparator/WeaponProperties"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 26
+text = "PROPERTIES"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PrimaryDamage" type="Label" parent="PracticeMenu/PracticeTabs/Player/ContainerSeparator/WeaponProperties"]
+layout_mode = 2
+text = "PRIM. DAMAGE"
+
+[node name="SpinBox" type="SpinBox" parent="PracticeMenu/PracticeTabs/Player/ContainerSeparator/WeaponProperties/PrimaryDamage"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -75.0
+offset_top = -14.5
+offset_bottom = 14.5
+grow_horizontal = 0
+grow_vertical = 2
+theme = ExtResource("2_1retd")
+min_value = 1.0
+max_value = 30.0
+value = 1.0
+alignment = 2
+
+[node name="SecondaryAmmo" type="Label" parent="PracticeMenu/PracticeTabs/Player/ContainerSeparator/WeaponProperties"]
+layout_mode = 2
+text = "SEC. DAMAGE"
+
+[node name="SpinBox" type="SpinBox" parent="PracticeMenu/PracticeTabs/Player/ContainerSeparator/WeaponProperties/SecondaryAmmo"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -75.0
+offset_top = -14.5
+offset_bottom = 14.5
+grow_horizontal = 0
+grow_vertical = 2
+theme = ExtResource("2_1retd")
+min_value = 1.0
+max_value = 50.0
+value = 1.0
+alignment = 2
+
+[node name="SecondaryAmount" type="Label" parent="PracticeMenu/PracticeTabs/Player/ContainerSeparator/WeaponProperties"]
+layout_mode = 2
+text = "SEC. AMOUNT"
+
+[node name="SpinBox" type="SpinBox" parent="PracticeMenu/PracticeTabs/Player/ContainerSeparator/WeaponProperties/SecondaryAmount"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -75.0
+offset_top = -14.5
+offset_bottom = 14.5
+grow_horizontal = 0
+grow_vertical = 2
+theme = ExtResource("2_1retd")
+min_value = 1.0
+max_value = 50.0
+value = 1.0
+alignment = 2
+
+[node name="Additives" type="VBoxContainer" parent="PracticeMenu/PracticeTabs/Player/ContainerSeparator"]
+custom_minimum_size = Vector2(130, 0)
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="ContainerLabel" type="Label" parent="PracticeMenu/PracticeTabs/Player/ContainerSeparator/Additives"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 26
+text = "TOGGLE"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PrimaryDamage" type="Label" parent="PracticeMenu/PracticeTabs/Player/ContainerSeparator/Additives"]
+layout_mode = 2
+text = "HEAT"
+
+[node name="CheckButton" type="CheckButton" parent="PracticeMenu/PracticeTabs/Player/ContainerSeparator/Additives/PrimaryDamage"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -52.0
+offset_top = -17.5
+offset_bottom = 18.5
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="Items" type="Control" parent="PracticeMenu/PracticeTabs"]
+visible = false
+layout_mode = 2
+
+[node name="Enemies" type="Control" parent="PracticeMenu/PracticeTabs"]
+visible = false
+layout_mode = 2
+
+[node name="Events" type="Control" parent="PracticeMenu/PracticeTabs"]
+visible = false
+layout_mode = 2
+
+[node name="Misc" type="Control" parent="PracticeMenu/PracticeTabs"]
+visible = false
+layout_mode = 2

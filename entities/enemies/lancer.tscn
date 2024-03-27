@@ -1,0 +1,50 @@
+[gd_scene load_steps=7 format=3 uid="uid://igxvug253rmj"]
+
+[ext_resource type="Script" path="res://entities/entity_scripts/enemy.gd" id="1_ltrgj"]
+[ext_resource type="Texture2D" uid="uid://dl6lo2bnl78b1" path="res://assets/textures/entities/enemies/simple/lancer.png" id="2_4typ5"]
+[ext_resource type="PackedScene" uid="uid://c4rkui846g2ue" path="res://components/status/combat_component.tscn" id="3_g487u"]
+[ext_resource type="PackedScene" uid="uid://cifxjpiop3cha" path="res://components/status/drop_component.tscn" id="4_sb5g4"]
+[ext_resource type="PackedScene" uid="uid://bdfaybp4djcn2" path="res://components/status/health_component.tscn" id="5_gcbip"]
+[ext_resource type="PackedScene" uid="uid://c3atqdge540t0" path="res://components/status/hitbox_component.tscn" id="6_ggigf"]
+
+[node name="Lancer" type="Area2D" node_paths=PackedStringArray("self_sprite") groups=["enemy"]]
+collision_layer = 2
+collision_mask = 5
+script = ExtResource("1_ltrgj")
+enemy_name = "lancer"
+self_sprite = NodePath("EnemySprite")
+bulk_updating = true
+
+[node name="EnemySprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_4typ5")
+
+[node name="CollisionShape2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-42.8571, 4.28571, 41.4286, -17.1429, 24.2857, -5.71429, 24.2857, 4.28571, 30, 12.8571, 27.1429, 15.7143, 20, 11.4286, 12.8571, 11.4286, -21.4286, 11.4286, -25.7143, 7.14286, -37.1429, 7.14286)
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+visible = false
+position = Vector2(130, 0)
+
+[node name="CombatComponent" parent="." instance=ExtResource("3_g487u")]
+
+[node name="DropComponent" parent="." instance=ExtResource("4_sb5g4")]
+
+[node name="HealthComponent" parent="." instance=ExtResource("5_gcbip")]
+max_health = 5
+
+[node name="HitboxComponent" parent="." node_paths=PackedStringArray("hitbox", "health_component", "combat_component") instance=ExtResource("6_ggigf")]
+collision_layer = 2
+collision_mask = 5
+hitbox = NodePath("CollisionShape2D")
+health_component = NodePath("../HealthComponent")
+combat_component = NodePath("../CombatComponent")
+
+[node name="CollisionShape2D" type="CollisionPolygon2D" parent="HitboxComponent"]
+visible = false
+polygon = PackedVector2Array(-42.8571, 4.28571, 41.4286, -17.1429, 24.2857, -5.71429, 24.2857, 4.28571, 30, 12.8571, 27.1429, 15.7143, 20, 11.4286, 12.8571, 11.4286, -21.4286, 11.4286, -25.7143, 7.14286, -37.1429, 7.14286)
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="enemy_died" from="." to="DropComponent" method="_on_enemy_died"]
+[connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_screen_reentered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
+[connection signal="health_change" from="HealthComponent" to="." method="_on_health_component_health_change"]

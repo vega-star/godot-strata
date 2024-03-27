@@ -1,0 +1,112 @@
+{
+    "spawn_few_enemies": {
+        "event_type": "spawn_enemy",
+        "event_description": "Spawn a cluster of enemies using the swarm rule set.",
+        "set_timer": true,
+        "has_rules": true,
+        "event_properties": {
+            "enemy": "scout",
+            "event_timer": {
+                "pause_stage_timer": false,
+                "timer_period": 5.0
+            },
+            "rules": {
+                "spawn_override": "center", 
+                "swarm": {
+                    "method": 0, 
+                    "separation": 30,
+                    "amount": 5,
+                    "delay": 1
+                }
+            }
+        }
+    },
+    "test_lancer": {
+        "event_type": "spawn_enemy",
+        "event_description": "Spawn a cluster of enemies using the swarm rule set.",
+        "set_timer": true,
+        "has_rules": false,
+        "event_properties": {
+            "enemy": "lancer",
+            "event_timer": {
+                "pause_stage_timer": false,
+                "timer_period": 4.0
+            }
+        }
+    },
+    "test_diver": {
+        "event_type": "spawn_enemy",
+        "event_description": "Spawn a cluster of enemies using the swarm rule set.",
+        "set_timer": true,
+        "has_rules": false,
+        "event_properties": {
+            "enemy": "diver",
+            "event_timer": {
+                "pause_stage_timer": false,
+                "timer_period": 4.0
+            }
+        }
+    },
+    "test_wingman": {
+        "event_type": "spawn_enemy",
+        "event_description": "Spawn a cluster of enemies using the swarm rule set.",
+        "set_timer": true,
+        "has_rules": false,
+        "event_properties": {
+            "enemy": "wingman",
+            "event_timer": {
+                "pause_stage_timer": false,
+                "timer_period": 4.0
+            }
+        }
+    },
+    "test_diver_carrier_top": {
+        "event_type": "spawn_enemy",
+        "event_description": "Spawns a diver carrier",
+        "set_timer": true,
+        "has_rules": true,
+        "event_properties": {
+            "enemy": "diver_carrier",
+            "event_timer": {
+                "pause_stage_timer": false,
+                "timer_period": 1.0
+            },
+            "rules": {
+                "spawn_override": "top",
+                "property_override": {
+                    "spawn_top": false
+                }
+            }
+        }
+    },
+    "test_diver_carrier_bottom": {
+        "event_type": "spawn_enemy",
+        "event_description": "Spawns a diver carrier",
+        "set_timer": true,
+        "has_rules": true,
+        "event_properties": {
+            "enemy": "diver_carrier",
+            "event_timer": {
+                "pause_stage_timer": false,
+                "timer_period": 15.0
+            },
+            "rules": {
+                "spawn_override": "bottom",
+                "property_override": {
+                    "spawn_bottom": false
+                }
+            }
+        }
+    },
+    "test_filler": {
+        "event_type": "filler",
+        "event_description": "Acts as a empty filler between previous events and a certain portion of the stage. It just needs the 'stop_before' variable for it to work. Also serves as a tool to find the ideal stage length!",
+        "set_timer": false,
+        "has_rules": false,
+        "event_properties": {
+            "event_timer": {
+                "filler_stop_before": 2
+            }
+        }
+    }
+}

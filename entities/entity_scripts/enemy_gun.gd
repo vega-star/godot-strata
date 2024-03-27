@@ -12,9 +12,7 @@ const self_scene_path = "res://entities/dummy_enemies/enemy_gun.tscn"
 @export var self_sprite : Sprite2D
 @export var muzzle : Marker2D
 @export var health_component : HealthComponent
-@onready var self_hitbox = $HitboxComponent
 @onready var combat_component : CombatComponent = $CombatComponent
-@onready var health_bar_component : HealthBarComponent = $HealthBarComponent
 @onready var hitbox_component : HitboxComponent = $HitboxComponent
 @onready var projectile_container = get_tree().get_first_node_in_group('ProjectileContainer')
 
@@ -26,6 +24,7 @@ const self_scene_path = "res://entities/dummy_enemies/enemy_gun.tscn"
 @export var contact_damage = 1
 @export var rate_of_fire : float = 1
 @export var rof_randomness : float = 1.15
+@export var health_bar_component : HealthBarComponent
 
 @onready var projectile_scene = preload("res://entities/projectiles/default_enemy_laser.tscn")
 @onready var player = get_tree().get_first_node_in_group('Player')
@@ -48,7 +47,8 @@ func _ready():
 	if !muzzle: muzzle = $GunMuzzle
 	
 	randomize()
-	health_bar_component.lock_bar = set_health_bar
+	if health_bar_component:
+		health_bar_component.lock_bar = set_health_bar
 
 func _physics_process(_delta):
 	if get_tree().has_group('Player'): 
@@ -69,11 +69,11 @@ func _physics_process(_delta):
 
 func _on_area_entered(body):
 	if body is Player: # Generate damage to itself if it collides with player
-		self_hitbox.generate_damage(contact_damage)
+		hitbox_component.generate_damage(contact_damage)
 	if body is HitboxComponent:
-		body.generate_damage(contact_damage)
+		body.generate_damage(contact_damage, self)
 
-func die(): # Temporarily destroys the enemy, but not really
+func die(_source): # Temporarily destroys the enemy, but not really
 	if deactivate_instead: weapon_destroyed.emit(self)
 	else: destroy()
 
@@ -83,8 +83,6 @@ func destroy(): # Destroys the enemy definetely
 func deactivate():
 	shoot_lock = true
 	self.visible = false
-	for n in projectile_container.get_children():
-		n.queue_free()
 
 func reactivate():
 	health_component.reset_health()

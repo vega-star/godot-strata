@@ -719,7 +719,9 @@ collision_mask = 26
 motion_mode = 1
 platform_wall_layers = 2
 script = ExtResource("1_hermy")
-dash_cooldown_timer = 1.7
+speed = 500.0
+max_speed_factor = 2.2
+acceleration = 1.2
 
 [node name="TrailComponent" parent="." instance=ExtResource("2_ev3b1")]
 position = Vector2(-19, 7)
@@ -776,12 +778,12 @@ health_component = NodePath("../HealthComponent")
 [node name="HealthComponent" parent="." instance=ExtResource("3_pgpvp")]
 max_health = 3
 
-[node name="HitboxComponent" parent="." node_paths=PackedStringArray("health_component", "hitbox") instance=ExtResource("4_vxsth")]
+[node name="HitboxComponent" parent="." node_paths=PackedStringArray("hitbox", "health_component") instance=ExtResource("4_vxsth")]
 collision_mask = 10
 input_pickable = false
+hitbox = NodePath("PlayerHitbox")
 health_component = NodePath("../HealthComponent")
 immunity_frame_limit = 60
-hitbox = NodePath("PlayerHitbox")
 
 [node name="PlayerHitbox" type="CollisionPolygon2D" parent="HitboxComponent"]
 position = Vector2(0, -2)

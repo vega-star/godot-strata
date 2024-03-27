@@ -1,22 +1,83 @@
 {
     "enemy": {
-        "scene": "res://entities/prototype_entities/enemy.tscn", 
+        "scene": "res://entities/prototype_entities/enemy.tscn",
+        "enemy_description": "Debug entity with defaulf enemy script and functionalities. Has working systems and collision. Just a red square ,ot proper to show in game.",
         "type": 0,
         "contain_rules": false,
-        "contain_items": true,
-        "drops": {"type": 0, "items": [false,"secondary_ammo","health_capsule", "damage_boost"], "chances": [0,80,90,95], "range": 100}
+        "contain_items": false
     },
     "hitbox_bar": {
-        "scene": "res://entities/prototype_entities/hitbox_bar.tscn", 
+        "scene": "res://entities/prototype_entities/hitbox_bar.tscn",
+        "enemy_description": "Simple hitbox bar used in the tutorial stage. Can be used in other sections and stages, but probably will not.", 
         "type": 0,
         "contain_rules": false,
         "contain_items": false
     },
     "static_gun": {
-        "scene": "res://entities/prototype_entities/static_enemy_gun.tscn", 
+        "scene": "res://entities/prototype_entities/static_enemy_gun.tscn",
+        "enemy_description": "Unmovable cannons and turrets attached to enemies ships. Has variations, but uses the same automatic guidance system.",
         "type": 0,
         "contain_rules": false,
         "contain_items": false
+    },
+    "scout": {
+        "scene": "res://entities/enemies/scout.tscn",
+        "enemy_description": "Recon unity. Round, unmanned, and unarmed. Easy target.",
+        "type": 0,
+        "contain_rules": false,
+        "contain_items": true,
+        "drops": {
+            "type": 0,
+            "items": [false,"secondary_ammo","health_capsule"],
+            "chances": [0,83,93],
+            "range": 100
+        }
+    },
+    "lancer": {
+        "scene": "res://entities/enemies/lancer.tscn",
+        "enemy_description": "Fast unmanned unit with low energy capacity. Repositions itself to shoot a few times, but flees to recharge.",
+        "type": 0,
+        "contain_rules": false,
+        "contain_items": true,
+        "drops": {
+            "type": 0,
+            "items": [false, "damage_boost"],
+            "chances": [0,90],
+            "range": 100
+        }
+    },
+    "diver": {
+        "scene": "res://entities/enemies/diver.tscn",
+        "enemy_description": "Overall slow unit with poor maneuverability, but dangerous nonetheless. Drilling units made to breach general infrastructure, specially their own ships. Data translation shows they were designed in wars within themselves.",
+        "type": 0,
+        "contain_rules": false,
+        "contain_items": true,
+        "drops": {
+            "type": 0,
+            "items": [false, "health_capsule"],
+            "chances": [0,90],
+            "range": 100
+        }
+    },
+    "wingman": {
+        "scene": "res://entities/enemies/wingman.tscn",
+        "enemy_description": "High mobility and wide wing-like structures. Mostly manned. Armed with a single electromagnetic cannon in the front.",
+        "type": 0,
+        "contain_rules": false,
+        "contain_items": true,
+        "drops": {
+            "type": 0,
+            "items": [false, "secondary_ammo"],
+            "chances": [0,70],
+            "range": 100
+        }
+    },
+    "diver_carrier": {
+        "scene": "res://entities/enemies/diver-carrier.tscn", 
+        "type": 0,
+        "contain_rules": true,
+        "contain_items": false,
+        "rules": {"spawn_override": "center"}
     },
     "drone_1": {
         "scene": "res://entities/enemies/drone.tscn", 

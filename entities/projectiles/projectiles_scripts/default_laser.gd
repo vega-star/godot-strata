@@ -1,9 +1,11 @@
 extends Area2D
 
-@onready var projectile_sound = $ProjectileSound
 const base_rate_of_fire : float = 5
-var enemy_pass_count = 0
 
+@onready var projectile_sound = $ProjectileSound
+
+@export var debug : bool = false
+@export var modulate_pitch : bool = false
 
 # Factors and multiplyers
 var projectile_speed = 1300
@@ -13,10 +15,9 @@ var enemy_pass_limit : int = 2
 var penetration_factor : float = 0.3
 var damage_factor_against_bosses : float = 1
 var critical_damage_factor : float = 2
-
-@export var debug : bool = false
-@export var modulate_pitch : bool = false
 var pitch_variation = 0.05
+var enemy_pass_count = 0
+var enemy_name : String = "LOST PROJECTILE"
 
 func _ready():
 	randomize()

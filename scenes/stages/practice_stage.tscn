@@ -1,0 +1,52 @@
+[gd_scene load_steps=7 format=3 uid="uid://bm02w1ci6lcbe"]
+
+[ext_resource type="Script" path="res://scenes/scripts/main/practice_stage.gd" id="1_0r3jy"]
+[ext_resource type="PackedScene" uid="uid://csdnju38rqee8" path="res://scenes/stage_manager.tscn" id="2_hwme0"]
+[ext_resource type="PackedScene" uid="uid://biim58k38oa7h" path="res://entities/player/player.tscn" id="3_flctw"]
+[ext_resource type="PackedScene" uid="uid://b81qbneypd7pp" path="res://scenes/stages/parallax/simulated_parallax.tscn" id="4_wfaoe"]
+[ext_resource type="Script" path="res://scenes/scripts/main/stage_camera.gd" id="5_btjjv"]
+[ext_resource type="PackedScene" uid="uid://cfmi0lq8hncjn" path="res://scenes/ui/practice_menu_layer.tscn" id="6_y3xfg"]
+
+[node name="PracticeStage" type="Node2D"]
+light_mask = 2
+visibility_layer = 2
+script = ExtResource("1_0r3jy")
+stage_id = "PracticeStage"
+stage_title = "PRACTICE"
+save_stage_data = false
+
+[node name="StageManager" parent="." instance=ExtResource("2_hwme0")]
+debug_generator = false
+
+[node name="PlayerStartPosition" type="Marker2D" parent="."]
+light_mask = 2
+visibility_layer = 2
+position = Vector2(185, 270)
+
+[node name="Player" parent="." instance=ExtResource("3_flctw")]
+position = Vector2(-122, -72)
+
+[node name="CameraConnection" type="RemoteTransform2D" parent="Player"]
+remote_path = NodePath("../../StageCamera")
+
+[node name="ProjectileContainer" type="Node2D" parent="." groups=["ProjectileContainer"]]
+
+[node name="StageTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="SimulationParallax" parent="." instance=ExtResource("4_wfaoe")]
+
+[node name="StageCamera" type="Camera2D" parent="."]
+position = Vector2(-122, -72)
+limit_left = 0
+limit_top = -60
+limit_right = 960
+limit_bottom = 540
+limit_smoothed = true
+position_smoothing_enabled = true
+editor_draw_limits = true
+script = ExtResource("5_btjjv")
+
+[node name="PracticeMenuLayer" parent="." instance=ExtResource("6_y3xfg")]
+
+[connection signal="timeout" from="StageTimer" to="." method="_on_stage_timer_timeout"]
