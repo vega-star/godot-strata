@@ -31,13 +31,14 @@ var horizontal_limit : Vector2
 @export var dash_speed : float = 1800
 @export var dash_cooldown_timer : float = 2.5
 @export var roll_cooldown_timer : float = 4
+@export var animation_player : AnimationPlayer
 var dash_cooldown_factor : float = 1.0
 var roll_cooldown_factor : float = 1.0
 
 var damage_knockback : bool = false
 const knockback_speed = 1200
 const knockback_randomness = 0.2
-const roll_timer : float = 1
+const roll_timer : float = 1.5
 
 # Status
 @onready var stage_camera : Camera2D = $"../StageCamera"
@@ -52,6 +53,8 @@ var primary_fire_cooldown : bool = false
 var secondary_fire_cooldown : bool = false
 var dash_cooldown : bool = false
 var roll_cooldown : bool = false
+var randomize_roll : bool = true
+var locked_dash : bool = false
 
 ## Inventory
 @onready var muzzle_node = $Muzzles
@@ -107,6 +110,9 @@ func _on_config_changed():
 
 ## Controls, movement and animation
 func _process(delta): # Frequent listener for input with delay (weapons, items, etc.)
+	if is_control_locked:
+		return
+	
 	if toggle_mode:
 		if Input.is_action_just_pressed("shoot") and !primary_fire_toggled:
 			primary_fire_toggled = true
@@ -134,24 +140,26 @@ func _process(delta): # Frequent listener for input with delay (weapons, items, 
 			
 			hitbox_component.toggle_immunity(true)
 			hitbox_component.set_collision_layer_value(1, false)
-			$HunterSprites.modulate.a = 0.5
+			$PlayerSprites.modulate.a = 0.5
 			
-			# await get_tree().create_timer((roll_cooldown_timer * roll_cooldown_factor) * delta, false, true).timeout
 			await get_tree().create_timer(roll_timer / roll_cooldown_factor, false).timeout
-			
+			# animation_player.set_speed_scale(roll_cooldown_factor)
+
 			hitbox_component.toggle_immunity(false)
 			hitbox_component.set_collision_layer_value(1, true)
-			$HunterSprites.modulate.a = 1
+			$PlayerSprites.modulate.a = 1
 			
+			## Wait for roll to be available again
+			await get_tree().create_timer(roll_cooldown_timer)
 			roll_cooldown = false
 	
 	update_animation_state()
 
 func _physics_process(delta): # General movement function
-	if !is_control_locked:
-		direction = Input.get_vector("move_left", "move_right", "move_up", "move_down", deadzone)
-	else:
-		direction = Vector2(-0.1,0)
+	if is_control_locked:
+		return
+	
+	direction = Input.get_vector("move_left", "move_right", "move_up", "move_down", deadzone)
 	velocity = velocity.lerp(direction * speed, 0.1) # Thanks DeeRaghooGames for blessing me with this secret sauce. This makes movement really smooth. 
 	# Source: https://www.youtube.com/watch?v=KadtbetXTGc
 	
@@ -162,19 +170,21 @@ func _physics_process(delta): # General movement function
 	# Source: https://www.youtube.com/watch?v=QoNukqpolS8
 	
 	if Input.is_action_just_pressed("dash") and dash_cooldown == false:
+		if direction == Vector2.ZERO:
+			if locked_dash:
+				return
+			else:
+				direction = Vector2.RIGHT
+		
 		dash_cooldown = true
-		$HunterSprites.modulate.g = 0.5
-		$HunterSprites.modulate.b = 0.5
+		$TrailComponent.burst(true)
 		var target_direction = direction.normalized()
 		velocity = target_direction * dash_speed
 		
 		# await get_tree().create_timer((dash_cooldown_timer * dash_cooldown_factor) * delta, false, true).timeout
 		await get_tree().create_timer(dash_cooldown_timer * dash_cooldown_factor, false).timeout
-		
-		$HunterSprites.modulate.g = 1
-		$HunterSprites.modulate.b = 1
+		$TrailComponent.burst(false)
 		dash_cooldown = false
-		pass
 	
 	if damage_knockback:
 		damage_knockback = false
@@ -202,21 +212,37 @@ func _physics_process(delta): # General movement function
 
 func update_animation_state(): 
 	## AnimationTree controls learned from Chris Tutorials | source: https://www.youtube.com/watch?v=WrMORzl3g1U
+	## Heavily modified and adapted for this project
+	var current_vertical_blend = animation_tree.get("parameters/Moving/blend_position")
+	var vertical_lerp = lerpf(current_vertical_blend, direction.y, 0.05)
+	
 	if direction == Vector2.ZERO:
 		animation_tree["parameters/conditions/idle"] = true
 		animation_tree["parameters/conditions/moving"] = false
+		
+		# By resetting lerp value, we prevent animation flickering when the player changes quickly between moving and idle
+		vertical_lerp = 0
 	else:
 		animation_tree["parameters/conditions/idle"] = false
 		animation_tree["parameters/conditions/moving"] = true
 	
-	if Input.is_action_just_pressed("roll") and roll_cooldown == true:
-		print('Roll animation')
-	else:
-		animation_tree["parameters/conditions/on_roll"] = false
+	## Vertical movement blending
+	animation_tree.set("parameters/Moving/blend_position", vertical_lerp)
 	
-	animation_tree["parameters/Idle/blend_position"] = direction
-	animation_tree["parameters/Moving/blend_position"] = direction
-	animation_tree["parameters/Roll/blend_position"] = direction
+	## Roll controller
+	if Input.is_action_just_pressed("roll") and roll_cooldown == true:
+		match randomize_roll:
+			true: ## Randomize roll
+				var choice = randi_range(0,1)
+				match choice:
+					0: animation_tree["parameters/conditions/back_roll"] = true
+					1: animation_tree["parameters/conditions/front_roll"] = true
+			false: ## Roll based on current direction
+				if direction.y > 0: animation_tree["parameters/conditions/back_roll"] = true
+				else: animation_tree["parameters/conditions/front_roll"] = true
+	else:
+		animation_tree["parameters/conditions/back_roll"] = false
+		animation_tree["parameters/conditions/front_roll"] = false
 
 ## Weapon firing
 func shoot_loop():
@@ -240,7 +266,7 @@ func shoot_secondary():
 	if secondary_ammo > 0:
 		if debug: print("Bomb launched! %d ammo left" % int(secondary_ammo - 1))
 		fire_secondary.emit(main_muzzle, secondary_ammo) # This signal both alters the hud value and emits the projectile at the same time
-	else: 
+	else:
 		if debug: print("No ammo left!")
 
 ## Status change listeners

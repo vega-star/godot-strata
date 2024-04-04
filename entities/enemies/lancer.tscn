@@ -1,50 +1,326 @@
-[gd_scene load_steps=7 format=3 uid="uid://igxvug253rmj"]
+[gd_scene load_steps=24 format=3 uid="uid://cmqhgcn8ma7k5"]
 
-[ext_resource type="Script" path="res://entities/entity_scripts/enemy.gd" id="1_ltrgj"]
-[ext_resource type="Texture2D" uid="uid://dl6lo2bnl78b1" path="res://assets/textures/entities/enemies/simple/lancer.png" id="2_4typ5"]
-[ext_resource type="PackedScene" uid="uid://c4rkui846g2ue" path="res://components/status/combat_component.tscn" id="3_g487u"]
-[ext_resource type="PackedScene" uid="uid://cifxjpiop3cha" path="res://components/status/drop_component.tscn" id="4_sb5g4"]
-[ext_resource type="PackedScene" uid="uid://bdfaybp4djcn2" path="res://components/status/health_component.tscn" id="5_gcbip"]
-[ext_resource type="PackedScene" uid="uid://c3atqdge540t0" path="res://components/status/hitbox_component.tscn" id="6_ggigf"]
+[ext_resource type="Script" path="res://entities/entity_scripts/composite_enemy.gd" id="1_sosx1"]
+[ext_resource type="PackedScene" uid="uid://cifxjpiop3cha" path="res://components/status/drop_component.tscn" id="2_hipol"]
+[ext_resource type="Texture2D" uid="uid://3a8hr5l56s5t" path="res://assets/textures/entities/enemies/lancer/lancer.png" id="3_mv7tp"]
+[ext_resource type="Texture2D" uid="uid://b2a7ig38c38qp" path="res://assets/textures/entities/enemies/lancer/lancer-front-shielding.png" id="5_6n170"]
+[ext_resource type="PackedScene" uid="uid://cxk85efxpd3at" path="res://entities/composite_elements/composite_shielding.tscn" id="5_iqo4a"]
+[ext_resource type="Texture2D" uid="uid://drqou43mvadda" path="res://assets/textures/entities/enemies/lancer/lancer-barrier.png" id="5_rl624"]
+[ext_resource type="PackedScene" uid="uid://vi1edwldfrtq" path="res://entities/composite_elements/composite_enemy_module.tscn" id="7_xcaug"]
+[ext_resource type="PackedScene" uid="uid://dqge7meaumoi5" path="res://entities/prototype_entities/enemy_gun.tscn" id="8_4ogds"]
+[ext_resource type="Texture2D" uid="uid://cbvo8oiu7ddns" path="res://assets/textures/entities/enemies/lancer/lancer-gun.png" id="9_mgqek"]
+[ext_resource type="Texture2D" uid="uid://bosqr445kargj" path="res://assets/textures/entities/enemies/lancer/lancer-gun-component.png" id="10_nywvu"]
+[ext_resource type="Texture2D" uid="uid://d2550xwswv3ba" path="res://assets/textures/entities/enemies/lancer/rocket-launcher-back.png" id="10_ruwc2"]
+[ext_resource type="Texture2D" uid="uid://cstbhuqch3l5a" path="res://assets/textures/entities/enemies/lancer/lancer-back-shielding.png" id="11_1wt2q"]
+[ext_resource type="PackedScene" uid="uid://bdfaybp4djcn2" path="res://components/status/health_component.tscn" id="11_imk7k"]
+[ext_resource type="PackedScene" uid="uid://c3atqdge540t0" path="res://components/status/hitbox_component.tscn" id="12_rl3ew"]
+[ext_resource type="Texture2D" uid="uid://b2qqxoc8m32vq" path="res://assets/textures/entities/enemies/lancer/rocket-launcher.png" id="13_2d4b0"]
+[ext_resource type="Script" path="res://components/status/combat_component.gd" id="13_wkyrh"]
+[ext_resource type="Texture2D" uid="uid://c0i2mg8nhoobw" path="res://assets/textures/entities/enemies/lancer/rocket-launcher-cover.png" id="14_i7pe5"]
+[ext_resource type="Texture2D" uid="uid://dtrusbnc5ft7s" path="res://assets/textures/entities/enemies/lancer/core.png" id="15_34mug"]
+[ext_resource type="PackedScene" uid="uid://capsl03als0q0" path="res://entities/projectiles/enemy_ray.tscn" id="15_xg2si"]
+[ext_resource type="PackedScene" uid="uid://ctksiqxkq8ue5" path="res://entities/prototype_entities/enemy_missile_launcher.tscn" id="16_b2wr1"]
+[ext_resource type="Script" path="res://components/status/hitbox_component.gd" id="16_ppdj8"]
 
-[node name="Lancer" type="Area2D" node_paths=PackedStringArray("self_sprite") groups=["enemy"]]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y4one"]
+size = Vector2(4, 28)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_s6g41"]
+
+[node name="Lancer" type="Area2D" groups=["composite_enemy"]]
+light_mask = 2
+visibility_layer = 2
 collision_layer = 2
 collision_mask = 5
-script = ExtResource("1_ltrgj")
-enemy_name = "lancer"
-self_sprite = NodePath("EnemySprite")
-bulk_updating = true
+script = ExtResource("1_sosx1")
 
-[node name="EnemySprite" type="Sprite2D" parent="."]
-texture = ExtResource("2_4typ5")
+[node name="TemporaryContainer" type="Node2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionPolygon2D" parent="."]
-polygon = PackedVector2Array(-42.8571, 4.28571, 41.4286, -17.1429, 24.2857, -5.71429, 24.2857, 4.28571, 30, 12.8571, 27.1429, 15.7143, 20, 11.4286, 12.8571, 11.4286, -21.4286, 11.4286, -25.7143, 7.14286, -37.1429, 7.14286)
+[node name="DropComponent" parent="." instance=ExtResource("2_hipol")]
 
-[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+[node name="CESprite" type="Sprite2D" parent="."]
+light_mask = 2
+visibility_layer = 2
+texture = ExtResource("3_mv7tp")
+
+[node name="CESelfHitbox" type="CollisionPolygon2D" parent="."]
 visible = false
-position = Vector2(130, 0)
+light_mask = 2
+visibility_layer = 2
+position = Vector2(0.999994, 0)
+scale = Vector2(0.73, 0.73)
+polygon = PackedVector2Array(-245.205, -35.6164, 146.575, -93.1507, 242.466, -67.1233, 254.795, -53.4247, 215.068, -41.0959, 228.767, -10.9589, 228.767, 9.58904, 215.068, 39.726, 253.425, 50.6849, 242.466, 64.3836, 143.836, 91.7808, -246.575, 34.2466, -258.904, 17.8082, 80.8219, 17.8082, 97.2603, 9.58904, 97.2603, -10.9589, 79.4521, -19.1781, -258.904, -19.1781)
 
-[node name="CombatComponent" parent="." instance=ExtResource("3_g487u")]
+[node name="Barriers" type="Node2D" parent="."]
+position = Vector2(21, 0)
 
-[node name="DropComponent" parent="." instance=ExtResource("4_sb5g4")]
+[node name="FrontBarrier1" parent="Barriers" instance=ExtResource("5_iqo4a")]
+position = Vector2(-125, -36)
+scale = Vector2(1, -1)
+set_max_health = 40
+override_max_health = 15
 
-[node name="HealthComponent" parent="." instance=ExtResource("5_gcbip")]
-max_health = 5
+[node name="BarrierHitbox" type="CollisionShape2D" parent="Barriers/FrontBarrier1"]
+visible = false
+shape = SubResource("RectangleShape2D_y4one")
 
-[node name="HitboxComponent" parent="." node_paths=PackedStringArray("hitbox", "health_component", "combat_component") instance=ExtResource("6_ggigf")]
+[node name="BarrierSprite" type="Sprite2D" parent="Barriers/FrontBarrier1"]
+position = Vector2(4, 1)
+texture = ExtResource("5_6n170")
+
+[node name="FrontBarrier2" parent="Barriers" instance=ExtResource("5_iqo4a")]
+position = Vector2(-125, 36)
+set_max_health = 40
+override_max_health = 15
+
+[node name="BarrierHitbox" type="CollisionShape2D" parent="Barriers/FrontBarrier2"]
+visible = false
+shape = SubResource("RectangleShape2D_y4one")
+
+[node name="BarrierSprite" type="Sprite2D" parent="Barriers/FrontBarrier2"]
+position = Vector2(4, 0)
+texture = ExtResource("5_6n170")
+
+[node name="Barrier5" parent="Barriers" instance=ExtResource("5_iqo4a")]
+position = Vector2(17, 0)
+set_max_health = 20
+override_max_health = 15
+
+[node name="BarrierHitbox" type="CollisionShape2D" parent="Barriers/Barrier5"]
+visible = false
+shape = SubResource("RectangleShape2D_y4one")
+
+[node name="BarrierSprite" type="Sprite2D" parent="Barriers/Barrier5"]
+texture = ExtResource("5_rl624")
+
+[node name="Barrier4" parent="Barriers" instance=ExtResource("5_iqo4a")]
+position = Vector2(8, 0)
+set_max_health = 20
+override_max_health = 15
+
+[node name="BarrierHitbox" type="CollisionShape2D" parent="Barriers/Barrier4"]
+visible = false
+shape = SubResource("RectangleShape2D_y4one")
+
+[node name="BarrierSprite" type="Sprite2D" parent="Barriers/Barrier4"]
+texture = ExtResource("5_rl624")
+
+[node name="Barrier3" parent="Barriers" instance=ExtResource("5_iqo4a")]
+position = Vector2(-1, 0)
+set_max_health = 20
+override_max_health = 15
+
+[node name="BarrierHitbox" type="CollisionShape2D" parent="Barriers/Barrier3"]
+visible = false
+shape = SubResource("RectangleShape2D_y4one")
+
+[node name="BarrierSprite" type="Sprite2D" parent="Barriers/Barrier3"]
+texture = ExtResource("5_rl624")
+
+[node name="Barrier2" parent="Barriers" instance=ExtResource("5_iqo4a")]
+position = Vector2(-10, 0)
+set_max_health = 20
+override_max_health = 15
+
+[node name="BarrierHitbox" type="CollisionShape2D" parent="Barriers/Barrier2"]
+visible = false
+shape = SubResource("RectangleShape2D_y4one")
+
+[node name="BarrierSprite" type="Sprite2D" parent="Barriers/Barrier2"]
+texture = ExtResource("5_rl624")
+
+[node name="Barrier1" parent="Barriers" instance=ExtResource("5_iqo4a")]
+position = Vector2(-19, 0)
+set_max_health = 20
+override_max_health = 15
+
+[node name="BarrierHitbox" type="CollisionShape2D" parent="Barriers/Barrier1"]
+visible = false
+shape = SubResource("RectangleShape2D_y4one")
+
+[node name="BarrierSprite" type="Sprite2D" parent="Barriers/Barrier1"]
+texture = ExtResource("5_rl624")
+
+[node name="CompositeParts" type="Node2D" parent="."]
+
+[node name="TopGunModule" parent="CompositeParts" node_paths=PackedStringArray("module_sprite", "weapon", "hitbox") instance=ExtResource("7_xcaug")]
+position = Vector2(0, -50)
+module_sprite = NodePath("ModuleSprite")
+weapon = NodePath("EnemyGun")
+set_health = 125
+hitbox = NodePath("ModuleCollision")
+
+[node name="EnemyGun" parent="CompositeParts/TopGunModule" node_paths=PackedStringArray("self_sprite", "muzzle", "temporary_container", "hitbox") instance=ExtResource("8_4ogds")]
+position = Vector2(-3, -15)
+rotation = 3.14159
+deactivate_instead = true
+self_sprite = NodePath("GunSprite")
+muzzle = NodePath("Muzzle")
+temporary_container = NodePath("../../../TemporaryContainer")
+switch_from_temporary = true
+limit_angle = true
+min_angle_limit = 176.0
+max_angle_limit = 315.0
+hitbox = NodePath("GunCollision")
+override_max_health = 25
+
+[node name="GunSprite" type="Sprite2D" parent="CompositeParts/TopGunModule/EnemyGun"]
+rotation = 3.14159
+texture = ExtResource("9_mgqek")
+offset = Vector2(-14, 0)
+
+[node name="Muzzle" type="Marker2D" parent="CompositeParts/TopGunModule/EnemyGun"]
+position = Vector2(48, 0.00012207)
+
+[node name="GunCollision" type="CollisionPolygon2D" parent="CompositeParts/TopGunModule/EnemyGun"]
+visible = false
+position = Vector2(-3, -15)
+rotation = 3.14159
+polygon = PackedVector2Array(12, -19.0002, 12, -11.0002, 2.99998, -8.00024, -19, -12.0003, -50, -13.0005, -50, -17.0005, -19, -18.0003, 3.00005, -22.0002)
+
+[node name="ModuleSprite" type="Sprite2D" parent="CompositeParts/TopGunModule"]
+position = Vector2(25, 0)
+texture = ExtResource("10_nywvu")
+
+[node name="ModuleCollision" type="CollisionPolygon2D" parent="CompositeParts/TopGunModule"]
+visible = false
+position = Vector2(-3, -15)
+rotation = 3.14159
+polygon = PackedVector2Array(49, -10.9999, -21, 9.99995, -46, 13.9999, -99, 15.9997, -104, 5.99974, -69.9999, -35.0002, -53.9999, -45.0001, 40.0001, -43.9999, 49, -10.9999)
+
+[node name="LowerGunModule" parent="CompositeParts" node_paths=PackedStringArray("module_sprite", "weapon", "hitbox") instance=ExtResource("7_xcaug")]
+position = Vector2(0, 49)
+scale = Vector2(1, -1)
+module_sprite = NodePath("ModuleSprite")
+weapon = NodePath("EnemyGun")
+set_health = 125
+hitbox = NodePath("ModuleCollision")
+
+[node name="EnemyGun" parent="CompositeParts/LowerGunModule" node_paths=PackedStringArray("self_sprite", "muzzle", "temporary_container", "hitbox") instance=ExtResource("8_4ogds")]
+position = Vector2(-2.99998, -14.9997)
+rotation = 3.14159
+deactivate_instead = true
+self_sprite = NodePath("GunSprite")
+muzzle = NodePath("Muzzle")
+temporary_container = NodePath("../../../TemporaryContainer")
+switch_from_temporary = true
+limit_angle = true
+min_angle_limit = 180.0
+max_angle_limit = 315.0
+hitbox = NodePath("GunCollision")
+override_max_health = 25
+
+[node name="GunSprite" type="Sprite2D" parent="CompositeParts/LowerGunModule/EnemyGun"]
+rotation = 3.14159
+texture = ExtResource("9_mgqek")
+offset = Vector2(-14, 0)
+
+[node name="Muzzle" type="Marker2D" parent="CompositeParts/LowerGunModule/EnemyGun"]
+position = Vector2(48, 0.00012207)
+
+[node name="GunCollision" type="CollisionPolygon2D" parent="CompositeParts/LowerGunModule/EnemyGun"]
+visible = false
+position = Vector2(-3, -15)
+rotation = 3.14159
+polygon = PackedVector2Array(12, -19.0002, 12, -11.0002, 2.99998, -8.00024, -19, -12.0003, -50, -13.0005, -50, -17.0005, -19, -18.0003, 3.00005, -22.0002)
+
+[node name="ModuleSprite" type="Sprite2D" parent="CompositeParts/LowerGunModule"]
+position = Vector2(25, 0)
+texture = ExtResource("10_nywvu")
+
+[node name="ModuleCollision" type="CollisionPolygon2D" parent="CompositeParts/LowerGunModule"]
+visible = false
+position = Vector2(-3, -15)
+rotation = 3.14159
+polygon = PackedVector2Array(49, -10.9999, -21, 9.99995, -46, 13.9999, -99, 15.9997, -104, 5.99974, -69.9999, -35.0002, -53.9999, -45.0001, 40.0001, -43.9999, 49, -10.9999)
+
+[node name="MissileLauncherModule" parent="CompositeParts" node_paths=PackedStringArray("module_sprite", "weapon", "hitbox") instance=ExtResource("7_xcaug")]
+position = Vector2(128, -2)
+module_sprite = NodePath("ModuleSprite")
+weapon = NodePath("MissileLauncher")
+set_health = 70
+hitbox = NodePath("ModuleCollision")
+
+[node name="LaucherFrame" type="Sprite2D" parent="CompositeParts/MissileLauncherModule"]
+position = Vector2(12, 2)
+texture = ExtResource("10_ruwc2")
+
+[node name="ModuleSprite" type="Sprite2D" parent="CompositeParts/MissileLauncherModule"]
+texture = ExtResource("11_1wt2q")
+
+[node name="MissileLauncher" parent="CompositeParts/MissileLauncherModule" node_paths=PackedStringArray("self_sprite", "muzzle", "temporary_container", "hitbox") instance=ExtResource("16_b2wr1")]
+position = Vector2(16, 2)
+self_sprite = NodePath("LauncherSprite")
+muzzle = NodePath("LauncherMuzzle")
+rate_of_fire = 5.0
+rof_randomness = 1.05
+temporary_container = NodePath("../../../TemporaryContainer")
+switch_from_temporary = true
+switch_timer = 0.5
+limit_angle = true
+min_angle_limit = 0.0
+max_angle_limit = 0.0
+hitbox = NodePath("LauncherCollision")
+override_max_health = 40
+
+[node name="LauncherSprite" type="Sprite2D" parent="CompositeParts/MissileLauncherModule/MissileLauncher"]
+texture = ExtResource("13_2d4b0")
+
+[node name="LauncherSpriteCover" type="Sprite2D" parent="CompositeParts/MissileLauncherModule/MissileLauncher"]
+z_index = 25
+texture = ExtResource("14_i7pe5")
+
+[node name="LauncherMuzzle" type="Marker2D" parent="CompositeParts/MissileLauncherModule/MissileLauncher"]
+position = Vector2(-24, 0)
+
+[node name="LauncherCollision" type="CollisionPolygon2D" parent="CompositeParts/MissileLauncherModule/MissileLauncher"]
+visible = false
+polygon = PackedVector2Array(-43, 9, -43, -10, -3, -22, 0, -17, 28, -23, 31, -14, 42, -11, 42, -8, 39, -7, 39, 6, 42, 7, 42, 10, 31, 13, 28, 22, 0, 16, -3, 21)
+
+[node name="ModuleCollision" type="CollisionPolygon2D" parent="CompositeParts/MissileLauncherModule"]
+visible = false
+polygon = PackedVector2Array(-62, -13, -17, -67, 43, -53, 54, -44, 39, -38, 44, -31, 44, -25, 40, -24, 40, 27, 43, 28, 43, 35, 38, 40, 54, 47, 43, 56, -16, 70, -57, 24, -57, 20, -52, 15, -50, -3)
+
+[node name="Shielding" type="Node2D" parent="."]
+
+[node name="CompositeShielding" parent="Shielding" node_paths=PackedStringArray("hitbox", "health_component") instance=ExtResource("5_iqo4a")]
+script = ExtResource("16_ppdj8")
+hitbox = NodePath("ShieldingHitbox")
+health_component = NodePath("../../HealthComponent")
+immune_to_damage = true
+
+[node name="ShieldingHitbox" type="CollisionPolygon2D" parent="Shielding/CompositeShielding"]
+visible = false
+light_mask = 2
+visibility_layer = 2
+position = Vector2(0.999994, 0)
+scale = Vector2(0.73, 0.73)
+polygon = PackedVector2Array(-249.315, -35.6164, -53.4246, -63.0137, -44.4507, -35.6164, 97.2603, -35.6164, 146.575, -93.1507, 242.466, -67.1233, 254.795, -53.4247, 215.068, -41.0959, 228.767, -10.9589, 228.767, 9.58904, 215.068, 39.726, 253.425, 50.6849, 242.466, 64.3836, 143.836, 91.7808, 95.8904, 36.9863, -43.8356, 35.6164, -52.0548, 64.3836, -249.315, 34.2466, -265.753, 17.8082, 80.8219, 17.8082, 97.2603, 9.58904, 97.2603, -10.9589, 79.4521, -19.1781, -265.753, -19.1781)
+
+[node name="HealthComponent" parent="." instance=ExtResource("11_imk7k")]
+max_health = 150
+
+[node name="HitboxComponent" parent="." node_paths=PackedStringArray("simple_hitbox", "health_component", "combat_component") groups=["core", "enemy"] instance=ExtResource("12_rl3ew")]
+position = Vector2(54, 0)
 collision_layer = 2
 collision_mask = 5
-hitbox = NodePath("CollisionShape2D")
+simple_hitbox = NodePath("CoreCollisionShape")
 health_component = NodePath("../HealthComponent")
-combat_component = NodePath("../CombatComponent")
+combat_component = NodePath("CombatComponent")
 
-[node name="CollisionShape2D" type="CollisionPolygon2D" parent="HitboxComponent"]
+[node name="CombatComponent" type="Node" parent="HitboxComponent"]
+script = ExtResource("13_wkyrh")
+
+[node name="CoreCollisionShape" type="CollisionShape2D" parent="HitboxComponent"]
 visible = false
-polygon = PackedVector2Array(-42.8571, 4.28571, 41.4286, -17.1429, 24.2857, -5.71429, 24.2857, 4.28571, 30, 12.8571, 27.1429, 15.7143, 20, 11.4286, 12.8571, 11.4286, -21.4286, 11.4286, -25.7143, 7.14286, -37.1429, 7.14286)
+shape = SubResource("CircleShape2D_s6g41")
+
+[node name="CoreSprite" type="Sprite2D" parent="HitboxComponent"]
+texture = ExtResource("15_34mug")
+
+[node name="Laser" parent="." instance=ExtResource("15_xg2si")]
+position = Vector2(54, 0)
+collision_mask = 1
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
-[connection signal="enemy_died" from="." to="DropComponent" method="_on_enemy_died"]
-[connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_screen_reentered"]
-[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
-[connection signal="health_change" from="HealthComponent" to="." method="_on_health_component_health_change"]
+[connection signal="enemy_defeated" from="." to="DropComponent" method="_on_enemy_died"]

@@ -7,6 +7,7 @@ const config_file_path = "user://config.cfg"
 var config_file = ConfigFile.new()
 var config_file_load = config_file.load(config_file_path) 
 
+@export var show_keycode : bool = false
 @export var debug : bool = false
 
 var default_key_dict : Dictionary = {
@@ -19,7 +20,7 @@ var default_key_dict : Dictionary = {
 	"shoot":90,
 	"bomb":88,
 	"reset":82,
-	"pause":4194305,
+	"pause":96,
 	"quit":81
 }
 
@@ -83,7 +84,7 @@ func _input(event): # Able the player to exit options screen using actions, need
 	if Input.is_action_pressed("quit") or Input.is_action_pressed("pause") and Options.visible == true:
 		_on_exit_menu_pressed()
 
-	if debug == true: ## This conditional prints every input as its keycode integer. 
+	if show_keycode == true: ## This conditional prints every input as its keycode integer. 
 		# This is useful to fill key_dict manually, and I think it's faster than searching in docs.
 		if event is InputEventKey: 
 			print(event.get_keycode_with_modifiers()) 

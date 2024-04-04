@@ -14,6 +14,8 @@ texture_margin_bottom = 2.0
 
 [node name="PracticeMenuLayer" type="CanvasLayer"]
 layer = 25
+offset = Vector2(0, 180)
+transform = Transform2D(1, 0, 0, 1, 0, 180)
 script = ExtResource("1_di2ne")
 
 [node name="PracticeMenu" type="Control" parent="."]
@@ -24,22 +26,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="HideButton" type="TextureButton" parent="PracticeMenu"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.95
-anchor_top = 0.741
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 15.9999
-offset_top = -93.14
-offset_right = -4.0
-offset_bottom = -192.0
-grow_horizontal = 0
-grow_vertical = 0
-texture_normal = ExtResource("1_1eba4")
-stretch_mode = 4
 
 [node name="PracticeTabs" type="TabContainer" parent="PracticeMenu"]
 custom_minimum_size = Vector2(0, 220)
@@ -265,11 +251,33 @@ max_value = 30.0
 value = 1.0
 alignment = 2
 
-[node name="SecondaryAmmo" type="Label" parent="PracticeMenu/PracticeTabs/Player/ContainerSeparator/WeaponProperties"]
+[node name="PrimaryPass" type="Label" parent="PracticeMenu/PracticeTabs/Player/ContainerSeparator/WeaponProperties"]
+layout_mode = 2
+text = "PRIM. PASS"
+
+[node name="SpinBox" type="SpinBox" parent="PracticeMenu/PracticeTabs/Player/ContainerSeparator/WeaponProperties/PrimaryPass"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -75.0
+offset_top = -14.5
+offset_bottom = 14.5
+grow_horizontal = 0
+grow_vertical = 2
+theme = ExtResource("2_1retd")
+min_value = 1.0
+max_value = 30.0
+value = 1.0
+alignment = 2
+
+[node name="SecondaryDamage" type="Label" parent="PracticeMenu/PracticeTabs/Player/ContainerSeparator/WeaponProperties"]
 layout_mode = 2
 text = "SEC. DAMAGE"
 
-[node name="SpinBox" type="SpinBox" parent="PracticeMenu/PracticeTabs/Player/ContainerSeparator/WeaponProperties/SecondaryAmmo"]
+[node name="SpinBox" type="SpinBox" parent="PracticeMenu/PracticeTabs/Player/ContainerSeparator/WeaponProperties/SecondaryDamage"]
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
@@ -292,6 +300,29 @@ layout_mode = 2
 text = "SEC. AMOUNT"
 
 [node name="SpinBox" type="SpinBox" parent="PracticeMenu/PracticeTabs/Player/ContainerSeparator/WeaponProperties/SecondaryAmount"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -75.0
+offset_top = -14.5
+offset_bottom = 14.5
+grow_horizontal = 0
+grow_vertical = 2
+theme = ExtResource("2_1retd")
+min_value = 1.0
+max_value = 50.0
+value = 1.0
+alignment = 2
+
+[node name="SecondaryMax" type="Label" parent="PracticeMenu/PracticeTabs/Player/ContainerSeparator/WeaponProperties"]
+layout_mode = 2
+text = "SEC. MAX
+"
+
+[node name="SpinBox" type="SpinBox" parent="PracticeMenu/PracticeTabs/Player/ContainerSeparator/WeaponProperties/SecondaryMax"]
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
@@ -353,3 +384,28 @@ layout_mode = 2
 [node name="Misc" type="Control" parent="PracticeMenu/PracticeTabs"]
 visible = false
 layout_mode = 2
+
+[node name="HideButton" type="TextureButton" parent="PracticeMenu"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.95
+anchor_top = 0.741
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 15.9999
+offset_top = -93.14
+offset_right = -4.0
+offset_bottom = -192.0
+grow_horizontal = 0
+grow_vertical = 0
+toggle_mode = true
+action_mode = 0
+texture_normal = ExtResource("1_1eba4")
+stretch_mode = 4
+
+[connection signal="weapon_updated" from="." to="." method="_on_weapon_updated"]
+[connection signal="item_selected" from="PracticeMenu/PracticeTabs/Player/ContainerSeparator/WeaponsContainer/LoadoutLists/PrimaryWeaponsList" to="." method="_on_primary_weapons_selected"]
+[connection signal="item_selected" from="PracticeMenu/PracticeTabs/Player/ContainerSeparator/WeaponsContainer/LoadoutLists/SecondaryWeaponsList" to="." method="_on_secondary_weapons_selected"]
+[connection signal="changed" from="PracticeMenu/PracticeTabs/Player/ContainerSeparator/WeaponProperties/SecondaryAmount/SpinBox" to="." method="_on_secondary_ammo_altered"]
+[connection signal="changed" from="PracticeMenu/PracticeTabs/Player/ContainerSeparator/WeaponProperties/SecondaryMax/SpinBox" to="." method="_on_secondary_max_ammo_altered"]
+[connection signal="toggled" from="PracticeMenu/HideButton" to="." method="_on_hide_button_toggled"]

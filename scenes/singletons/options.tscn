@@ -1,16 +1,26 @@
-[gd_scene load_steps=8 format=3 uid="uid://duws3qk7e45vs"]
+[gd_scene load_steps=10 format=3 uid="uid://duws3qk7e45vs"]
 
 [ext_resource type="Script" path="res://components/general/options_controller.gd" id="1_hjbun"]
 [ext_resource type="Theme" uid="uid://b1a5sjt2xibwo" path="res://assets/themes/strata_theme/strata_theme.tres" id="1_yjy47"]
+[ext_resource type="Texture2D" uid="uid://dr4wu2nealxmp" path="res://assets/themes/strata_theme/elements/styleboxes/smaller/sb_disabled.png" id="3_2evcf"]
 [ext_resource type="StyleBox" uid="uid://c8kj70nojml1" path="res://assets/themes/strata_theme/elements/tresfiles/short_style_box.tres" id="3_8n6wo"]
 [ext_resource type="PackedScene" uid="uid://cb1ygvja2x1ty" path="res://components/general/keybind_button.tscn" id="3_iy2y2"]
 [ext_resource type="Theme" uid="uid://fmibt6brra62" path="res://assets/themes/monospace_vt323.tres" id="4_aufuu"]
+[ext_resource type="Texture2D" uid="uid://b1x73s2w45fin" path="res://assets/themes/strata_theme/elements/styleboxes/smaller/simple_box.png" id="5_gvo04"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_egeca"]
-bg_color = Color(0.180392, 0.133333, 0.184314, 1)
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_dsi5j"]
+texture = ExtResource("3_2evcf")
+texture_margin_left = 15.0
+texture_margin_top = 15.0
+texture_margin_right = 15.0
+texture_margin_bottom = 15.0
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n6jky"]
-bg_color = Color(0.180392, 0.133333, 0.184314, 0.368627)
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_myjbs"]
+texture = ExtResource("5_gvo04")
+texture_margin_left = 8.0
+texture_margin_top = 8.0
+texture_margin_right = 8.0
+texture_margin_bottom = 8.0
 
 [node name="Options" type="CanvasLayer"]
 process_mode = 3
@@ -34,6 +44,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 0
+collapsed = true
 dragger_visibility = 2
 
 [node name="ConfigPanel" type="Panel" parent="OptionsControl/ConfigContainer"]
@@ -42,7 +53,7 @@ layout_mode = 2
 focus_neighbor_right = NodePath("../Binds")
 focus_mode = 2
 theme = ExtResource("1_yjy47")
-theme_override_styles/panel = SubResource("StyleBoxFlat_egeca")
+theme_override_styles/panel = SubResource("StyleBoxTexture_dsi5j")
 
 [node name="OptionsTitle" type="Label" parent="OptionsControl/ConfigContainer/ConfigPanel"]
 layout_mode = 1
@@ -275,7 +286,7 @@ text = "RESET DEFAULT KEYBINDS"
 [node name="Binds" type="Panel" parent="OptionsControl/ConfigContainer"]
 custom_minimum_size = Vector2(320, 0)
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_n6jky")
+theme_override_styles/panel = SubResource("StyleBoxTexture_myjbs")
 
 [node name="BindGrids" type="HBoxContainer" parent="OptionsControl/ConfigContainer/Binds"]
 layout_mode = 1
@@ -304,8 +315,15 @@ columns = 2
 [node name="UP" type="Label" parent="OptionsControl/ConfigContainer/Binds/BindGrids/BindGridLeft"]
 layout_mode = 2
 theme = ExtResource("1_yjy47")
+theme_override_colors/font_shadow_color = Color(0.180392, 0.133333, 0.184314, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 8
 theme_override_font_sizes/font_size = 45
 text = "Up"
+horizontal_alignment = 2
+vertical_alignment = 1
 uppercase = true
 
 [node name="UP_B" parent="OptionsControl/ConfigContainer/Binds/BindGrids/BindGridLeft" instance=ExtResource("3_iy2y2")]
@@ -324,8 +342,14 @@ keybind = "move_up"
 [node name="DOWN" type="Label" parent="OptionsControl/ConfigContainer/Binds/BindGrids/BindGridLeft"]
 layout_mode = 2
 theme = ExtResource("1_yjy47")
+theme_override_colors/font_shadow_color = Color(0.180392, 0.133333, 0.184314, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 8
 theme_override_font_sizes/font_size = 45
 text = "Down"
+horizontal_alignment = 2
+vertical_alignment = 1
 uppercase = true
 
 [node name="DOWN_B" parent="OptionsControl/ConfigContainer/Binds/BindGrids/BindGridLeft" instance=ExtResource("3_iy2y2")]
@@ -345,8 +369,14 @@ keybind = "move_down"
 [node name="LEFT" type="Label" parent="OptionsControl/ConfigContainer/Binds/BindGrids/BindGridLeft"]
 layout_mode = 2
 theme = ExtResource("1_yjy47")
+theme_override_colors/font_shadow_color = Color(0.180392, 0.133333, 0.184314, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 8
 theme_override_font_sizes/font_size = 45
 text = "Left"
+horizontal_alignment = 2
+vertical_alignment = 1
 uppercase = true
 
 [node name="LEFT_B" parent="OptionsControl/ConfigContainer/Binds/BindGrids/BindGridLeft" instance=ExtResource("3_iy2y2")]
@@ -366,8 +396,14 @@ keybind = "move_left"
 [node name="RIGHT" type="Label" parent="OptionsControl/ConfigContainer/Binds/BindGrids/BindGridLeft"]
 layout_mode = 2
 theme = ExtResource("1_yjy47")
+theme_override_colors/font_shadow_color = Color(0.180392, 0.133333, 0.184314, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 8
 theme_override_font_sizes/font_size = 45
 text = "Right"
+horizontal_alignment = 2
+vertical_alignment = 1
 uppercase = true
 
 [node name="RIGHT_B" parent="OptionsControl/ConfigContainer/Binds/BindGrids/BindGridLeft" instance=ExtResource("3_iy2y2")]
@@ -387,8 +423,14 @@ keybind = "move_right"
 [node name="PAUSE" type="Label" parent="OptionsControl/ConfigContainer/Binds/BindGrids/BindGridLeft"]
 layout_mode = 2
 theme = ExtResource("1_yjy47")
+theme_override_colors/font_shadow_color = Color(0.180392, 0.133333, 0.184314, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 8
 theme_override_font_sizes/font_size = 45
 text = "Pause"
+horizontal_alignment = 2
+vertical_alignment = 1
 uppercase = true
 
 [node name="PAUSE_B" parent="OptionsControl/ConfigContainer/Binds/BindGrids/BindGridLeft" instance=ExtResource("3_iy2y2")]
@@ -413,8 +455,14 @@ columns = 2
 [node name="DASH" type="Label" parent="OptionsControl/ConfigContainer/Binds/BindGrids/BindGridRight"]
 layout_mode = 2
 theme = ExtResource("1_yjy47")
+theme_override_colors/font_shadow_color = Color(0.180392, 0.133333, 0.184314, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 8
 theme_override_font_sizes/font_size = 45
 text = "DASH"
+horizontal_alignment = 2
+vertical_alignment = 1
 uppercase = true
 
 [node name="DASH_B" parent="OptionsControl/ConfigContainer/Binds/BindGrids/BindGridRight" instance=ExtResource("3_iy2y2")]
@@ -434,9 +482,15 @@ keybind = "dash"
 [node name="ROLL" type="Label" parent="OptionsControl/ConfigContainer/Binds/BindGrids/BindGridRight"]
 layout_mode = 2
 theme = ExtResource("1_yjy47")
+theme_override_colors/font_shadow_color = Color(0.180392, 0.133333, 0.184314, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 8
 theme_override_font_sizes/font_size = 45
 text = "ROLL
 "
+horizontal_alignment = 2
+vertical_alignment = 1
 uppercase = true
 
 [node name="ROLL_B" parent="OptionsControl/ConfigContainer/Binds/BindGrids/BindGridRight" instance=ExtResource("3_iy2y2")]
@@ -455,8 +509,14 @@ keybind = "roll"
 [node name="RESET" type="Label" parent="OptionsControl/ConfigContainer/Binds/BindGrids/BindGridRight"]
 layout_mode = 2
 theme = ExtResource("1_yjy47")
+theme_override_colors/font_shadow_color = Color(0.180392, 0.133333, 0.184314, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 8
 theme_override_font_sizes/font_size = 45
 text = "REset"
+horizontal_alignment = 2
+vertical_alignment = 1
 uppercase = true
 
 [node name="RESET_B" parent="OptionsControl/ConfigContainer/Binds/BindGrids/BindGridRight" instance=ExtResource("3_iy2y2")]
@@ -475,8 +535,14 @@ keybind = "reset"
 [node name="SHOOT" type="Label" parent="OptionsControl/ConfigContainer/Binds/BindGrids/BindGridRight"]
 layout_mode = 2
 theme = ExtResource("1_yjy47")
+theme_override_colors/font_shadow_color = Color(0.180392, 0.133333, 0.184314, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 8
 theme_override_font_sizes/font_size = 45
 text = "Shoot"
+horizontal_alignment = 2
+vertical_alignment = 1
 uppercase = true
 
 [node name="SHOOT_B" parent="OptionsControl/ConfigContainer/Binds/BindGrids/BindGridRight" instance=ExtResource("3_iy2y2")]
@@ -495,8 +561,14 @@ keybind = "shoot"
 [node name="BOMB" type="Label" parent="OptionsControl/ConfigContainer/Binds/BindGrids/BindGridRight"]
 layout_mode = 2
 theme = ExtResource("1_yjy47")
+theme_override_colors/font_shadow_color = Color(0.180392, 0.133333, 0.184314, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 8
 theme_override_font_sizes/font_size = 45
 text = "BOMB"
+horizontal_alignment = 2
+vertical_alignment = 1
 uppercase = true
 
 [node name="BOMB_B" parent="OptionsControl/ConfigContainer/Binds/BindGrids/BindGridRight" instance=ExtResource("3_iy2y2")]

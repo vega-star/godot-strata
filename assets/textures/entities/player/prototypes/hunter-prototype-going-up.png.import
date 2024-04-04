@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cfunenyj7oh7e"
-path="res://.godot/imported/hunter-prototype-going-forward.png-f3dd54a86b2eadbd03b8010bad40eba9.ctex"
+uid="uid://b2ddbdydchxd7"
+path="res://.godot/imported/hunter-prototype-going-up.png-722482f45f15191a80079b9ae0719c83.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/textures/entities/player/hunter-prototype-going-forward.png"
-dest_files=["res://.godot/imported/hunter-prototype-going-forward.png-f3dd54a86b2eadbd03b8010bad40eba9.ctex"]
+source_file="res://assets/textures/entities/player/prototypes/hunter-prototype-going-up.png"
+dest_files=["res://.godot/imported/hunter-prototype-going-up.png-722482f45f15191a80079b9ae0719c83.ctex"]
 
 [params]
 

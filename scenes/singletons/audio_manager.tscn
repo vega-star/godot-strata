@@ -12,6 +12,7 @@ stream = ExtResource("2_vygfg")
 bus = &"Music"
 
 [node name="GlobalEffectPlayer" type="AudioStreamPlayer" parent="."]
+max_polyphony = 10
 
 [node name="EffectPlayer" type="AudioStreamPlayer2D" parent="."]
 bus = &"Effects"

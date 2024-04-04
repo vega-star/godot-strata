@@ -1,8 +1,73 @@
-[gd_scene load_steps=6 format=3 uid="uid://b754kyc8mncbj"]
+[gd_scene load_steps=16 format=3 uid="uid://b754kyc8mncbj"]
 
-[ext_resource type="Script" path="res://entities/projectiles/projectiles_scripts/minigun.gd" id="1_ev12r"]
-[ext_resource type="Texture2D" uid="uid://b82dyj6nxdk3o" path="res://assets/textures/projectiles/default-capsule-v2.png" id="2_xb532"]
+[ext_resource type="Script" path="res://entities/projectiles/projectiles_scripts/player_projectile.gd" id="1_r62c6"]
+[ext_resource type="AudioStream" uid="uid://de3c150pw4b7u" path="res://assets/audio/effects/minigun_shoot.wav" id="2_5cmj5"]
+[ext_resource type="Texture2D" uid="uid://dktofbw8vpfmf" path="res://assets/textures/projectiles/minigun_capsule.png" id="3_qq78k"]
 [ext_resource type="PackedScene" uid="uid://c3atqdge540t0" path="res://components/status/hitbox_component.tscn" id="4_hq7xm"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_txhye"]
+atlas = ExtResource("3_qq78k")
+region = Rect2(0, 0, 6, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6wq7v"]
+atlas = ExtResource("3_qq78k")
+region = Rect2(6, 0, 6, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_agoyd"]
+atlas = ExtResource("3_qq78k")
+region = Rect2(12, 0, 6, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3h1up"]
+atlas = ExtResource("3_qq78k")
+region = Rect2(18, 0, 6, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x5bcr"]
+atlas = ExtResource("3_qq78k")
+region = Rect2(24, 0, 6, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e1wwt"]
+atlas = ExtResource("3_qq78k")
+region = Rect2(30, 0, 6, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cufvn"]
+atlas = ExtResource("3_qq78k")
+region = Rect2(36, 0, 6, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mhmiv"]
+atlas = ExtResource("3_qq78k")
+region = Rect2(42, 0, 6, 18)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_up7xc"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_txhye")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6wq7v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_agoyd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3h1up")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x5bcr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e1wwt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cufvn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mhmiv")
+}],
+"loop": false,
+"name": &"capsule_shot",
+"speed": 16.0
+}]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jewc2"]
 radius = 3.0
@@ -17,12 +82,23 @@ top_level = true
 light_mask = 2
 collision_layer = 4
 collision_mask = 2
-script = ExtResource("1_ev12r")
-projectile_speed = 700
+script = ExtResource("1_r62c6")
+base_rate_of_fire = 30.0
+projectile_damage = 3
+enemy_pass_limit = 1
+penetration_factor = 0.6
+pitch_variation = 0.3
 
-[node name="CapsuleSprite" type="Sprite2D" parent="."]
+[node name="ProjectileSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_5cmj5")
+
+[node name="CapsuleSprite" type="AnimatedSprite2D" parent="."]
 rotation = 1.5708
-texture = ExtResource("2_xb532")
+sprite_frames = SubResource("SpriteFrames_up7xc")
+animation = &"capsule_shot"
+autoplay = "capsule_shot"
+frame = 7
+frame_progress = 1.0
 
 [node name="SelfHitbox" type="CollisionShape2D" parent="."]
 visible = false

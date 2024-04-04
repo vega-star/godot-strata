@@ -9,6 +9,7 @@ extends "res://entities/entity_scripts/wingman.gd"
 @export var timeout_for_flee : float = 7
 @export var wait_for_activation : bool = false
 @export var max_maneuverability : float = 3
+@export var lock_on_player : bool = false
 
 const flee_maneuverability : float = 0.32
 const lock_cooldown : float = 0.3
@@ -21,9 +22,7 @@ var locked : bool
 var lock_sucessful : bool
 
 # Behavior controllers
-@export var lock_on_player : bool = false
 var active : bool = false
-
 
 ## Diver behavior
 # Almost the same as the enemy_missile script, but with sufficient changes to be another one entirely
@@ -38,11 +37,11 @@ func activate():
 	charge.connect("timeout", _on_charge_timeout)
 	
 	set_physics_process(true)
+	active = true
 	
 	var speed_tween = get_tree().create_tween()
 	speed_tween.tween_property(self, "entity_speed", max_entity_speed, 0.2).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_EXPO)
 	await speed_tween.finished
-	# entity_speed = initial_speed
 
 func _physics_process(delta):
 	## Targeting
@@ -80,7 +79,7 @@ func _physics_process(delta):
 	if active:
 		# Active when enemy is actively attacking/pursuiting the player
 		if maneuverability < max_maneuverability:
-			maneuverability *= 1.2
+			maneuverability *= 1.05
 	else:
 		# Presence charge is empty and the enemy should flee the screen
 		global_rotation = lerp_angle(self.global_rotation, 180, flee_maneuverability * delta) # Locks on to the left of the screen

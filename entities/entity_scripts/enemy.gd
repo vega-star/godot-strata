@@ -13,6 +13,7 @@ const alpha_modulation = 0.5
 @export var self_sprite : Sprite2D
 @export var outline_color_on_damage : Color = Color.WHITE
 @export var deployed : bool = true
+@export var receives_knockback : bool = false
 @export var drifting : bool = true
 
 @onready var hitbox_component : HitboxComponent = $HitboxComponent

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b2ddbdydchxd7"
-path="res://.godot/imported/hunter-prototype-going-up.png-fbaf540d8eefa1ea58ae5131090cefa1.ctex"
+uid="uid://blkwu4cpqgd0i"
+path="res://.godot/imported/default-laser-particle.png-cbb8a407cd30529a8985422800b65ab0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/textures/entities/player/hunter-prototype-going-up.png"
-dest_files=["res://.godot/imported/hunter-prototype-going-up.png-fbaf540d8eefa1ea58ae5131090cefa1.ctex"]
+source_file="res://assets/textures/projectiles/default-laser-particle.png"
+dest_files=["res://.godot/imported/default-laser-particle.png-cbb8a407cd30529a8985422800b65ab0.ctex"]
 
 [params]
 

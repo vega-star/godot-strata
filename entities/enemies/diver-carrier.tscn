@@ -78,6 +78,7 @@ collision_mask = 5
 hitbox = NodePath("CollisionShape2D")
 health_component = NodePath("../HealthComponent")
 combat_component = NodePath("../CombatComponent")
+immunity_frame_limit = 15
 
 [node name="CollisionShape2D" type="CollisionPolygon2D" parent="HitboxComponent"]
 visible = false

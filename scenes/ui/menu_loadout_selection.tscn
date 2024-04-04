@@ -94,11 +94,14 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_top = -8.0
+offset_bottom = -8.0
 grow_horizontal = 2
 grow_vertical = 2
 
 [node name="MenuFrame" type="Sprite2D" parent="Dashboard"]
-position = Vector2(480, 428)
+position = Vector2(480, 432)
+scale = Vector2(1, 1.03571)
 texture = ExtResource("3_4v5ak")
 
 [node name="StartButton" type="TextureButton" parent="Dashboard"]
@@ -122,9 +125,9 @@ anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
 offset_left = 38.0
-offset_top = -175.0
+offset_top = -174.0
 offset_right = 130.0
-offset_bottom = -132.0
+offset_bottom = -131.0
 grow_vertical = 0
 tooltip_text = "Learn and test the basics"
 focus_neighbor_right = NodePath("../../../../ConfigButton")
@@ -137,9 +140,9 @@ anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
 offset_left = 140.0
-offset_top = -175.0
+offset_top = -174.0
 offset_right = 232.0
-offset_bottom = -132.0
+offset_bottom = -131.0
 grow_vertical = 0
 tooltip_text = "Simulate items and enemies present in codex"
 focus_neighbor_right = NodePath("../../../../ConfigButton")

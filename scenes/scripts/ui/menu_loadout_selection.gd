@@ -1,5 +1,8 @@
 extends Control
 
+@onready var main_menu = get_parent().get_parent()
+@export var debug : bool = false
+
 var run_started : bool = false
 var items_dict : Dictionary
 var weapons_dict : Dictionary
@@ -18,8 +21,7 @@ var selected_primary : String
 var selected_secondary : String
 var selected_item : String
 
-@onready var main_menu = get_parent().get_parent()
-@export var debug : bool = false
+
 
 func _ready():
 	## Patch debug
@@ -94,8 +96,11 @@ func set_focus():
 	$Dashboard/StartButton.grab_focus()
 
 func _on_start_button_pressed(): # StartButton
-	$AnimationPlayer.play("press_button")
-	start_run(first_stage)
+	if !run_started: 
+		$AnimationPlayer.play("press_button")
+		start_run(first_stage)
+		AudioManager.emit_sound_effect(null, "analog-appliance-button", false, true)
+	run_started = true
 
 func _on_tutorial_button_pressed():
 	start_run(tutorial_stage_path)

@@ -236,6 +236,6 @@ func update_weapon_status(part_node, is_active):
 	else:
 		if debug: print('Guns appear to be nominal')
 
-func die():
+func die(_source):
 	enemy_defeated.emit()
 	queue_free()

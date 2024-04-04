@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://j1kxc2btfi32"
-path="res://.godot/imported/hunter-idle-going-up.png-c55d115f4b0fc98123dc274e028f5d22.ctex"
+uid="uid://bsa7of0e2quy2"
+path="res://.godot/imported/lancer-rocket-component.png-982cd08e9c4980208ceec54d11a5927d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/textures/entities/player/hunter-idle-going-up.png"
-dest_files=["res://.godot/imported/hunter-idle-going-up.png-c55d115f4b0fc98123dc274e028f5d22.ctex"]
+source_file="res://assets/textures/entities/enemies/lancer/lancer-rocket-component.png"
+dest_files=["res://.godot/imported/lancer-rocket-component.png-982cd08e9c4980208ceec54d11a5927d.ctex"]
 
 [params]
 

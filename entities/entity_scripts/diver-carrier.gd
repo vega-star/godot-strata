@@ -42,7 +42,8 @@ func _ready():
 				"spawn_override": slot.position,
 				"container_override": temporary_container,
 				"property_override": {
-					"wait_for_activation": true
+					"wait_for_activation": true,
+					"timeout_for_flee": 3
 				},
 				"rotated": -90
 			}
@@ -57,7 +58,8 @@ func _ready():
 				"spawn_override": slot.position,
 				"container_override": temporary_container,
 				"property_override": {
-					"wait_for_activation": true
+					"wait_for_activation": true,
+					"timeout_for_flee": 3
 				},
 				"rotated": 90
 			}

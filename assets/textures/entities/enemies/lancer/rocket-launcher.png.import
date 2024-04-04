@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bo1x0g42xcvfe"
-path="res://.godot/imported/diagonal_up.png-ed234d055c429dc7126af2865cbdea26.ctex"
+uid="uid://b2qqxoc8m32vq"
+path="res://.godot/imported/rocket-launcher.png-6c97776785d08219ebe1a807f4a54b93.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/textures/entities/player/diagonal_up.png"
-dest_files=["res://.godot/imported/diagonal_up.png-ed234d055c429dc7126af2865cbdea26.ctex"]
+source_file="res://assets/textures/entities/enemies/lancer/rocket-launcher.png"
+dest_files=["res://.godot/imported/rocket-launcher.png-6c97776785d08219ebe1a807f4a54b93.ctex"]
 
 [params]
 

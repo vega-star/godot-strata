@@ -35,16 +35,18 @@
     },
     "lancer": {
         "scene": "res://entities/enemies/lancer.tscn",
-        "enemy_description": "Fast unmanned unit with low energy capacity. Repositions itself to shoot a few times, but flees to recharge.",
-        "type": 0,
-        "contain_rules": false,
+        "enemy_description": "Heavy ship built to neutralize enemies with a powerful focused laser. Has two smaller laser guns and a missile launcher in the back.",
+        "type": 2,
+        "contain_rules": true,
         "contain_items": true,
+        "rules": {"spawn_override": "center", "challenge": true},
         "drops": {
-            "type": 0,
-            "items": [false, "damage_boost"],
-            "chances": [0,90],
-            "range": 100
-        }
+            "type": 1,
+            "quantity": 2,
+            "repeat": false,
+            "items": ["AdditionalHardpoint", "ICAmplifier", "PlasteelWing"],
+            "chances": [33,66,99],
+            "range": 100}
     },
     "diver": {
         "scene": "res://entities/enemies/diver.tscn",

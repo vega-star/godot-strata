@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cyu4c5paykoc3"
-path="res://.godot/imported/hunter-idle-going-down.png-5248afc3d27c42e3e0af47ad502d4b65.ctex"
+uid="uid://du3fux4e27eo7"
+path="res://.godot/imported/lancer-gun-cover.png-d04d2a523e6ee60641c9c2856ba2dcb2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/textures/entities/player/hunter-idle-going-down.png"
-dest_files=["res://.godot/imported/hunter-idle-going-down.png-5248afc3d27c42e3e0af47ad502d4b65.ctex"]
+source_file="res://assets/textures/entities/enemies/lancer/lancer-gun-cover.png"
+dest_files=["res://.godot/imported/lancer-gun-cover.png-d04d2a523e6ee60641c9c2856ba2dcb2.ctex"]
 
 [params]
 

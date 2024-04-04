@@ -1,14 +1,15 @@
-[gd_scene load_steps=13 format=3 uid="uid://dpkxiueelrylv"]
+[gd_scene load_steps=14 format=3 uid="uid://dpkxiueelrylv"]
 
 [ext_resource type="Script" path="res://scenes/scripts/ui/main_menu.gd" id="1_kc4of"]
 [ext_resource type="PackedScene" uid="uid://c2chvwdeeem8f" path="res://scenes/ui/menu_profiles.tscn" id="3_m0o42"]
 [ext_resource type="PackedScene" uid="uid://3js2ufvdnk2k" path="res://scenes/ui/menu_central_page.tscn" id="4_5j20p"]
 [ext_resource type="PackedScene" uid="uid://dldj16ybumshf" path="res://scenes/ui/menu_credits.tscn" id="4_w0315"]
-[ext_resource type="Texture2D" uid="uid://bl66ij78aurfm" path="res://assets/textures/static/gear_icon_outline.png" id="5_4bqm0"]
-[ext_resource type="Texture2D" uid="uid://nsnw7fqu4cml" path="res://assets/textures/static/gear_icon.png" id="6_a6h02"]
 [ext_resource type="PackedScene" uid="uid://yjlu8ds570u8" path="res://scenes/ui/menu_codex.tscn" id="6_nccqb"]
 [ext_resource type="BitMap" uid="uid://dngmj6m7g1uu4" path="res://assets/textures/static/gear_icon_bitmap.bmp" id="7_pvmh6"]
 [ext_resource type="Texture2D" uid="uid://tcndn1k7x7cr" path="res://assets/textures/tilemaps/main_menu_tileset.png" id="7_vukru"]
+[ext_resource type="Texture2D" uid="uid://bf2tc7pr1ji5l" path="res://assets/textures/static/gear-icon-normal.png" id="8_csqti"]
+[ext_resource type="Texture2D" uid="uid://ihvj2q1itlqw" path="res://assets/textures/static/gear-icon-pressed.png" id="9_k8dcy"]
+[ext_resource type="Texture2D" uid="uid://c64dqe2nhqlg3" path="res://assets/textures/static/gear-icon-focus.png" id="10_4v0f5"]
 [ext_resource type="PackedScene" uid="uid://bpha3godigcg2" path="res://scenes/ui/menu_loadout_selection.tscn" id="11_4yjnj"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_08gkd"]
@@ -55,11 +56,13 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="CreditsPage" parent="MenuPages" instance=ExtResource("4_w0315")]
+visible = false
 layout_mode = 1
 offset_top = -621.0
 offset_bottom = -621.0
 
 [node name="ProfilesPage" parent="MenuPages" instance=ExtResource("3_m0o42")]
+visible = false
 layout_mode = 1
 offset_left = -1032.0
 offset_right = -1032.0
@@ -67,12 +70,14 @@ offset_right = -1032.0
 [node name="CentralPage" parent="MenuPages" instance=ExtResource("4_5j20p")]
 
 [node name="LoadoutPage" parent="MenuPages" instance=ExtResource("11_4yjnj")]
+visible = false
 layout_mode = 1
 offset_left = 1032.0
 offset_right = 1032.0
 debug = true
 
 [node name="CodexPage" parent="MenuPages" instance=ExtResource("6_nccqb")]
+visible = false
 layout_mode = 1
 offset_top = 621.0
 offset_bottom = 621.0
@@ -92,10 +97,10 @@ offset_top = 8.0
 offset_right = -8.0
 offset_bottom = 90.0
 grow_horizontal = 0
-focus_neighbor_left = NodePath("../MenuPages/CentralPage/ButtonsContainer/StartButton")
-texture_normal = ExtResource("5_4bqm0")
-texture_pressed = ExtResource("5_4bqm0")
-texture_hover = ExtResource("6_a6h02")
+texture_normal = ExtResource("8_csqti")
+texture_pressed = ExtResource("9_k8dcy")
+texture_hover = ExtResource("9_k8dcy")
+texture_focused = ExtResource("10_4v0f5")
 texture_click_mask = ExtResource("7_pvmh6")
 stretch_mode = 6
 

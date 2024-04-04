@@ -1,59 +1,66 @@
-[gd_scene load_steps=15 format=3 uid="uid://c1q12be6jjyek"]
+[gd_scene load_steps=16 format=3 uid="uid://c1q12be6jjyek"]
 
-[ext_resource type="Script" path="res://entities/projectiles/projectiles_scripts/default_laser.gd" id="1_24mmu"]
+[ext_resource type="Script" path="res://entities/projectiles/projectiles_scripts/player_projectile.gd" id="1_k0o8s"]
 [ext_resource type="AudioStream" uid="uid://oqrv4o4ltuu" path="res://assets/audio/effects/burst_laser.wav" id="2_albon"]
 [ext_resource type="Texture2D" uid="uid://c868sysa766fa" path="res://assets/textures/projectiles/default-laser.png" id="2_lky23"]
-[ext_resource type="Texture2D" uid="uid://d2lma1gj77n10" path="res://assets/textures/projectiles/laser_spawn_sequence.png" id="2_mbnwi"]
 [ext_resource type="PackedScene" uid="uid://c3atqdge540t0" path="res://components/status/hitbox_component.tscn" id="3_5k8xg"]
+[ext_resource type="Texture2D" uid="uid://blkwu4cpqgd0i" path="res://assets/textures/projectiles/default-laser-particle.png" id="3_bij42"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_h6nek"]
-atlas = ExtResource("2_mbnwi")
-region = Rect2(0, 0, 12, 6)
+[sub_resource type="AtlasTexture" id="AtlasTexture_747ym"]
+atlas = ExtResource("2_lky23")
+region = Rect2(0, 0, 6, 18)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_yrq87"]
-atlas = ExtResource("2_mbnwi")
-region = Rect2(12, 0, 12, 6)
+[sub_resource type="AtlasTexture" id="AtlasTexture_gots3"]
+atlas = ExtResource("2_lky23")
+region = Rect2(6, 0, 6, 18)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_apq5k"]
-atlas = ExtResource("2_mbnwi")
-region = Rect2(24, 0, 12, 6)
+[sub_resource type="AtlasTexture" id="AtlasTexture_hpe11"]
+atlas = ExtResource("2_lky23")
+region = Rect2(12, 0, 6, 18)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_cnn6l"]
-atlas = ExtResource("2_mbnwi")
-region = Rect2(36, 0, 12, 6)
+[sub_resource type="AtlasTexture" id="AtlasTexture_b8qqy"]
+atlas = ExtResource("2_lky23")
+region = Rect2(18, 0, 6, 18)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_dchve"]
-atlas = ExtResource("2_mbnwi")
-region = Rect2(48, 0, 12, 6)
+[sub_resource type="AtlasTexture" id="AtlasTexture_jys5r"]
+atlas = ExtResource("2_lky23")
+region = Rect2(24, 0, 6, 18)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ctmdm"]
-atlas = ExtResource("2_mbnwi")
-region = Rect2(60, 0, 12, 6)
+[sub_resource type="AtlasTexture" id="AtlasTexture_2y2wp"]
+atlas = ExtResource("2_lky23")
+region = Rect2(30, 0, 6, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fbmru"]
+atlas = ExtResource("2_lky23")
+region = Rect2(36, 0, 6, 18)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_pvj6k"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_h6nek")
+"texture": SubResource("AtlasTexture_747ym")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_yrq87")
+"texture": SubResource("AtlasTexture_gots3")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_apq5k")
+"texture": SubResource("AtlasTexture_hpe11")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_cnn6l")
+"texture": SubResource("AtlasTexture_b8qqy")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_dchve")
+"texture": SubResource("AtlasTexture_jys5r")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ctmdm")
+"texture": SubResource("AtlasTexture_2y2wp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fbmru")
 }],
 "loop": false,
 "name": &"laser_spawned",
-"speed": 30.0
+"speed": 16.0
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jewc2"]
@@ -69,8 +76,8 @@ top_level = true
 light_mask = 2
 collision_layer = 4
 collision_mask = 2
-script = ExtResource("1_24mmu")
-modulate_pitch = true
+script = ExtResource("1_k0o8s")
+base_rate_of_fire = 30.0
 metadata/_edit_horizontal_guides_ = [-2.0, 2.0]
 metadata/_edit_vertical_guides_ = [-6.0, 6.0]
 
@@ -79,28 +86,24 @@ stream = ExtResource("2_albon")
 
 [node name="GPUParticles2D" type="CPUParticles2D" parent="."]
 position = Vector2(-9, 0)
+texture = ExtResource("3_bij42")
 emission_shape = 3
 emission_rect_extents = Vector2(1, 3)
 direction = Vector2(-100, 0)
 spread = 10.0
 gravity = Vector2(-120, 0)
-initial_velocity_min = 50.0
-initial_velocity_max = 100.0
+initial_velocity_min = 100.0
+initial_velocity_max = 250.0
 scale_amount_max = 2.0
-color = Color(0, 0.560784, 0.560784, 1)
 
 [node name="LaserAnimatedSprite" type="AnimatedSprite2D" parent="."]
-visible = false
 position = Vector2(0, 0.5)
+rotation = 1.5708
 sprite_frames = SubResource("SpriteFrames_pvj6k")
 animation = &"laser_spawned"
 autoplay = "laser_spawned"
-frame = 5
+frame = 6
 frame_progress = 1.0
-
-[node name="LaserSprite" type="Sprite2D" parent="."]
-rotation = 1.5708
-texture = ExtResource("2_lky23")
 
 [node name="SelfHitbox" type="CollisionShape2D" parent="."]
 visible = false
@@ -117,6 +120,7 @@ collision_layer = 4
 collision_mask = 2
 
 [node name="SelfProjectileBox" type="CollisionShape2D" parent="HitboxComponent"]
+visible = false
 rotation = -1.5708
 shape = SubResource("CapsuleShape2D_kcd5f")
 

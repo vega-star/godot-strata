@@ -5,5 +5,5 @@
 [resource]
 shader = ExtResource("1_de0yi")
 shader_parameter/original_line_color = Color(1, 1, 1, 1)
-shader_parameter/line_color = Color(0.984314, 1, 1, 1)
+shader_parameter/line_color = Color(0.560784, 0.972549, 0.886275, 1)
 shader_parameter/line_thickness = 1.0

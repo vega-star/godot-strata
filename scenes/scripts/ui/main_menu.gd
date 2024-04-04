@@ -29,21 +29,33 @@ func _ready():
 	AudioManager.set_music("first_in_line-placeholder")
 
 func set_focus(focus_position, direction):
-	match page_direction:
+	var page = get_page_from_position(focus_position, direction)
+	page.set_focus()
+
+func get_page_from_position(select_position, direction : bool) -> Node:
+	var page : Node
+	match direction:
 		true: # Horizontal
-			match focus_position:
-				-1: $MenuPages/LoadoutPage.set_focus()
-				0: $MenuPages/CentralPage.set_focus()
-				1: pass # Profiles
+			match select_position:
+				-1: page = $MenuPages/LoadoutPage
+				0: page = $MenuPages/CentralPage
+				1: page = $MenuPages/LoadoutPage
 		false: # Vertical
-			match focus_position:
-				-1: pass # Credits
-				0: $MenuPages/CentralPage.set_focus()
-				1: pass # Codex
+			match select_position:
+				-1: page = $MenuPages/CreditsPage
+				0: page = $MenuPages/CentralPage
+				1: page = $MenuPages/CodexPage
+	return page
 
 func set_page_position(new_position, direction : bool = true):
+	var previous_page_position = page_position
+	var previous_page_direction = page_direction
+	var previous_page = get_page_from_position(previous_page_position, previous_page_direction) 
+	
 	page_position = new_position
 	page_direction = direction
+	var new_page = get_page_from_position(page_position, page_direction)
+	new_page.visible = true
 	
 	var position_tween = get_tree().create_tween()
 	match page_direction:
@@ -52,6 +64,9 @@ func set_page_position(new_position, direction : bool = true):
 		false: # Vertical
 			position_tween.tween_property(menu_pages, "position", Vector2(0, (screen_size.y + page_position_offset_y) * page_position), 0.95).set_trans(Tween.TRANS_EXPO)
 	set_focus(page_position, page_direction)
+	
+	await position_tween.finished
+	previous_page.visible = false
 
 ## Reactive Signals
 func _on_config_button_pressed():

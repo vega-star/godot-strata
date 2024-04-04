@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://3js2ufvdnk2k"]
+[gd_scene load_steps=11 format=3 uid="uid://3js2ufvdnk2k"]
 
 [ext_resource type="Script" path="res://scenes/scripts/ui/menu_central_page.gd" id="1_gad2b"]
 [ext_resource type="PackedScene" uid="uid://c8sis2bmuopvk" path="res://scenes/ui/menu_bg.tscn" id="1_ijhm3"]
 [ext_resource type="Texture2D" uid="uid://b1gfbx416f357" path="res://assets/textures/static/github_icon_outline.png" id="3_hf2uu"]
 [ext_resource type="Theme" uid="uid://b1a5sjt2xibwo" path="res://assets/themes/strata_theme/strata_theme.tres" id="3_l8my2"]
+[ext_resource type="Texture2D" uid="uid://1tra8xau03f" path="res://assets/textures/static/main_menu_cover.png" id="3_sguk8"]
 [ext_resource type="Texture2D" uid="uid://choj350rc1swa" path="res://assets/textures/static/github_icon_filling.png" id="4_04cwg"]
 [ext_resource type="PackedScene" uid="uid://c2vd5a4tvc1kw" path="res://scenes/ui/ui_default_button.tscn" id="4_hujtw"]
 [ext_resource type="Texture2D" uid="uid://bmpah4ugbbs2w" path="res://assets/textures/static/zero.png" id="5_6d0yf"]
@@ -25,6 +26,10 @@ color = Color(0.180392, 0.133333, 0.184314, 1)
 
 [node name="MenuBG" parent="." instance=ExtResource("1_ijhm3")]
 visible = false
+
+[node name="MainMenuCover" type="Sprite2D" parent="."]
+position = Vector2(480, 393)
+texture = ExtResource("3_sguk8")
 
 [node name="ButtonsContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -74,12 +79,14 @@ layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_left = 7.0
-offset_top = -30.0
-offset_right = 242.0
-offset_bottom = -7.0
+offset_left = 5.0
+offset_top = -41.0
+offset_right = 122.0
+offset_bottom = -18.0
 grow_vertical = 0
 theme = ExtResource("3_l8my2")
+text = "v0.0.0"
+horizontal_alignment = 1
 
 [node name="StrataLogo" type="Sprite2D" parent="."]
 position = Vector2(478, 138)
@@ -89,23 +96,16 @@ texture = ExtResource("5_61mfq")
 position = Vector2(306, 55)
 texture = ExtResource("5_6d0yf")
 
-[node name="OtherLinks" type="VBoxContainer" parent="."]
+[node name="GitHubLink" type="TextureButton" parent="."]
 layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
+anchors_preset = 2
 anchor_top = 1.0
-anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -96.0
-offset_top = -269.0
-offset_right = -8.0
-offset_bottom = -8.0
-grow_horizontal = 0
+offset_left = 24.0
+offset_top = -123.0
+offset_right = 106.0
+offset_bottom = -43.0
 grow_vertical = 0
-alignment = 2
-
-[node name="GitHubLink" type="TextureButton" parent="OtherLinks"]
-layout_mode = 2
 theme = ExtResource("3_l8my2")
 texture_normal = ExtResource("3_hf2uu")
 texture_pressed = ExtResource("3_hf2uu")
@@ -118,4 +118,4 @@ stretch_mode = 3
 [connection signal="pressed" from="ButtonsContainer/CodexButton" to="." method="_on_codex_button_pressed"]
 [connection signal="pressed" from="ButtonsContainer/CreditsButton" to="." method="_on_credits_button_pressed"]
 [connection signal="pressed" from="ButtonsContainer/QuitButton" to="." method="_on_quit_button_pressed"]
-[connection signal="pressed" from="OtherLinks/GitHubLink" to="." method="_on_git_hub_link_pressed"]
+[connection signal="pressed" from="GitHubLink" to="." method="_on_git_hub_link_pressed"]

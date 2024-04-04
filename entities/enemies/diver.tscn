@@ -12,8 +12,9 @@
 collision_layer = 2
 collision_mask = 5
 script = ExtResource("1_2iv1h")
-timeout_for_flee = 8.0
-max_maneuverability = 4.0
+max_entity_speed = 2.5
+timeout_for_flee = 5.0
+lock_on_player = true
 enemy_name = "diver"
 score_value = 5
 speed = 250

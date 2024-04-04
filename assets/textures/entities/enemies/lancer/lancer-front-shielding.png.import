@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dpd3nwpfh2al3"
-path="res://.godot/imported/hunter-prototype-v3.png-6b8150acff150a9dd2ec2f2956e2d6c6.ctex"
+uid="uid://b2a7ig38c38qp"
+path="res://.godot/imported/lancer-front-shielding.png-53a6242a4c4c1b40acbd47fd256ca3dd.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/textures/entities/player/hunter-prototype-v3.png"
-dest_files=["res://.godot/imported/hunter-prototype-v3.png-6b8150acff150a9dd2ec2f2956e2d6c6.ctex"]
+source_file="res://assets/textures/entities/enemies/lancer/lancer-front-shielding.png"
+dest_files=["res://.godot/imported/lancer-front-shielding.png-53a6242a4c4c1b40acbd47fd256ca3dd.ctex"]
 
 [params]
 

@@ -1,9 +1,7 @@
-class_name HitboxComponent extends Node
-
-signal shielding_destroyed
+class_name HitboxComponent extends Area2D
 
 # Main variables
-@onready var hitsound_emitter = $HitsoundEmitter
+@export var hitsound_emitter : AudioStreamPlayer2D
 @export var hitbox : CollisionPolygon2D
 @export var simple_hitbox : CollisionShape2D
 @export var health_component : HealthComponent
@@ -16,10 +14,8 @@ var immunity_frames_count = 0
 var is_immune : bool = false
 
 # Toggle behaviors
-@export var set_health_bar : bool = true
-@export var is_shielding : bool = false
+@export var set_health_bar : bool = false
 @export var immune_to_damage : bool = false
-@export var is_composite_module : bool = false
 @export var override_max_health : int = 0
 
 ## HitboxComponent communicates with HealthComponent to react with projectiles and collision
@@ -42,18 +38,6 @@ func _ready():
 		pass
 		# In that case, the entity is missing an 'active' hitbox.
 		# Collisions still works as it inherits the child hitbox node, but will not flicker when recieving constant damage, rendering some weapons useless.
-	
-	if is_shielding:
-		for child in get_children():
-			if child is HealthComponent:
-				health_component = child
-			elif child is CollisionPolygon2D or child is CollisionShape2D:
-				active_hitbox = child
-		
-		self.add_to_group('shielding')
-	elif is_composite_module:
-		var hitbox_position = get_parent().get_child_count()
-		active_hitbox = get_parent().get_child(hitbox_position)
 
 func _physics_process(_delta): 
 	# As it updates 60 times per second, we could calculate really short immunity frames without creating a timer node
@@ -71,13 +55,12 @@ func toggle_immunity(boolean_value):
 
 func generate_damage(damage, source = null):
 	if !immune_to_damage:
-		hitsound_emitter.play()
+		if is_instance_valid(hitsound_emitter): hitsound_emitter.play()
 		
 		if health_component and !is_immune:
 			is_immune = true
 			immunity_frames_count = 0
 			health_component.change_health(damage, true, source)
 
-func die(): # Deletes itself. Should only be invoked when the component is shielding
-	shielding_destroyed.emit()
+func die(_source): # Deletes itself. Should only be invoked when the component is shielding
 	queue_free()

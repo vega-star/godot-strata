@@ -1,6 +1,8 @@
-[gd_scene load_steps=14 format=3 uid="uid://dxggb74oi63s3"]
+[gd_scene load_steps=15 format=3 uid="uid://dxggb74oi63s3"]
 
+[ext_resource type="Script" path="res://entities/projectiles/projectiles_scripts/enemy_missile.tres.gd" id="1_daurx"]
 [ext_resource type="AudioStream" uid="uid://cedoets3qpebs" path="res://assets/audio/effects/missile_explosion.wav" id="2_kmtqk"]
+[ext_resource type="AudioStream" uid="uid://bionxhpptxt2p" path="res://assets/audio/effects/missile_movement.wav" id="2_ylqer"]
 [ext_resource type="Material" uid="uid://ctffue8yt8d8b" path="res://entities/projectiles/projectiles_scripts/missile_trail.tres" id="3_ir41n"]
 [ext_resource type="Material" uid="uid://cvfmn1g3c8nd3" path="res://assets/shaders/entities/enemy_outline.tres" id="4_0qroy"]
 [ext_resource type="Texture2D" uid="uid://cbun8bbb2ep1r" path="res://assets/textures/projectiles/default_missile_thrust_trail.png" id="4_epvtp"]
@@ -9,190 +11,6 @@
 [ext_resource type="PackedScene" uid="uid://bdfaybp4djcn2" path="res://components/status/health_component.tscn" id="6_rn2ep"]
 [ext_resource type="PackedScene" uid="uid://c4rkui846g2ue" path="res://components/status/combat_component.tscn" id="7_djk1g"]
 [ext_resource type="PackedScene" uid="uid://c3atqdge540t0" path="res://components/status/hitbox_component.tscn" id="7_vquhg"]
-
-[sub_resource type="GDScript" id="GDScript_ipx3l"]
-script/source = "extends Area2D
-
-signal bomb_exploded()
-
-# Node connections
-@onready var combat_component = $CombatComponent
-
-# Proprieties
-const base_rate_of_fire : float = 50
-const self_damage : int = 1
-const explosion_duration : float = 0.3
-@export var projectile_damage : int = 1
-@export var damages_other_enemies : bool = true
-@export var immune_to_other_projectiles : bool = false
-var has_exploded : bool = false
-var imploding_sequence : bool = false
-var returned_to_screen : bool = false
-
-# Factors and multiplyers
-var penetration_factor : float = 0.6
-var damage_factor_against_bosses : float = 2
-var critical_damage_factor : float = 2
-var explosion_size : Vector2 = Vector2(0.903,0.903)
-var hitbox_explosion_size : Vector2 = Vector2(13,13)
-var set_health_bar : bool = false
-
-# Targeting
-var direction : Vector2
-var target_position : Vector2
-var locked : bool = false
-var lock_sucessful : bool = false
-var locked_target
-var available_targets = []
-
-# Movement
-@export var initial_projectile_speed : float = 1
-@export var projectile_max_speed : float = 5
-@export var projectile_acceleration_rate = 0.2
-@export var missile_maneuverability : float = 1
-@export var max_maneuverability : float = 2
-
-var projectile_speed : float = initial_projectile_speed
-var stage_speed = 5
-
-const bomb_expansion_factor : float = 0.3
-const bomb_imploding_factor : float = 0.4
-
-func _ready():
-	set_physics_process(false)
-	
-	if damages_other_enemies:
-		$HitboxComponent.set_collision_mask_value(2, true)
-		$HitboxComponent.set_collision_mask_value(4, true)
-	
-	if immune_to_other_projectiles:
-		$HitboxComponent.set_collision_mask_value(3, false)
-	
-	_initialize()
-
-func _initialize():
-	var target_position = global_position + Vector2(100, 0).rotated(rotation)
-	var initial_tween : Tween
-	initial_tween = get_tree().create_tween().set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_IN)
-	
-	initial_tween.tween_property(self, \"global_position\", target_position, 0.8)
-	
-	await initial_tween.finished
-	set_physics_process(true)
-
-func _physics_process(delta):
-	if !locked:
-		locked = true
-		available_targets = []
-		var player = get_tree().get_first_node_in_group(\"player\")
-		if player:
-			var distance_to_player = player.global_position.distance_to(self.global_position)
-			
-			if player.combat_component: 
-				player.combat_component.is_being_targeted = true
-			
-			available_targets.append([player, distance_to_player]) # Uses the same system of arrays. If coop is implemented in the future, this may be useful.
-			
-			available_targets.sort_custom(func(a, b): return a[1] < b[1]) # Sorts the array from the closest to the farthest
-			
-			if available_targets.size() > 0:
-				locked_target = available_targets[0]
-				locked_target[0].combat_component.set_target = true
-				target_position = locked_target[0].global_position
-				lock_sucessful = true
-			else:
-				await get_tree().create_timer(0.3).timeout
-				locked = false
-	
-	if !has_exploded:
-		global_position.x += projectile_speed * delta
-	elif has_exploded and !imploding_sequence:
-		$BombExplosionSprite.scale = $BombExplosionSprite.scale.lerp(explosion_size, bomb_expansion_factor)
-		$HitboxComponent/ProjectileRadius.scale = $HitboxComponent/ProjectileRadius.scale.lerp(hitbox_explosion_size, bomb_expansion_factor)
-	else:
-		$BombExplosionSprite.scale = $BombExplosionSprite.scale.lerp(Vector2(0,0), bomb_imploding_factor)
-		$HitboxComponent/ProjectileRadius.scale = $HitboxComponent/ProjectileRadius.scale.lerp(Vector2(0,0), bomb_imploding_factor)
-	
-	if lock_sucessful and !has_exploded: # Targed adquired
-		if is_instance_valid(locked_target[0]): 
-			target_position = locked_target[0].global_position
-			var target_angle = (target_position - self.global_position).angle()
-			self.global_rotation = lerp_angle(self.global_rotation, target_angle, missile_maneuverability * delta)
-			self.global_position += Vector2(2, 0).rotated(rotation) * projectile_speed
-		else: # Target adquired, but lost. Will try to find another target
-			locked = false
-			lock_sucessful = false
-	elif has_exploded: # Target collided, explosion follows stage_speed
-		if locked_target: # Free target lock after exploding, in case enemy isn't killed
-			if is_instance_valid(locked_target[0]): locked_target[0].combat_component.set_target = false 
-		
-		self.global_position.x -= stage_speed
-	else: # Seeking target
-		self.global_position += Vector2(2, 0).rotated(rotation) * projectile_speed
-	
-	if missile_maneuverability < max_maneuverability:
-		missile_maneuverability += 0.3
-	
-	if projectile_speed < projectile_max_speed:
-		projectile_speed *= projectile_acceleration_rate
-
-func _on_screen_reentered():
-	returned_to_screen = true
-
-func _on_outside_screen_check_exit_detected():
-	await get_tree().create_timer(3, false).timeout
-	if returned_to_screen:
-		returned_to_screen = false
-	else: 
-		queue_free()
-
-func die():
-	# _bomb_exploded()
-	queue_free()
-
-func _on_hitbox_area_entered(area): # Causes damage to where it collides. It's the small circular hitbox at the end
-	var damage_buildup : float
-	var real_damage : int
-	
-	if area is HitboxComponent:
-		for group in area.owner.get_groups():
-			match group:
-				'player': # Detects player and only works if can_damage_player is turned on
-					damage_buildup = self_damage
-				'shielding':
-					damage_buildup = projectile_damage * penetration_factor
-				'miniboss', 'boss':
-					damage_buildup = projectile_damage * damage_factor_against_bosses
-				'core':
-					damage_buildup = projectile_damage * critical_damage_factor
-				_:
-					damage_buildup = projectile_damage
-		
-		real_damage = int(damage_buildup)
-		area.generate_damage(real_damage)
-		
-		_bomb_exploded()
-
-func _bomb_exploded():
-	combat_component.is_valid_target = false
-	has_exploded = true
-	# Switch projectile sprites / explosion sprites
-	$MissileSprite.visible = false
-	$BombExplosionSprite.visible = true
-	$MissileTrail.emitting = false
-	$ExplosionSound.play()
-	
-	set_deferred(\"$SelfProjectileBox.disabled\",true)
-	
-	# Implode
-	await get_tree().create_timer(explosion_duration, false).timeout
-	imploding_sequence = true
-	
-	# Clear entity
-	await get_tree().create_timer(0.7, false).timeout
-	$BombExplosionParticles.emitting = false
-	queue_free() 
-"
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_jpsuv"]
 lifetime_randomness = 0.58
@@ -215,23 +33,32 @@ radius = 5.0
 height = 52.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_q4kb5"]
-radius = 4.0
+radius = 5.0
 
 [node name="EnemyMissile" type="Area2D" groups=["enemy", "enemy_projectile"]]
 light_mask = 2
 visibility_layer = 2
 collision_layer = 8
 collision_mask = 5
-script = SubResource("GDScript_ipx3l")
+script = ExtResource("1_daurx")
 initial_projectile_speed = 2.0
 projectile_max_speed = 2.3
 projectile_acceleration_rate = 1.006
 metadata/_edit_vertical_guides_ = [-13.0, 15.0]
 metadata/_edit_horizontal_guides_ = [-5.0, 5.0]
 
+[node name="ActiveSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_ylqer")
+autoplay = true
+attenuation = 5.0
+panning_strength = 3.0
+bus = &"Effects"
+
 [node name="ExplosionSound" type="AudioStreamPlayer2D" parent="."]
 position = Vector2(11, 0)
 stream = ExtResource("2_kmtqk")
+panning_strength = 1.5
+bus = &"Effects"
 
 [node name="MissileTrail" type="GPUParticles2D" parent="."]
 modulate = Color(0.984314, 1, 0.52549, 1)
@@ -289,11 +116,11 @@ health_component = NodePath("../HealthComponent")
 combat_component = NodePath("../CombatComponent")
 
 [node name="ProjectileRadius" type="CollisionShape2D" parent="HitboxComponent"]
-position = Vector2(23, 0)
+position = Vector2(22, 0)
 rotation = -1.5708
 shape = SubResource("CircleShape2D_q4kb5")
 
-[node name="SelfProjectileBoxCopy" type="CollisionShape2D" parent="HitboxComponent"]
+[node name="MissileBody" type="CollisionShape2D" parent="HitboxComponent"]
 modulate = Color(0.686275, 0, 0.164706, 1)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_wifd6")

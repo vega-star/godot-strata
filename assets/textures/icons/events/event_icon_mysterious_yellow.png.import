@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ba0d4yi48tebh"
-path="res://.godot/imported/diagonal_down.png-86b14e885cbf307b23f2513deca74838.ctex"
+uid="uid://dn2qyjbqbgoyx"
+path="res://.godot/imported/event_icon_mysterious_yellow.png-bb9c8a99f832cea12c0eb69556b2e8ef.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/textures/entities/player/diagonal_down.png"
-dest_files=["res://.godot/imported/diagonal_down.png-86b14e885cbf307b23f2513deca74838.ctex"]
+source_file="res://assets/textures/icons/events/event_icon_mysterious_yellow.png"
+dest_files=["res://.godot/imported/event_icon_mysterious_yellow.png-bb9c8a99f832cea12c0eb69556b2e8ef.ctex"]
 
 [params]
 

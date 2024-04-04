@@ -7,13 +7,14 @@
 [ext_resource type="Script" path="res://scenes/scripts/main/stage_camera.gd" id="5_btjjv"]
 [ext_resource type="PackedScene" uid="uid://cfmi0lq8hncjn" path="res://scenes/ui/practice_menu_layer.tscn" id="6_y3xfg"]
 
-[node name="PracticeStage" type="Node2D"]
+[node name="PracticeStage" type="Node2D" node_paths=PackedStringArray("stage_parallax")]
 light_mask = 2
 visibility_layer = 2
 script = ExtResource("1_0r3jy")
 stage_id = "PracticeStage"
 stage_title = "PRACTICE"
 save_stage_data = false
+stage_parallax = NodePath("SimulationParallax")
 
 [node name="StageManager" parent="." instance=ExtResource("2_hwme0")]
 debug_generator = false

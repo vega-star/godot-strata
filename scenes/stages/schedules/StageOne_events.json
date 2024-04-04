@@ -1,4 +1,19 @@
 {
+    
+    "test_miniboss": {
+        "event_type": "spawn_challenge",
+        "event_description": "Spawns a mini boss. Can pause stage timer if required, and only resumes when it recieves a signal from the enemy.",
+        "set_timer": true,
+        "has_rules": false,
+        "event_properties": {
+            "enemy": "lancer",
+            "challenge_type": 1,
+            "event_timer": {
+                "pause_stage_timer": true,
+                "timer_period": 2.0
+            }
+        }
+    },
     "spawn_few_enemies": {
         "event_type": "spawn_enemy",
         "event_description": "Spawn a cluster of enemies using the swarm rule set.",
@@ -18,19 +33,6 @@
                     "amount": 5,
                     "delay": 1
                 }
-            }
-        }
-    },
-    "test_lancer": {
-        "event_type": "spawn_enemy",
-        "event_description": "Spawn a cluster of enemies using the swarm rule set.",
-        "set_timer": true,
-        "has_rules": false,
-        "event_properties": {
-            "enemy": "lancer",
-            "event_timer": {
-                "pause_stage_timer": false,
-                "timer_period": 4.0
             }
         }
     },

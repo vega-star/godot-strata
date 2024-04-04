@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b50x6eywaqegb"
-path="res://.godot/imported/hunter-prototype-going-down.png-a68a0f706846231b17631743542b4c32.ctex"
+uid="uid://3a8hr5l56s5t"
+path="res://.godot/imported/lancer.png-5b1500578bbf3a13e8fb62440292bedc.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/textures/entities/player/hunter-prototype-going-down.png"
-dest_files=["res://.godot/imported/hunter-prototype-going-down.png-a68a0f706846231b17631743542b4c32.ctex"]
+source_file="res://assets/textures/entities/enemies/lancer/lancer.png"
+dest_files=["res://.godot/imported/lancer.png-5b1500578bbf3a13e8fb62440292bedc.ctex"]
 
 [params]
 

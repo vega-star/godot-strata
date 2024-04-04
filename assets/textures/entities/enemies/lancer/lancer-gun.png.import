@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://vnytxah5yagv"
-path="res://.godot/imported/hunter-prototype.png-38236f004a38cc78ebfd642d62c7dab5.ctex"
+uid="uid://cbvo8oiu7ddns"
+path="res://.godot/imported/lancer-gun.png-086c0d5db5a71dfefe769c005e8dff07.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/textures/entities/player/hunter-prototype.png"
-dest_files=["res://.godot/imported/hunter-prototype.png-38236f004a38cc78ebfd642d62c7dab5.ctex"]
+source_file="res://assets/textures/entities/enemies/lancer/lancer-gun.png"
+dest_files=["res://.godot/imported/lancer-gun.png-086c0d5db5a71dfefe769c005e8dff07.ctex"]
 
 [params]
 
