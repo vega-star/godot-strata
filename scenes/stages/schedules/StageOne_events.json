@@ -1,22 +1,8 @@
 {
-    
-    "test_miniboss": {
-        "event_type": "spawn_challenge",
-        "event_description": "Spawns a mini boss. Can pause stage timer if required, and only resumes when it recieves a signal from the enemy.",
-        "set_timer": true,
-        "has_rules": false,
-        "event_properties": {
-            "enemy": "lancer",
-            "challenge_type": 1,
-            "event_timer": {
-                "pause_stage_timer": true,
-                "timer_period": 2.0
-            }
-        }
-    },
     "spawn_few_enemies": {
         "event_type": "spawn_enemy",
         "event_description": "Spawn a cluster of enemies using the swarm rule set.",
+        "event_icon": false,
         "set_timer": true,
         "has_rules": true,
         "event_properties": {
@@ -39,6 +25,7 @@
     "test_diver": {
         "event_type": "spawn_enemy",
         "event_description": "Spawn a cluster of enemies using the swarm rule set.",
+        "event_icon": false,
         "set_timer": true,
         "has_rules": false,
         "event_properties": {
@@ -52,6 +39,7 @@
     "test_wingman": {
         "event_type": "spawn_enemy",
         "event_description": "Spawn a cluster of enemies using the swarm rule set.",
+        "event_icon": true,
         "set_timer": true,
         "has_rules": false,
         "event_properties": {
@@ -62,9 +50,26 @@
             }
         }
     },
+    "test_miniboss": {
+        "event_type": "spawn_challenge",
+        "event_description": "Spawns a mini boss. Can pause stage timer if required, and only resumes when it recieves a signal from the enemy.",
+        "event_icon": true,
+        "set_timer": true,
+        "has_rules": false,
+        "event_properties": {
+            "enemy": "lancer",
+            "challenge_type": 1,
+            "set_boss_bar": true,
+            "event_timer": {
+                "pause_stage_timer": true,
+                "timer_period": 2.0
+            }
+        }
+    },
     "test_diver_carrier_top": {
         "event_type": "spawn_enemy",
         "event_description": "Spawns a diver carrier",
+        "event_icon": null,
         "set_timer": true,
         "has_rules": true,
         "event_properties": {
@@ -84,6 +89,7 @@
     "test_diver_carrier_bottom": {
         "event_type": "spawn_enemy",
         "event_description": "Spawns a diver carrier",
+        "event_icon": true,
         "set_timer": true,
         "has_rules": true,
         "event_properties": {
@@ -103,6 +109,7 @@
     "test_filler": {
         "event_type": "filler",
         "event_description": "Acts as a empty filler between previous events and a certain portion of the stage. It just needs the 'stop_before' variable for it to work. Also serves as a tool to find the ideal stage length!",
+        "event_icon": false,
         "set_timer": false,
         "has_rules": false,
         "event_properties": {

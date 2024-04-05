@@ -10,8 +10,10 @@ const contact_damage = 1
 const self_scene_path = "res://entities/prototype_entities/enemy_gun.tscn"
 
 ## Properties
+@export var enemy_name : String = 'default_gun'
 @export var projectile_id : String = "default_enemy_laser"
 @export var deactivate_instead : bool = false
+@export var activation_time : float = 2.5
 @export var self_sprite : Sprite2D
 @export var muzzle : Marker2D
 @export var rate_of_fire : float = 1
@@ -32,7 +34,7 @@ const self_scene_path = "res://entities/prototype_entities/enemy_gun.tscn"
 
 ## Behavior
 var shoot_cooldown : bool = false
-var shoot_lock : bool = false
+var shoot_lock : bool = true
 
 func _ready():
 	# Default node connections
@@ -49,6 +51,10 @@ func _ready():
 	randomize()
 	if health_bar_component:
 		health_bar_component.lock_bar = set_health_bar
+	
+	## Await to get ready
+	await get_tree().create_timer(activation_time).timeout
+	shoot_lock = false
 
 func _physics_process(_delta):
 	if get_tree().has_group('Player'): 
@@ -99,7 +105,6 @@ func destroy(): # Destroys the enemy definetely
 	queue_free()
 
 func deactivate():
-	print('deactivating %s' % self.name)
 	shoot_lock = true
 	self.visible = false
 
@@ -107,10 +112,11 @@ func reactivate():
 	health_component.reset_health()
 	health_component.lock_health(false)
 	self.visible = true
+	
+	await get_tree().create_timer(activation_time).timeout
 	shoot_lock = false
 
 func _on_health_component_health_change(_previous_value, new_value, type):
-	print('{1} health change | health is {0}'.format({0:new_value, 1:self.name}))
 	if type:
 		for n in damage_effect_flicker_count:
 			self_sprite.modulate.r = Color.RED.r

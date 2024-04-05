@@ -1,7 +1,8 @@
-[gd_scene load_steps=24 format=3 uid="uid://cmqhgcn8ma7k5"]
+[gd_scene load_steps=29 format=3 uid="uid://cmqhgcn8ma7k5"]
 
 [ext_resource type="Script" path="res://entities/entity_scripts/composite_enemy.gd" id="1_sosx1"]
 [ext_resource type="PackedScene" uid="uid://cifxjpiop3cha" path="res://components/status/drop_component.tscn" id="2_hipol"]
+[ext_resource type="Material" uid="uid://cvfmn1g3c8nd3" path="res://assets/shaders/entities/enemy_outline.tres" id="3_deqqd"]
 [ext_resource type="Texture2D" uid="uid://3a8hr5l56s5t" path="res://assets/textures/entities/enemies/lancer/lancer.png" id="3_mv7tp"]
 [ext_resource type="Texture2D" uid="uid://b2a7ig38c38qp" path="res://assets/textures/entities/enemies/lancer/lancer-front-shielding.png" id="5_6n170"]
 [ext_resource type="PackedScene" uid="uid://cxk85efxpd3at" path="res://entities/composite_elements/composite_shielding.tscn" id="5_iqo4a"]
@@ -22,17 +23,212 @@
 [ext_resource type="PackedScene" uid="uid://ctksiqxkq8ue5" path="res://entities/prototype_entities/enemy_missile_launcher.tscn" id="16_b2wr1"]
 [ext_resource type="Script" path="res://components/status/hitbox_component.gd" id="16_ppdj8"]
 
+[sub_resource type="Animation" id="Animation_arkps"]
+resource_name = "cycle_carapace"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Barriers/FrontBarrier1:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-125, -36), Vector2(-130, -40)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Barriers/FrontBarrier2:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.9),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-125, 36), Vector2(-130, 40)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CompositeParts/TopGunModule:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, -50), Vector2(0, -58)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CompositeParts/LowerGunModule:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 1.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 49), Vector2(0, 57)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("CompositeParts/MissileLauncherModule:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(128, -2), Vector2(131, -2)]
+}
+
+[sub_resource type="Animation" id="Animation_5b3dw"]
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Barriers/FrontBarrier1:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.3),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-125, -36)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Barriers/FrontBarrier2:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.3),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-125, 36)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CompositeParts/TopGunModule:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.3),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -50)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CompositeParts/LowerGunModule:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.3),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 49)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("CompositeParts/MissileLauncherModule:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.3),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(128, -2)]
+}
+
+[sub_resource type="Animation" id="Animation_hfswd"]
+resource_name = "open_carapace"
+length = 1.5
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CompositeParts/LowerGunModule:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 49), Vector2(8, 57)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CompositeParts/TopGunModule:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.1, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, -50), Vector2(8, -58)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Barriers/FrontBarrier1:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.2, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-125, -36), Vector2(-125, -44)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Barriers/FrontBarrier2:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.1, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-125, 36), Vector2(-125, 44)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_153th"]
+_data = {
+"RESET": SubResource("Animation_5b3dw"),
+"cycle_carapace": SubResource("Animation_arkps"),
+"open_carapace": SubResource("Animation_hfswd")
+}
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y4one"]
 size = Vector2(4, 28)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_s6g41"]
 
-[node name="Lancer" type="Area2D" groups=["composite_enemy"]]
+[node name="Lancer" type="Area2D" node_paths=PackedStringArray("animation_player") groups=["composite_enemy"]]
 light_mask = 2
 visibility_layer = 2
 collision_layer = 2
 collision_mask = 5
 script = ExtResource("1_sosx1")
+animation_player = NodePath("LancerAnimationPlayer")
+
+[node name="LancerAnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_153th")
+}
+autoplay = "cycle_carapace"
 
 [node name="TemporaryContainer" type="Node2D" parent="."]
 
@@ -41,6 +237,8 @@ script = ExtResource("1_sosx1")
 [node name="CESprite" type="Sprite2D" parent="."]
 light_mask = 2
 visibility_layer = 2
+z_index = -3
+material = ExtResource("3_deqqd")
 texture = ExtResource("3_mv7tp")
 
 [node name="CESelfHitbox" type="CollisionPolygon2D" parent="."]
@@ -242,20 +440,19 @@ set_health = 70
 hitbox = NodePath("ModuleCollision")
 
 [node name="LaucherFrame" type="Sprite2D" parent="CompositeParts/MissileLauncherModule"]
+z_index = -2
 position = Vector2(12, 2)
 texture = ExtResource("10_ruwc2")
 
 [node name="ModuleSprite" type="Sprite2D" parent="CompositeParts/MissileLauncherModule"]
 texture = ExtResource("11_1wt2q")
 
-[node name="MissileLauncher" parent="CompositeParts/MissileLauncherModule" node_paths=PackedStringArray("self_sprite", "muzzle", "temporary_container", "hitbox") instance=ExtResource("16_b2wr1")]
+[node name="MissileLauncher" parent="CompositeParts/MissileLauncherModule" node_paths=PackedStringArray("self_sprite", "muzzle", "hitbox") instance=ExtResource("16_b2wr1")]
 position = Vector2(16, 2)
 self_sprite = NodePath("LauncherSprite")
 muzzle = NodePath("LauncherMuzzle")
 rate_of_fire = 5.0
 rof_randomness = 1.05
-temporary_container = NodePath("../../../TemporaryContainer")
-switch_from_temporary = true
 switch_timer = 0.5
 limit_angle = true
 min_angle_limit = 0.0
@@ -264,6 +461,7 @@ hitbox = NodePath("LauncherCollision")
 override_max_health = 40
 
 [node name="LauncherSprite" type="Sprite2D" parent="CompositeParts/MissileLauncherModule/MissileLauncher"]
+z_index = -2
 texture = ExtResource("13_2d4b0")
 
 [node name="LauncherSpriteCover" type="Sprite2D" parent="CompositeParts/MissileLauncherModule/MissileLauncher"]
@@ -271,7 +469,6 @@ z_index = 25
 texture = ExtResource("14_i7pe5")
 
 [node name="LauncherMuzzle" type="Marker2D" parent="CompositeParts/MissileLauncherModule/MissileLauncher"]
-position = Vector2(-24, 0)
 
 [node name="LauncherCollision" type="CollisionPolygon2D" parent="CompositeParts/MissileLauncherModule/MissileLauncher"]
 visible = false

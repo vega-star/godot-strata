@@ -7,6 +7,9 @@ var lock_pause : bool = false
 @onready var unpause_button = $PauseMenu/ButtonsContainer/UnpauseButton
 @onready var return_prompt = $ReturnPrompt
 
+func _ready():
+	Options.visibility_changed.connect(_on_options_visibility_changed)
+
 func pause():
 	unpause_button.grab_focus()
 	pause_state = true
@@ -51,3 +54,7 @@ func _on_confirmation_dialog_confirmed():
 	get_tree().change_scene_to_file(UI.main_menu_path)
 	UI.UIOverlay.visible = false
 	unpause()
+
+func _on_options_visibility_changed():
+	if !Options.visible:
+		unpause_button.grab_focus()

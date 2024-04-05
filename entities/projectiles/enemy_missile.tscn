@@ -60,20 +60,19 @@ stream = ExtResource("2_kmtqk")
 panning_strength = 1.5
 bus = &"Effects"
 
+[node name="MissileSprite" type="Sprite2D" parent="."]
+material = ExtResource("4_0qroy")
+position = Vector2(0, 0.5)
+texture = ExtResource("4_glxim")
+
 [node name="MissileTrail" type="GPUParticles2D" parent="."]
-modulate = Color(0.984314, 1, 0.52549, 1)
-position = Vector2(-23, 0)
+position = Vector2(-28, 0)
 amount = 20
 process_material = ExtResource("3_ir41n")
 texture = ExtResource("4_epvtp")
 lifetime = 1.2
 explosiveness = 0.2
 randomness = 0.2
-
-[node name="MissileSprite" type="Sprite2D" parent="."]
-material = ExtResource("4_0qroy")
-position = Vector2(0, 0.5)
-texture = ExtResource("4_glxim")
 
 [node name="BombExplosionSprite" type="Sprite2D" parent="."]
 visible = false
@@ -93,6 +92,7 @@ amount = 15
 process_material = SubResource("ParticleProcessMaterial_jpsuv")
 
 [node name="SelfProjectileBox" type="CollisionShape2D" parent="."]
+visible = false
 modulate = Color(0.686275, 0, 0.164706, 1)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_wifd6")
@@ -116,11 +116,13 @@ health_component = NodePath("../HealthComponent")
 combat_component = NodePath("../CombatComponent")
 
 [node name="ProjectileRadius" type="CollisionShape2D" parent="HitboxComponent"]
+visible = false
 position = Vector2(22, 0)
 rotation = -1.5708
 shape = SubResource("CircleShape2D_q4kb5")
 
 [node name="MissileBody" type="CollisionShape2D" parent="HitboxComponent"]
+visible = false
 modulate = Color(0.686275, 0, 0.164706, 1)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_wifd6")

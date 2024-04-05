@@ -5,7 +5,8 @@ signal health_change(previous_value: int, new_value: int, type : bool)
 # Main variables
 @onready var damage_indicator = preload("res://scenes/ui/ui_damage_indicator.tscn")
 @export var health_bar : HealthBarComponent
-@export var max_health: int
+@export var max_health : int
+@export var lives : int = 1
 
 # Properties
 var set_max_health:
@@ -61,8 +62,10 @@ func change_health(amount : int, negative : bool = true, source = null):
 					Profile.current_run_data.set_value("INVENTORY", "CURRENT_HEALTH", current_health)
 		
 		if current_health <= 0:
-			lock_health_changes = true
-			owner.die(source) # Let the owner itself execute its death sequence, including queue_free()
+			lives -= 1
+			if lives == 0:
+				lock_health_changes = true
+				owner.die(source) # Let the owner itself execute its death sequence, including queue_free()
 		
 		health_change.emit(previous_value, current_health, negative)
 		

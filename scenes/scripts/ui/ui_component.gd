@@ -9,10 +9,10 @@ signal game_paused(mode)
 @onready var PauseMenu = $PauseMenuLayer
 @onready var GameOver = $GameOver
 @onready var ScreenTransition = $ScreenTransitionLayer
-@export var stage_timer : Timer
 
 ## Data forwarding
 var fade_time : float
+var stage_timer : Timer
 
 const main_menu_path = "res://scenes/ui/main_menu.tscn"
 
@@ -23,7 +23,6 @@ func _ready():
 
 func set_stage(timer, start_run : bool = false):
 	UIOverlay.visible = true
-	UIOverlay.stage_progress_bar.visible = true
 	stage_timer = timer
 	
 	if start_run: Profile.start_run()

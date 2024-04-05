@@ -18,6 +18,8 @@ var weapons_dict : Dictionary
 @export var rotation_speed = 0.9
 @export var contact_damage = 1
 @export var set_health_bar : bool = true
+@export var animation_player : AnimationPlayer
+
 @onready var self_sprite = $CESprite
 @onready var self_hitbox = $HitboxComponent
 @onready var composite_parts_root = $CompositeParts
@@ -75,13 +77,16 @@ func _physics_process(delta):
 	if charge and !charge_cooldown:
 		charge = false
 		charge_cooldown = true
+		
+		animation_player.play("open_carapace")
 		$Laser.charge()
 		if rotate_fixed:
 			await behavior_ended
-		else:
-			await get_tree().create_timer(charge_time, false).timeout
+		
+		await get_tree().create_timer(charge_time, false).timeout
 		$Laser.set_casting(false)
 		charge_cooldown = false
+		animation_player.play("cycle_carapace")
 	
 	if rotate:
 		var player_position : Vector2

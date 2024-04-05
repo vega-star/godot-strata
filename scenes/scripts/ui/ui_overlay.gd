@@ -1,13 +1,20 @@
 extends CanvasLayer
 
+#region MAIN VARIABLES
+## Properties
 @export var selected_health_skin = "classic_hp"
 @export var selected_ammo_skin = "classic_ammo"
 @export var limit_hp_slots = 3
 @export var limit_secondary_ammo = 7
 @export var debug : bool = false
-@onready var heat_bar = $HeatBar
-@onready var stage_progress_bar = $ProgressBar/StageProgressBar
 
+## Nodes
+@onready var ui_animation_player = $UIAnimations
+@onready var heat_bar = $HeatBar
+@onready var bars = $Bars
+@onready var stage_progress_bar = $Bars/StageProgressBar/Bar
+
+## HUD Constructor Data
 @onready var hud_elements_list : Dictionary = {
 	"main_nodes": {
 		"hp": {
@@ -129,19 +136,19 @@ extends CanvasLayer
 @onready var stage_progress = stage_progress_bar: # Recieves and updates stage progress on hud bar
 	set(progress_value):
 		stage_progress_bar.value = progress_value
-@onready var stage_progress_bar_size:
-	set(max):
-		stage_progress_bar.set_max(max)
-		Profile.statistics_changed.connect(update_ui_elements)
-		update_ui_elements()
+#endregion
+
+var stage_size : float
 
 func _ready():
 	Profile.statistics_changed.connect(update_ui_elements)
 	update_hud()
+	update_ui_elements()
 
-func set_stage_bar(max_value): ## Sets the progress bar max value equal to the StageTimer total time
+func set_stage_bar(max_value): ## Sets the progress bar max value equal to the StageTimer total time in seconds
 	stage_progress_bar.set_max(max_value)
-	$ProgressBar.visible = true
+	stage_size = max_value
+	ui_animation_player.play("toggle_progress_bar")
 
 func construct_hud(hud_element, type, set_value, limit):
 	## Building the containers
@@ -227,3 +234,11 @@ func update_hud():
 func update_ui_elements():
 	var score = Profile.current_run_data.get_value("STATISTICS", "SCORE")
 	$ScoreBar.text = "SCORE: " + str(score)
+
+#region BARS FUNCTION PASS
+func set_boss_bar(boss_node):
+	bars.set_boss_bar(boss_node)
+
+func display_event(event_data):
+	bars.display_event(event_data)
+#endregion

@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://chy6yrcopxpke"]
+[gd_scene load_steps=30 format=3 uid="uid://chy6yrcopxpke"]
 
 [ext_resource type="Script" path="res://scenes/scripts/ui/ui_overlay.gd" id="1_khion"]
 [ext_resource type="Texture2D" uid="uid://d4kflkwb5sakl" path="res://assets/themes/strata_theme/elements/styleboxes/enemy_health_bar.png" id="3_inpba"]
@@ -11,21 +11,130 @@
 [ext_resource type="Texture2D" uid="uid://dn767jx01lhy4" path="res://assets/textures/ui/hud/classic/bomb_short_container.png" id="10_hqspw"]
 [ext_resource type="Texture2D" uid="uid://dg4bawag1gvsx" path="res://assets/textures/ui/hud/classic/hp_cell.png" id="11_s60dq"]
 [ext_resource type="Texture2D" uid="uid://c6nrrcsu7x2hh" path="res://assets/textures/ui/hud/classic/hp_short_cell.png" id="12_m8gnf"]
+[ext_resource type="Script" path="res://scenes/scripts/ui/ui_progress_bar.gd" id="12_s4dc2"]
 [ext_resource type="Texture2D" uid="uid://451teuktm8oy" path="res://assets/textures/ui/hud/classic/bomb_cell.png" id="13_4k00c"]
 [ext_resource type="Theme" uid="uid://b1a5sjt2xibwo" path="res://assets/themes/strata_theme/strata_theme.tres" id="13_chyk2"]
 [ext_resource type="Texture2D" uid="uid://cnafgvhwn8x3f" path="res://assets/textures/ui/hud/classic/bomb_short_cell.png" id="14_bq438"]
 [ext_resource type="FontFile" uid="uid://0bmvakfotygp" path="res://assets/themes/fonts/VT323-Regular.ttf" id="14_f31xd"]
+[ext_resource type="Texture2D" uid="uid://csay5l63c4eul" path="res://assets/textures/icons/events/event_cursor.png" id="15_0f1bk"]
+[ext_resource type="Texture2D" uid="uid://clyo4shejv2k7" path="res://assets/textures/icons/ui/icon_boss_life_deactivated.png" id="15_1dt3e"]
 [ext_resource type="Texture2D" uid="uid://cano6k0rmkt8h" path="res://assets/textures/ui/hud/classic/stage_bar.png" id="15_5b0wf"]
+[ext_resource type="PackedScene" uid="uid://c2sdttg04tcus" path="res://scenes/ui/event_template.tscn" id="16_2r5an"]
+[ext_resource type="Texture2D" uid="uid://d5cyp7quoone" path="res://assets/textures/icons/ui/icon_boss_life.png" id="16_ekmyj"]
+
+[sub_resource type="Animation" id="Animation_3yjbw"]
+resource_name = "toggle_progress_bar"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Bars/StageProgressBar:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 19), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_nyykf"]
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Bars/StageProgressBar:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 19)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Bars/BossBar:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 64)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Bars/BossBar:size")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(960, 19)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Bars/StageProgressBar:size")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(960, 19)]
+}
+
+[sub_resource type="Animation" id="Animation_ixm4x"]
+resource_name = "toggle_boss_bar"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Bars/BossBar:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 69), Vector2(0, -20)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_gyubf"]
+_data = {
+"RESET": SubResource("Animation_nyykf"),
+"toggle_boss_bar": SubResource("Animation_ixm4x"),
+"toggle_progress_bar": SubResource("Animation_3yjbw")
+}
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_32oi1"]
-bg_color = Color(1, 1, 1, 1)
+bg_color = Color(0.780392, 0.862745, 0.815686, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xkl3s"]
 bg_color = Color(0.196078, 0.2, 0.32549, 1)
 
-[node name="UILayer" type="CanvasLayer"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xoohe"]
+bg_color = Color(0.909804, 0.231373, 0.231373, 1)
+shadow_color = Color(1, 1, 1, 0.6)
+shadow_size = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b8l6q"]
+bg_color = Color(0.431373, 0.152941, 0.152941, 1)
+
+[node name="UIOverlay" type="CanvasLayer"]
 layer = 10
 script = ExtResource("1_khion")
+
+[node name="UIAnimations" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_gyubf")
+}
+autoplay = "RESET"
 
 [node name="HP" type="Control" parent="."]
 layout_mode = 3
@@ -150,7 +259,7 @@ texture = ExtResource("14_bq438")
 expand_mode = 1
 stretch_mode = 1
 
-[node name="ProgressBar" type="Control" parent="."]
+[node name="Bars" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 7
 anchor_left = 0.5
@@ -158,35 +267,162 @@ anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = -480.0
-offset_top = -40.0
+offset_top = -19.0
 offset_right = 480.0
 grow_horizontal = 2
 grow_vertical = 0
+script = ExtResource("12_s4dc2")
 
-[node name="StageProgressBar" type="ProgressBar" parent="ProgressBar"]
+[node name="StageProgressBar" type="Control" parent="Bars"]
 layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.508
-anchor_top = 0.981
-anchor_right = 0.508
-anchor_bottom = 0.981
-offset_left = -450.68
-offset_top = -14.24
-offset_right = 451.32
-offset_bottom = -4.24
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 19.0
+offset_right = 960.0
+offset_bottom = 38.0
 grow_horizontal = 2
-grow_vertical = 0
+grow_vertical = 2
+
+[node name="Bar" type="ProgressBar" parent="Bars/StageProgressBar"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -443.0
+offset_top = -5.5
+offset_right = 443.0
+offset_bottom = 4.5
+grow_horizontal = 2
+grow_vertical = 2
 theme = ExtResource("13_chyk2")
 theme_override_constants/outline_size = 2
 theme_override_styles/background = SubResource("StyleBoxFlat_32oi1")
 theme_override_styles/fill = SubResource("StyleBoxFlat_xkl3s")
 value = 50.0
-allow_greater = true
 fill_mode = 1
 show_percentage = false
 
-[node name="ProgressBarFrame" type="Sprite2D" parent="ProgressBar"]
-position = Vector2(480, 31)
+[node name="ProgressBarFrame" type="Sprite2D" parent="Bars/StageProgressBar"]
+position = Vector2(480, 10)
+texture = ExtResource("15_5b0wf")
+
+[node name="BarStart" type="Marker2D" parent="Bars/StageProgressBar"]
+position = Vector2(37, 9)
+
+[node name="BarEnd" type="Marker2D" parent="Bars/StageProgressBar"]
+position = Vector2(923, 9)
+
+[node name="EventCursor" type="Sprite2D" parent="Bars/StageProgressBar"]
+visible = false
+position = Vector2(37, -7)
+texture = ExtResource("15_0f1bk")
+
+[node name="EventContainer" type="Node2D" parent="Bars/StageProgressBar"]
+position = Vector2(37, 9)
+
+[node name="Event" parent="Bars/StageProgressBar/EventContainer" instance=ExtResource("16_2r5an")]
+
+[node name="BossBar" type="Control" parent="Bars"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_top = 64.0
+offset_right = 960.0
+offset_bottom = 83.0
+grow_horizontal = 2
+
+[node name="Bar" type="ProgressBar" parent="Bars/BossBar"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -451.0
+offset_top = -5.0
+offset_right = 451.0
+offset_bottom = 5.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("13_chyk2")
+theme_override_constants/outline_size = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_xoohe")
+theme_override_styles/fill = SubResource("StyleBoxFlat_b8l6q")
+value = 50.0
+show_percentage = false
+
+[node name="BossStages" type="HBoxContainer" parent="Bars/BossBar/Bar"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -150.0
+offset_top = -29.0
+offset_right = 150.0
+offset_bottom = -3.0
+grow_horizontal = 2
+alignment = 1
+
+[node name="BossLife" type="Control" parent="Bars/BossBar/Bar/BossStages"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+
+[node name="BossLifeDeactivated" type="Sprite2D" parent="Bars/BossBar/Bar/BossStages/BossLife"]
+position = Vector2(10, 13)
+texture = ExtResource("15_1dt3e")
+
+[node name="BossLifeActive" type="Sprite2D" parent="Bars/BossBar/Bar/BossStages/BossLife"]
+position = Vector2(10, 13)
+texture = ExtResource("16_ekmyj")
+
+[node name="ModulesBars" type="VBoxContainer" parent="Bars/BossBar"]
+visible = false
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -169.0
+offset_top = -164.5
+offset_right = -21.0
+offset_bottom = 11.5
+grow_horizontal = 0
+grow_vertical = 2
+alignment = 2
+
+[node name="ModuleBarSample" type="ProgressBar" parent="Bars/BossBar/ModulesBars"]
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+theme = ExtResource("13_chyk2")
+theme_override_constants/outline_size = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_xoohe")
+theme_override_styles/fill = SubResource("StyleBoxFlat_b8l6q")
+value = 50.0
+allow_greater = true
+show_percentage = false
+
+[node name="ModuleBarLabel" type="Label" parent="Bars/BossBar/ModulesBars/ModuleBarSample"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = -63.0
+offset_top = -8.0
+offset_bottom = 9.0
+grow_vertical = 2
+theme_override_font_sizes/font_size = 16
+text = "MODULE_ID"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BossBarFrame" type="Sprite2D" parent="Bars/BossBar"]
+visible = false
+position = Vector2(480, 10)
 texture = ExtResource("15_5b0wf")
 
 [node name="HeatBar" type="TextureProgressBar" parent="."]

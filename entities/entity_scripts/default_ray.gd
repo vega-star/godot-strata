@@ -65,7 +65,7 @@ func charge():
 	charging_emitter.speed_scale = 0
 	
 	var aiming_tween = get_tree().create_tween()
-	aiming_tween.tween_property(aim_line, "width", 4, laser_speed)
+	aiming_tween.tween_property(aim_line, "width", 2, laser_speed)
 	
 	var charging_tween = get_tree().create_tween()
 	charging_tween.tween_property(charging_emitter, "speed_scale", 5, 5)
@@ -83,10 +83,11 @@ func activate():
 	beam_emitter.emitting = true
 	end_emitter.emitting = true
 	
-	aim_line.width = 0
-	
 	laser_tween = get_tree().create_tween()
 	laser_tween.tween_property(laser_line, "width", laser_max_width, laser_speed)
+	
+	aim_line.width = 0
+	
 	enabled = true
 	await laser_tween.finished
 	laser_tween.kill()

@@ -2,7 +2,7 @@
     "stage_scene": "res://scenes/strata_scene.tscn",
     "stage_name": "StrataScene",
     "stage_description": "First stage developed for the game, most of the game functionalities were tied to it and tested on it. This file will use most if not all functions present in ThreatManager.",
-    "stage_length_in_minutes": 2.4,
+    "stage_length_in_minutes": 2.18,
     "allowed_random_enemies": ["scout"],
     "stage_properies": {
         "stage_id": 0,

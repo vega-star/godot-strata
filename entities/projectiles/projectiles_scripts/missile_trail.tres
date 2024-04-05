@@ -7,14 +7,19 @@ colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 0.14902)
 gradient = SubResource("Gradient_22uig")
 
 [resource]
-lifetime_randomness = 0.5
+lifetime_randomness = 0.4
 particle_flag_align_y = true
 particle_flag_rotate_y = true
 particle_flag_disable_z = true
+angle_min = -90.0
+angle_max = 90.0
 gravity = Vector3(-150, 0, 0)
 linear_accel_min = 70.0
 linear_accel_max = 100.0
+radial_accel_min = 10.0
+radial_accel_max = 20.0
 scale_min = 0.5
 scale_max = 1.5
 color_ramp = SubResource("GradientTexture1D_rys33")
-anim_speed_max = 2.25
+anim_speed_min = 1.0
+anim_speed_max = 3.0

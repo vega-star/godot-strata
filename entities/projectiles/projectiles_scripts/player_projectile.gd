@@ -31,7 +31,7 @@ func _on_outside_screen_check_exit_detected():
 	queue_free()
 
 func check_pass_count():
-	if enemy_pass_count == enemy_pass_limit:
+	if enemy_pass_count >= enemy_pass_limit:
 		queue_free()
 
 func _on_hitbox_area_entered(area):
@@ -43,7 +43,7 @@ func _on_hitbox_area_entered(area):
 		
 		for group in area.owner.get_groups():
 			match group:
-				'shielding':
+				'shielding', 'shield':
 					enemy_pass_count += 10
 					damage_buildup = projectile_damage * penetration_factor
 					check_pass_count()

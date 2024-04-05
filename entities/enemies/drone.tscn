@@ -138,9 +138,10 @@ process_callback = 0
 wait_time = 50.0
 one_shot = true
 
-[node name="EnemyGun" parent="." node_paths=PackedStringArray("self_sprite") instance=ExtResource("7_ftndn")]
+[node name="EnemyGun" parent="." node_paths=PackedStringArray("self_sprite", "muzzle") instance=ExtResource("7_ftndn")]
 position = Vector2(-3, 6)
 self_sprite = NodePath("GunSprite")
+muzzle = NodePath("Muzzle")
 limit_angle = true
 min_angle_limit = -70.0
 max_angle_limit = 140.0
@@ -148,6 +149,9 @@ max_angle_limit = 140.0
 [node name="GunSprite" type="Sprite2D" parent="EnemyGun"]
 rotation = 3.14159
 texture = ExtResource("8_feky4")
+
+[node name="Muzzle" type="Marker2D" parent="EnemyGun"]
+position = Vector2(13, 0)
 
 [node name="HitboxComponent" parent="." node_paths=PackedStringArray("hitbox", "health_component") instance=ExtResource("7_tko7h")]
 collision_layer = 2

@@ -2,6 +2,7 @@
     "welcome_message": {
         "event_type": "message",
         "event_description": "Requests a message to MessagePlayer. Can send as an ID or a manually set text. If timer is set, the scene will wait for the message_displayed signal",
+        "event_icon": true,
         "set_timer": true,
         "has_rules": false,
         "event_properties": {
@@ -17,6 +18,7 @@
     "spawn_few_enemies": {
         "event_type": "spawn_enemy",
         "event_description": "Spawn a cluster of enemies using the swarm rule set.",
+        "event_icon": false,
         "set_timer": true,
         "has_rules": true,
         "event_properties": {
@@ -39,6 +41,7 @@
     "message_about_primary_weapon": {
         "event_type": "message",
         "event_description": "Requests a message to MessagePlayer. Can send as an ID or a manually set text. If timer is set, the scene will wait for the message_displayed signal",
+        "event_icon": true,
         "set_timer": true,
         "has_rules": false,
         "event_properties": {
@@ -55,6 +58,7 @@
         "event_type": "message",
         "event_description": "Requests a message to MessagePlayer. Can send as an ID or a manually set text. If timer is set, the scene will wait for the message_displayed signal",
         "set_timer": true,
+        "event_icon": true,
         "has_rules": false,
         "event_properties": {
             "message_set": false,
@@ -69,6 +73,7 @@
     "spawn_enemy_wall_top": {
         "event_type": "spawn_enemy",
         "event_description": "Spawn a cluster of enemies using the swarm rule set.",
+        "event_icon": true,
         "set_timer": true,
         "has_rules": true,
         "event_properties": {
@@ -91,6 +96,7 @@
     "spawn_enemy_wall_bottom": {
         "event_type": "spawn_enemy",
         "event_description": "Spawn a cluster of enemies using the swarm rule set.",
+        "event_icon": false,
         "set_timer": true,
         "has_rules": true,
         "event_properties": {
@@ -113,6 +119,7 @@
     "spawn_enemy_line_bottom": {
         "event_type": "spawn_enemy",
         "event_description": "Spawn a cluster of enemies using the swarm rule set.",
+        "event_icon": false,
         "set_timer": true,
         "has_rules": true,
         "event_properties": {
@@ -135,6 +142,7 @@
     "spawn_enemy_line_top": {
         "event_type": "spawn_enemy",
         "event_description": "Spawn a cluster of enemies using the swarm rule set.",
+        "event_icon": false,
         "set_timer": true,
         "has_rules": true,
         "event_properties": {
@@ -157,6 +165,7 @@
     "turn_on_random_period_01": {
         "event_type": "toggle_random",
         "event_description": "Toggles the period on which random enemies can spawn on screen",
+        "event_icon": false,
         "set_timer": false,
         "has_rules": false,
         "event_properties": {
@@ -167,6 +176,7 @@
     "message_ammo_retrieval": {
         "event_type": "message",
         "event_description": "Requests a message to MessagePlayer. Can send as an ID or a manually set text. If timer is set, the scene will wait for the message_displayed signal",
+        "event_icon": true,
         "set_timer": true,
         "has_rules": false,
         "event_properties": {
@@ -182,6 +192,7 @@
     "turn_off_random_period_01": {
         "event_type": "toggle_random",
         "event_description": "Toggles the period on which random enemies can spawn on screen",
+        "event_icon": false,
         "set_timer": false,
         "has_rules": false,
         "event_properties": {
@@ -191,6 +202,7 @@
     "spawn_bottom_turrets": {
         "event_type": "spawn_enemy",
         "event_description": "Spawn a cluster of enemies using the swarm rule set.",
+        "event_icon": true,
         "set_timer": true,
         "has_rules": true,
         "event_properties": {
@@ -209,6 +221,7 @@
     "spawn_top_turrets": {
         "event_type": "spawn_enemy",
         "event_description": "Spawn a cluster of enemies using the swarm rule set.",
+        "event_icon": true,
         "set_timer": true,
         "has_rules": true,
         "event_properties": {
@@ -227,6 +240,7 @@
     "message_about_mobility": {
         "event_type": "message",
         "event_description": "Requests a message to MessagePlayer. Can send as an ID or a manually set text. If timer is set, the scene will wait for the message_displayed signal",
+        "event_icon": true,
         "set_timer": true,
         "has_rules": false,
         "event_properties": {
@@ -242,6 +256,7 @@
     "spawn_hitbox_bar": {
         "event_type": "spawn_enemy",
         "event_description": "Spawn a cluster of enemies using the swarm rule set.",
+        "event_icon": true,
         "set_timer": true,
         "has_rules": true,
         "event_properties": {
@@ -260,6 +275,7 @@
     "message_about_roll": {
         "event_type": "message",
         "event_description": "Requests a message to MessagePlayer. Can send as an ID or a manually set text. If timer is set, the scene will wait for the message_displayed signal",
+        "event_icon": true,
         "set_timer": true,
         "has_rules": false,
         "event_properties": {
@@ -275,6 +291,7 @@
     "message_about_resetting_keybinds": {
         "event_type": "message",
         "event_description": "Requests a message to MessagePlayer. Can send as an ID or a manually set text. If timer is set, the scene will wait for the message_displayed signal",
+        "event_icon": true,
         "set_timer": true,
         "has_rules": false,
         "event_properties": {
@@ -290,6 +307,7 @@
     "message_about_enemies_from_behind": {
         "event_type": "message",
         "event_description": "Requests a message to MessagePlayer. Can send as an ID or a manually set text. If timer is set, the scene will wait for the message_displayed signal",
+        "event_icon": true,
         "set_timer": true,
         "has_rules": false,
         "event_properties": {
@@ -305,6 +323,7 @@
     "test_enemy_from_behind": {
         "event_type": "spawn_enemy",
         "event_description": "Spawn a single specific enemy in scene. Useful for certain controlled events.",
+        "event_icon": false,
         "set_timer": true,
         "has_rules": true,
         "event_properties": {
@@ -328,6 +347,7 @@
     "message_with_pause": {
         "event_type": "message",
         "event_description": "Requests a message to MessagePlayer. Can send as an ID or a manually set text. If timer is set, the scene will wait for the message_displayed signal",
+        "event_icon": true,
         "set_timer": true,
         "has_rules": false,
         "event_properties": {
@@ -335,13 +355,15 @@
             "message_content": 10,
             "message_timeout": 12,
             "event_timer": {
-                "wait_for_message": true
+                "wait_for_message": true,
+                "timer_period": 1.0
             }
         }
     },
     "spawn_item_selectable": {
         "event_type": "spawn_item",
         "event_description": "Requests a message to MessagePlayer. Can send as an ID or a manually set text. If timer is set, the scene will wait for the message_displayed signal",
+        "event_icon": true,
         "set_timer": true,
         "has_rules": false,
         "event_properties": {
@@ -363,6 +385,7 @@
     "message_about_items": {
         "event_type": "message",
         "event_description": "Requests a message to MessagePlayer. Can send as an ID or a manually set text. If timer is set, the scene will wait for the message_displayed signal",
+        "event_icon": true,
         "set_timer": true,
         "has_rules": false,
         "event_properties": {
@@ -378,6 +401,7 @@
     "spawn_swarm": {
         "event_type": "spawn_enemy",
         "event_description": "Spawn a cluster of enemies using the swarm rule set.",
+        "event_icon": true,
         "set_timer": true,
         "has_rules": true,
         "event_properties": {
@@ -400,6 +424,7 @@
     "spawn_sequence_1": {
         "event_type": "spawn_sequence",
         "event_description": "Spawns a selected sequence of enemies. Also uses 'set_timer' as to keep a clean visual of the sequence without random enemies.",
+        "event_icon": true,
         "set_timer": true,
         "has_rules": false,
         "event_properties": {
@@ -414,6 +439,7 @@
     "turn_off_random_period": {
         "event_type": "toggle_random",
         "event_description": "Toggles the period on which random enemies can spawn on screen",
+        "event_icon": false,
         "set_timer": false,
         "has_rules": false,
         "event_properties": {
@@ -423,6 +449,7 @@
     "spawn_sequence_2": {
         "event_type": "spawn_sequence",
         "event_description": "Spawns an exact quantity of enemies before something",
+        "event_icon": true,
         "set_timer": true,
         "has_rules": false,
         "event_properties": {
@@ -437,6 +464,7 @@
     "final_message": {
         "event_type": "message",
         "event_description": "Requests a message to MessagePlayer. Can send as an ID or a manually set text. If timer is set, the scene will wait for the message_displayed signal",
+        "event_icon": true,
         "set_timer": true,
         "has_rules": false,
         "event_properties": {
@@ -452,6 +480,7 @@
     "test_filler": {
         "event_type": "filler",
         "event_description": "Acts as a empty filler between previous events and a certain portion of the stage. It just needs the 'stop_before' variable for it to work. Also serves as a tool to find the ideal stage length!",
+        "event_icon": false,
         "set_timer": true,
         "has_rules": false,
         "event_properties": {

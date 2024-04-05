@@ -4,10 +4,8 @@
 [ext_resource type="Script" path="res://scenes/scripts/main/threat_generator.gd" id="1_x4heg"]
 [ext_resource type="PackedScene" uid="uid://cifxjpiop3cha" path="res://components/status/drop_component.tscn" id="2_gx0mp"]
 
-[node name="StageManager" type="Node"]
+[node name="StageManager" type="Node" groups=["stage_manager"]]
 script = ExtResource("1_7rybp")
-debug = true
-debug_generator = true
 
 [node name="DropComponent" parent="." instance=ExtResource("2_gx0mp")]
 stage_dropper = true

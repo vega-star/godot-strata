@@ -9,22 +9,26 @@ signal event_completed()
 signal stage_timer_toggled(paused : bool)
 signal scene_loaded()
 
-# Each stage should also have a configuration file that loads before the events and sets certain parameters to other processes
-var stage_scene : String = ""
-var stage_allowed_random_enemies : Array = []
-var stage_length_in_minutes : float = 0.0
-var challenge_enemy
-
-@onready var stage_timer = $"../StageTimer"
+## Nodes
+@export var stage_timer : Timer
 @onready var threat_generator = $ThreatGenerator
 @onready var enemy_container = $EnemiesContainer
 @onready var drop_component = $DropComponent
 @onready var current_stage = owner.get_name()
+@onready var message_player = UI.InfoHUD.message_player
+
+## Properties
 @export var debug : bool = false
 @export var debug_generator : bool = false
-var message_player = UI.InfoHUD.message_player
+# Each stage should also have a configuration file that loads before the events and sets certain parameters to other processes
+var preload_stage_length : float
+var stage_scene : String = ""
+var stage_allowed_random_enemies : Array = []
+var stage_length_in_seconds : float
+var stage_length_in_minutes : float = 0.0
+var challenge_enemy
 
-# Dictionaries
+## Dictionaries
 var stage_dict : Dictionary
 var events_dict : Dictionary 
 
@@ -41,12 +45,12 @@ func _ready():
 	var raw_stage_file : String = "res://scenes/stages/stagefiles/{0}_stage.json".format({0:current_stage})
 	
 	await load_stage_file(raw_stage_file)
+	load_events_file(raw_events_file)
 	await owner.stage_started # The scene controls when the schedule starts
 	
-	UI.UIOverlay.set_stage_bar(stage_length_in_minutes * 60)
 	UI.InfoHUD.toggle_message_layer(true)
 	
-	load_events_file(raw_events_file)
+	load_events()
 
 func _on_threat_spawned_relay(enemy_name, type):
 	enemy_spawned.emit(enemy_name,type)
@@ -59,9 +63,11 @@ func load_stage_file(file_path):
 	stage_scene = stage_dict["stage_scene"]
 	stage_allowed_random_enemies = stage_dict["allowed_random_enemies"]
 	stage_length_in_minutes = stage_dict["stage_length_in_minutes"]
-	var stage_length_in_seconds = stage_length_in_minutes * 60
+	stage_length_in_seconds = stage_length_in_minutes * 60
 	
 	stage_timer.set_wait_time(stage_length_in_seconds)
+	UI.UIOverlay.set_stage_bar(stage_length_in_minutes * 60)
+	
 	if debug: print("STAGE_TIMER STARTED WITH A TOTAL OF {0} SECONDS".format({0:stage_length_in_seconds}))
 	scene_loaded.emit()
 
@@ -70,12 +76,61 @@ func load_events_file(file_path): # Loads a json and turns it into a dictionary
 	var load_events_schedule = FileAccess.open(file_path, FileAccess.READ)
 	events_dict = JSON.parse_string(load_events_schedule.get_as_text())
 	assert(events_dict is Dictionary)
-	load_events()
+	preload_events()
 
-func load_events(): # Iterates through each event
+func preload_events(): ## Pre-loads events to mark checkpoints, event markers, etc.
+	if debug: print('LIST OF PRELOADED EVENTS:')
+	for event in events_dict:
+		preload_event(events_dict[event], event)
+
+func load_events(): ## Iterates through each event sequentially
 	for event in events_dict:
 		execute_event(events_dict[event], event) # The 'await' functions guarantees events will follow a timed sequence
 		await event_completed # Waits for an event to completely finish before starting another event
+
+func preload_event(event, event_name = "UNNAMED_EVENT"):
+	var icon_id : String
+	var timestamp : float
+	var z_level : int = 0
+	
+	if event["set_timer"]:
+		if !event["event_properties"]["event_timer"].has("timer_period"): return
+		var event_time = float(event["event_properties"]["event_timer"]["timer_period"])
+		timestamp = preload_stage_length
+		preload_stage_length += event_time
+	
+	if event["event_icon"]:
+		match event["event_type"]:
+			"filler": icon_id = "message_yellow"
+			"message": icon_id = "message"
+			"toggle_random": icon_id = "exclamation_mark"
+			"spawn_enemy": icon_id = "exclamation_mark"
+			"spawn_single_random_enemy": icon_id = "exclamation_mark"
+			"spawn_sequence": icon_id = "boss"
+			"spawn_challenge": 
+				icon_id = "boss"
+				z_level = 2
+			"spawn_item": icon_id = "item"
+			_:
+				icon_id = "exclamation_mark"
+				push_error("EVENT_TYPE INVALID | Check for typos")
+	elif !event["event_icon"]:
+		if debug: print('%s | Event icon skipped, turned off' % event_name)
+		return
+	elif event["event_icon"] is String:
+		icon_id = event["event_icon"]
+	else:
+		push_warning('Event icon unset, not boolean nor string, returning null')
+		return
+	
+	var event_data : Dictionary = {
+		"event_name": event_name,
+		"icon_id": icon_id,
+		"timestamp": timestamp,
+		"z_level": z_level
+	}
+	
+	UI.UIOverlay.display_event(event_data)
 
 func execute_event(event, event_name = "UNNAMED_EVENT"):
 	var filler_time : float
@@ -147,8 +202,7 @@ func execute_event(event, event_name = "UNNAMED_EVENT"):
 		await get_tree().create_timer(1, false).timeout
 		event_completed.emit()
 	return
-
-
+ 
 func set_event_timer(event, event_name = "UNNAMED EVENT", override = null): # Sets the timer that toggles 'timer_period_expired' and can pause the stage timer until a certain entity is killed.
 	for property in event["event_properties"]["event_timer"]:
 		var property_value = event["event_properties"]["event_timer"][property]

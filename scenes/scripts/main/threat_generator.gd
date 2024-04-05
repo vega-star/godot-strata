@@ -100,6 +100,9 @@ func generate_threat(enemy, rule_override = null):
 					invoke_challenge = rule_property
 				"container_override":
 					container = rule_property
+				"set_boss_bar":
+					if rule_property:
+						UI.UIOverlay.set_boss_bar(selected_enemy)
 	else: # No rules - Random position, random proprieties, etc.
 		var rand_position = spawn_area.position + Vector2(randf() * spawn_area.size.x, randf() * spawn_area.size.y)
 		selected_enemy.global_position = rand_position

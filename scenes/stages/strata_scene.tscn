@@ -13,8 +13,8 @@ script = ExtResource("1_yvb6t")
 save_stage_data = false
 stage_parallax = NodePath("SimulationParallax")
 
-[node name="StageManager" parent="." instance=ExtResource("2_yuycq")]
-debug_generator = false
+[node name="StageManager" parent="." node_paths=PackedStringArray("stage_timer") instance=ExtResource("2_yuycq")]
+stage_timer = NodePath("../StageTimer")
 
 [node name="PlayerStartPosition" type="Marker2D" parent="."]
 light_mask = 2

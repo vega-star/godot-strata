@@ -1,10 +1,12 @@
-[gd_scene load_steps=6 format=3 uid="uid://be4idvqpl0pds"]
+[gd_scene load_steps=8 format=3 uid="uid://be4idvqpl0pds"]
 
 [ext_resource type="Script" path="res://scenes/scripts/ui/ui_pause_menu.gd" id="1_nu21q"]
 [ext_resource type="Theme" uid="uid://b1a5sjt2xibwo" path="res://assets/themes/strata_theme/strata_theme.tres" id="2_k8a1f"]
-[ext_resource type="Texture2D" uid="uid://bl66ij78aurfm" path="res://assets/textures/static/gear_icon_outline.png" id="3_ekcmr"]
-[ext_resource type="Texture2D" uid="uid://nsnw7fqu4cml" path="res://assets/textures/static/gear_icon.png" id="4_f5q06"]
+[ext_resource type="Texture2D" uid="uid://bf2tc7pr1ji5l" path="res://assets/textures/static/gear-icon-normal.png" id="3_o3n50"]
+[ext_resource type="Texture2D" uid="uid://ihvj2q1itlqw" path="res://assets/textures/static/gear-icon-pressed.png" id="4_7x4xb"]
 [ext_resource type="BitMap" uid="uid://dngmj6m7g1uu4" path="res://assets/textures/static/gear_icon_bitmap.bmp" id="5_eoeko"]
+[ext_resource type="Texture2D" uid="uid://swu4fu276oyp" path="res://assets/textures/static/gear-icon-hover.png" id="5_fdrof"]
+[ext_resource type="Texture2D" uid="uid://c64dqe2nhqlg3" path="res://assets/textures/static/gear-icon-focus.png" id="6_3gyk2"]
 
 [node name="Pause Menu Layer" type="CanvasLayer"]
 process_mode = 3
@@ -49,14 +51,16 @@ alignment = 1
 
 [node name="UnpauseButton" type="Button" parent="PauseMenu/ButtonsContainer"]
 layout_mode = 2
-focus_neighbor_top = NodePath("../ReturnMenuButton")
+focus_neighbor_top = NodePath("../../../ConfigButton")
+focus_neighbor_bottom = NodePath("../ReturnMenuButton")
 theme = ExtResource("2_k8a1f")
 text = "UNPAUSE
 "
 
 [node name="ReturnMenuButton" type="Button" parent="PauseMenu/ButtonsContainer"]
 layout_mode = 2
-focus_neighbor_bottom = NodePath("../UnpauseButton")
+focus_neighbor_top = NodePath("../UnpauseButton")
+focus_neighbor_bottom = NodePath("../../../ConfigButton")
 theme = ExtResource("2_k8a1f")
 text = "MAIN MENU"
 
@@ -70,10 +74,13 @@ offset_top = 10.0
 offset_right = -10.0
 offset_bottom = 92.0
 grow_horizontal = 0
-focus_neighbor_left = NodePath("../ButtonsContainer/StartButton")
-texture_normal = ExtResource("3_ekcmr")
-texture_pressed = ExtResource("3_ekcmr")
-texture_hover = ExtResource("4_f5q06")
+focus_neighbor_left = NodePath("../PauseMenu/ButtonsContainer/UnpauseButton")
+focus_neighbor_top = NodePath("../PauseMenu/ButtonsContainer/ReturnMenuButton")
+focus_neighbor_bottom = NodePath("../PauseMenu/ButtonsContainer/UnpauseButton")
+texture_normal = ExtResource("3_o3n50")
+texture_pressed = ExtResource("4_7x4xb")
+texture_hover = ExtResource("5_fdrof")
+texture_focused = ExtResource("6_3gyk2")
 texture_click_mask = ExtResource("5_eoeko")
 stretch_mode = 6
 
