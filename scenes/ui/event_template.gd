@@ -1,14 +1,11 @@
 extends Control
 
-@onready var event_label = $EventLabel
-@onready var event_sprite = $EventSprite
-
 @export var event_movement : int = 20
 @export var name_color : Color = Color.WHITE
 @export var type_color : Color = Color.WHITE
 
-var base_text : String = '[b]EVENT:[/b] [color={3}]{0}[/color]/n
-[b]TYPE:[/b] [color={4}]{1}[/color]/n/n
+var base_text : String = '[b]EVENT:[/b] [color={3}]{0}[/color]
+[b]TYPE:[/b] [color={4}]{1}[/color]\n
 {2}'
 var event_text : String
 var event_name : String
@@ -27,17 +24,21 @@ func _ready():
 
 func set_event(
 		new_event_name : String,
+		new_event_type : String,
 		new_timestamp : float,
 		new_icon : Texture2D,
-		new_description : String
+		new_description : String,
+		new_name_color : Color = name_color,
+		type_color : Color = type_color
 	):
 	
 	event_name = new_event_name
+	event_type = new_event_type
 	timestamp = new_timestamp
 	icon = new_icon
 	description = new_description
 	
-	event_sprite.set_texture(icon)
+	$EventSprite.set_texture(icon)
 	
 	event_text = base_text.format({
 		0:event_name.capitalize(),
@@ -47,7 +48,7 @@ func set_event(
 		4:type_color
 	})
 	
-	event_label.set_text(event_text)
+	$EventLabel.set_text(event_text)
 
 # Elevate
 func _on_mouse_entered(): arise(true)
@@ -65,4 +66,4 @@ func arise(mode : bool = true):
 	else:
 		movement_tween.tween_property(self, "position", Vector2(position.x, initial_y), movement_time).set_trans(Tween.TRANS_EXPO)
 	await movement_tween.finished
-	event_label.visible = mode
+	$EventLabel.visible = mode

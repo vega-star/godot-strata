@@ -1,4 +1,4 @@
-class_name UIComponent extends Control
+class_name UIComponent extends Node
 
 ## Signals
 signal game_paused(mode)

@@ -125,6 +125,8 @@ func preload_event(event, event_name = "UNNAMED_EVENT"):
 	
 	var event_data : Dictionary = {
 		"event_name": event_name,
+		"event_type": event["event_type"],
+		"event_description": event["event_description"],
 		"icon_id": icon_id,
 		"timestamp": timestamp,
 		"z_level": z_level

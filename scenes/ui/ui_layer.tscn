@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://chy6yrcopxpke"]
+[gd_scene load_steps=29 format=3 uid="uid://chy6yrcopxpke"]
 
 [ext_resource type="Script" path="res://scenes/scripts/ui/ui_overlay.gd" id="1_khion"]
 [ext_resource type="Texture2D" uid="uid://d4kflkwb5sakl" path="res://assets/themes/strata_theme/elements/styleboxes/enemy_health_bar.png" id="3_inpba"]
@@ -19,24 +19,7 @@
 [ext_resource type="Texture2D" uid="uid://csay5l63c4eul" path="res://assets/textures/icons/events/event_cursor.png" id="15_0f1bk"]
 [ext_resource type="Texture2D" uid="uid://clyo4shejv2k7" path="res://assets/textures/icons/ui/icon_boss_life_deactivated.png" id="15_1dt3e"]
 [ext_resource type="Texture2D" uid="uid://cano6k0rmkt8h" path="res://assets/textures/ui/hud/classic/stage_bar.png" id="15_5b0wf"]
-[ext_resource type="PackedScene" uid="uid://c2sdttg04tcus" path="res://scenes/ui/event_template.tscn" id="16_2r5an"]
 [ext_resource type="Texture2D" uid="uid://d5cyp7quoone" path="res://assets/textures/icons/ui/icon_boss_life.png" id="16_ekmyj"]
-
-[sub_resource type="Animation" id="Animation_3yjbw"]
-resource_name = "toggle_progress_bar"
-length = 0.3
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Bars/StageProgressBar:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.3),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(0, 19), Vector2(0, 0)]
-}
 
 [sub_resource type="Animation" id="Animation_nyykf"]
 length = 0.1
@@ -103,6 +86,22 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector2(0, 69), Vector2(0, -20)]
+}
+
+[sub_resource type="Animation" id="Animation_3yjbw"]
+resource_name = "toggle_progress_bar"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Bars/StageProgressBar:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 19), Vector2(0, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_gyubf"]
@@ -216,6 +215,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 metadata/_edit_use_anchors_ = true
 
 [node name="HP_Cells" type="TextureRect" parent="HUD"]
@@ -322,8 +322,6 @@ texture = ExtResource("15_0f1bk")
 
 [node name="EventContainer" type="Node2D" parent="Bars/StageProgressBar"]
 position = Vector2(37, 9)
-
-[node name="Event" parent="Bars/StageProgressBar/EventContainer" instance=ExtResource("16_2r5an")]
 
 [node name="BossBar" type="Control" parent="Bars"]
 layout_mode = 1

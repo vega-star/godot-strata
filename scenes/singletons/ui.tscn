@@ -7,17 +7,12 @@
 [ext_resource type="PackedScene" uid="uid://70mnen3idkqt" path="res://scenes/ui/ui_game_over.tscn" id="4_qb05l"]
 [ext_resource type="PackedScene" uid="uid://cx3klkrk3nesh" path="res://scenes/ui/ui_transition_scene.tscn" id="5_qtspi"]
 
-[node name="UIComponent" type="Control"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="UIComponent" type="Node"]
+process_mode = 3
 script = ExtResource("1_cr0cx")
 
 [node name="UIOverlay" parent="." instance=ExtResource("2_1txia")]
-layer = 5
+layer = 50
 visible = false
 
 [node name="InfoHUD" parent="." instance=ExtResource("3_7w3rb")]

@@ -14,23 +14,32 @@ texture_margin_bottom = 8.0
 
 [node name="Event" type="Control"]
 layout_mode = 3
+anchors_preset = 0
+offset_left = -9.0
+offset_top = -16.0
+offset_right = 9.0
+offset_bottom = 16.0
 grow_horizontal = 2
 grow_vertical = 2
+pivot_offset = Vector2(9, 16)
+mouse_filter = 1
 theme = ExtResource("1_eugc0")
 script = ExtResource("2_73n62")
 event_movement = 10
 
 [node name="EventLabel" type="RichTextLabel" parent="."]
 visible = false
+z_index = 5
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 20.0
-offset_top = -33.0
-offset_right = 173.0
-offset_bottom = 33.0
+offset_left = -76.0
+offset_top = -96.0
+offset_right = 78.0
+offset_bottom = -30.0
 grow_vertical = 0
+focus_mode = 2
 theme = ExtResource("1_eugc0")
 theme_override_constants/line_separation = -4
 theme_override_font_sizes/normal_font_size = 18
@@ -52,10 +61,12 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 theme = ExtResource("1_eugc0")
 theme_override_styles/panel = SubResource("StyleBoxTexture_akw0r")
 
 [node name="EventSprite" type="Sprite2D" parent="."]
+position = Vector2(9, 11)
 texture = ExtResource("1_j2xy8")
 
 [connection signal="focus_entered" from="." to="." method="_on_focus_entered"]

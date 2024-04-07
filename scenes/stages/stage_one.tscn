@@ -16,8 +16,8 @@ stage_description = "INVASION"
 stage_ending_text = "RETURNING TO STAGE SELECTION"
 stage_parallax = NodePath("FirstStageParallax")
 
-[node name="StageManager" parent="." instance=ExtResource("2_0si3s")]
-debug_generator = false
+[node name="StageManager" parent="." node_paths=PackedStringArray("stage_timer") instance=ExtResource("2_0si3s")]
+stage_timer = NodePath("../StageTimer")
 
 [node name="PlayerStartPosition" type="Marker2D" parent="."]
 light_mask = 2

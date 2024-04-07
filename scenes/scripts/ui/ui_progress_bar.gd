@@ -18,6 +18,7 @@ var bar_size
 var boss_health_component : HealthComponent
 
 ## Icons
+const event_node_scene = preload("res://scenes/ui/event_template.tscn")
 const events_icons_path = "res://assets/textures/icons/events"
 var event_icons : Dictionary = {
 	"boss": preload("%s/event_icon_boss.png" % events_icons_path),
@@ -60,13 +61,20 @@ func _update_boss_bar(_previous_value : int, new_value : int, _type : bool):
 		boss_bar.set_value(new_value)
 
 func display_event(event_data):
-	var event = Sprite2D.new()
+	var event = event_node_scene.instantiate()
 	var icon_id : String = event_data["icon_id"]
 	var timestamp : float = event_data["timestamp"]
 	var z_level : int = event_data["z_level"]
 	var stage_size = owner.stage_size
 	
-	event.set_texture(event_icons[icon_id])
+	event.set_event(
+		event_data["event_name"],
+		event_data["event_type"],
+		event_data["timestamp"],
+		event_icons[icon_id],
+		event_data["event_description"]
+	)
+	
 	event.set_z_index(z_level)
 	event.position.x += bar_size * (timestamp / stage_size)
 	
