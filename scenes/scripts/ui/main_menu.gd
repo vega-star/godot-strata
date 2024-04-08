@@ -4,6 +4,7 @@ extends Control
 @onready var version_label = $MenuPages/CentralPage/VersionLabel
 @onready var menu_pages = $MenuPages
 
+var page_in_movement : bool = false
 var screen_size : Vector2
 var page_direction : bool
 var page_position : int = 0
@@ -30,6 +31,7 @@ func _ready():
 
 func set_focus(focus_position, direction):
 	var page = get_page_from_position(focus_position, direction)
+	if !page.visible: page.visible = true
 	page.set_focus()
 
 func get_page_from_position(select_position, direction : bool) -> Node:
@@ -39,15 +41,18 @@ func get_page_from_position(select_position, direction : bool) -> Node:
 			match select_position:
 				-1: page = $MenuPages/LoadoutPage
 				0: page = $MenuPages/CentralPage
-				1: page = $MenuPages/LoadoutPage
+				1: page = $MenuPages/ProfilesPage
 		false: # Vertical
 			match select_position:
-				-1: page = $MenuPages/CreditsPage
+				-1: page = $MenuPages/CodexPage
 				0: page = $MenuPages/CentralPage
-				1: page = $MenuPages/CodexPage
+				1: page = $MenuPages/CreditsPage
 	return page
 
 func set_page_position(new_position, direction : bool = true):
+	if page_in_movement: return
+	
+	page_in_movement = true
 	var previous_page_position = page_position
 	var previous_page_direction = page_direction
 	var previous_page = get_page_from_position(previous_page_position, previous_page_direction) 
@@ -55,7 +60,6 @@ func set_page_position(new_position, direction : bool = true):
 	page_position = new_position
 	page_direction = direction
 	var new_page = get_page_from_position(page_position, page_direction)
-	new_page.visible = true
 	
 	var position_tween = get_tree().create_tween()
 	match page_direction:
@@ -65,8 +69,9 @@ func set_page_position(new_position, direction : bool = true):
 			position_tween.tween_property(menu_pages, "position", Vector2(0, (screen_size.y + page_position_offset_y) * page_position), 0.95).set_trans(Tween.TRANS_EXPO)
 	set_focus(page_position, page_direction)
 	
-	await position_tween.finished
+	await get_tree().create_timer(1).timeout
 	previous_page.visible = false
+	page_in_movement = false
 
 ## Reactive Signals
 func _on_config_button_pressed():

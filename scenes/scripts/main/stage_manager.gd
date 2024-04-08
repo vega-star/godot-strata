@@ -99,7 +99,9 @@ func preload_event(event, event_name = "UNNAMED_EVENT"):
 		timestamp = preload_stage_length
 		preload_stage_length += event_time
 	
-	if event["event_icon"]:
+	if event["event_icon"] is String:
+		icon_id = str(event["event_icon"])
+	elif event["event_icon"]:
 		match event["event_type"]:
 			"filler": icon_id = "message_yellow"
 			"message": icon_id = "message"
@@ -117,8 +119,6 @@ func preload_event(event, event_name = "UNNAMED_EVENT"):
 	elif !event["event_icon"]:
 		if debug: print('%s | Event icon skipped, turned off' % event_name)
 		return
-	elif event["event_icon"] is String:
-		icon_id = event["event_icon"]
 	else:
 		push_warning('Event icon unset, not boolean nor string, returning null')
 		return

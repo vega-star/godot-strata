@@ -1,4 +1,4 @@
-extends Area2D
+class_name Enemy extends Area2D
 
 signal enemy_died
 
@@ -16,6 +16,7 @@ const alpha_modulation = 0.5
 @export var receives_knockback : bool = false
 @export var drifting : bool = true
 
+@onready var health_component = $HealthComponent
 @onready var hitbox_component : HitboxComponent = $HitboxComponent
 @onready var combat_component : CombatComponent = $CombatComponent
 @onready var drop_component : DropComponent = $DropComponent

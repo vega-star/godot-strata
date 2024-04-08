@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://capsl03als0q0"]
 
-[ext_resource type="Script" path="res://entities/entity_scripts/default_ray.gd" id="1_dyjc3"]
+[ext_resource type="Script" path="res://entities/entity_scripts/enemy_ray.gd" id="1_ivol7"]
 [ext_resource type="Texture2D" uid="uid://cnve83mws0p8y" path="res://assets/textures/entities/enemies/misc/aimline.png" id="2_3hkay"]
 [ext_resource type="Material" uid="uid://ce6elcaqhqekp" path="res://assets/shaders/sprite_movement_horizontal.tres" id="2_wn680"]
 [ext_resource type="Texture2D" uid="uid://dcjknhla6rmgm" path="res://assets/textures/projectiles/laser_texture.png" id="4_cge0j"]
@@ -18,17 +18,20 @@ point_count = 2
 offsets = PackedFloat32Array(0.661157, 0.991736)
 colors = PackedColorArray(1, 0, 0, 1, 1, 0, 0, 0)
 
-[node name="Laser" type="RayCast2D" node_paths=PackedStringArray("laser_line", "aim_line")]
+[node name="Laser" type="RayCast2D" node_paths=PackedStringArray("laser_line", "aim_line", "charging_emitter", "source_emitter", "beam_emitter", "end_emitter")]
 position = Vector2(932, 262)
 enabled = false
 target_position = Vector2(-1800, 0)
 collision_mask = 5
 collide_with_areas = true
 collide_with_bodies = false
-script = ExtResource("1_dyjc3")
+script = ExtResource("1_ivol7")
 laser_line = NodePath("LaserLine")
 aim_line = NodePath("AimLine")
-debug = true
+charging_emitter = NodePath("Emitters/ChargingEmitter")
+source_emitter = NodePath("Emitters/SourceEmitter")
+beam_emitter = NodePath("Emitters/BeamEmitter")
+end_emitter = NodePath("Emitters/EndEmitter")
 
 [node name="AimLine" type="Line2D" parent="."]
 light_mask = 2

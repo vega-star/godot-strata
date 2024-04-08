@@ -9,6 +9,7 @@ signal game_paused(mode)
 @onready var PauseMenu = $PauseMenuLayer
 @onready var GameOver = $GameOver
 @onready var ScreenTransition = $ScreenTransitionLayer
+@onready var ScreenEffect = $ScreenEffect
 
 ## Data forwarding
 var fade_time : float

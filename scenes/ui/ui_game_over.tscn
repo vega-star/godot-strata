@@ -106,7 +106,6 @@ offset_top = 10.0
 offset_right = -10.0
 offset_bottom = 92.0
 grow_horizontal = 0
-focus_neighbor_left = NodePath("../ButtonsContainer/StartButton")
 texture_normal = ExtResource("5_u1mwt")
 texture_pressed = ExtResource("5_u1mwt")
 texture_hover = ExtResource("6_6l212")

@@ -1,0 +1,8 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://cwskdkowiquwm"]
+
+[ext_resource type="Shader" path="res://assets/shaders/ohdude_palette.gdshader" id="1_hweit"]
+[ext_resource type="Texture2D" uid="uid://b3gsyltlcj5t5" path="res://assets/themes/ressurect-palette.png" id="2_u8hhf"]
+
+[resource]
+shader = ExtResource("1_hweit")
+shader_parameter/palette = ExtResource("2_u8hhf")

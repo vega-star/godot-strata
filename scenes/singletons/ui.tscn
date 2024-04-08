@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://bungiyr4lpj25"]
+[gd_scene load_steps=8 format=3 uid="uid://bungiyr4lpj25"]
 
 [ext_resource type="Script" path="res://scenes/scripts/ui/ui_component.gd" id="1_cr0cx"]
 [ext_resource type="PackedScene" uid="uid://chy6yrcopxpke" path="res://scenes/ui/ui_layer.tscn" id="2_1txia"]
+[ext_resource type="PackedScene" uid="uid://djbwycqfkggsc" path="res://scenes/ui/ui_visual_effect.tscn" id="2_vn4tb"]
 [ext_resource type="PackedScene" uid="uid://d3w7m8tkl46pl" path="res://scenes/ui/ui_info_hud.tscn" id="3_7w3rb"]
 [ext_resource type="PackedScene" uid="uid://be4idvqpl0pds" path="res://scenes/ui/ui_pause_menu.tscn" id="3_ssl58"]
 [ext_resource type="PackedScene" uid="uid://70mnen3idkqt" path="res://scenes/ui/ui_game_over.tscn" id="4_qb05l"]
@@ -10,6 +11,9 @@
 [node name="UIComponent" type="Node"]
 process_mode = 3
 script = ExtResource("1_cr0cx")
+
+[node name="ScreenEffect" parent="." instance=ExtResource("2_vn4tb")]
+visible = false
 
 [node name="UIOverlay" parent="." instance=ExtResource("2_1txia")]
 layer = 50
@@ -29,5 +33,4 @@ follow_viewport_enabled = true
 
 [node name="ScreenTransitionLayer" parent="." instance=ExtResource("5_qtspi")]
 layer = 10
-visible = false
 debug = true

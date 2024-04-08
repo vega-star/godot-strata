@@ -19,7 +19,6 @@ process_mode = 3
 visible = false
 
 [node name="DangerPlayer" parent="InfoLayer" instance=ExtResource("3_51jvq")]
-visible = false
 
 [node name="TitleDisplay" type="RichTextLabel" parent="."]
 anchors_preset = 15

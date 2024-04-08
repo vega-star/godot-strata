@@ -2,7 +2,7 @@
     "stage_scene": "res://scenes/stages/practice_stage.tscn",
     "stage_name": "PracticeStage",
     "stage_description": "Stage on which players and devs can test newly discovered/developed features with ease.",
-    "stage_length_in_minutes": 1,
+    "stage_length_in_minutes": 1.0,
     "allowed_random_enemies": ["scout"],
     "final_stage": false
 }

@@ -61,6 +61,19 @@
             "range": 100
         }
     },
+    "welder": {
+        "scene": "res://entities/enemies/welder-drone.tscn",
+        "enemy_description": "Quick and reliable welder drone, unmanned and always ready for hull repairs during battles. Due to its powerful charge, it stays on the battlefield for a while and always drop its energy capsule.",
+        "type": 0,
+        "contain_rules": false,
+        "contain_items": true,
+        "drops": {
+            "type": 2,
+            "items": "health_capsule",
+            "chances": [100],
+            "range": 100
+        }
+    },
     "wingman": {
         "scene": "res://entities/enemies/wingman.tscn",
         "enemy_description": "High mobility and wide wing-like structures. Mostly manned. Armed with a single electromagnetic cannon in the front.",

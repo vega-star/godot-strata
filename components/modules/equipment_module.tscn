@@ -1,9 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://bocnfn48ib66i"]
+[gd_scene load_steps=3 format=3 uid="uid://bocnfn48ib66i"]
 
 [ext_resource type="Script" path="res://components/modules/equipment_module.gd" id="1_ex08y"]
+[ext_resource type="Theme" uid="uid://b1a5sjt2xibwo" path="res://assets/themes/strata_theme/strata_theme.tres" id="2_fugx5"]
 
 [node name="EquipmentModule" type="Node"]
 script = ExtResource("1_ex08y")
+metadata/_edit_vertical_guides_ = [480.0]
 
 [node name="HeatTimer" type="Timer" parent="."]
 
@@ -35,6 +37,23 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 20
 alignment = 1
+
+[node name="ScrapButton" type="Button" parent="InventoryUILayer/SelectionControl"]
+visible = false
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -107.0
+offset_top = -72.0
+offset_right = 107.0
+offset_bottom = -24.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("2_fugx5")
+text = "DISCARD FOR {0} SCRAP"
 
 [connection signal="ammo_changed" from="." to="." method="update_ammo"]
 [connection signal="effect_deactivated" from="." to="." method="_on_effect_deactivated"]

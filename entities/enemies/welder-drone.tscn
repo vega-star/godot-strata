@@ -1,0 +1,71 @@
+[gd_scene load_steps=11 format=3 uid="uid://cfk8r8gx6ndl1"]
+
+[ext_resource type="Script" path="res://entities/entity_scripts/welder-drone.gd" id="1_iv68o"]
+[ext_resource type="Material" uid="uid://cvfmn1g3c8nd3" path="res://assets/shaders/entities/enemy_outline.tres" id="2_mehsa"]
+[ext_resource type="Texture2D" uid="uid://2ealghurwnqp" path="res://assets/textures/entities/enemies/simple/welder-drone.png" id="2_vwetp"]
+[ext_resource type="PackedScene" uid="uid://c4rkui846g2ue" path="res://components/status/combat_component.tscn" id="3_j5ccl"]
+[ext_resource type="PackedScene" uid="uid://cifxjpiop3cha" path="res://components/status/drop_component.tscn" id="4_pucv4"]
+[ext_resource type="PackedScene" uid="uid://bdfaybp4djcn2" path="res://components/status/health_component.tscn" id="5_icfaq"]
+[ext_resource type="PackedScene" uid="uid://c3atqdge540t0" path="res://components/status/hitbox_component.tscn" id="6_5s14k"]
+[ext_resource type="PackedScene" uid="uid://btwqvvv1ehwdu" path="res://entities/prototype_entities/healing_gun.tscn" id="7_ont5y"]
+[ext_resource type="Texture2D" uid="uid://t35ca7c4e6yj" path="res://assets/textures/projectiles/healing-orb.png" id="8_odv24"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tq5bo"]
+size = Vector2(49.6429, 18.2143)
+
+[node name="WelderDrone" type="Area2D" node_paths=PackedStringArray("self_sprite") groups=["enemy"]]
+collision_layer = 2
+collision_mask = 5
+script = ExtResource("1_iv68o")
+enemy_name = "welder"
+set_health_bar = false
+speed = 50
+self_sprite = NodePath("EnemySprite")
+
+[node name="EnemySprite" type="Sprite2D" parent="."]
+material = ExtResource("2_mehsa")
+texture = ExtResource("2_vwetp")
+
+[node name="SelfCollision" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(0.357142, 0.357144)
+scale = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_tq5bo")
+debug_color = Color(0, 0.6, 0.701961, 0)
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(130, 0)
+
+[node name="CombatComponent" parent="." instance=ExtResource("3_j5ccl")]
+
+[node name="DropComponent" parent="." instance=ExtResource("4_pucv4")]
+
+[node name="HealthComponent" parent="." instance=ExtResource("5_icfaq")]
+max_health = 25
+
+[node name="HitboxComponent" parent="." node_paths=PackedStringArray("hitbox", "health_component", "combat_component") instance=ExtResource("6_5s14k")]
+collision_layer = 2
+collision_mask = 5
+hitbox = NodePath("CollisionPolygon2D")
+health_component = NodePath("../HealthComponent")
+combat_component = NodePath("../CombatComponent")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="HitboxComponent"]
+visible = false
+polygon = PackedVector2Array(-24.2857, 0, -17.1429, -4.28571, -2.85714, -11.4286, 2.85714, -11.4286, 17.1429, -4.28571, 24.2857, 0, 17.1429, 11.4286, -17.1429, 11.4286)
+
+[node name="HealingGun" parent="." node_paths=PackedStringArray("self_sprite") instance=ExtResource("7_ont5y")]
+position = Vector2(0, -11)
+collision_mask = 7
+self_sprite = NodePath("GunSprite")
+immune_to_damage = true
+
+[node name="GunSprite" type="Sprite2D" parent="HealingGun"]
+texture = ExtResource("8_odv24")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="enemy_died" from="." to="DropComponent" method="_on_enemy_died"]
+[connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_screen_reentered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
+[connection signal="health_change" from="HealthComponent" to="." method="_on_health_component_health_change"]
+[connection signal="target_changed" from="HealingGun" to="." method="_on_healing_gun_target_changed"]

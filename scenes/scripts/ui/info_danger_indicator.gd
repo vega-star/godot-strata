@@ -15,18 +15,18 @@ var side_label
 var frames_passed : int
 var activated : bool = false
 
-func _physics_process(delta):
-	if activated:
-		frames_passed += 1
-		if frames_passed == target_frame:
-			frames_passed = 0
-			print('frame limit reached')
-			if side_label.visible:
-				$DangerOnRight/DangerLabel.visible = false
-				$DangerOnLeft/DangerLabel.visible = false
-			else: 
-				$DangerOnRight/DangerLabel.visible = true
-				$DangerOnLeft/DangerLabel.visible = true
+## Not sure why I did that, sleep deprivation probably. There's no need for it
+#func _physics_process(delta):
+#	if activated:
+#		frames_passed += 1
+#		if frames_passed == target_frame:
+#			frames_passed = 0
+#			if side_label.visible:
+#				$DangerOnRight/DangerLabel.visible = false
+#				$DangerOnLeft/DangerLabel.visible = false
+#			else: 
+#				$DangerOnRight/DangerLabel.visible = true
+#				$DangerOnLeft/DangerLabel.visible = true
 	
 func display_danger(
 		left : bool = true, 

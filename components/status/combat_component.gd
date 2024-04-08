@@ -10,6 +10,7 @@ signal effect_removed(effect)
 		target_status_changed.emit(value)
 @export var is_being_targeted : bool = false
 var is_valid_target : bool = true
+var has_healed_recently : bool = false
 
 # Other variables
 @export var debug : bool = false

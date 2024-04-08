@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://djbwycqfkggsc"]
+
+[ext_resource type="Material" uid="uid://cwskdkowiquwm" path="res://assets/shaders/retro_shader.tres" id="1_d3xkg"]
+[ext_resource type="Script" path="res://scenes/scripts/ui/ui_screen_effect.gd" id="1_usm7m"]
+
+[node name="ScreenEffect" type="CanvasLayer"]
+layer = 75
+script = ExtResource("1_usm7m")
+
+[node name="EffectRect" type="ColorRect" parent="."]
+material = ExtResource("1_d3xkg")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2

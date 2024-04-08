@@ -29,6 +29,7 @@ var secondary_weapon_scene : PackedScene
 @onready var projectile_container = $"../../ProjectileContainer"
 @onready var selection_control = $InventoryUILayer/SelectionControl
 @onready var selection_options = $InventoryUILayer/SelectionControl/SelectionOptions
+@onready var scrap_button = $InventoryUILayer/SelectionControl/ScrapButton
 @export var debug : bool
 
 ## Equipped items and weapons
@@ -68,6 +69,9 @@ var secondary_rof_factor : float = 1.0
 
 var dash_cooldown_factor : float = 1.0
 var roll_cooldown_factor : float = 1.0
+
+## Other variables
+var lock_scrapping : bool = true
 #endregion
 
 func _ready():
@@ -88,6 +92,11 @@ func _ready():
 	await load_equipment()
 	await load_items(true)
 	update_player_values()
+	
+	## Additional operations
+	if lock_scrapping: 
+		$InventoryUILayer/SelectionControl/ScrapButton.disabled = true
+		$InventoryUILayer/SelectionControl/ScrapButton.set_tooltip_text("A condition prevents you from scrapping these items.")
 
 func _process(_delta):
 	if regenerate_ammo:
@@ -347,12 +356,15 @@ func _on_effect_deactivated(source, target_status, value):
 var buttons_available : Array
 
 func present_choice(items):
+	var total_scrap : int
 	UI.set_pause(true)
 	
 	assert(items is Array)
 	for item in items:
 		var button_scene = load("res://scenes/selection_button.tscn")
 		var button = button_scene.instantiate()
+		var item_value = items_dict[item]["item_value"]
+		total_scrap += item_value
 		
 		button.set_button_properties(
 			item,
@@ -365,6 +377,10 @@ func present_choice(items):
 		button.selected.connect(choose_item)
 		selection_options.call_deferred("add_child", button)
 		buttons_available.append(button)
+	
+	$InventoryUILayer/SelectionControl/ScrapButton.set_text(
+		"DISCARD ALL FOR {0} SCRAP".format({0:total_scrap})
+	)
 	
 	$InventoryUILayer/SelectionControl.visible = true
 	await get_tree().create_timer(0.2).timeout

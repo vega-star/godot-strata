@@ -25,6 +25,7 @@
 			"item_description": "Regulates pressure inside the internal cannon and dissipates heat more efficiently.\n\nPrimary weapon rate of fire increased by 15%",
 			"item_tooltip": "Primary weapon rate of fire increased by 15%",
 			"item_type": "passive",
+			"item_value": 35,
 			"item_effect": {
 				"type": "multiply",
 				"target": "primary_rof_buff",
@@ -45,6 +46,7 @@
 			"item_description": "Multipurpose and modular storage for missiles, bombs, and similar.\n\nSecondary weapon ammo increased by 2",
 			"item_tooltip": "Secondary weapon ammo increased by 2",
 			"item_type": "passive",
+			"item_value": 38,
 			"item_effect": {
 				"type": "addition", 
 				"target": "additional_ammo",
@@ -62,13 +64,14 @@
 		},
 		"PlasteelWing": {
 			"item_name": "Plasteel Wing Reinforcement",
-			"item_description": "Raises the flexibility of the wings without sacrificing its strength.\n\nRoll cooldown decreased by 20% and duration raised by 15%",
-			"item_tooltip": "Roll cooldown decreased by 20% and duration raised by 15%",
+			"item_description": "Raises the flexibility of the wings without sacrificing its strength.\n\nRoll cooldown decreased by 10% and dash cooldown decreased by 15%",
+			"item_tooltip": "Roll cooldown decreased by 10% and dash cooldown decreased by 15%",
 			"item_type": "passive",
+			"item_value": 23,
 			"item_effect": {
 				"type": "multiply", 
-				"target": ["roll_cooldown_factor", "roll_duration_factor"],
-				"value": [1.2,1.15]
+				"target": ["roll_cooldown_factor", "dash_cooldown_factor"],
+				"value": [1.1, 0.85]
 			},
 			"item_properties": {
 				"item_small_icon": "",
@@ -82,13 +85,14 @@
 		},
 		"OnDemandAfterburner": {
 			"item_name": "On-Demand Afterburner",
-			"item_description": "A thruster modification that ables a promptable afterburner burst.\n\nDash cooldown decreased by 20% and speed raised by 30%",
-			"item_tooltip": "Dash cooldown decreased by 20% and speed raised by 30%",
+			"item_description": "A thruster modification that ables a promptable afterburner burst.\n\nDash cooldown decreased by 15% and speed raised by 10%",
+			"item_tooltip": "Dash cooldown decreased by 15% and its speed raised by 10%",
 			"item_type": "passive",
+			"item_value": 24,
 			"item_effect": {
 				"type": "multiply", 
 				"target": ["dash_cooldown_factor", "dash_speed_buff"],
-				"value": [0.8,1.3]
+				"value": [0.85,1.10]
 			},
 			"item_properties": {
 				"item_small_icon": "",

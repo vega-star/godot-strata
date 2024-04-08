@@ -297,3 +297,7 @@ func _on_music_slider_drag_ended(_value_changed):
 func _on_effect_slider_drag_ended(_value_changed):
 	config_file.save(config_file_path)
 #endregion
+
+func _on_visual_effect_selected(index):
+	var effect_menu = $OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons/VisualEffects/VisualEffectsMenu
+	UI.ScreenEffect.change_effect(effect_menu.get_item_text(index))

@@ -57,11 +57,25 @@ func _on_enemy_died():
 	if enemy_has_drops:
 		drop_position = owner.global_position
 		
-		var type = enemy_dict[enemy]["drops"]["type"]
+		var type : int = enemy_dict[enemy]["drops"]["type"]
 		var quantity : int
 		
-		if type == 0: quantity = 1
-		else: quantity = enemy_dict[enemy]["drops"]["quantity"]
+		match type:
+			0: # Single consumable drop with no choice involved, but still gambles the chances
+				quantity = 1
+			1: # Choice menu popups for items
+				quantity = enemy_dict[enemy]["drops"]["quantity"]
+			2: # Spawn exactly the same drop always without gambling whatsoever. Faster process for guaranteed drops
+				## TODO: PREVENT CONFIG_DROP FROM COMING BEFORE THIS MATCH
+				var drop = enemy_dict[enemy]["drops"]["items"]
+				if drop is String:
+					item_dropped.emit(drop)
+				elif drop is Array:
+					for item in drop:
+						item_dropped.emit(item)
+				return
+			_: # Unset or invalid type, will still try to configure drop
+				quantity = 1
 		
 		await config_drop(
 			type, # Type
@@ -87,11 +101,11 @@ func config_drop(type, items, chances, range, quantity : int = 1, repeat : bool 
 func request_drop(override_drop = null):
 	if !override_drop:
 		match drop_type:
-			0: # Drops
+			0: # Consumable drops
 				var drop = gamble_drop(drops_array, drop_chances, drops_range)
 				if drop:
 					item_dropped.emit(drop)
-			1: # Items
+			1: # Items to select
 				var quantity = drops_quantity
 				if quantity > 1:
 					var sucessful_tries : int

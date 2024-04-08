@@ -1,9 +1,14 @@
 extends Control
 
+const margin_limit : int = 9
+const event_label_offset : int = 78
+
 @export var event_movement : int = 20
 @export var name_color : Color = Color.WHITE
 @export var type_color : Color = Color.WHITE
+@export var debug : bool = false
 
+var viewport_margin_x
 var base_text : String = '[b]EVENT:[/b] [color={3}]{0}[/color]
 [b]TYPE:[/b] [color={4}]{1}[/color]\n
 {2}'
@@ -19,8 +24,21 @@ var initial_y : int
 var target_y : int
 
 func _ready():
+	if $EventLabel.visible: $EventLabel.visible = false
+	
 	initial_y = position.y
 	target_y = position.y - event_movement
+	
+	viewport_margin_x = get_viewport_rect().size.x / margin_limit
+	if global_position.x < viewport_margin_x: # Far left side of the screen
+		print("%s | Far left side of the screen" % event_name)
+		$EventLabel.position.x += event_label_offset
+		$EventLabel.set_h_grow_direction(1)
+	elif global_position.x > viewport_margin_x * (margin_limit - 1): # Far right side of the screen
+		print("%s | Far right side of the screen" % event_name)
+		$EventLabel.position.x -= event_label_offset
+		$EventLabel.set_h_grow_direction(0)
+	else: pass # Normal
 
 func set_event(
 		new_event_name : String,

@@ -21,8 +21,6 @@ var selected_primary : String
 var selected_secondary : String
 var selected_item : String
 
-
-
 func _ready():
 	## Patch debug
 	if OS.is_debug_build():

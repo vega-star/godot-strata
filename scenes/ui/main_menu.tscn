@@ -77,7 +77,6 @@ offset_right = 1032.0
 debug = true
 
 [node name="CodexPage" parent="MenuPages" instance=ExtResource("6_nccqb")]
-visible = false
 layout_mode = 1
 offset_top = 621.0
 offset_bottom = 621.0

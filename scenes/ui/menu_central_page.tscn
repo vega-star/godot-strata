@@ -72,6 +72,7 @@ text = "CREDITS"
 
 [node name="QuitButton" parent="ButtonsContainer" instance=ExtResource("4_hujtw")]
 layout_mode = 2
+focus_neighbor_bottom = NodePath("../StartButton")
 text = "QUIT"
 
 [node name="VersionLabel" type="Label" parent="."]

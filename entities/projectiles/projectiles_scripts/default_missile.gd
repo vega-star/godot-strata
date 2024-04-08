@@ -98,7 +98,6 @@ func _physics_process(delta):
 		if is_instance_valid(locked_target[0]):
 			if !locked_target[0].combat_component.is_valid_target: # Check if target is valid. 
 				# This is useful because the target can still exist in tree but in an inactive state. Ex.: death animation, disabled, etc.
-				locked_target
 				
 				locked = false
 				lock_sucessful = false
