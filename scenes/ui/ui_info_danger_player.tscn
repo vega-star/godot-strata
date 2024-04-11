@@ -12,7 +12,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 script = ExtResource("1_3uuv0")
+metadata/_edit_vertical_guides_ = [480.0]
+metadata/_edit_horizontal_guides_ = [84.0, 504.0]
 
 [node name="DangerOnRight" type="TextureRect" parent="."]
 visible = false
@@ -77,5 +80,72 @@ offset_bottom = 68.5
 grow_horizontal = 0
 grow_vertical = 2
 rotation = -1.5708
+theme = ExtResource("4_0uimw")
+text = "! DANGER !"
+
+[node name="DangerOnTop" type="TextureRect" parent="."]
+visible = false
+material = ExtResource("2_jjqu4")
+custom_minimum_size = Vector2(22, 0)
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -11.0
+offset_top = -292.0
+offset_right = 11.0
+offset_bottom = 484.0
+grow_horizontal = 2
+rotation = -1.5708
+pivot_offset = Vector2(11, 387)
+texture = ExtResource("3_bxrvi")
+stretch_mode = 1
+
+[node name="DangerLabel" type="Label" parent="DangerOnTop"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = -8.0
+offset_top = -44.5
+offset_right = 82.0
+offset_bottom = -21.5
+grow_vertical = 2
+rotation = 1.5708
+theme = ExtResource("4_0uimw")
+text = "! DANGER !"
+
+[node name="DangerOnBottom" type="TextureRect" parent="."]
+visible = false
+material = ExtResource("2_jjqu4")
+custom_minimum_size = Vector2(22, 0)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -11.0
+offset_top = -435.0
+offset_right = 11.0
+offset_bottom = 341.0
+grow_horizontal = 2
+grow_vertical = 0
+rotation = -1.5708
+pivot_offset = Vector2(11, 387)
+texture = ExtResource("3_bxrvi")
+stretch_mode = 1
+
+[node name="DangerLabel" type="Label" parent="DangerOnBottom"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 57.0
+offset_top = -44.5001
+offset_right = 147.0
+offset_bottom = -21.5001
+grow_vertical = 2
+rotation = 1.5708
 theme = ExtResource("4_0uimw")
 text = "! DANGER !"

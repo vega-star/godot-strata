@@ -1,4 +1,7 @@
-# Godot 4+ specific ignores
-.godot/
-test_export*
+# Ignore always
 *.tmp
+test_export*
+
+# Crucial in local, but too heavy to store in main repo
+android
+.godot/

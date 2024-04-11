@@ -1,0 +1,187 @@
+[gd_scene load_steps=11 format=3 uid="uid://b8yexw0pwrsdd"]
+
+[ext_resource type="Script" path="res://scenes/scripts/ui/ui_progress_bar.gd" id="1_atk3o"]
+[ext_resource type="Theme" uid="uid://b1a5sjt2xibwo" path="res://assets/themes/strata_theme/strata_theme.tres" id="2_di2xq"]
+[ext_resource type="Texture2D" uid="uid://cano6k0rmkt8h" path="res://assets/textures/ui/hud/classic/stage_bar.png" id="3_0efk0"]
+[ext_resource type="Texture2D" uid="uid://csay5l63c4eul" path="res://assets/textures/icons/events/event_cursor.png" id="4_qxwp7"]
+[ext_resource type="Texture2D" uid="uid://clyo4shejv2k7" path="res://assets/textures/icons/ui/icon_boss_life_deactivated.png" id="5_klevj"]
+[ext_resource type="Texture2D" uid="uid://d5cyp7quoone" path="res://assets/textures/icons/ui/icon_boss_life.png" id="6_b78qn"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_32oi1"]
+bg_color = Color(0.780392, 0.862745, 0.815686, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xkl3s"]
+bg_color = Color(0.196078, 0.2, 0.32549, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xoohe"]
+bg_color = Color(0.909804, 0.231373, 0.231373, 1)
+shadow_color = Color(1, 1, 1, 0.6)
+shadow_size = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b8l6q"]
+bg_color = Color(0.431373, 0.152941, 0.152941, 1)
+
+[node name="Bars" type="Control"]
+layout_mode = 3
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -480.0
+offset_top = -19.0
+offset_right = 480.0
+grow_horizontal = 2
+grow_vertical = 0
+script = ExtResource("1_atk3o")
+
+[node name="StageProgressBar" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 19.0
+offset_bottom = 19.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Bar" type="ProgressBar" parent="StageProgressBar"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -443.0
+offset_top = -5.5
+offset_right = 443.0
+offset_bottom = 4.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_di2xq")
+theme_override_constants/outline_size = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_32oi1")
+theme_override_styles/fill = SubResource("StyleBoxFlat_xkl3s")
+value = 50.0
+fill_mode = 1
+show_percentage = false
+
+[node name="ProgressBarFrame" type="Sprite2D" parent="StageProgressBar"]
+position = Vector2(480, 10)
+texture = ExtResource("3_0efk0")
+
+[node name="BarStart" type="Marker2D" parent="StageProgressBar"]
+position = Vector2(37, 9)
+
+[node name="BarEnd" type="Marker2D" parent="StageProgressBar"]
+position = Vector2(923, 9)
+
+[node name="EventCursor" type="Sprite2D" parent="StageProgressBar"]
+visible = false
+position = Vector2(37, -7)
+texture = ExtResource("4_qxwp7")
+
+[node name="EventContainer" type="Node2D" parent="StageProgressBar"]
+position = Vector2(37, 9)
+metadata/_edit_use_anchors_ = true
+
+[node name="BossBar" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -480.0
+offset_top = 64.0
+offset_right = 480.0
+offset_bottom = 83.0
+grow_horizontal = 2
+
+[node name="Bar" type="ProgressBar" parent="BossBar"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -451.0
+offset_top = 11.0
+offset_right = 451.0
+offset_bottom = 21.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_di2xq")
+theme_override_constants/outline_size = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_xoohe")
+theme_override_styles/fill = SubResource("StyleBoxFlat_b8l6q")
+value = 50.0
+show_percentage = false
+
+[node name="BossStages" type="HBoxContainer" parent="BossBar/Bar"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -150.0
+offset_top = -29.0
+offset_right = 150.0
+offset_bottom = -3.0
+grow_horizontal = 2
+alignment = 1
+
+[node name="BossLife" type="Control" parent="BossBar/Bar/BossStages"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+
+[node name="BossLifeDeactivated" type="Sprite2D" parent="BossBar/Bar/BossStages/BossLife"]
+position = Vector2(10, 13)
+texture = ExtResource("5_klevj")
+
+[node name="BossLifeActive" type="Sprite2D" parent="BossBar/Bar/BossStages/BossLife"]
+position = Vector2(10, 13)
+texture = ExtResource("6_b78qn")
+
+[node name="ModulesBars" type="VBoxContainer" parent="BossBar"]
+visible = false
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -169.0
+offset_top = -164.5
+offset_right = -21.0
+offset_bottom = 11.5
+grow_horizontal = 0
+grow_vertical = 2
+alignment = 2
+
+[node name="ModuleBarSample" type="ProgressBar" parent="BossBar/ModulesBars"]
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+theme = ExtResource("2_di2xq")
+theme_override_constants/outline_size = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_xoohe")
+theme_override_styles/fill = SubResource("StyleBoxFlat_b8l6q")
+value = 50.0
+allow_greater = true
+show_percentage = false
+
+[node name="ModuleBarLabel" type="Label" parent="BossBar/ModulesBars/ModuleBarSample"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = -63.0
+offset_top = -8.0
+offset_bottom = 9.0
+grow_vertical = 2
+theme_override_font_sizes/font_size = 16
+text = "MODULE_ID"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BossBarFrame" type="Sprite2D" parent="BossBar"]
+visible = false
+position = Vector2(480, 10)
+texture = ExtResource("3_0efk0")

@@ -9,7 +9,12 @@ const lerp_strength : float = 0.95
 @onready var left_danger = $DangerOnLeft
 @onready var right_label = $DangerOnLeft/DangerLabel
 @onready var right_danger = $DangerOnRight
+@onready var top_danger = $DangerOnTop
+@onready var top_label = $DangerOnTop/DangerLabel
+@onready var bottom_danger = $DangerOnBottom
+@onready var bottom_label = $DangerOnBottom/DangerLabel
 
+var can_emit : bool = true
 var side
 var side_label
 var frames_passed : int
@@ -29,28 +34,38 @@ var activated : bool = false
 #				$DangerOnLeft/DangerLabel.visible = true
 	
 func display_danger(
-		left : bool = true, 
+		direction : bool,
+		horizontal : bool = true,
 		timeout : float = 4, 
 		modulate_color : Color = Color.WHITE
 	):
 	
-	if left:
-		side = left_danger
-		side_label = left_label
-	else:
-		side = right_danger
-		side_label = right_label
+	if !can_emit: return
+	
+	if horizontal: ## Left and right
+		if direction: # Left
+			side = left_danger
+			side_label = left_label
+		else: # Right
+			side = right_danger
+			side_label = right_label
+	else: ## Top and bottom
+		if direction: # Top
+			side = top_danger
+			side_label = top_label
+		else: # Bottom
+			side = bottom_danger
+			side_label = bottom_label
 	
 	side.modulate = modulate_color
 	side.visible = true
 	self.visible = true
 	
-	print(Options.photosens_mode)
-	if !Options.photosens_mode: activated = true
+	if !Options.photosens_mode: activated = true # Don't flicker if photosens is active
 	
 	await get_tree().create_timer(timeout, false).timeout
 	side.visible = false
-	activated = false
 	self.visible = false
+	activated = false
 	
 	danger_displayed.emit()

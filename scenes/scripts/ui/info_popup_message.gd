@@ -14,7 +14,7 @@ const default_timeout : float = 3
 	2: "Welcome! This stage is a simulation meant to test your movement and action.",
 	3: "Press [color=#f9c22b][b][{shoot}][/b][/color] to fire the [color=#4d9be6]primary weapon[/color]. Firing can be also be toggled in the configuration menu.",
 	4: "Press [color=#f9c22b][b][{bomb}][/b][/color] to fire the [color=#4d9be6]secondary weapon[/color]. It consumes ammo, but deals a lot more damage.",
-	5: "Ammo can be retrieved from fallen enemies, but its limited by a max amount.\n\nYou can increase it with items.",
+	5: "Ammo can be retrieved from fallen enemies, but its limited by a max amount.\n\nYou can increase it with items just like that.",
 	6: "For mobility, you can use the afterburner pressing [color=#f9c22b][b][{dash}][/b][/color].\n\nThe trail indicates when dash is available.",
 	7: "You can also roll by pressing [color=#f9c22b][b][{roll}][/b][/color] and evade projectiles and collisions.\n\nIt also can be used simultaneously with dash.",
 	8: "If the current settings aren't confortable to you, you can set your own keybinds in options.\n\nThe game also supports controllers, even on web!",

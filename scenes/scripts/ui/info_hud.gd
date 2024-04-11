@@ -13,6 +13,9 @@ func display_title(title, title_description, title_timer : float = 3):
 	$TitleDisplay.visible = false
 	$TitleDisplay.text = ''
 
+func display_danger(direction : bool, horizontal : bool = true, timeout : float = 4, modulate_color : Color = Color.WHITE):
+	danger_player.display_danger(direction, horizontal, timeout, modulate_color)
+
 func _on_message_displayed():
 	print('Message successfully displayed')
 

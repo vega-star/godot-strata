@@ -80,11 +80,12 @@ func generate_threat(enemy, rule_override = null):
 					
 					# selected_enemy.rotation = rotation_angle
 				"notify_danger":
+					print('notifying danger')
 					var modulate_color : Color = Color.WHITE
-					var timeout : float = 4
-					UI.InfoHUD.danger_player.display_danger(
-						rule_property,
-						timeout,
+					UI.InfoHUD.display_danger(
+						rule_property["direction"],
+						rule_property["horizontal"],
+						rule_property["timeout"],
 						modulate_color
 					)
 				"swarm":

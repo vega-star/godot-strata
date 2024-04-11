@@ -2,12 +2,12 @@
 
 [ext_resource type="Script" path="res://scenes/stages/parallax/centralized_parallax_movement.gd" id="1_7u43o"]
 [ext_resource type="Texture2D" uid="uid://cmib77pr7h6ky" path="res://assets/textures/parallax/first_stage/dithering.png" id="2_23bmb"]
-[ext_resource type="Texture2D" uid="uid://bq8udjs11hu6o" path="res://assets/textures/parallax/first_stage/far_clouds.png" id="4_cyyw0"]
+[ext_resource type="Texture2D" uid="uid://b7ihsfbxn0u30" path="res://assets/textures/parallax/first_stage/clouds-far.png" id="4_nvaqg"]
 [ext_resource type="Texture2D" uid="uid://derkwmko3jp2k" path="res://assets/textures/parallax/first_stage/stars-sheet.png" id="4_rtsbs"]
-[ext_resource type="Texture2D" uid="uid://dv4bbdgyuvmg" path="res://assets/textures/parallax/first_stage/clouds_medium.png" id="4_ufu03"]
-[ext_resource type="Texture2D" uid="uid://d2m2nu28qamxh" path="res://assets/textures/parallax/first_stage/water.png" id="5_7fuav"]
-[ext_resource type="Texture2D" uid="uid://668hdva68ot5" path="res://assets/textures/parallax/first_stage/water_glow.png" id="6_k1nvf"]
-[ext_resource type="Texture2D" uid="uid://dbxy5ff4sik07" path="res://assets/textures/parallax/first_stage/closer_clouds.png" id="7_nc7gk"]
+[ext_resource type="Texture2D" uid="uid://bu1jemmnbymf4" path="res://assets/textures/parallax/first_stage/clouds-before-far.png" id="5_v1p3r"]
+[ext_resource type="Texture2D" uid="uid://dblug77y5hcvy" path="res://assets/textures/parallax/first_stage/clouds-medium.png" id="6_dnhka"]
+[ext_resource type="Texture2D" uid="uid://bpdr7x4m4mxmn" path="res://assets/textures/parallax/first_stage/clouds-closer.png" id="7_njbxb"]
+[ext_resource type="Texture2D" uid="uid://by4mlgb8s5ki5" path="res://assets/textures/parallax/first_stage/clouds-even-closer.png" id="8_d6tgh"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_04rak"]
 atlas = ExtResource("4_rtsbs")
@@ -98,56 +98,54 @@ autoplay = "main_sequence"
 frame_progress = 0.752999
 
 [node name="FarClouds" type="ParallaxLayer" parent="."]
-modulate = Color(1, 1, 1, 0.215686)
 position = Vector2(0, 72)
-motion_scale = Vector2(1, 0.68)
+motion_scale = Vector2(1, 1.2)
 motion_mirroring = Vector2(960, 0)
 
-[node name="FarCloudsSprite" type="Sprite2D" parent="FarClouds"]
-position = Vector2(0, 164)
-texture = ExtResource("4_cyyw0")
+[node name="Sprite" type="Sprite2D" parent="FarClouds"]
+position = Vector2(0, -36)
+texture = ExtResource("4_nvaqg")
+centered = false
+region_rect = Rect2(0, 96, 960, 304)
+
+[node name="BeforeFarClouds" type="ParallaxLayer" parent="."]
+position = Vector2(0, 72)
+motion_scale = Vector2(1, 1.1)
+motion_mirroring = Vector2(960, 0)
+
+[node name="Sprite" type="Sprite2D" parent="BeforeFarClouds"]
+position = Vector2(0, -48)
+texture = ExtResource("5_v1p3r")
 centered = false
 region_rect = Rect2(0, 96, 960, 304)
 
 [node name="MediumClouds" type="ParallaxLayer" parent="."]
-modulate = Color(1, 1, 1, 0.615686)
 position = Vector2(0, 51)
-motion_scale = Vector2(1, 0.8)
+motion_scale = Vector2(1, 0.9)
 motion_mirroring = Vector2(960, 0)
 
-[node name="MediumCloudsSprite" type="Sprite2D" parent="MediumClouds"]
-position = Vector2(0, 322)
-texture = ExtResource("4_ufu03")
+[node name="Sprite" type="Sprite2D" parent="MediumClouds"]
+position = Vector2(0, -30)
+texture = ExtResource("6_dnhka")
 centered = false
 region_rect = Rect2(0, 306, 960, 104)
 
 [node name="CloserClouds" type="ParallaxLayer" parent="."]
-motion_scale = Vector2(1, 0.95)
+motion_scale = Vector2(1, 0.8)
 motion_mirroring = Vector2(960, 0)
 
-[node name="CloserClouds" type="Sprite2D" parent="CloserClouds"]
-position = Vector2(0, 387)
-texture = ExtResource("7_nc7gk")
+[node name="Sprite" type="Sprite2D" parent="CloserClouds"]
+position = Vector2(0, 35)
+texture = ExtResource("7_njbxb")
 centered = false
 region_rect = Rect2(0, 368, 960, 120)
 
-[node name="WaterLevel" type="ParallaxLayer" parent="."]
-visible = false
+[node name="EvenCloserClouds" type="ParallaxLayer" parent="."]
 position = Vector2(0, 1)
+motion_scale = Vector2(1, 0.5)
 motion_offset = Vector2(0, -20)
 motion_mirroring = Vector2(960, 0)
 
-[node name="WaterSprite" type="Sprite2D" parent="WaterLevel"]
-light_mask = 2
-visibility_layer = 2
-texture_repeat = 2
-position = Vector2(-12, 519)
-scale = Vector2(1, 2)
-texture = ExtResource("5_7fuav")
-centered = false
-region_rect = Rect2(0, 0, 960, 31)
-
-[node name="WaterGlow" type="Sprite2D" parent="WaterLevel"]
-modulate = Color(1, 1, 1, 0.788235)
-position = Vector2(468, 525)
-texture = ExtResource("6_k1nvf")
+[node name="Sprite" type="Sprite2D" parent="EvenCloserClouds"]
+position = Vector2(480, 306)
+texture = ExtResource("8_d6tgh")

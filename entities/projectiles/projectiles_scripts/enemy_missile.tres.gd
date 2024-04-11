@@ -53,9 +53,9 @@ func _ready():
 func _initialize():
 	var target_position = global_position + Vector2(100, 0).rotated(rotation)
 	var initial_tween : Tween
-	initial_tween = get_tree().create_tween().set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_IN)
+	initial_tween = get_tree().create_tween().set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
 	
-	initial_tween.tween_property(self, "global_position", target_position, 0.8)
+	initial_tween.tween_property(self, "global_position", target_position, 0.2)
 	
 	await initial_tween.finished
 	set_physics_process(true)

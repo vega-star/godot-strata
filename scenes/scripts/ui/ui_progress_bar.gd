@@ -12,6 +12,7 @@ const bar_fadeout_time : float = 3
 @onready var ui_animation_player = $"../UIAnimations"
 @onready var event_container = $StageProgressBar/EventContainer
 @onready var event_cursor = $StageProgressBar/EventCursor
+@export var debug : bool = false
 
 ## Properties
 var bar_size
@@ -78,9 +79,16 @@ func display_event(event_data):
 	event.set_z_index(z_level)
 	event.position.x += bar_size * (timestamp / stage_size)
 	
-	print('EVENT: {2} | TIME: {0} | MAX: {1}'.format({0:timestamp, 1:stage_size, 2:event_data["event_name"]}))
+	if debug: print('EVENT: {2} | TIME: {0} | MAX: {1}'.format({0:timestamp, 1:stage_size, 2:event_data["event_name"]}))
 	
 	event_container.call_deferred("add_child", event)
 
+func clear_events():
+	for child in event_container.get_children():
+		print(child)
+		child.call("queue_free")
+
 func _physics_process(_delta):
-	event_cursor.position.x = bar_start.position.x + bar_size * ((progress_bar.get_max() - progress_bar.get_value()) * 6 / bar_size)
+	## Move/update Event Cursor
+	var progress = (progress_bar.get_max() - progress_bar.get_value())
+	event_cursor.position.x = bar_start.position.x + bar_size * (progress / owner.stage_size)
