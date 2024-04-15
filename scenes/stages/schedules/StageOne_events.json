@@ -58,8 +58,8 @@
         "has_rules": false,
         "event_properties": {
             "enemy": "lancer",
-            "challenge_type": 1,
             "set_boss_bar": true,
+            "challenge_type": 1,
             "event_timer": {
                 "pause_stage_timer": true,
                 "timer_period": 2.0

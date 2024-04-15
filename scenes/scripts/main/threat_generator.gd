@@ -4,7 +4,14 @@ extends Node
 # Can recieve a random or a specific enemy call from ThreatManager. Random calls will never be bosses or minibosses.
 
 signal enemy_spawned(enemy_name, type)
+signal enemy_loaded
 signal challenge_completed()
+
+var use_sub_threads : bool = true
+var loaded_entity : PackedScene
+var entity_scene_path : String
+var entity_loading : bool = false
+var entity_load_progress : Array = []
 
 var danger_player = UI.InfoHUD.danger_player
 var rotation_angle : float = 0
@@ -40,6 +47,22 @@ func _ready():
 	var load_enemy_data = FileAccess.open(enemy_data, FileAccess.READ)
 	enemy_dict = JSON.parse_string(load_enemy_data.get_as_text())
 	assert(enemy_dict is Dictionary)
+	
+	set_process(false)
+
+func _process(delta):
+	var load_status = ResourceLoader.load_threaded_get_status(entity_scene_path, entity_load_progress)
+	match load_status:
+		0, 2: #? THREAD_LOAD_INVALID_RESOURCE, THREAD_LOAD_FAILED
+			set_process(false)
+			printerr("ERROR LOADING SCENE | Scene path may be wrong or invalid")
+			return
+		1: #? THREAD_LOAD_IN_PROGRESS
+			emit_signal("progress_changed", entity_load_progress[0])
+		3: #? THREAD_LOAD_LOADED
+			loaded_entity = ResourceLoader.load_threaded_get(entity_scene_path)
+			emit_signal("enemy_loaded")
+			set_process(false)
 
 func generate_threat(enemy, rule_override = null):
 	## Main variables
@@ -48,8 +71,16 @@ func generate_threat(enemy, rule_override = null):
 	var invoke_challenge : bool = false
 	
 	## Start
-	var enemy_load = load(enemy_dict[enemy]["scene"])
-	var selected_enemy = enemy_load.instantiate()
+	entity_scene_path = enemy_dict[enemy]["scene"]
+	var state = ResourceLoader.load_threaded_request(entity_scene_path, "", use_sub_threads)
+	if state == OK:
+		set_process(true)
+	else:
+		printerr("ERROR REQUESTING SCENE | Scene path may be wrong or invalid")
+		return
+	
+	await enemy_loaded
+	var selected_enemy = loaded_entity.instantiate()
 	
 	if rule_override: # Rules forced by events
 		assert(rule_override is Dictionary)
@@ -77,8 +108,6 @@ func generate_threat(enemy, rule_override = null):
 				"rotated":
 					rotation_angle = rule_property
 					selected_enemy.set_rotation_degrees(rule_property)
-					
-					# selected_enemy.rotation = rotation_angle
 				"notify_danger":
 					print('notifying danger')
 					var modulate_color : Color = Color.WHITE
@@ -90,7 +119,7 @@ func generate_threat(enemy, rule_override = null):
 					)
 				"swarm":
 					swarm_constructor(
-						enemy_load,
+						loaded_entity,
 						rule_property["method"],
 						rule_property["separation"], 
 						rule_property["amount"], 
@@ -102,8 +131,9 @@ func generate_threat(enemy, rule_override = null):
 				"container_override":
 					container = rule_property
 				"set_boss_bar":
-					if rule_property:
-						UI.UIOverlay.set_boss_bar(selected_enemy)
+					UI.UIOverlay.set_boss_bar(selected_enemy)
+				_:
+					print('Unmatched rule detected: %s' % r)
 	else: # No rules - Random position, random proprieties, etc.
 		var rand_position = spawn_area.position + Vector2(randf() * spawn_area.size.x, randf() * spawn_area.size.y)
 		selected_enemy.global_position = rand_position
