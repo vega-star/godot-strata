@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=73 format=3 uid="uid://b1a5sjt2xibwo"]
+[gd_resource type="Theme" load_steps=74 format=3 uid="uid://b1a5sjt2xibwo"]
 
 [ext_resource type="Texture2D" uid="uid://bq4h2bfsxvxrv" path="res://assets/themes/strata_theme/elements/styleboxes/smaller/sb_normal.png" id="1_6ekk0"]
 [ext_resource type="Texture2D" uid="uid://cmdf58qhbgll" path="res://assets/themes/strata_theme/elements/styleboxes/default_box_disabled.png" id="2_o3frv"]
@@ -33,6 +33,7 @@
 [ext_resource type="Texture2D" uid="uid://cueaakss7p51r" path="res://assets/themes/strata_theme/elements/bars/v_bar_slider_normal.png" id="29_215n0"]
 [ext_resource type="Texture2D" uid="uid://cs2offlhnaqu8" path="res://assets/themes/strata_theme/elements/bars/v_bar_slider_disabled.png" id="30_np2x8"]
 [ext_resource type="Texture2D" uid="uid://cptqdrjryetv7" path="res://assets/themes/strata_theme/elements/bars/v_bar_slider.png" id="31_4kuhg"]
+[ext_resource type="StyleBox" uid="uid://baoxxy7njofl" path="res://assets/themes/strata_theme/elements/styleboxes/tooltip_box.tres" id="31_lhwq2"]
 [ext_resource type="FontFile" uid="uid://0bmvakfotygp" path="res://assets/themes/fonts/VT323-Regular.ttf" id="34_4jjrs"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wwkjc"]
@@ -320,6 +321,7 @@ TabContainer/styles/tab_unselected = SubResource("StyleBoxTexture_8pckt")
 TextEdit/styles/focus = SubResource("StyleBoxTexture_f7ofq")
 TextEdit/styles/normal = SubResource("StyleBoxTexture_b36d3")
 TextEdit/styles/read_only = SubResource("StyleBoxTexture_angwa")
+TooltipPanel/styles/panel = ExtResource("31_lhwq2")
 Tree/icons/checked = ExtResource("7_y08fa")
 Tree/icons/unchecked = ExtResource("13_otq7b")
 Tree/icons/updown = ExtResource("25_l72nw")

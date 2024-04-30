@@ -18,6 +18,8 @@ stage_parallax = NodePath("FirstStageParallax")
 
 [node name="StageManager" parent="." node_paths=PackedStringArray("stage_timer") instance=ExtResource("2_0si3s")]
 stage_timer = NodePath("../StageTimer")
+debug = true
+debug_generator = true
 
 [node name="PlayerStartPosition" type="Marker2D" parent="."]
 light_mask = 2

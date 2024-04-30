@@ -1,0 +1,16 @@
+[remap]
+
+importer="bitmap"
+type="BitMap"
+uid="uid://0ka65bkh0kdb"
+path="res://.godot/imported/itchio_icon_small.bmp-780c3f35b2423845ec017aaa452d6845.res"
+
+[deps]
+
+source_file="res://assets/textures/static/itchio_icon_small.bmp"
+dest_files=["res://.godot/imported/itchio_icon_small.bmp-780c3f35b2423845ec017aaa452d6845.res"]
+
+[params]
+
+create_from=0
+threshold=0.5

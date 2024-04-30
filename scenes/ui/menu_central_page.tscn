@@ -1,76 +1,231 @@
-[gd_scene load_steps=11 format=3 uid="uid://3js2ufvdnk2k"]
+[gd_scene load_steps=25 format=3 uid="uid://3js2ufvdnk2k"]
 
 [ext_resource type="Script" path="res://scenes/scripts/ui/menu_central_page.gd" id="1_gad2b"]
 [ext_resource type="PackedScene" uid="uid://c8sis2bmuopvk" path="res://scenes/ui/menu_bg.tscn" id="1_ijhm3"]
-[ext_resource type="Texture2D" uid="uid://b1gfbx416f357" path="res://assets/textures/static/github_icon_outline.png" id="3_hf2uu"]
+[ext_resource type="Script" path="res://scenes/ui/central_menu_effect.gd" id="2_36efi"]
+[ext_resource type="Texture2D" uid="uid://drajfpsohsrud" path="res://assets/textures/static/menu_effect_left.png" id="3_imkp2"]
 [ext_resource type="Theme" uid="uid://b1a5sjt2xibwo" path="res://assets/themes/strata_theme/strata_theme.tres" id="3_l8my2"]
 [ext_resource type="Texture2D" uid="uid://1tra8xau03f" path="res://assets/textures/static/main_menu_cover.png" id="3_sguk8"]
-[ext_resource type="Texture2D" uid="uid://choj350rc1swa" path="res://assets/textures/static/github_icon_filling.png" id="4_04cwg"]
+[ext_resource type="Texture2D" uid="uid://d1xelwrnq4ilq" path="res://assets/textures/static/menu_effect_right.png" id="4_3lqmx"]
 [ext_resource type="PackedScene" uid="uid://c2vd5a4tvc1kw" path="res://scenes/ui/ui_default_button.tscn" id="4_hujtw"]
 [ext_resource type="Texture2D" uid="uid://bmpah4ugbbs2w" path="res://assets/textures/static/zero.png" id="5_6d0yf"]
 [ext_resource type="Texture2D" uid="uid://b7ng4wgr4xch8" path="res://assets/textures/static/strata_logo.png" id="5_61mfq"]
-[ext_resource type="BitMap" uid="uid://c3wks6bj3r8k3" path="res://assets/textures/static/github_icon.bmp" id="5_lbftm"]
+[ext_resource type="Texture2D" uid="uid://4qon6fwk2k6q" path="res://assets/textures/static/youtube.png" id="8_gfkgt"]
+[ext_resource type="Texture2D" uid="uid://c48tvc2reemnq" path="res://assets/textures/static/github_small.png" id="8_grpau"]
+[ext_resource type="Texture2D" uid="uid://bivosg7gi3xsk" path="res://assets/textures/static/youtube_filled.png" id="9_4afs7"]
+[ext_resource type="Texture2D" uid="uid://orwbsvnegv6d" path="res://assets/textures/static/github_small_filled.png" id="9_j4gts"]
+[ext_resource type="Texture2D" uid="uid://cdphsx104dybi" path="res://assets/textures/static/youtube_focused.png" id="10_4rbs6"]
+[ext_resource type="BitMap" uid="uid://bs4gxxn1dsesg" path="res://assets/textures/static/github_small.bmp" id="10_aucim"]
+[ext_resource type="Texture2D" uid="uid://x4efkns1chvu" path="res://assets/textures/static/itchio_icon_small.png" id="11_ks4t0"]
+[ext_resource type="BitMap" uid="uid://bm4me5144254c" path="res://assets/textures/static/youtube.bmp" id="11_one5u"]
+[ext_resource type="Texture2D" uid="uid://cfmickaqwsix3" path="res://assets/textures/static/itchio_icon_filled_dim.png" id="12_fr63e"]
+[ext_resource type="BitMap" uid="uid://0ka65bkh0kdb" path="res://assets/textures/static/itchio_icon_small.bmp" id="13_m27dn"]
+[ext_resource type="Texture2D" uid="uid://c4b0o1wive6tx" path="res://assets/textures/static/itchio_small_filled.png" id="13_muo0a"]
+
+[sub_resource type="Animation" id="Animation_rcdhs"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ButtonsCover:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(480, 393)]
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ButtonsCover:position:x")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(480, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ButtonsCover:position:y")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(681, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Links:position:x")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(975, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/4/type = "bezier"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Links:position:y")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(395, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="Animation" id="Animation_jxb8k"]
+resource_name = "menu_opening"
+length = 3.5
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ButtonsCover:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(480, -0.25, 0, 0.25, 0, 480, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0.6, 1.1)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ButtonsCover:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(681, -0.25, 0, 0.25, 0, 409, -0.392703, -65, 0.25, 0),
+"times": PackedFloat32Array(0.6, 1.1)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Links:position:x")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(975, -0.25, 0, 0.25, 0, 879, -0.3, -27, 0.25, 0),
+"times": PackedFloat32Array(0.8, 1.4)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Links:position:y")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(395, -0.25, 0, 0.2, 14, 395, -0.3, -25, 0.25, 0),
+"times": PackedFloat32Array(0.8, 1.4)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_cfsue"]
+_data = {
+"RESET": SubResource("Animation_rcdhs"),
+"menu_opening": SubResource("Animation_jxb8k")
+}
 
 [node name="CentralPage" type="Control"]
 layout_mode = 3
 anchors_preset = 0
-offset_right = 960.0
+offset_left = -1.0
+offset_right = 959.0
 offset_bottom = 540.0
 script = ExtResource("1_gad2b")
 
-[node name="ItchioBGRect" type="ColorRect" parent="."]
-layout_mode = 0
-offset_right = 960.0
+[node name="PageAnimations" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_cfsue")
+}
+autoplay = "menu_opening"
+
+[node name="MenuEffect" type="ParallaxBackground" parent="."]
+layer = -1
+script = ExtResource("2_36efi")
+
+[node name="ItchioBGRect" type="ColorRect" parent="MenuEffect"]
+offset_left = -1.0
+offset_right = 959.0
 offset_bottom = 540.0
 color = Color(0.180392, 0.133333, 0.184314, 1)
+
+[node name="GreenMiddle" type="ColorRect" parent="MenuEffect"]
+offset_left = 366.0
+offset_right = 593.0
+offset_bottom = 540.0
+color = Color(0.192157, 0.211765, 0.219608, 1)
+
+[node name="LeftSide" type="ParallaxLayer" parent="MenuEffect"]
+position = Vector2(-1, 0)
+motion_mirroring = Vector2(0, 540)
+
+[node name="MenuEffectLeft" type="Sprite2D" parent="MenuEffect/LeftSide"]
+position = Vector2(292, 270)
+texture = ExtResource("3_imkp2")
+
+[node name="RightSide" type="ParallaxLayer" parent="MenuEffect"]
+position = Vector2(-1, 0)
+motion_mirroring = Vector2(0, 540)
+
+[node name="MenuEffectRight" type="Sprite2D" parent="MenuEffect/RightSide"]
+position = Vector2(681, 270)
+texture = ExtResource("4_3lqmx")
 
 [node name="MenuBG" parent="." instance=ExtResource("1_ijhm3")]
 visible = false
 
-[node name="MainMenuCover" type="Sprite2D" parent="."]
-position = Vector2(480, 393)
+[node name="ButtonsCover" type="Sprite2D" parent="."]
+position = Vector2(480, 681)
 texture = ExtResource("3_sguk8")
 
-[node name="ButtonsContainer" type="VBoxContainer" parent="."]
-layout_mode = 1
-anchors_preset = 7
+[node name="ButtonsContainer" type="VBoxContainer" parent="ButtonsCover"]
+anchors_preset = 5
 anchor_left = 0.5
-anchor_top = 1.0
 anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -90.0
-offset_top = -312.0
-offset_right = 91.0
+offset_left = -200.5
+offset_top = -128.0
+offset_right = -19.5
+offset_bottom = 184.0
 grow_horizontal = 2
-grow_vertical = 0
-alignment = 1
 
-[node name="ContinueButton" type="Button" parent="ButtonsContainer"]
+[node name="ContinueButton" type="Button" parent="ButtonsCover/ButtonsContainer"]
 visible = false
 layout_mode = 2
 theme = ExtResource("3_l8my2")
 disabled = true
 text = "CONTINUE"
 
-[node name="StartButton" parent="ButtonsContainer" instance=ExtResource("4_hujtw")]
+[node name="StartButton" parent="ButtonsCover/ButtonsContainer" instance=ExtResource("4_hujtw")]
 layout_mode = 2
 text = "START"
 
-[node name="ProfileButton" parent="ButtonsContainer" instance=ExtResource("4_hujtw")]
+[node name="ProfileButton" parent="ButtonsCover/ButtonsContainer" instance=ExtResource("4_hujtw")]
 layout_mode = 2
+tooltip_text = "NOT IMPLEMENTED YET!"
 disabled = true
 text = "PROFILE"
 
-[node name="CodexButton" parent="ButtonsContainer" instance=ExtResource("4_hujtw")]
+[node name="CodexButton" parent="ButtonsCover/ButtonsContainer" instance=ExtResource("4_hujtw")]
 layout_mode = 2
+tooltip_text = "NOT IMPLEMENTED YET!"
 disabled = true
 text = "CODEX"
 
-[node name="CreditsButton" parent="ButtonsContainer" instance=ExtResource("4_hujtw")]
+[node name="CreditsButton" parent="ButtonsCover/ButtonsContainer" instance=ExtResource("4_hujtw")]
 layout_mode = 2
 text = "CREDITS"
 
-[node name="QuitButton" parent="ButtonsContainer" instance=ExtResource("4_hujtw")]
+[node name="QuitButton" parent="ButtonsCover/ButtonsContainer" instance=ExtResource("4_hujtw")]
 layout_mode = 2
 focus_neighbor_bottom = NodePath("../StartButton")
 text = "QUIT"
@@ -80,14 +235,13 @@ layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_left = 5.0
-offset_top = -41.0
-offset_right = 122.0
-offset_bottom = -18.0
+offset_left = 10.0
+offset_top = -30.0
+offset_right = 127.0
+offset_bottom = -7.0
 grow_vertical = 0
 theme = ExtResource("3_l8my2")
 text = "v0.0.0"
-horizontal_alignment = 1
 
 [node name="StrataLogo" type="Sprite2D" parent="."]
 position = Vector2(478, 138)
@@ -97,26 +251,64 @@ texture = ExtResource("5_61mfq")
 position = Vector2(306, 55)
 texture = ExtResource("5_6d0yf")
 
-[node name="GitHubLink" type="TextureButton" parent="."]
+[node name="Links" type="VBoxContainer" parent="."]
 layout_mode = 1
-anchors_preset = 2
+anchors_preset = 3
+anchor_left = 1.0
 anchor_top = 1.0
+anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 24.0
-offset_top = -123.0
-offset_right = 106.0
-offset_bottom = -43.0
+offset_left = 15.0
+offset_top = -145.0
+offset_right = 75.0
+offset_bottom = -21.0
+grow_horizontal = 0
 grow_vertical = 0
+theme_override_constants/separation = 4
+alignment = 2
+
+[node name="ItchIoLink" type="TextureButton" parent="Links"]
+layout_mode = 2
+tooltip_text = "ITCH.IO PAGE"
 theme = ExtResource("3_l8my2")
-texture_normal = ExtResource("3_hf2uu")
-texture_pressed = ExtResource("3_hf2uu")
-texture_hover = ExtResource("4_04cwg")
-texture_click_mask = ExtResource("5_lbftm")
+texture_normal = ExtResource("11_ks4t0")
+texture_pressed = ExtResource("11_ks4t0")
+texture_hover = ExtResource("12_fr63e")
+texture_focused = ExtResource("13_muo0a")
+texture_click_mask = ExtResource("13_m27dn")
 stretch_mode = 3
 
-[connection signal="pressed" from="ButtonsContainer/StartButton" to="." method="_on_start_button_pressed"]
-[connection signal="pressed" from="ButtonsContainer/ProfileButton" to="." method="_on_profile_button_pressed"]
-[connection signal="pressed" from="ButtonsContainer/CodexButton" to="." method="_on_codex_button_pressed"]
-[connection signal="pressed" from="ButtonsContainer/CreditsButton" to="." method="_on_credits_button_pressed"]
-[connection signal="pressed" from="ButtonsContainer/QuitButton" to="." method="_on_quit_button_pressed"]
-[connection signal="pressed" from="GitHubLink" to="." method="_on_git_hub_link_pressed"]
+[node name="YoutubeLink" type="TextureButton" parent="Links"]
+visible = false
+layout_mode = 2
+size_flags_stretch_ratio = 0.0
+tooltip_text = "HOW I MADE STRATA"
+theme = ExtResource("3_l8my2")
+texture_normal = ExtResource("8_gfkgt")
+texture_pressed = ExtResource("8_gfkgt")
+texture_hover = ExtResource("9_4afs7")
+texture_focused = ExtResource("10_4rbs6")
+texture_click_mask = ExtResource("11_one5u")
+stretch_mode = 3
+
+[node name="GitHubLink" type="TextureButton" parent="Links"]
+layout_mode = 2
+tooltip_text = "SOURCE CODE ON GITHUB"
+theme = ExtResource("3_l8my2")
+texture_normal = ExtResource("8_grpau")
+texture_pressed = ExtResource("8_grpau")
+texture_hover = ExtResource("9_j4gts")
+texture_focused = ExtResource("9_j4gts")
+texture_click_mask = ExtResource("10_aucim")
+stretch_mode = 3
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[connection signal="pressed" from="ButtonsCover/ButtonsContainer/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="ButtonsCover/ButtonsContainer/ProfileButton" to="." method="_on_profile_button_pressed"]
+[connection signal="pressed" from="ButtonsCover/ButtonsContainer/CodexButton" to="." method="_on_codex_button_pressed"]
+[connection signal="pressed" from="ButtonsCover/ButtonsContainer/CreditsButton" to="." method="_on_credits_button_pressed"]
+[connection signal="pressed" from="ButtonsCover/ButtonsContainer/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="Links/ItchIoLink" to="." method="_on_itch_io_link_pressed"]
+[connection signal="pressed" from="Links/YoutubeLink" to="." method="_on_youtube_link_pressed"]
+[connection signal="pressed" from="Links/GitHubLink" to="." method="_on_git_hub_link_pressed"]

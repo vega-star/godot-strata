@@ -1,8 +1,10 @@
-extends Node2D
+class_name Scene extends Node2D
 
 signal stage_started
+signal stage_ended
 
 # Stage Properties
+var stage_active : bool = true
 @export var stage_id : String = "StrataScene"
 @export var stage_title : String = 'STAGE ZERO'
 @export var stage_description : String = 'SIMULATION'
@@ -96,25 +98,29 @@ func start_stage_sequence(): # Starting animations, fade-in, etc.
 	# Unlocking controls and starting timer
 	player.controls_lock(false)
 	
-	UI.set_stage(stage_timer, true)
+	UI.set_stage(self, stage_timer, true) ## Start stage info on UI
 	stage_started.emit()
 	stage_timer.start()
 	stage_start_time = Time.get_unix_time_from_system()
 
-func end_stage_sequence(): # Fade-out, stage finished screen, etc.
-	stage_final_time = Time.get_unix_time_from_system()
+func end_stage_sequence(turbo : bool = false): # Fade-out, stage finished screen, etc.
+	stage_active = false
 	
-	if save_stage_data:
-		save_stage_performance(stage_final_time)
-	
-	player.controls_lock(true)
-	var player_move_to_center = get_tree().create_tween()
-	player_move_to_center.tween_property(player,"global_position.x",1200, 2)
-	
-	UI.InfoHUD.display_title("{0} COMPLETED".format({0:stage_title}), "", 5)
-	await get_tree().create_timer(2).timeout
-	UI.InfoHUD.display_title("{0} COMPLETED".format({0:stage_title}), "%s" % stage_ending_text, 5)
-	await get_tree().create_timer(3).timeout
+	if !turbo:
+		stage_ended.emit()
+		stage_final_time = Time.get_unix_time_from_system()
+		
+		if save_stage_data:
+			save_stage_performance(stage_final_time)
+		
+		player.controls_lock(true)
+		var player_move_to_center = get_tree().create_tween()
+		player_move_to_center.tween_property(player,"global_position.x",1200, 2)
+		
+		UI.InfoHUD.display_title("{0} COMPLETED".format({0:stage_title}), "", 5)
+		await get_tree().create_timer(2).timeout
+		UI.InfoHUD.display_title("{0} COMPLETED".format({0:stage_title}), "%s" % stage_ending_text, 5)
+		await get_tree().create_timer(3).timeout
 	
 	await UI.fade('OUT')
 	LoadManager.load_scene(next_stage_path)

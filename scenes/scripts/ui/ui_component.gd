@@ -12,6 +12,7 @@ signal game_paused(mode)
 @onready var ScreenEffect = $ScreenEffect
 
 ## Data forwarding
+var stage
 var fade_time : float
 var stage_timer : Timer
 
@@ -22,12 +23,21 @@ func _ready():
 	
 	fade_time = ScreenTransition.fade_time
 
-func set_stage(timer, start_run : bool = false):
+func set_stage(stage_node, timer, start_run : bool = false):
+	stage = stage_node
 	UIOverlay.visible = true
 	stage_timer = timer
 	
 	if start_run: Profile.start_run()
 	Profile.save_previous_data() # Sets a data checkpoint to rollback in case of retry
+	
+	stage.stage_ended.connect(end_stage)
+
+func end_stage(turbo : bool = false): ## Clear cached data from stage on UI, such as events
+	if stage.stage_active: # It means the end_stage_sequence has not happened
+		await stage.end_stage_sequence(turbo)
+	
+	UI.UIOverlay.bars.clear_events()
 
 func set_pause(mode : bool = true):
 	get_tree().paused = mode
@@ -46,5 +56,4 @@ func fade(mode):
 			ScreenTransition.fade(mode)
 			await get_tree().create_timer(fade_time).timeout
 			ScreenTransition.visible = false
-
 

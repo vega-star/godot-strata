@@ -8,9 +8,9 @@
 [ext_resource type="Texture2D" uid="uid://cbun8bbb2ep1r" path="res://assets/textures/projectiles/default_missile_thrust_trail.png" id="4_epvtp"]
 [ext_resource type="Texture2D" uid="uid://c6oqa6vxjxmml" path="res://assets/textures/projectiles/enemy_missile.png" id="4_glxim"]
 [ext_resource type="Texture2D" uid="uid://dt1xcc7ykfdhp" path="res://assets/textures/prototypes/explosion_area.png" id="6_df74l"]
-[ext_resource type="PackedScene" uid="uid://bdfaybp4djcn2" path="res://components/status/health_component.tscn" id="6_rn2ep"]
-[ext_resource type="PackedScene" uid="uid://c4rkui846g2ue" path="res://components/status/combat_component.tscn" id="7_djk1g"]
-[ext_resource type="PackedScene" uid="uid://c3atqdge540t0" path="res://components/status/hitbox_component.tscn" id="7_vquhg"]
+[ext_resource type="PackedScene" uid="uid://bdfaybp4djcn2" path="res://status/health_component.tscn" id="6_rn2ep"]
+[ext_resource type="PackedScene" uid="uid://c4rkui846g2ue" path="res://status/combat_component.tscn" id="7_djk1g"]
+[ext_resource type="PackedScene" uid="uid://c3atqdge540t0" path="res://status/hitbox_component.tscn" id="7_vquhg"]
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_jpsuv"]
 lifetime_randomness = 0.58

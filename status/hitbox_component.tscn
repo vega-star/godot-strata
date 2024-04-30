@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://c3atqdge540t0"]
 
-[ext_resource type="Script" path="res://components/status/hitbox_component.gd" id="1_y6ofy"]
+[ext_resource type="Script" path="res://status/hitbox_component.gd" id="1_y6ofy"]
 [ext_resource type="AudioStream" uid="uid://dcic3ms3y8ujj" path="res://assets/audio/effects/default_damage.wav" id="2_bd107"]
 
 [node name="HitboxComponent" type="Area2D"]

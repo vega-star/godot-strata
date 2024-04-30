@@ -2,10 +2,10 @@
 
 [ext_resource type="Script" path="res://entities/entity_scripts/enemy.gd" id="1_uscle"]
 [ext_resource type="Texture2D" uid="uid://dq4s3s0h3le1a" path="res://assets/textures/prototypes/enemy_test_sprite.png" id="2_npmfq"]
-[ext_resource type="PackedScene" uid="uid://bdfaybp4djcn2" path="res://components/status/health_component.tscn" id="3_r8fkk"]
-[ext_resource type="PackedScene" uid="uid://c3atqdge540t0" path="res://components/status/hitbox_component.tscn" id="4_js4fs"]
-[ext_resource type="PackedScene" uid="uid://c4rkui846g2ue" path="res://components/status/combat_component.tscn" id="4_r3whd"]
-[ext_resource type="PackedScene" uid="uid://cifxjpiop3cha" path="res://components/status/drop_component.tscn" id="4_rx6yb"]
+[ext_resource type="PackedScene" uid="uid://bdfaybp4djcn2" path="res://status/health_component.tscn" id="3_r8fkk"]
+[ext_resource type="PackedScene" uid="uid://c3atqdge540t0" path="res://status/hitbox_component.tscn" id="4_js4fs"]
+[ext_resource type="PackedScene" uid="uid://c4rkui846g2ue" path="res://status/combat_component.tscn" id="4_r3whd"]
+[ext_resource type="PackedScene" uid="uid://cifxjpiop3cha" path="res://status/drop_component.tscn" id="4_rx6yb"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tq5bo"]
 size = Vector2(50, 50)

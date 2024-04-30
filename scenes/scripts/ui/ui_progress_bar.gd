@@ -15,10 +15,12 @@ const bar_fadeout_time : float = 3
 @export var debug : bool = false
 
 ## Properties
+var boss_node
 var bar_size
 var boss_health_component : HealthComponent
 
 ## Icons
+const module_bar_template = preload("res://components/modules/module_bar_template.tscn")
 const event_node_scene = preload("res://scenes/ui/event_template.tscn")
 const events_icons_path = "res://assets/textures/icons/events"
 var event_icons : Dictionary = {
@@ -34,18 +36,42 @@ var event_icons : Dictionary = {
 	"mysterious_purple": preload("%s/event_icon_mysterious_purple.png" % events_icons_path),
 	"exclamation_mark": preload("%s/event_icon_exclamation_mark.png" % events_icons_path)
 }
+var modules : Dictionary = {}
 
 func _ready():
 	bar_size = bar_start.position.distance_to(bar_end.position)
 
-func set_boss_bar(boss_node):
+func set_boss_bar(new_boss_node):
+	boss_node = new_boss_node
+	
+	ui_animation_player.play_backwards("toggle_progress_bar")
 	ui_animation_player.play("toggle_boss_bar")
+	await boss_node.ready
+	
+	## Preparing boss bar
 	boss_health_component = boss_node.health_component
-	
-	boss_bar.set_max_value(boss_health_component.max_health)
+	boss_bar.set_max(boss_health_component.max_health)
 	boss_bar.set_value(boss_health_component.max_health)
-	
 	boss_health_component.health_change.connect(_update_boss_bar)
+	boss_node.enemy_defeated.connect(close_boss_bar)
+	
+	## Preparing nodes bar
+	for part in boss_node.weapons_dict:
+		var module_bar = module_bar_template.instantiate()
+		var module = boss_node.weapons_dict[part]["node"]
+		var module_label = module_bar.get_child(0)
+		
+		modules[module.name] = {
+			"node": module,
+			"bar": module_bar
+		}
+		
+		module_label.set_text(str(module.name).capitalize())
+		module_bar.set_max(module.health_component.max_health)
+		module_bar.set_value(module.health_component.max_health)
+		module.health_component.health_change.connect(_update_module_bar)
+		
+		$BossBar/ModulesBars.add_child(module_bar)
 
 func _update_boss_bar(_previous_value : int, new_value : int, _type : bool):
 	if !is_instance_valid(boss_health_component): return
@@ -55,11 +81,25 @@ func _update_boss_bar(_previous_value : int, new_value : int, _type : bool):
 	
 	if new_value <= 0:
 		boss_bar.set_value(0)
-		
-		await get_tree().create_timer(bar_fadeout_time).timeout
-		ui_animation_player.play_backwards("toggle_boss_bar")
+		close_boss_bar()
 	else:
 		boss_bar.set_value(new_value)
+
+func _update_module_bar(_previous_value : int, new_value : int, _type : bool):
+	for m in modules:
+		var node = modules[m]["node"]
+		var bar = modules[m]["bar"]
+		if !is_instance_valid(node):
+			return
+		var module_health = node.health_component.current_health
+		bar.set_value(module_health)
+
+func close_boss_bar():
+	ui_animation_player.play_backwards("toggle_boss_bar")
+	ui_animation_player.play("toggle_progress_bar")
+	await get_tree().create_timer(bar_fadeout_time).timeout
+	for m in $BossBar/ModulesBars.get_children():
+		m.call("queue_free")
 
 func display_event(event_data):
 	var event = event_node_scene.instantiate()
@@ -85,7 +125,6 @@ func display_event(event_data):
 
 func clear_events():
 	for child in event_container.get_children():
-		print(child)
 		child.call("queue_free")
 
 func _physics_process(_delta):

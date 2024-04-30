@@ -1,0 +1,16 @@
+[remap]
+
+importer="bitmap"
+type="BitMap"
+uid="uid://bm4me5144254c"
+path="res://.godot/imported/youtube.bmp-a648f8eee897d26ab02a6800bc57f506.res"
+
+[deps]
+
+source_file="res://assets/textures/static/youtube.bmp"
+dest_files=["res://.godot/imported/youtube.bmp-a648f8eee897d26ab02a6800bc57f506.res"]
+
+[params]
+
+create_from=0
+threshold=0.5

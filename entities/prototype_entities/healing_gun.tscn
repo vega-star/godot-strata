@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" path="res://entities/entity_scripts/healing_gun.gd" id="1_3j0lg"]
 [ext_resource type="PackedScene" uid="uid://1nfehur2dapk" path="res://entities/projectiles/healing_laser.tscn" id="1_ein37"]
-[ext_resource type="PackedScene" uid="uid://c4rkui846g2ue" path="res://components/status/combat_component.tscn" id="2_keitw"]
-[ext_resource type="PackedScene" uid="uid://bdfaybp4djcn2" path="res://components/status/health_component.tscn" id="3_7p0se"]
+[ext_resource type="PackedScene" uid="uid://c4rkui846g2ue" path="res://status/combat_component.tscn" id="2_keitw"]
+[ext_resource type="PackedScene" uid="uid://bdfaybp4djcn2" path="res://status/health_component.tscn" id="3_7p0se"]
 
 [node name="HealingGun" type="Area2D" groups=["object"]]
 collision_layer = 2

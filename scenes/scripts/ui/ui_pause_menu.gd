@@ -51,8 +51,12 @@ func _on_return_menu_button_pressed():
 func _on_confirmation_dialog_confirmed():
 	get_tree().paused = false
 	pause_state = false
-	get_tree().change_scene_to_file(UI.main_menu_path)
+	
+	await UI.end_stage(true)
+	
 	UI.UIOverlay.visible = false
+	LoadManager.load_scene(UI.main_menu_path)
+	# get_tree().change_scene_to_file(UI.main_menu_path)
 	unpause()
 
 func _on_options_visibility_changed():

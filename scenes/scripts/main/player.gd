@@ -151,6 +151,7 @@ func _process(delta): # Frequent listener for input with delay (weapons, items, 
 			
 			## Wait for roll to be available again
 			await get_tree().create_timer(roll_cooldown_timer)
+			AudioManager.emit_sound_effect(position, "roll_recharged", true)
 			roll_cooldown = false
 	
 	update_animation_state()

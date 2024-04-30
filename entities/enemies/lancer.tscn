@@ -1,9 +1,11 @@
-[gd_scene load_steps=29 format=3 uid="uid://cmqhgcn8ma7k5"]
+[gd_scene load_steps=31 format=3 uid="uid://cmqhgcn8ma7k5"]
 
 [ext_resource type="Script" path="res://entities/entity_scripts/composite_enemy.gd" id="1_sosx1"]
-[ext_resource type="PackedScene" uid="uid://cifxjpiop3cha" path="res://components/status/drop_component.tscn" id="2_hipol"]
+[ext_resource type="PackedScene" uid="uid://cifxjpiop3cha" path="res://status/drop_component.tscn" id="2_hipol"]
+[ext_resource type="PackedScene" uid="uid://c566s2lc6kg02" path="res://components/states/main/state_machine.tscn" id="2_sjjdg"]
 [ext_resource type="Material" uid="uid://cvfmn1g3c8nd3" path="res://assets/shaders/entities/enemy_outline.tres" id="3_deqqd"]
 [ext_resource type="Texture2D" uid="uid://3a8hr5l56s5t" path="res://assets/textures/entities/enemies/lancer/lancer.png" id="3_mv7tp"]
+[ext_resource type="Script" path="res://components/states/main/state.gd" id="3_nv3fj"]
 [ext_resource type="Texture2D" uid="uid://b2a7ig38c38qp" path="res://assets/textures/entities/enemies/lancer/lancer-front-shielding.png" id="5_6n170"]
 [ext_resource type="PackedScene" uid="uid://cxk85efxpd3at" path="res://entities/composite_elements/composite_shielding.tscn" id="5_iqo4a"]
 [ext_resource type="Texture2D" uid="uid://drqou43mvadda" path="res://assets/textures/entities/enemies/lancer/lancer-barrier.png" id="5_rl624"]
@@ -13,15 +15,15 @@
 [ext_resource type="Texture2D" uid="uid://bosqr445kargj" path="res://assets/textures/entities/enemies/lancer/lancer-gun-component.png" id="10_nywvu"]
 [ext_resource type="Texture2D" uid="uid://d2550xwswv3ba" path="res://assets/textures/entities/enemies/lancer/rocket-launcher-back.png" id="10_ruwc2"]
 [ext_resource type="Texture2D" uid="uid://cstbhuqch3l5a" path="res://assets/textures/entities/enemies/lancer/lancer-back-shielding.png" id="11_1wt2q"]
-[ext_resource type="PackedScene" uid="uid://bdfaybp4djcn2" path="res://components/status/health_component.tscn" id="11_imk7k"]
-[ext_resource type="PackedScene" uid="uid://c3atqdge540t0" path="res://components/status/hitbox_component.tscn" id="12_rl3ew"]
+[ext_resource type="PackedScene" uid="uid://bdfaybp4djcn2" path="res://status/health_component.tscn" id="11_imk7k"]
+[ext_resource type="PackedScene" uid="uid://c3atqdge540t0" path="res://status/hitbox_component.tscn" id="12_rl3ew"]
 [ext_resource type="Texture2D" uid="uid://b2qqxoc8m32vq" path="res://assets/textures/entities/enemies/lancer/rocket-launcher.png" id="13_2d4b0"]
-[ext_resource type="Script" path="res://components/status/combat_component.gd" id="13_wkyrh"]
+[ext_resource type="Script" path="res://status/combat_component.gd" id="13_wkyrh"]
 [ext_resource type="Texture2D" uid="uid://c0i2mg8nhoobw" path="res://assets/textures/entities/enemies/lancer/rocket-launcher-cover.png" id="14_i7pe5"]
 [ext_resource type="Texture2D" uid="uid://dtrusbnc5ft7s" path="res://assets/textures/entities/enemies/lancer/core.png" id="15_34mug"]
 [ext_resource type="PackedScene" uid="uid://capsl03als0q0" path="res://entities/projectiles/enemy_ray.tscn" id="15_xg2si"]
 [ext_resource type="PackedScene" uid="uid://ctksiqxkq8ue5" path="res://entities/prototype_entities/enemy_missile_launcher.tscn" id="16_b2wr1"]
-[ext_resource type="Script" path="res://components/status/hitbox_component.gd" id="16_ppdj8"]
+[ext_resource type="Script" path="res://status/hitbox_component.gd" id="16_ppdj8"]
 
 [sub_resource type="Animation" id="Animation_5b3dw"]
 length = 0.3
@@ -231,6 +233,11 @@ libraries = {
 autoplay = "cycle_carapace"
 
 [node name="TemporaryContainer" type="Node2D" parent="."]
+
+[node name="StateMachine" parent="." instance=ExtResource("2_sjjdg")]
+
+[node name="Idle" type="Node" parent="StateMachine"]
+script = ExtResource("3_nv3fj")
 
 [node name="DropComponent" parent="." instance=ExtResource("2_hipol")]
 

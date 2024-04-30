@@ -2,10 +2,10 @@
 
 [ext_resource type="Script" path="res://entities/entity_scripts/enemy.gd" id="1_0fuyv"]
 [ext_resource type="Texture2D" uid="uid://dl6lo2bnl78b1" path="res://assets/textures/entities/enemies/simple/lancer.png" id="2_j2kak"]
-[ext_resource type="PackedScene" uid="uid://c4rkui846g2ue" path="res://components/status/combat_component.tscn" id="3_pp1n4"]
-[ext_resource type="PackedScene" uid="uid://cifxjpiop3cha" path="res://components/status/drop_component.tscn" id="4_swwmk"]
-[ext_resource type="PackedScene" uid="uid://bdfaybp4djcn2" path="res://components/status/health_component.tscn" id="5_sbdmk"]
-[ext_resource type="PackedScene" uid="uid://c3atqdge540t0" path="res://components/status/hitbox_component.tscn" id="6_8pgti"]
+[ext_resource type="PackedScene" uid="uid://c4rkui846g2ue" path="res://status/combat_component.tscn" id="3_pp1n4"]
+[ext_resource type="PackedScene" uid="uid://cifxjpiop3cha" path="res://status/drop_component.tscn" id="4_swwmk"]
+[ext_resource type="PackedScene" uid="uid://bdfaybp4djcn2" path="res://status/health_component.tscn" id="5_sbdmk"]
+[ext_resource type="PackedScene" uid="uid://c3atqdge540t0" path="res://status/hitbox_component.tscn" id="6_8pgti"]
 
 [node name="Lancer" type="Area2D" node_paths=PackedStringArray("self_sprite") groups=["enemy"]]
 collision_layer = 2

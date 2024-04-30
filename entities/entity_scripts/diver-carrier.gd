@@ -48,9 +48,8 @@ func _ready():
 				"rotated": -90
 			}
 			
-			top_divers.append( #? Both requests the enemy spawn AND appends the enemy object to top_divers array for further control and release
-				threat_generator.generate_threat(entity_id, rule_override)
-			)
+			var entity = await threat_generator.generate_threat(entity_id, rule_override)
+			top_divers.append(entity) #? Requests the enemy spawn and appends the enemy object to top_divers array for further control and release
 	
 	if spawn_bottom:
 		for slot in bottom_slots:
@@ -59,18 +58,13 @@ func _ready():
 				"container_override": temporary_container,
 				"property_override": {
 					"wait_for_activation": true,
-					"timeout_for_flee": 3
+					"timeout_for_flee": 5
 				},
 				"rotated": 90
 			}
 			
-			bottom_divers.append( #? Both requests the enemy spawn AND appends the enemy object to bottom_divers array for further control and release
-				threat_generator.generate_threat(entity_id, rule_override)
-			)
-	
-	## Ready for deployment
-	await get_tree().create_timer(release_timeout).timeout
-	locked_release = false
+			var entity = await threat_generator.generate_threat(entity_id, rule_override)
+			bottom_divers.append(entity) #? Requests the enemy spawn and appends the enemy object to top_divers array for further control and release
 
 func release_attachment(source):
 	if is_instance_valid(source):
@@ -80,22 +74,3 @@ func release_attachment(source):
 func _physics_process(delta):
 	if drifting:
 		global_position.x -= speed * delta
-	
-	if !locked_release:
-		locked_release = true
-		var order_size : int
-		if spawn_top:
-			order_size = top_divers.size()
-		elif spawn_bottom:
-			order_size = bottom_divers.size()
-		
-		if release_order < order_size:
-			if spawn_top: release_attachment(top_divers[release_order])
-			if spawn_bottom: release_attachment(bottom_divers[release_order])
-			
-			release_order += 1
-			
-			await get_tree().create_timer(release_timeout).timeout
-			locked_release = false
-		elif release_order == order_size:
-			return

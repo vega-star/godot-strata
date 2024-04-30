@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://entities/projectiles/projectiles_scripts/default_enemy_laser.gd" id="1_reim5"]
 [ext_resource type="AudioStream" uid="uid://dtcu8y1svt22a" path="res://assets/audio/effects/enemy_laser.wav" id="2_8gqao"]
 [ext_resource type="Texture2D" uid="uid://bh4o5e8lutt1u" path="res://assets/textures/projectiles/enemy_default_laser.png" id="3_135ps"]
-[ext_resource type="PackedScene" uid="uid://c3atqdge540t0" path="res://components/status/hitbox_component.tscn" id="3_ptfmk"]
+[ext_resource type="PackedScene" uid="uid://c3atqdge540t0" path="res://status/hitbox_component.tscn" id="3_ptfmk"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jewc2"]
 radius = 4.0

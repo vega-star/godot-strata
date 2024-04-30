@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bd6qdud63kpb4"
-path="res://.godot/imported/black-bg.png-697af1b549b3d124f374614ac6e8ebb3.ctex"
+uid="uid://cdphsx104dybi"
+path="res://.godot/imported/youtube_focused.png-f38b88918320e89d6385604fec57047a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/textures/parallax/main_menu/black-bg.png"
-dest_files=["res://.godot/imported/black-bg.png-697af1b549b3d124f374614ac6e8ebb3.ctex"]
+source_file="res://assets/textures/static/youtube_focused.png"
+dest_files=["res://.godot/imported/youtube_focused.png-f38b88918320e89d6385604fec57047a.ctex"]
 
 [params]
 

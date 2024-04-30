@@ -3,6 +3,7 @@ extends Control
 @onready var project_version = ProjectSettings.get_setting("application/config/version")
 @onready var version_label = $MenuPages/CentralPage/VersionLabel
 @onready var menu_pages = $MenuPages
+@onready var config_button = $ConfigButton
 
 var page_in_movement : bool = false
 var screen_size : Vector2
@@ -19,13 +20,13 @@ func _ready():
 	Options.visibility_changed.connect(_on_options_visibility_changed)
 	
 	if OS.is_debug_build():
-		$MenuPages/CentralPage/ButtonsContainer/ProfileButton.disabled = false
-		$MenuPages/CentralPage/ButtonsContainer/CodexButton.disabled = false
+		$MenuPages/CentralPage/ButtonsCover/ButtonsContainer/ProfileButton.disabled = false
+		$MenuPages/CentralPage/ButtonsCover/ButtonsContainer/CodexButton.disabled = false
 	
 	version_label.text = "v%s" % project_version
 	screen_size = get_viewport_rect().size
 	await UI.fade('IN')
-	$MenuPages/CentralPage/ButtonsContainer/StartButton.grab_focus()
+	$MenuPages/CentralPage/ButtonsCover/ButtonsContainer/StartButton.grab_focus()
 	
 	AudioManager.set_music("first_in_line-placeholder")
 

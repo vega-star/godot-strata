@@ -14,6 +14,7 @@ const alpha_modulation = 0.5
 @export var outline_color_on_damage : Color = Color.WHITE
 @export var deployed : bool = true
 @export var receives_knockback : bool = false
+@export var knockback_damping : float = 1.3
 @export var drifting : bool = true
 
 @onready var health_component = $HealthComponent
@@ -83,6 +84,9 @@ func _on_health_component_health_change(_previous_value, _new_value, type):
 	if Options.photosens_mode:
 		flicker_on = false
 	
+	if receives_knockback:
+		speed /= knockback_damping
+	
 	if type and flicker_on:
 		if has_shader:
 			var original_color : Color = self_sprite.material.get_shader_parameter("original_line_color")
@@ -98,3 +102,6 @@ func _on_health_component_health_change(_previous_value, _new_value, type):
 				await get_tree().create_timer(damage_effect_flicker).timeout
 				self_sprite.modulate = Color(255,255,255)
 				await get_tree().create_timer(damage_effect_flicker).timeout
+	
+	if receives_knockback:
+		speed *= knockback_damping

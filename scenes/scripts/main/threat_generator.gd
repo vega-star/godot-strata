@@ -3,9 +3,11 @@ extends Node
 # NODE FUNCTION: Instantiates and spawns enemies with their correct scenes and rules. 
 # Can recieve a random or a specific enemy call from ThreatManager. Random calls will never be bosses or minibosses.
 
+signal swarm_spawned
 signal enemy_spawned(enemy_name, type)
 signal enemy_loaded
 signal challenge_completed()
+signal load_available
 
 var use_sub_threads : bool = true
 var loaded_entity : PackedScene
@@ -58,10 +60,12 @@ func _process(delta):
 			printerr("ERROR LOADING SCENE | Scene path may be wrong or invalid")
 			return
 		1: #? THREAD_LOAD_IN_PROGRESS
-			emit_signal("progress_changed", entity_load_progress[0])
+			pass
+			# emit_signal("progress_changed", entity_load_progress[0])
 		3: #? THREAD_LOAD_LOADED
 			loaded_entity = ResourceLoader.load_threaded_get(entity_scene_path)
-			emit_signal("enemy_loaded")
+			enemy_loaded.emit()
+			load_available.emit()
 			set_process(false)
 
 func generate_threat(enemy, rule_override = null):
@@ -69,17 +73,27 @@ func generate_threat(enemy, rule_override = null):
 	var rules : Dictionary
 	var container = enemies_container
 	var invoke_challenge : bool = false
+	var selected_entity_scene = enemy_dict[enemy]["scene"]
 	
 	## Start
-	entity_scene_path = enemy_dict[enemy]["scene"]
-	var state = ResourceLoader.load_threaded_request(entity_scene_path, "", use_sub_threads)
-	if state == OK:
-		set_process(true)
+	if debug: print("Entity requested: {0} | Is other entity loading?: {1}".format({0:enemy, 1:entity_loading}))
+	if entity_scene_path == selected_entity_scene: pass ## Avoid reloading the same thing repeatedly
 	else:
-		printerr("ERROR REQUESTING SCENE | Scene path may be wrong or invalid")
-		return
+		entity_scene_path = selected_entity_scene
+		
+		if entity_loading: # If there's already one entity loading, wait for it to finish
+			await load_available
+		
+		entity_loading = true
+		var state = ResourceLoader.load_threaded_request(entity_scene_path, "", use_sub_threads)
+		if state == OK:
+			set_process(true)
+		else:
+			printerr("ERROR REQUESTING SCENE LOAD | Scene path may be wrong or invalid")
+			return
+		await enemy_loaded
+		entity_loading = false
 	
-	await enemy_loaded
 	var selected_enemy = loaded_entity.instantiate()
 	
 	if rule_override: # Rules forced by events
@@ -131,7 +145,8 @@ func generate_threat(enemy, rule_override = null):
 				"container_override":
 					container = rule_property
 				"set_boss_bar":
-					UI.UIOverlay.set_boss_bar(selected_enemy)
+					if rule_property:
+						UI.UIOverlay.set_boss_bar(selected_enemy)
 				_:
 					print('Unmatched rule detected: %s' % r)
 	else: # No rules - Random position, random proprieties, etc.
@@ -149,7 +164,10 @@ func generate_threat(enemy, rule_override = null):
 	if invoke_challenge:
 		selected_enemy.enemy_defeated.connect(_on_challenge_completed)
 	
+	## Finish spawning entity and clear conditionals
 	container.call_deferred("add_child", selected_enemy)
+	
+	## Emit signal and resume spawning
 	enemy_spawned.emit(enemy,enemy_dict[enemy]["type"])
 	return selected_enemy
 
@@ -173,8 +191,11 @@ func swarm_constructor(enemy_load, method, separation, amount, delay = 0):
 		
 		enemies_container.call_deferred("add_child", enemy) # Adds enemy to EnemiesContainer
 	
-	## Reset previous values
+	## Reset previous values and conditionals
 	rotation_angle = 0
+	swarm_spawned.emit()
 
 func _on_challenge_completed(): # Relays the signal to unpause timer
 	challenge_completed.emit()
+
+

@@ -3,10 +3,10 @@
 [ext_resource type="Script" path="res://entities/entity_scripts/diver.gd" id="1_2iv1h"]
 [ext_resource type="Material" uid="uid://cvfmn1g3c8nd3" path="res://assets/shaders/entities/enemy_outline.tres" id="2_mwyaq"]
 [ext_resource type="Texture2D" uid="uid://dxjy1yebwr8m8" path="res://assets/textures/entities/enemies/simple/diver.png" id="3_xrg1a"]
-[ext_resource type="PackedScene" uid="uid://c4rkui846g2ue" path="res://components/status/combat_component.tscn" id="4_qet5q"]
-[ext_resource type="PackedScene" uid="uid://cifxjpiop3cha" path="res://components/status/drop_component.tscn" id="5_midmp"]
-[ext_resource type="PackedScene" uid="uid://bdfaybp4djcn2" path="res://components/status/health_component.tscn" id="6_h12tl"]
-[ext_resource type="PackedScene" uid="uid://c3atqdge540t0" path="res://components/status/hitbox_component.tscn" id="7_wfhjd"]
+[ext_resource type="PackedScene" uid="uid://c4rkui846g2ue" path="res://status/combat_component.tscn" id="4_qet5q"]
+[ext_resource type="PackedScene" uid="uid://cifxjpiop3cha" path="res://status/drop_component.tscn" id="5_midmp"]
+[ext_resource type="PackedScene" uid="uid://bdfaybp4djcn2" path="res://status/health_component.tscn" id="6_h12tl"]
+[ext_resource type="PackedScene" uid="uid://c3atqdge540t0" path="res://status/hitbox_component.tscn" id="7_wfhjd"]
 
 [node name="Diver" type="Area2D" node_paths=PackedStringArray("self_sprite") groups=["enemy"]]
 collision_layer = 2
@@ -20,6 +20,8 @@ score_value = 5
 speed = 250
 self_contact_damage = 100
 self_sprite = NodePath("EnemySprite")
+receives_knockback = true
+knockback_damping = 1.5
 drifting = false
 bulk_updating = true
 

@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://bfy4edhtjb4rs"]
 
-[ext_resource type="Script" path="res://components/status/health_bar_component.gd" id="1_2fa61"]
+[ext_resource type="Script" path="res://status/health_bar_component.gd" id="1_2fa61"]
 [ext_resource type="Theme" uid="uid://b1a5sjt2xibwo" path="res://assets/themes/strata_theme/strata_theme.tres" id="2_o6yl7"]
 [ext_resource type="Texture2D" uid="uid://d4kflkwb5sakl" path="res://assets/themes/strata_theme/elements/styleboxes/enemy_health_bar.png" id="3_yqs0l"]
 

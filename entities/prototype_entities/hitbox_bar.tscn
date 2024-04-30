@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://entities/entity_scripts/hitbox_bar.gd" id="1_aeh8c"]
 [ext_resource type="Texture2D" uid="uid://dea3eaanbvulw" path="res://assets/textures/projectiles/hitbox_bar_texture.png" id="2_8y3t4"]
-[ext_resource type="PackedScene" uid="uid://c3atqdge540t0" path="res://components/status/hitbox_component.tscn" id="7_t7rsv"]
+[ext_resource type="PackedScene" uid="uid://c3atqdge540t0" path="res://status/hitbox_component.tscn" id="7_t7rsv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tq5bo"]
 size = Vector2(32.8572, 1574.29)

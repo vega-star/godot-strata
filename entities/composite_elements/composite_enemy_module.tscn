@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=3 uid="uid://vi1edwldfrtq"]
 
 [ext_resource type="Script" path="res://entities/composite_elements/composite_enemy_module.gd" id="1_xkhq3"]
-[ext_resource type="PackedScene" uid="uid://bdfaybp4djcn2" path="res://components/status/health_component.tscn" id="2_0d728"]
+[ext_resource type="PackedScene" uid="uid://bdfaybp4djcn2" path="res://status/health_component.tscn" id="2_0d728"]
 [ext_resource type="AudioStream" uid="uid://dcic3ms3y8ujj" path="res://assets/audio/effects/default_damage.wav" id="2_1u6xe"]
-[ext_resource type="PackedScene" uid="uid://c4rkui846g2ue" path="res://components/status/combat_component.tscn" id="3_1pvw1"]
+[ext_resource type="PackedScene" uid="uid://c4rkui846g2ue" path="res://status/combat_component.tscn" id="3_1pvw1"]
 
 [node name="CompositeEnemyModule" type="Area2D" node_paths=PackedStringArray("hitsound_emitter", "health_component", "combat_component") groups=["enemy"]]
 light_mask = 2

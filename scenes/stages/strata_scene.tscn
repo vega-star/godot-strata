@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://b81qbneypd7pp" path="res://scenes/stages/parallax/simulated_parallax.tscn" id="4_sk8ph"]
 [ext_resource type="Script" path="res://scenes/scripts/main/stage_camera.gd" id="6_cvf0c"]
 
-[node name="StrataScene" type="Node2D" node_paths=PackedStringArray("stage_parallax")]
+[node name="StrataScene" type="Node2D" node_paths=PackedStringArray("stage_parallax") groups=["stage"]]
 light_mask = 2
 visibility_layer = 2
 script = ExtResource("1_yvb6t")

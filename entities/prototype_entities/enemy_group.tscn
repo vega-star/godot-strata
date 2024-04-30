@@ -3,8 +3,8 @@
 [ext_resource type="Script" path="res://entities/entity_scripts/enemy.gd" id="1_dkhgf"]
 [ext_resource type="Script" path="res://entities/entity_scripts/enemy_group.gd" id="1_mk7bm"]
 [ext_resource type="Texture2D" uid="uid://dq4s3s0h3le1a" path="res://assets/textures/prototypes/enemy_test_sprite.png" id="2_rp8pv"]
-[ext_resource type="PackedScene" uid="uid://bdfaybp4djcn2" path="res://components/status/health_component.tscn" id="3_6t1oy"]
-[ext_resource type="PackedScene" uid="uid://c3atqdge540t0" path="res://components/status/hitbox_component.tscn" id="4_ni2dk"]
+[ext_resource type="PackedScene" uid="uid://bdfaybp4djcn2" path="res://status/health_component.tscn" id="3_6t1oy"]
+[ext_resource type="PackedScene" uid="uid://c3atqdge540t0" path="res://status/hitbox_component.tscn" id="4_ni2dk"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tq5bo"]
 size = Vector2(50, 50)

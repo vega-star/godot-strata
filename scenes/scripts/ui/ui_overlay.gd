@@ -102,16 +102,16 @@ extends CanvasLayer
 			"short_container_sprite_path": "res://assets/textures/ui/hud/diamond/diamond_short_container.png"
 		},
 		"containers": {
-			"container_size_h": 26,
-			"container_size_y": 32,
-			"short_container_size_h": 0,
-			"short_container_size_y": 32
+			"container_size_h": 22,
+			"container_size_y": 28,
+			"short_container_size_h": 12,
+			"short_container_size_y": 28
 		},
 		"cells": {
-			"cell_size_h": 26,
-			"cell_size_y": 32,
-			"short_cell_size_h": 16,
-			"short_cell_size_y": 32
+			"cell_size_h": 22,
+			"cell_size_y": 28,
+			"short_cell_size_h": 12,
+			"short_cell_size_y": 28
 		}
 	}
 }

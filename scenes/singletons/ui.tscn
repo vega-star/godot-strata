@@ -32,6 +32,5 @@ visible = false
 follow_viewport_enabled = true
 
 [node name="ScreenTransitionLayer" parent="." instance=ExtResource("5_qtspi")]
-layer = 10
 visible = false
 debug = true

@@ -4,9 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://dvut4oj0nogn0" path="res://components/general/trail_component.tscn" id="2_ev3b1"]
 [ext_resource type="Script" path="res://entities/player/muzzle_manager.gd" id="3_b38vo"]
 [ext_resource type="Gradient" uid="uid://c5kd3f3qroioy" path="res://components/general/player_trail_gradient.tres" id="3_mqeqd"]
-[ext_resource type="PackedScene" uid="uid://bdfaybp4djcn2" path="res://components/status/health_component.tscn" id="3_pgpvp"]
 [ext_resource type="Gradient" uid="uid://cfxv6smisdawi" path="res://entities/player/burnout_gradient.tres" id="4_li0o3"]
-[ext_resource type="PackedScene" uid="uid://c3atqdge540t0" path="res://components/status/hitbox_component.tscn" id="4_vxsth"]
 [ext_resource type="Material" uid="uid://bhxdepbofekt5" path="res://assets/shaders/entities/default_outline.tres" id="5_cmg0g"]
 [ext_resource type="Texture2D" uid="uid://dym7sgg43j63f" path="res://assets/textures/entities/player/artemis/artemis-move-up.png" id="6_k2svw"]
 [ext_resource type="PackedScene" uid="uid://bocnfn48ib66i" path="res://components/modules/equipment_module.tscn" id="7_0klvy"]
@@ -14,7 +12,9 @@
 [ext_resource type="Texture2D" uid="uid://vdotyl704dqi" path="res://assets/textures/entities/player/artemis/artemis-move-down.png" id="7_um8ao"]
 [ext_resource type="Texture2D" uid="uid://fc40jb673qac" path="res://assets/textures/entities/player/artemis/artemis-roll-back.png" id="10_ufq62"]
 [ext_resource type="Texture2D" uid="uid://csy8wcaaaiq2a" path="res://assets/textures/entities/player/artemis/artemis-roll-front.png" id="11_o1yfi"]
-[ext_resource type="PackedScene" uid="uid://c4rkui846g2ue" path="res://components/status/combat_component.tscn" id="11_vuel5"]
+[ext_resource type="PackedScene" uid="uid://c4rkui846g2ue" path="res://status/combat_component.tscn" id="12_u7fws"]
+[ext_resource type="PackedScene" uid="uid://bdfaybp4djcn2" path="res://status/health_component.tscn" id="14_0w6r6"]
+[ext_resource type="PackedScene" uid="uid://c3atqdge540t0" path="res://status/hitbox_component.tscn" id="15_14evk"]
 
 [sub_resource type="Animation" id="Animation_t4tnf"]
 length = 0.001
@@ -829,16 +829,16 @@ libraries = {
 }
 speed_scale = 2.0
 
-[node name="CombatComponent" parent="." instance=ExtResource("11_vuel5")]
+[node name="CombatComponent" parent="." instance=ExtResource("12_u7fws")]
 debug = true
 
 [node name="EquipmentModule" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("7_0klvy")]
 health_component = NodePath("../HealthComponent")
 
-[node name="HealthComponent" parent="." instance=ExtResource("3_pgpvp")]
+[node name="HealthComponent" parent="." instance=ExtResource("14_0w6r6")]
 max_health = 3
 
-[node name="HitboxComponent" parent="." node_paths=PackedStringArray("hitbox", "health_component") instance=ExtResource("4_vxsth")]
+[node name="HitboxComponent" parent="." node_paths=PackedStringArray("hitbox", "health_component") instance=ExtResource("15_14evk")]
 collision_mask = 10
 input_pickable = false
 hitbox = NodePath("PlayerHitbox")

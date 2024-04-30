@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://cxk85efxpd3at"]
 
-[ext_resource type="PackedScene" uid="uid://bdfaybp4djcn2" path="res://components/status/health_component.tscn" id="1_ocevq"]
+[ext_resource type="PackedScene" uid="uid://bdfaybp4djcn2" path="res://status/health_component.tscn" id="1_ocevq"]
 [ext_resource type="Script" path="res://entities/composite_elements/composite_shielding.gd" id="1_ueq1y"]
 [ext_resource type="AudioStream" uid="uid://dcic3ms3y8ujj" path="res://assets/audio/effects/default_damage.wav" id="2_ffdec"]
 

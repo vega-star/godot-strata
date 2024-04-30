@@ -12,7 +12,7 @@ uniform bool show_scanlines = true;
 uniform float scanline_count : hint_range(0, 1800) = 50.0;
 uniform bool scanline_movement = false;
 uniform float scanline_movement_speed = 1.0;
-uniform float screen_stability = 4.0;
+uniform float screen_stability = 5.0;
 uniform float chromatic_aberration = 2;
 
 vec2 uv_curve(vec2 uv)

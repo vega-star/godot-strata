@@ -23,6 +23,7 @@ var weapons_dict : Dictionary
 @onready var self_sprite = $CESprite
 @onready var self_hitbox = $HitboxComponent
 @onready var composite_parts_root = $CompositeParts
+@onready var health_component = $HealthComponent
 @onready var barriers = $Barriers
 @onready var player = get_tree().get_first_node_in_group('player')
 
@@ -55,6 +56,7 @@ func _ready():
 		part.cm_update.connect(update_composite_status)
 		part.cm_weapon_update.connect(update_weapon_status)
 		weapons_dict[part.name] = {
+			"node": part,
 			"active": true
 		}
 
