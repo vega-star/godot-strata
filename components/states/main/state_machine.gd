@@ -21,10 +21,14 @@ class_name StateMachine
 @export var initial_state : State
 @export var state_conditions : Dictionary = {}
 
+var entity : Node
 var current_state : State
 var states : Dictionary = {}
 
 func _ready():
+	entity = owner
+	print(entity)
+	
 	for child in get_children():
 		if child is State:
 			states[child.name.to_lower()] = child

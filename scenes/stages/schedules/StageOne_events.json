@@ -1,4 +1,27 @@
 {
+    "spawn_kobold": {
+        "event_type": "spawn_enemy",
+        "event_description": "Spawn a cluster of enemies using the swarm rule set.",
+        "event_icon": true,
+        "set_timer": true,
+        "has_rules": true,
+        "event_properties": {
+            "enemy": "kobold",
+            "event_timer": {
+                "pause_stage_timer": false,
+                "timer_period": 5.0
+            },
+            "rules": {
+                "spawn_override": "center", 
+                "swarm": {
+                    "method": 0, 
+                    "separation": 77,
+                    "amount": 5,
+                    "delay": 0
+                }
+            }
+        }
+    },
     "spawn_few_enemies": {
         "event_type": "spawn_enemy",
         "event_description": "Spawn a cluster of enemies using the swarm rule set.",
@@ -18,6 +41,52 @@
                     "separation": 30,
                     "amount": 5,
                     "delay": 1
+                }
+            }
+        }
+    },
+    "spawn_bulwark": {
+        "event_type": "spawn_enemy",
+        "event_description": "Spawn a cluster of enemies using the swarm rule set.",
+        "event_icon": true,
+        "set_timer": true,
+        "has_rules": true,
+        "event_properties": {
+            "enemy": "bulwark",
+            "event_timer": {
+                "pause_stage_timer": false,
+                "timer_period": 5.0
+            },
+            "rules": {
+                "spawn_override": "top", 
+                "swarm": {
+                    "method": 0, 
+                    "separation": 77,
+                    "amount": 5,
+                    "delay": 0
+                }
+            }
+        }
+    },
+    "spawn_bulwark_below": {
+        "event_type": "spawn_enemy",
+        "event_description": "Spawn a cluster of enemies using the swarm rule set.",
+        "event_icon": false,
+        "set_timer": true,
+        "has_rules": true,
+        "event_properties": {
+            "enemy": "bulwark",
+            "event_timer": {
+                "pause_stage_timer": false,
+                "timer_period": 5.0
+            },
+            "rules": {
+                "spawn_override": "bottom", 
+                "swarm": {
+                    "method": 0, 
+                    "separation": 77,
+                    "amount": 5,
+                    "delay": 0
                 }
             }
         }

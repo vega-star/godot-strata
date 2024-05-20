@@ -5,50 +5,49 @@
 
 shader_type canvas_item;
 
-const float scanline_alpha = 0.4;
+const float scanline_alpha = 0.5;
 
 uniform sampler2D SCREEN_TEXTURE : hint_screen_texture, filter_linear_mipmap;
 uniform bool show_scanlines = true;
 uniform float scanline_count : hint_range(0, 1800) = 50.0;
 uniform bool scanline_movement = false;
 uniform float scanline_movement_speed = 1.0;
-uniform float screen_stability = 5.0;
+uniform float screen_stability = 2.0;
 uniform float chromatic_aberration = 2;
 
 vec2 uv_curve(vec2 uv)
 {
 	uv = (uv - 0.5) * 2.0;
 	
-	//You can modify the numbers and try different values. Higher stability means a less distorted screen
-	uv.x *= 1.0 + pow(abs(uv.y) / 2.0, screen_stability);
-	uv.y *= 1.0 + pow(abs(uv.x) / 2.0, screen_stability);
+	//You can modify the numbers and try different values
+	uv.x *= 1.0 + pow(abs(uv.y) / 5.0, screen_stability);
+	uv.y *= 1.0 + pow(abs(uv.x) / 5.0, screen_stability);
 	
-	//You can alter the screen scale if screen distortion is pushing things out of the screen (or a style decision)
+	//The scale part (you can delete it when you want)
 	uv /= 1.0;
 	
 	uv = (uv/2.0) + 0.5;
 	return uv;
 }
 
+
 void fragment()
-{	
-	// Setting movement
-	vec2 moving_vector = vec2(UV.x, UV.y-(TIME * scanline_movement_speed));
-	vec4 scan_line = vec4(1.0);
+{
+	vec4 scan_line;
 	
 	//You can modify the *3.0, *-3.0 for a bigger or smaller 
 	float r = texture(SCREEN_TEXTURE, uv_curve(SCREEN_UV) + vec2(SCREEN_PIXEL_SIZE.x*0.0), 0.0).r;
-	float g = texture(SCREEN_TEXTURE, uv_curve(SCREEN_UV) + vec2(SCREEN_PIXEL_SIZE.x*chromatic_aberration), 0.0).g;
-	float b = texture(SCREEN_TEXTURE, uv_curve(SCREEN_UV) + vec2(SCREEN_PIXEL_SIZE.x*-chromatic_aberration), 0.0).b;
+	float g = texture(SCREEN_TEXTURE, uv_curve(SCREEN_UV) + vec2(SCREEN_PIXEL_SIZE.x*3.0), 0.0).g;
+	float b = texture(SCREEN_TEXTURE, uv_curve(SCREEN_UV) + vec2(SCREEN_PIXEL_SIZE.x*-3.0), 0.0).b;
+	
 	
 	//If you dont want scanlines you can just delete this part
-	if (show_scanlines == true) {
+	if ( show_scanlines == true ) {
 		float s = sin(uv_curve(SCREEN_UV).y * scanline_count * PI * 2.0);
 		s = (s * 0.5 + 0.5) * 0.9 + 0.1;
-		scan_line = vec4(vec3(pow(s, 0.35)), scanline_alpha);
-	}
+		scan_line = vec4(vec3(pow(s, 0.25)), scanline_alpha);
+	};
+	
 	
 	COLOR = vec4(r, g, b, 1.0) * scan_line;
-	
-	vec4 in_texture = texture(TEXTURE, moving_vector);
 }

@@ -8,9 +8,9 @@
 [ext_resource type="Texture2D" uid="uid://cbun8bbb2ep1r" path="res://assets/textures/projectiles/default_missile_thrust_trail.png" id="4_epvtp"]
 [ext_resource type="Texture2D" uid="uid://c6oqa6vxjxmml" path="res://assets/textures/projectiles/enemy_missile.png" id="4_glxim"]
 [ext_resource type="Texture2D" uid="uid://dt1xcc7ykfdhp" path="res://assets/textures/prototypes/explosion_area.png" id="6_df74l"]
-[ext_resource type="PackedScene" uid="uid://bdfaybp4djcn2" path="res://status/health_component.tscn" id="6_rn2ep"]
-[ext_resource type="PackedScene" uid="uid://c4rkui846g2ue" path="res://status/combat_component.tscn" id="7_djk1g"]
-[ext_resource type="PackedScene" uid="uid://c3atqdge540t0" path="res://status/hitbox_component.tscn" id="7_vquhg"]
+[ext_resource type="PackedScene" uid="uid://bdfaybp4djcn2" path="res://components/status/health_component.tscn" id="6_rn2ep"]
+[ext_resource type="PackedScene" uid="uid://c4rkui846g2ue" path="res://components/status/combat_component.tscn" id="7_djk1g"]
+[ext_resource type="PackedScene" uid="uid://c3atqdge540t0" path="res://components/status/hitbox_component.tscn" id="7_vquhg"]
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_jpsuv"]
 lifetime_randomness = 0.58
@@ -57,6 +57,7 @@ bus = &"Effects"
 [node name="ExplosionSound" type="AudioStreamPlayer2D" parent="."]
 position = Vector2(11, 0)
 stream = ExtResource("2_kmtqk")
+volume_db = -5.0
 panning_strength = 1.5
 bus = &"Effects"
 
@@ -92,7 +93,6 @@ amount = 15
 process_material = SubResource("ParticleProcessMaterial_jpsuv")
 
 [node name="SelfProjectileBox" type="CollisionShape2D" parent="."]
-visible = false
 modulate = Color(0.686275, 0, 0.164706, 1)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_wifd6")
@@ -110,7 +110,7 @@ max_health = 2
 
 [node name="HitboxComponent" parent="." node_paths=PackedStringArray("simple_hitbox", "health_component", "combat_component") instance=ExtResource("7_vquhg")]
 collision_layer = 8
-collision_mask = 5
+collision_mask = 7
 simple_hitbox = NodePath("ProjectileRadius")
 health_component = NodePath("../HealthComponent")
 combat_component = NodePath("../CombatComponent")

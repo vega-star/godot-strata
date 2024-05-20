@@ -1,7 +1,6 @@
 [gd_scene load_steps=25 format=3 uid="uid://3js2ufvdnk2k"]
 
 [ext_resource type="Script" path="res://scenes/scripts/ui/menu_central_page.gd" id="1_gad2b"]
-[ext_resource type="PackedScene" uid="uid://c8sis2bmuopvk" path="res://scenes/ui/menu_bg.tscn" id="1_ijhm3"]
 [ext_resource type="Script" path="res://scenes/ui/central_menu_effect.gd" id="2_36efi"]
 [ext_resource type="Texture2D" uid="uid://drajfpsohsrud" path="res://assets/textures/static/menu_effect_left.png" id="3_imkp2"]
 [ext_resource type="Theme" uid="uid://b1a5sjt2xibwo" path="res://assets/themes/strata_theme/strata_theme.tres" id="3_l8my2"]
@@ -10,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://c2vd5a4tvc1kw" path="res://scenes/ui/ui_default_button.tscn" id="4_hujtw"]
 [ext_resource type="Texture2D" uid="uid://bmpah4ugbbs2w" path="res://assets/textures/static/zero.png" id="5_6d0yf"]
 [ext_resource type="Texture2D" uid="uid://b7ng4wgr4xch8" path="res://assets/textures/static/strata_logo.png" id="5_61mfq"]
+[ext_resource type="Script" path="res://scenes/scripts/ui/ui_default_button.gd" id="7_gmx1c"]
 [ext_resource type="Texture2D" uid="uid://4qon6fwk2k6q" path="res://assets/textures/static/youtube.png" id="8_gfkgt"]
 [ext_resource type="Texture2D" uid="uid://c48tvc2reemnq" path="res://assets/textures/static/github_small.png" id="8_grpau"]
 [ext_resource type="Texture2D" uid="uid://bivosg7gi3xsk" path="res://assets/textures/static/youtube_filled.png" id="9_4afs7"]
@@ -181,9 +181,6 @@ motion_mirroring = Vector2(0, 540)
 position = Vector2(681, 270)
 texture = ExtResource("4_3lqmx")
 
-[node name="MenuBG" parent="." instance=ExtResource("1_ijhm3")]
-visible = false
-
 [node name="ButtonsCover" type="Sprite2D" parent="."]
 position = Vector2(480, 681)
 texture = ExtResource("3_sguk8")
@@ -204,6 +201,7 @@ layout_mode = 2
 theme = ExtResource("3_l8my2")
 disabled = true
 text = "CONTINUE"
+script = ExtResource("7_gmx1c")
 
 [node name="StartButton" parent="ButtonsCover/ButtonsContainer" instance=ExtResource("4_hujtw")]
 layout_mode = 2
@@ -258,10 +256,10 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 15.0
-offset_top = -145.0
-offset_right = 75.0
-offset_bottom = -21.0
+offset_left = 975.0
+offset_top = 395.0
+offset_right = 1035.0
+offset_bottom = 519.0
 grow_horizontal = 0
 grow_vertical = 0
 theme_override_constants/separation = 4

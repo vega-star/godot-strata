@@ -3,7 +3,9 @@ extends Control
 func set_focus(): $ButtonsCover/ButtonsContainer/StartButton.grab_focus()
 
 func _ready():
-	if OS.has_feature("web"): $Links/ItchIoLink.visible = false
+	if OS.has_feature("web"): # Web patches
+		$Links/ItchIoLink.visible = false
+		$ButtonsCover/ButtonsContainer/QuitButton.visible = false
 	
 	if OS.is_debug_build():
 		$ButtonsCover/ButtonsContainer/ProfileButton.disabled = false

@@ -15,6 +15,7 @@ var enemy_name = "composite_enemy"
 var player_y_position : float
 var weapons_dict : Dictionary
 @export var speed = 150
+@export var maneuver_speed = 0.2
 @export var rotation_speed = 0.9
 @export var contact_damage = 1
 @export var set_health_bar : bool = true

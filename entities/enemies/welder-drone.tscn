@@ -3,10 +3,10 @@
 [ext_resource type="Script" path="res://entities/entity_scripts/welder-drone.gd" id="1_iv68o"]
 [ext_resource type="Material" uid="uid://cvfmn1g3c8nd3" path="res://assets/shaders/entities/enemy_outline.tres" id="2_mehsa"]
 [ext_resource type="Texture2D" uid="uid://2ealghurwnqp" path="res://assets/textures/entities/enemies/simple/welder-drone.png" id="2_vwetp"]
-[ext_resource type="PackedScene" uid="uid://c4rkui846g2ue" path="res://status/combat_component.tscn" id="3_j5ccl"]
-[ext_resource type="PackedScene" uid="uid://cifxjpiop3cha" path="res://status/drop_component.tscn" id="4_pucv4"]
-[ext_resource type="PackedScene" uid="uid://bdfaybp4djcn2" path="res://status/health_component.tscn" id="5_icfaq"]
-[ext_resource type="PackedScene" uid="uid://c3atqdge540t0" path="res://status/hitbox_component.tscn" id="6_5s14k"]
+[ext_resource type="PackedScene" uid="uid://c4rkui846g2ue" path="res://components/status/combat_component.tscn" id="3_j5ccl"]
+[ext_resource type="PackedScene" uid="uid://cifxjpiop3cha" path="res://components/status/drop_component.tscn" id="4_pucv4"]
+[ext_resource type="PackedScene" uid="uid://bdfaybp4djcn2" path="res://components/status/health_component.tscn" id="5_icfaq"]
+[ext_resource type="PackedScene" uid="uid://c3atqdge540t0" path="res://components/status/hitbox_component.tscn" id="6_5s14k"]
 [ext_resource type="PackedScene" uid="uid://btwqvvv1ehwdu" path="res://entities/prototype_entities/healing_gun.tscn" id="7_ont5y"]
 [ext_resource type="Texture2D" uid="uid://t35ca7c4e6yj" path="res://assets/textures/projectiles/healing-orb.png" id="8_odv24"]
 
@@ -29,7 +29,6 @@ texture = ExtResource("2_vwetp")
 [node name="SelfCollision" type="CollisionShape2D" parent="."]
 visible = false
 position = Vector2(0.357142, 0.357144)
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_tq5bo")
 debug_color = Color(0, 0.6, 0.701961, 0)
 

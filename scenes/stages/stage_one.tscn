@@ -12,7 +12,7 @@ visibility_layer = 2
 script = ExtResource("1_c7hg7")
 stage_id = "StageOne"
 stage_title = "STAGE ONE"
-stage_description = "INVASION"
+stage_description = "FIRST CONTACT"
 stage_ending_text = "RETURNING TO STAGE SELECTION"
 stage_parallax = NodePath("FirstStageParallax")
 

@@ -4,6 +4,13 @@ signal options_changed
 
 const keybind_file_path = "res://data/keybinding_reg.json"
 const config_file_path = "user://config.cfg"
+const screen_dict : Array = [
+	"WINDOWED",
+	"WINDOWED + BORDERLESS",
+	"MAXIMIZED",
+	"FULLSCREEN",
+	"EXCLUSIVE FULLSCREEN"
+]
 var config_file = ConfigFile.new()
 var config_file_load = config_file.load(config_file_path) 
 
@@ -73,6 +80,14 @@ func _ready():
 		config_file.save(config_file_path)
 	
 	if visible: visible = false # Just in case I forgot to make this node invisible after making UI changes
+	
+	# Setting some menu's based on distant node configurations
+	await UI.ready
+	for key in UI.ScreenEffect.effects:
+		$OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons/VisualEffects/VisualEffectsMenu.add_item(key)
+	
+	for mode in screen_dict:
+		$OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons/ScreenMode/ScreenModeMenu.add_item(mode)
 
 func _exit(): # Clean temporary data and reset signal
 	Options.visible = false
@@ -88,6 +103,9 @@ func _input(event): # Able the player to exit options screen using actions, need
 		# This is useful to fill key_dict manually, and I think it's faster than searching in docs.
 		if event is InputEventKey: 
 			print(event.get_keycode_with_modifiers()) 
+
+func _emit_sound(sound_id : String):
+	AudioManager.emit_sound_effect(null, sound_id, false, true)
 
 func _on_reset_default_keybinds_button(): # Prompt to reset keybindings, preventing players from resetting accidentally
 	$OptionsControl/ResetBinds.visible = true

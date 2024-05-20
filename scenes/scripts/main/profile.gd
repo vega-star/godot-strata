@@ -152,7 +152,7 @@ func reset_run_data():
 
 func start_run():
 	var start_time = Time.get_unix_time_from_system()
-	reset_run_data()
+	await reset_run_data()
 	
 	current_run_data.set_value("RUN_DETAILS", "SUCCESS", false)
 	current_run_data.set_value("RUN_DETAILS", "STARTED_AT", start_time)
@@ -223,10 +223,9 @@ func save_previous_data():
 	previous_run_data.save(previous_run_data_path)
 
 func load_previous_data():
-	# await reset_run_data()
-	print(previous_run_data.get_sections())
+	await reset_run_data()
 	current_run_data = previous_run_data
-	save_active_data()
+	await save_active_data()
 
 func save_active_data(close : bool = false):
 	current_run_data.save(current_run_data_path)

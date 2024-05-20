@@ -1,0 +1,53 @@
+[gd_scene load_steps=9 format=3 uid="uid://bp1tdscfgeg0w"]
+
+[ext_resource type="Script" path="res://entities/entity_scripts/composite_enemy_barrier.gd" id="1_tgihl"]
+[ext_resource type="AudioStream" uid="uid://603bgij057tr" path="res://assets/audio/effects/bulwark_shield_reset.wav" id="2_2eiti"]
+[ext_resource type="Texture2D" uid="uid://04edr73iton4" path="res://assets/textures/entities/enemies/bulwark/bulwark_shield.png" id="2_60fi8"]
+[ext_resource type="AudioStream" uid="uid://d11eq87yby6pk" path="res://assets/audio/effects/shield_hum.wav" id="3_1pyw5"]
+[ext_resource type="PackedScene" uid="uid://c4rkui846g2ue" path="res://components/status/combat_component.tscn" id="4_driop"]
+[ext_resource type="Script" path="res://components/status/health_component.gd" id="5_pe4dd"]
+[ext_resource type="PackedScene" uid="uid://c3atqdge540t0" path="res://components/status/hitbox_component.tscn" id="6_3m6aj"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_82eko"]
+height = 72.0
+
+[node name="BulwarkShield" type="Node2D" groups=["shield"]]
+light_mask = 2
+visibility_layer = 2
+script = ExtResource("1_tgihl")
+
+[node name="ShieldRechargeSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_2eiti")
+volume_db = -7.385
+autoplay = true
+bus = &"Effects"
+area_mask = 2
+
+[node name="ActiveShieldSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_1pyw5")
+volume_db = -5.0
+autoplay = true
+attenuation = 5.0
+bus = &"Effects"
+area_mask = 2
+
+[node name="BarrierSprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_60fi8")
+
+[node name="CombatComponent" parent="." instance=ExtResource("4_driop")]
+
+[node name="HealthComponent" type="Node" parent="." groups=["shielding"]]
+script = ExtResource("5_pe4dd")
+max_health = 5
+
+[node name="HitboxComponent" parent="." node_paths=PackedStringArray("simple_hitbox", "health_component", "combat_component") groups=["shielding"] instance=ExtResource("6_3m6aj")]
+collision_layer = 2
+collision_mask = 5
+simple_hitbox = NodePath("BarrierHitbox")
+health_component = NodePath("../HealthComponent")
+combat_component = NodePath("../CombatComponent")
+immunity_frame_limit = 3
+
+[node name="BarrierHitbox" type="CollisionShape2D" parent="HitboxComponent"]
+position = Vector2(7, 0)
+shape = SubResource("CapsuleShape2D_82eko")

@@ -2,8 +2,12 @@
 
 [ext_resource type="Script" path="res://components/general/keybind_button.gd" id="1_dx471"]
 
-[node name="UP_button" type="Button"]
+[node name="KeybindButton" type="Button"]
 custom_minimum_size = Vector2(60, 0)
 focus_mode = 0
 theme_override_font_sizes/font_size = 50
 script = ExtResource("1_dx471")
+
+[connection signal="focus_entered" from="." to="." method="_on_focus_entered"]
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="pressed" from="." to="." method="_on_pressed"]

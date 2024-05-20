@@ -172,20 +172,40 @@ func generate_threat(enemy, rule_override = null):
 	return selected_enemy
 
 func swarm_constructor(enemy_load, method, separation, amount, delay = 0):
+	var distance : int = 1
+	var direction : bool = true
+	
 	for n in amount:
 		var enemy = enemy_load.instantiate()
 		enemy.set_rotation_degrees(rotation_angle)
 		enemy.global_position = initial_global_position
+		
 		match int(method): # Defines the format the swarm will be spawned
-			0: # Vertical
-				enemy.global_position.y -= separation * n
+			0: # Centralized vertical
+				if n == 0: pass
+				else:
+					if direction:
+						enemy.global_position.y -= separation * distance
+						direction = false
+					else: 
+						enemy.global_position.y += separation * distance
+						direction = true
+					
+					if int(n) % 2 == 1: pass
+					else: distance += 1 # If the amount is odd, increase distance in 1. This guarantees spawning from a central point
 			1: # Horizontal
 				enemy.global_position.x += separation * n
 			2: # Random
 				var rand_position = spawn_area.position + Vector2(randf() * spawn_area.size.x, randf() * spawn_area.size.y)
 				enemy.global_position = rand_position
+			3: # Vertical up
+				enemy.global_position.y -= separation * distance
+			4: # Vertical down
+				enemy.global_position.y += separation * distance
 			_:
 				print('No method for swarm spawning, they will spawn on top of each other')
+			
+			
 		if delay > 0:
 			await get_tree().create_timer(delay).timeout
 		

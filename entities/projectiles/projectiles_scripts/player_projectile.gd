@@ -25,7 +25,10 @@ func _ready():
 	projectile_sound.play()
 
 func _physics_process(delta):
-	global_position.x += projectile_speed * delta
+	global_position += Vector2(
+		projectile_speed * delta,
+		0
+	).rotated(rotation)
 
 func _on_outside_screen_check_exit_detected():
 	queue_free()
@@ -40,13 +43,14 @@ func _on_hitbox_area_entered(area):
 	if area is HitboxComponent:
 		
 		enemy_pass_count += 1
+		check_pass_count()
 		
 		for group in area.owner.get_groups():
 			match group:
 				'shielding', 'shield':
 					enemy_pass_count += 10
 					damage_buildup = projectile_damage * penetration_factor
-					check_pass_count()
+					check_pass_count() # Check again to stop immediately
 				'miniboss', 'boss':
 					damage_buildup = projectile_damage * damage_factor_against_bosses
 				'core':

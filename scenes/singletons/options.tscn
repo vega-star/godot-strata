@@ -111,19 +111,9 @@ focus_neighbor_right = NodePath("../../../../Binds/BindGrids/BindGridLeft/UP_B")
 focus_neighbor_bottom = NodePath("../../VolumeContainer/MasterVol/Master_Toggle/Master_Slider")
 theme = ExtResource("1_yjy47")
 text_overrun_behavior = 4
-item_count = 4
-selected = 0
-popup/item_0/text = "NO EFFECT"
-popup/item_0/id = 0
-popup/item_1/text = "FIXED RESSURECT64"
-popup/item_1/id = 2
-popup/item_2/text = "LIGHT CRT"
-popup/item_2/id = 4
-popup/item_3/text = "OLD-SCHOOL CRT"
-popup/item_3/id = 3
+fit_to_longest_item = false
 
 [node name="ScreenMode" type="Label" parent="OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons"]
-visible = false
 custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
 text = "SCREEN"
@@ -145,18 +135,7 @@ grow_vertical = 0
 focus_neighbor_right = NodePath("../../../../Binds/BindGrids/BindGridLeft/UP_B")
 focus_neighbor_bottom = NodePath("../../VolumeContainer/MasterVol/Master_Toggle/Master_Slider")
 theme = ExtResource("1_yjy47")
-item_count = 5
-selected = 0
-popup/item_0/text = "WINDOWED"
-popup/item_0/id = 0
-popup/item_1/text = "BORDERLESS WINDOWED"
-popup/item_1/id = 1
-popup/item_2/text = "MAXIMIZED"
-popup/item_2/id = 2
-popup/item_3/text = "FULLSCREEN"
-popup/item_3/id = 3
-popup/item_4/text = "EXCLUSIVE FULLSCREEN"
-popup/item_4/id = 4
+fit_to_longest_item = false
 
 [node name="VolumeContainer" type="VBoxContainer" parent="OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons"]
 custom_minimum_size = Vector2(0, 115)

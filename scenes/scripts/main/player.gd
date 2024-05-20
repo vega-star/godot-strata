@@ -178,13 +178,13 @@ func _physics_process(delta): # General movement function
 				direction = Vector2.RIGHT
 		
 		dash_cooldown = true
-		$TrailComponent.burst(true)
+		$TrailNode/TrailComponent.burst(true)
 		var target_direction = direction.normalized()
 		velocity = target_direction * dash_speed
 		
 		# await get_tree().create_timer((dash_cooldown_timer * dash_cooldown_factor) * delta, false, true).timeout
 		await get_tree().create_timer(dash_cooldown_timer * dash_cooldown_factor, false).timeout
-		$TrailComponent.burst(false)
+		$TrailNode/TrailComponent.burst(false)
 		dash_cooldown = false
 	
 	if damage_knockback:

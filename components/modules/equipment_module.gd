@@ -207,6 +207,7 @@ func _on_player_primary_fired(start_position):
 		heat_updated.emit(selected_primary_heat, true)
 		
 		var primary_shot = primary_weapon_scene.instantiate()
+		primary_shot.rotation_degrees = owner.rotation_degrees
 		primary_shot.global_position = start_position
 		primary_shot.projectile_damage *= primary_damage_factor
 		projectile_container.add_child(primary_shot)

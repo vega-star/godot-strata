@@ -15,8 +15,8 @@ const bar_fadeout_time : float = 3
 @export var debug : bool = false
 
 ## Properties
-var boss_node
 var bar_size
+var boss_node
 var boss_health_component : HealthComponent
 
 ## Icons
@@ -43,19 +43,21 @@ func _ready():
 
 func set_boss_bar(new_boss_node):
 	boss_node = new_boss_node
-	
-	ui_animation_player.play_backwards("toggle_progress_bar")
-	ui_animation_player.play("toggle_boss_bar")
 	await boss_node.ready
-	
-	## Preparing boss bar
 	boss_health_component = boss_node.health_component
+	
+	# Prepare boss bar
 	boss_bar.set_max(boss_health_component.max_health)
 	boss_bar.set_value(boss_health_component.max_health)
 	boss_health_component.health_change.connect(_update_boss_bar)
 	boss_node.enemy_defeated.connect(close_boss_bar)
 	
-	## Preparing nodes bar
+	# Show bar
+	ui_animation_player.play_backwards("toggle_progress_bar")
+	await ui_animation_player.animation_finished
+	ui_animation_player.play("toggle_boss_bar")
+	
+	# Prepare components bar
 	for part in boss_node.weapons_dict:
 		var module_bar = module_bar_template.instantiate()
 		var module = boss_node.weapons_dict[part]["node"]
@@ -96,6 +98,7 @@ func _update_module_bar(_previous_value : int, new_value : int, _type : bool):
 
 func close_boss_bar():
 	ui_animation_player.play_backwards("toggle_boss_bar")
+	await ui_animation_player.animation_finished
 	ui_animation_player.play("toggle_progress_bar")
 	await get_tree().create_timer(bar_fadeout_time).timeout
 	for m in $BossBar/ModulesBars.get_children():

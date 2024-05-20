@@ -9,10 +9,8 @@ _data = [Vector2(0, 0), 0.0, 1.46009, 0, 0, Vector2(0.893048, 1.81319), 3.97731,
 point_count = 3
 
 [node name="TrailComponent" type="Line2D"]
-top_level = true
 light_mask = 4
 visibility_layer = 4
-position = Vector2(-2, 1)
 points = PackedVector2Array(2, -1)
 width = 2.0
 width_curve = SubResource("Curve_lpo10")

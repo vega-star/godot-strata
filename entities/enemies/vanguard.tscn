@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" path="res://entities/entity_scripts/vanguard.gd" id="1_3fifh"]
 [ext_resource type="Texture2D" uid="uid://b1h0u6px4fl0r" path="res://assets/textures/entities/enemies/vanguard/vanguard-prototype.png" id="2_pak47"]
-[ext_resource type="PackedScene" uid="uid://bdfaybp4djcn2" path="res://status/health_component.tscn" id="3_vvq5j"]
-[ext_resource type="PackedScene" uid="uid://c3atqdge540t0" path="res://status/hitbox_component.tscn" id="4_46h5e"]
+[ext_resource type="PackedScene" uid="uid://bdfaybp4djcn2" path="res://components/status/health_component.tscn" id="3_vvq5j"]
+[ext_resource type="PackedScene" uid="uid://c3atqdge540t0" path="res://components/status/hitbox_component.tscn" id="4_46h5e"]
 [ext_resource type="PackedScene" uid="uid://dqge7meaumoi5" path="res://entities/prototype_entities/enemy_gun.tscn" id="5_p6ngh"]
 
 [node name="Vanguard" type="Area2D" groups=["composite_enemy", "miniboss"]]

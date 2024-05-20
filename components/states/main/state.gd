@@ -6,8 +6,12 @@ class_name State
 # States are used to control enemy behavior without cluttering and hardcoding it, and can be used by multiple enemies!
 # The foundations of it are explained wonderfully by Bitlytic, check its tutorial below:
 # Source: https://www.youtube.com/watch?v=ow_Lum-Agbs
+#
+# Remember to extend this script before using it on a node!
 
 signal transitioned(current_state, new_state_name)
+
+@onready var state_machine = get_parent()
 
 func enter():
 	pass

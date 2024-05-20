@@ -4,9 +4,9 @@
 [ext_resource type="Material" uid="uid://ce6elcaqhqekp" path="res://assets/shaders/sprite_movement_horizontal.tres" id="2_iycs2"]
 [ext_resource type="Texture2D" uid="uid://dph1k44grln8n" path="res://assets/textures/prototypes/enemy-gun.png" id="2_kkpsc"]
 [ext_resource type="Texture2D" uid="uid://cnve83mws0p8y" path="res://assets/textures/entities/enemies/misc/aimline.png" id="3_xwels"]
-[ext_resource type="PackedScene" uid="uid://c4rkui846g2ue" path="res://status/combat_component.tscn" id="4_uwwx3"]
-[ext_resource type="PackedScene" uid="uid://bdfaybp4djcn2" path="res://status/health_component.tscn" id="5_kqv71"]
-[ext_resource type="PackedScene" uid="uid://c3atqdge540t0" path="res://status/hitbox_component.tscn" id="6_jthuo"]
+[ext_resource type="PackedScene" uid="uid://c4rkui846g2ue" path="res://components/status/combat_component.tscn" id="4_uwwx3"]
+[ext_resource type="PackedScene" uid="uid://bdfaybp4djcn2" path="res://components/status/health_component.tscn" id="5_kqv71"]
+[ext_resource type="PackedScene" uid="uid://c3atqdge540t0" path="res://components/status/hitbox_component.tscn" id="6_jthuo"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_57ns0"]
 radius = 14.0

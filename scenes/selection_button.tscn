@@ -1,7 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://co7x6mjl7feub"]
+[gd_scene load_steps=5 format=3 uid="uid://co7x6mjl7feub"]
 
-[ext_resource type="Texture2D" uid="uid://k3pvhcygsa10" path="res://assets/textures/prototypes/item_frame.png" id="1_jofa3"]
-[ext_resource type="BitMap" uid="uid://coc0racof7oca" path="res://assets/textures/prototypes/item_frame_bitmap.bmp" id="2_nqcjc"]
+[ext_resource type="Texture2D" uid="uid://kmehlgls5vul" path="res://assets/textures/items/frames/box_common.png" id="2_rsc15"]
 [ext_resource type="Script" path="res://components/modules/selection_button.gd" id="3_n4uw4"]
 [ext_resource type="Theme" uid="uid://b1a5sjt2xibwo" path="res://assets/themes/strata_theme/strata_theme.tres" id="4_7hqab"]
 [ext_resource type="Texture2D" uid="uid://d17joid7wop0b" path="res://assets/textures/prototypes/player_test_sprite.png" id="5_wco63"]
@@ -20,40 +19,48 @@ offset_bottom = 189.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
-texture_normal = ExtResource("1_jofa3")
-texture_click_mask = ExtResource("2_nqcjc")
 script = ExtResource("3_n4uw4")
 
-[node name="SizeRect" type="ColorRect" parent="."]
+[node name="ButtonColor" type="ColorRect" parent="."]
+self_modulate = Color(1, 1, 1, 0.72549)
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -107.0
-offset_top = -180.5
-offset_right = 107.0
-offset_bottom = 181.5
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 6.0
+offset_top = 6.0
+offset_right = -6.0
+offset_bottom = -6.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 2
-color = Color(0.384314, 0.333333, 0.396078, 1)
+color = Color(0.380392, 0.329412, 0.415686, 1)
+
+[node name="ButtonPatchRect" type="NinePatchRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_rsc15")
+patch_margin_left = 10
+patch_margin_top = 10
+patch_margin_right = 10
+patch_margin_bottom = 10
 
 [node name="SelectionTitle" type="Label" parent="."]
 layout_mode = 1
-anchors_preset = 8
+anchors_preset = -1
 anchor_left = 0.5
-anchor_top = 0.5
 anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -107.0
-offset_top = -180.5
-offset_right = 107.0
-offset_bottom = -149.5
+offset_left = -115.0
+offset_top = 162.0
+offset_right = 115.0
+offset_bottom = 188.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("4_7hqab")
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.52549)
 text = "DEBUG ITEM"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -64,40 +71,47 @@ max_lines_visible = 1
 
 [node name="SelectionIcon" type="TextureRect" parent="."]
 layout_mode = 1
-anchors_preset = 8
+anchors_preset = -1
 anchor_left = 0.5
-anchor_top = 0.5
 anchor_right = 0.5
-anchor_bottom = 0.5
 offset_left = -62.5
-offset_top = -141.5
+offset_top = 29.5
 offset_right = 62.5
-offset_bottom = -16.5
+offset_bottom = 154.5
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("5_wco63")
 
 [node name="SelectionDescription" type="Label" parent="."]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -98.0
-offset_top = 8.0
-offset_right = 99.0
-offset_bottom = 178.0
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 12.0
+offset_top = 193.0
+offset_right = -12.0
+offset_bottom = -11.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 theme = ExtResource("4_7hqab")
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.372549)
 theme_override_font_sizes/font_size = 14
 text = "This is a debug item that doesn't do anything when selected, really. I could even put a lorem ipsum right here and it shouldn't show anything. Be careful to not put a lot of text here, as it only holds as much as 10 lines of text."
 vertical_alignment = 1
 autowrap_mode = 3
 text_overrun_behavior = 3
 max_lines_visible = 10
+
+[node name="Panel" type="Panel" parent="SelectionDescription"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [connection signal="focus_entered" from="." to="." method="_on_focus_entered"]
 [connection signal="focus_exited" from="." to="." method="_on_focus_exited"]

@@ -33,6 +33,32 @@
             "range": 100
         }
     },
+    "kobold": {
+        "scene": "res://entities/enemies/kobold.tscn",
+        "enemy_description": "These units can transform from a flying vessel to a medium-sized bipedal mech. Considerably fragile both in flight and walking mode, but it's agile and can make quick evading maneuvers that turns certain weapons ineffective.",
+        "type": 0,
+        "contain_rules": false,
+        "contain_items": true,
+        "drops": {
+            "type": 0,
+            "items": [false,"health_capsule"],
+            "chances": [0,95],
+            "range": 100
+        }
+    },
+    "bulwark": {
+        "scene": "res://entities/enemies/bulwark.tscn",
+        "enemy_description": "Expendable unharmful unit with modular fittings that can deploy an entire fortification in the battlefield. It deploys a weak shield on front of it, but regenerates said shield quickly. Basically, a moving brick that forms a wall.",
+        "type": 0,
+        "contain_rules": false,
+        "contain_items": true,
+        "drops": {
+            "type": 0,
+            "items": [false,"health_capsule"],
+            "chances": [0,95],
+            "range": 100
+        }
+    },
     "lancer": {
         "scene": "res://entities/enemies/lancer.tscn",
         "enemy_description": "Heavy ship built to neutralize enemies with a powerful focused laser. Has two smaller laser guns and a missile launcher in the back.",
@@ -46,7 +72,8 @@
             "repeat": false,
             "items": ["AdditionalHardpoint", "ICAmplifier", "PlasteelWing"],
             "chances": [33,66,99],
-            "range": 100}
+            "range": 100
+        }
     },
     "diver": {
         "scene": "res://entities/enemies/diver.tscn",

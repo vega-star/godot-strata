@@ -7,7 +7,8 @@ const effects : Dictionary = {
 	"FIXED RESSURECT64": "res://assets/shaders/ohdude_palette.gdshader",
 	"LIGHT CRT": "res://assets/shaders/retro_effect.gdshader",
 	"OLD-SCHOOL CRT": "res://assets/shaders/hvukman_crt.gdshader",
-	"VHS EFFECT": "res://assets/shaders/hvukman_vhs.gdshader"
+	"VHS EFFECT": "res://assets/shaders/hvukman_vhs.gdshader",
+	"PEND00 VHS + CRT": "res://assets/shaders/pend00_vhs_and_crt.gdshader"
 }
 
 func change_effect(effect_name):

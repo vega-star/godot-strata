@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://entities/projectiles/projectiles_scripts/player_projectile.gd" id="1_k0o8s"]
 [ext_resource type="AudioStream" uid="uid://b6m2my37txxgb" path="res://assets/audio/effects/laser_tweaking.wav" id="2_cdule"]
 [ext_resource type="Texture2D" uid="uid://c868sysa766fa" path="res://assets/textures/projectiles/default-laser.png" id="2_lky23"]
-[ext_resource type="PackedScene" uid="uid://c3atqdge540t0" path="res://status/hitbox_component.tscn" id="3_5k8xg"]
+[ext_resource type="PackedScene" uid="uid://c3atqdge540t0" path="res://components/status/hitbox_component.tscn" id="3_5k8xg"]
 [ext_resource type="Texture2D" uid="uid://blkwu4cpqgd0i" path="res://assets/textures/projectiles/default-laser-particle.png" id="3_bij42"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_747ym"]

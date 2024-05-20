@@ -2,12 +2,12 @@
 
 [ext_resource type="Material" uid="uid://bhxdepbofekt5" path="res://assets/shaders/entities/default_outline.tres" id="2_ra0pf"]
 [ext_resource type="Texture2D" uid="uid://b34wv1v5ss0tf" path="res://assets/textures/entities/enemies/simple/enemy_drone.png" id="2_w0xxh"]
-[ext_resource type="PackedScene" uid="uid://c4rkui846g2ue" path="res://status/combat_component.tscn" id="3_q78sl"]
-[ext_resource type="PackedScene" uid="uid://cifxjpiop3cha" path="res://status/drop_component.tscn" id="4_2ns03"]
-[ext_resource type="PackedScene" uid="uid://bfy4edhtjb4rs" path="res://status/health_bar_component.tscn" id="5_ktko8"]
-[ext_resource type="PackedScene" uid="uid://bdfaybp4djcn2" path="res://status/health_component.tscn" id="6_q1w8h"]
+[ext_resource type="PackedScene" uid="uid://c4rkui846g2ue" path="res://components/status/combat_component.tscn" id="3_q78sl"]
+[ext_resource type="PackedScene" uid="uid://cifxjpiop3cha" path="res://components/status/drop_component.tscn" id="4_2ns03"]
+[ext_resource type="PackedScene" uid="uid://bfy4edhtjb4rs" path="res://components/status/health_bar_component.tscn" id="5_ktko8"]
+[ext_resource type="PackedScene" uid="uid://bdfaybp4djcn2" path="res://components/status/health_component.tscn" id="6_q1w8h"]
 [ext_resource type="PackedScene" uid="uid://dqge7meaumoi5" path="res://entities/prototype_entities/enemy_gun.tscn" id="7_ftndn"]
-[ext_resource type="PackedScene" uid="uid://c3atqdge540t0" path="res://status/hitbox_component.tscn" id="7_tko7h"]
+[ext_resource type="PackedScene" uid="uid://c3atqdge540t0" path="res://components/status/hitbox_component.tscn" id="7_tko7h"]
 [ext_resource type="Texture2D" uid="uid://bs4pkrrunu6wd" path="res://assets/textures/entities/enemies/simple/enemy_drone_turret.png" id="8_feky4"]
 
 [sub_resource type="GDScript" id="GDScript_okmx6"]

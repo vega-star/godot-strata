@@ -1,8 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://c4rkui846g2ue"]
-
-[ext_resource type="Script" path="res://status/combat_component.gd" id="1_e84te"]
-
-[node name="CombatComponent" type="Node"]
-script = ExtResource("1_e84te")
-
-[connection signal="target_status_changed" from="." to="." method="_on_target_status_changed"]

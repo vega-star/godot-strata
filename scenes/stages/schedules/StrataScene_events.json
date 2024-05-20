@@ -474,7 +474,7 @@
         "set_timer": true,
         "has_rules": false,
         "event_properties": {
-            "enemy_array": ["striker_1","striker_1","striker_1","striker_1","striker_1","striker_1","striker_1","striker_1","striker_1","striker_1"],
+            "enemy_array": ["striker_1","striker_1","striker_1","striker_1","striker_1","striker_1","striker_1","striker_1"],
             "sequence_cooldown": 2,
             "event_timer": {
                 "pause_stage_timer": false,

@@ -34,7 +34,15 @@ func set_stage(stage_node, timer, start_run : bool = false):
 	stage.stage_ended.connect(end_stage)
 
 func end_stage(turbo : bool = false): ## Clear cached data from stage on UI, such as events
-	if stage.stage_active: # It means the end_stage_sequence has not happened
+	if !is_instance_valid(stage): 
+		# The stage was freed and this function is being called for the second time. 
+		# It will clear events again, but will not call end_stage_sequence.
+		UI.UIOverlay.bars.clear_events()
+		return
+	
+	if stage.stage_active: 
+		# The stage is ending early and end_stage_sequence has not happened yet, will call immediately with turbo
+		# Turbo means it will skip custcenes and other sequences and finish everything it needs to
 		await stage.end_stage_sequence(turbo)
 	
 	UI.UIOverlay.bars.clear_events()

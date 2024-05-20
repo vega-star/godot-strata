@@ -9,6 +9,54 @@ signal selected(item_id)
 @onready var description : String
 @onready var rarity : int
 
+
+const rarity_boxes : Array = [
+	preload("res://assets/textures/items/frames/box_common.png"),
+	preload("res://assets/textures/items/frames/box_uncommon.png"),
+	preload("res://assets/textures/items/frames/box_rare.png"),
+	preload("res://assets/textures/items/frames/box_superior.png"),
+	preload("res://assets/textures/items/frames/box_legendary.png"),
+	preload("res://assets/textures/items/frames/box_alien.png"),
+	preload("res://assets/textures/items/frames/box_strange.png"),
+	preload("res://assets/textures/items/frames/box_unknown.png")
+]
+
+## ITEM RARITY TIER CHANGES
+const rarity_dict : Dictionary = {
+	0: { #? Starter / Normal
+		"box_color": Color("#61546a"),
+		"box_texture": preload("res://assets/textures/items/frames/box_common.png")
+	},
+	1: { #? Uncommon
+		"box_color": Color("#1c4b3c"),
+		"box_texture": preload("res://assets/textures/items/frames/box_uncommon.png")
+	},
+	2: { #? Rare
+		"box_color": Color("#245c5e"),
+		"box_texture": preload("res://assets/textures/items/frames/box_rare.png")
+	},
+	3: { #? Superior
+		"box_color": Color("#493369"),
+		"box_texture": preload("res://assets/textures/items/frames/box_superior.png")
+	},
+	4: { #? Legendary
+		"box_color": Color("#4c0d28"),
+		"box_texture": preload("res://assets/textures/items/frames/box_legendary.png")
+	},
+	5: { #? Alien
+		"box_color": Color("#863f18"),
+		"box_texture": preload("res://assets/textures/items/frames/box_alien.png")
+	},
+	6: { #? Strange
+		"box_color": Color("#490425"),
+		"box_texture": preload("res://assets/textures/items/frames/box_strange.png")
+	},
+	7: { #? Unknown
+		"box_color": Color("#340238"),
+		"box_texture": preload("res://assets/textures/items/frames/box_unknown.png")
+	},
+}
+
 var movement : int = 20
 var movement_time : float = 0.2
 var movement_active : bool = false
@@ -30,6 +78,11 @@ func set_button_properties(new_item_id, new_title, new_icon, new_description, ne
 			$SelectionIcon.set_texture(load("res://assets/textures/prototypes/player_test_sprite.png"))
 		$SelectionDescription.set_text(new_description)
 		rarity = new_rarity
+	
+	
+	$ButtonColor.set_color(rarity_dict[rarity]["box_color"])
+	$ButtonPatchRect.set_texture(rarity_dict[rarity]["box_texture"])
+	
 	button_set.emit()
 
 func _ready():

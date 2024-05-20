@@ -63,6 +63,7 @@ func _initialize():
 	await get_tree().create_timer(missile_activation_delay).timeout
 	
 	if damages_other_enemies:
+		set_collision_mask_value(2, true)
 		$HitboxComponent.set_collision_mask_value(2, true)
 		$HitboxComponent.set_collision_mask_value(4, true)
 	

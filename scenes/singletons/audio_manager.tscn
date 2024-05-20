@@ -6,6 +6,7 @@
 [node name="AudioManager" type="Node"]
 process_mode = 3
 script = ExtResource("1_hdnxs")
+debug = true
 
 [node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_vygfg")
@@ -13,6 +14,7 @@ bus = &"Music"
 
 [node name="GlobalEffectPlayer" type="AudioStreamPlayer" parent="."]
 max_polyphony = 10
+bus = &"Effects"
 
 [node name="EffectPlayer" type="AudioStreamPlayer2D" parent="."]
 bus = &"Effects"

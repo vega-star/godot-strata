@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://ctksiqxkq8ue5"]
 
 [ext_resource type="Script" path="res://entities/entity_scripts/enemy_gun.gd" id="1_hg4lg"]
-[ext_resource type="PackedScene" uid="uid://c4rkui846g2ue" path="res://status/combat_component.tscn" id="4_5vc8c"]
-[ext_resource type="PackedScene" uid="uid://bdfaybp4djcn2" path="res://status/health_component.tscn" id="5_6e6y1"]
+[ext_resource type="PackedScene" uid="uid://c4rkui846g2ue" path="res://components/status/combat_component.tscn" id="4_5vc8c"]
+[ext_resource type="PackedScene" uid="uid://bdfaybp4djcn2" path="res://components/status/health_component.tscn" id="5_6e6y1"]
 
 [node name="EnemyMissileLauncher" type="Area2D" node_paths=PackedStringArray("hitsound_emitter", "health_component", "combat_component") groups=["object"]]
 collision_layer = 2

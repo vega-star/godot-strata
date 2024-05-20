@@ -8,8 +8,8 @@
 
 shader_type canvas_item;
 uniform float shake: hint_range(0, 10) = 0.015;
-uniform float noiseQuality: hint_range(0.1, 10,0.1) = 4.2;
-uniform float noiseIntensity: hint_range(0, 0.01,0.001) = 0.001;
+uniform float noiseQuality: hint_range(0.1, 10,0.1) = 5.4;
+uniform float noiseIntensity: hint_range(0, 0.01,0.001) = 0.005;
 uniform float offsetIntensity: hint_range(0, 0.05,0.0001) = 0.05;
 uniform float colorOffsetIntensity: hint_range(0.1, 1,0.001) = 0.5;
 uniform sampler2D screen_texture : hint_screen_texture, repeat_disable, filter_nearest;

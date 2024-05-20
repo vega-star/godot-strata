@@ -1,0 +1,123 @@
+[gd_scene load_steps=17 format=3 uid="uid://db357hh3lde4e"]
+
+[ext_resource type="Script" path="res://entities/entity_scripts/enemy.gd" id="1_7b6jl"]
+[ext_resource type="Script" path="res://components/states/main/state_machine.gd" id="2_744c2"]
+[ext_resource type="PackedScene" uid="uid://c4rkui846g2ue" path="res://components/status/combat_component.tscn" id="3_8b0n6"]
+[ext_resource type="Script" path="res://components/states/entities/timed_idle.gd" id="3_380k2"]
+[ext_resource type="Script" path="res://components/states/main/state.gd" id="3_qanve"]
+[ext_resource type="PackedScene" uid="uid://cifxjpiop3cha" path="res://components/status/drop_component.tscn" id="4_mu0v8"]
+[ext_resource type="PackedScene" uid="uid://bdfaybp4djcn2" path="res://components/status/health_component.tscn" id="5_xyidf"]
+[ext_resource type="PackedScene" uid="uid://c3atqdge540t0" path="res://components/status/hitbox_component.tscn" id="6_njqw6"]
+[ext_resource type="Texture2D" uid="uid://yhnaldl1xd2o" path="res://assets/textures/entities/enemies/kobold/kobold_leg_joint.png" id="7_pu6nj"]
+[ext_resource type="Texture2D" uid="uid://d3q46b4n3as8o" path="res://assets/textures/entities/enemies/kobold/kobold_foot.png" id="8_r6xbq"]
+[ext_resource type="Texture2D" uid="uid://b021bhgpjfjfj" path="res://assets/textures/entities/enemies/kobold/kobold_leg.png" id="9_qwugp"]
+[ext_resource type="Texture2D" uid="uid://cgsmdvlv70sap" path="res://assets/textures/entities/enemies/kobold/kobold_body.png" id="10_kd1hp"]
+[ext_resource type="Texture2D" uid="uid://ca1i0kakiblim" path="res://assets/textures/entities/enemies/kobold/kobold_arm.png" id="11_vovbt"]
+[ext_resource type="PackedScene" uid="uid://dqge7meaumoi5" path="res://entities/prototype_entities/enemy_gun.tscn" id="12_dpabm"]
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_juskj"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tq5bo"]
+size = Vector2(50, 50)
+
+[node name="Kobold" type="Area2D" node_paths=PackedStringArray("self_sprite") groups=["enemy"]]
+collision_layer = 2
+collision_mask = 5
+script = ExtResource("1_7b6jl")
+enemy_name = "kobold"
+self_sprite = NodePath("KoboldSprites/KoboldBody")
+bulk_updating = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_juskj")
+}
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("2_744c2")
+initial_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("next_state")]
+script = ExtResource("3_380k2")
+next_state = NodePath("../StaticShooting")
+
+[node name="Dash" type="Node" parent="StateMachine"]
+script = ExtResource("3_qanve")
+
+[node name="StaticShooting" type="Node" parent="StateMachine"]
+script = ExtResource("3_qanve")
+
+[node name="PursuitShooting" type="Node" parent="StateMachine"]
+script = ExtResource("3_qanve")
+
+[node name="Flee" type="Node" parent="StateMachine"]
+script = ExtResource("3_qanve")
+
+[node name="SelfCollision" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("RectangleShape2D_tq5bo")
+debug_color = Color(0, 0.6, 0.701961, 0)
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(130, 0)
+
+[node name="CombatComponent" parent="." instance=ExtResource("3_8b0n6")]
+
+[node name="DropComponent" parent="." instance=ExtResource("4_mu0v8")]
+
+[node name="HealthComponent" parent="." instance=ExtResource("5_xyidf")]
+max_health = 5
+
+[node name="KoboldSprites" type="Node2D" parent="."]
+
+[node name="KoboldLegJointL" type="Sprite2D" parent="KoboldSprites"]
+position = Vector2(-2, 18)
+texture = ExtResource("7_pu6nj")
+offset = Vector2(9, 0)
+
+[node name="KoboldFootL" type="Sprite2D" parent="KoboldSprites"]
+position = Vector2(9, 25)
+texture = ExtResource("8_r6xbq")
+
+[node name="KoboldLegL" type="Sprite2D" parent="KoboldSprites"]
+position = Vector2(9, 3)
+texture = ExtResource("9_qwugp")
+offset = Vector2(-3, 8)
+
+[node name="KoboldBody" type="Sprite2D" parent="KoboldSprites"]
+texture = ExtResource("10_kd1hp")
+
+[node name="EnemyGun" parent="." node_paths=PackedStringArray("self_sprite", "muzzle", "hitbox_component") instance=ExtResource("12_dpabm")]
+position = Vector2(3, 9)
+enemy_name = "kobold_gun"
+self_sprite = NodePath("KoboldArm")
+muzzle = NodePath("Muzzle")
+hitbox_component = NodePath("../HitboxComponent")
+
+[node name="KoboldArm" type="Sprite2D" parent="EnemyGun"]
+scale = Vector2(-1, 1)
+texture = ExtResource("11_vovbt")
+offset = Vector2(-7, 10)
+
+[node name="Muzzle" type="Marker2D" parent="EnemyGun"]
+position = Vector2(-22, 20)
+
+[node name="HitboxComponent" parent="." node_paths=PackedStringArray("hitbox", "health_component") instance=ExtResource("6_njqw6")]
+collision_layer = 2
+collision_mask = 5
+hitbox = NodePath("Body")
+health_component = NodePath("../HealthComponent")
+
+[node name="BodyUndeployed" type="CollisionPolygon2D" parent="HitboxComponent"]
+self_modulate = Color(1, 1, 1, 0.298039)
+polygon = PackedVector2Array(-21, 4, -4, -7, 18, -14, 22, 0, 8, 13, -17, 13, -21, 7)
+
+[node name="Body" type="CollisionPolygon2D" parent="HitboxComponent"]
+self_modulate = Color(1, 1, 1, 0.298039)
+polygon = PackedVector2Array(-22, 4, -4, -8, 19, -15, 23, 0, 21, 16, 11, 36, -20, 35, -18, 18)
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="enemy_died" from="." to="DropComponent" method="_on_enemy_died"]
+[connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_screen_reentered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
+[connection signal="health_change" from="HealthComponent" to="." method="_on_health_component_health_change"]

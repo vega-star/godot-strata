@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scenes/scripts/main/stage_manager.gd" id="1_7rybp"]
 [ext_resource type="Script" path="res://scenes/scripts/main/threat_generator.gd" id="1_x4heg"]
-[ext_resource type="PackedScene" uid="uid://cifxjpiop3cha" path="res://status/drop_component.tscn" id="2_s1ebf"]
+[ext_resource type="PackedScene" uid="uid://cifxjpiop3cha" path="res://components/status/drop_component.tscn" id="2_s1ebf"]
 
 [node name="StageManager" type="Node" groups=["stage_manager"]]
 script = ExtResource("1_7rybp")

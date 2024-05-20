@@ -3,11 +3,11 @@
 [ext_resource type="Script" path="res://entities/entity_scripts/scout_extension.gd" id="1_amn3b"]
 [ext_resource type="Material" uid="uid://cvfmn1g3c8nd3" path="res://assets/shaders/entities/enemy_outline.tres" id="2_4jjui"]
 [ext_resource type="Texture2D" uid="uid://0vlsco0egdce" path="res://assets/textures/entities/enemies/simple/scout.png" id="3_mouw2"]
-[ext_resource type="PackedScene" uid="uid://c4rkui846g2ue" path="res://status/combat_component.tscn" id="4_3irmm"]
-[ext_resource type="PackedScene" uid="uid://cifxjpiop3cha" path="res://status/drop_component.tscn" id="5_y2pke"]
-[ext_resource type="PackedScene" uid="uid://bfy4edhtjb4rs" path="res://status/health_bar_component.tscn" id="6_mkwie"]
-[ext_resource type="PackedScene" uid="uid://bdfaybp4djcn2" path="res://status/health_component.tscn" id="7_w0l3j"]
-[ext_resource type="PackedScene" uid="uid://c3atqdge540t0" path="res://status/hitbox_component.tscn" id="8_atugd"]
+[ext_resource type="PackedScene" uid="uid://c4rkui846g2ue" path="res://components/status/combat_component.tscn" id="4_3irmm"]
+[ext_resource type="PackedScene" uid="uid://cifxjpiop3cha" path="res://components/status/drop_component.tscn" id="5_y2pke"]
+[ext_resource type="PackedScene" uid="uid://bfy4edhtjb4rs" path="res://components/status/health_bar_component.tscn" id="6_mkwie"]
+[ext_resource type="PackedScene" uid="uid://bdfaybp4djcn2" path="res://components/status/health_component.tscn" id="7_w0l3j"]
+[ext_resource type="PackedScene" uid="uid://c3atqdge540t0" path="res://components/status/hitbox_component.tscn" id="8_atugd"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_jbbrr"]
 radius = 18.5714

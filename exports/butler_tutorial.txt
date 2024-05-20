@@ -1,0 +1,19 @@
+Hi! This document is complementary to the butler usage tutorial on youtube.
+If this is completely new to you, I highly suggest you to see the video on which I also talk about versioning and Git in general
+Butler's official documentation is in: https://itch.io/docs/butler/
+Everything here is based on that documentation, and applied to this project as an practical example!
+
+| INSTALLING BUTLER |
+
+
+
+| USING BUTLER |
+
+You can run manual commands to push, por example:
+
+	butler push exports/web nyeptun/strata-zero:web --userversion 0.4.8
+
+* This will push from the web directory (make sure you're on root directory first) directly into itch.io, under 'web' channel and with version '0.4.8'
+* This will not work if you didn't authenticate in and install butler binary, that is also takes part in CI/CD pipeline
+
+| GITHUB ACTIONS |
