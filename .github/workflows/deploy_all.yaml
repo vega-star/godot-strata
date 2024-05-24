@@ -19,11 +19,11 @@ jobs:
               uses: actions/checkout@v4.1.1
             
             # Butler fresh install
-            - name: Butler fresh install
-              run:
-                curl -L -o butler.zip https://broth.itch.ovh/butler/linux-amd64/LATEST/archive/default
-                unzip butler.zip
-                chmod +x butler
+            - name: Download butler
+              run: curl -L -o butler.zip https://broth.itch.ovh/butler/linux-amd64/LATEST/archive/default
+            
+            - name: Install butler
+              run: unzip butler.zip && chmod +x butler
             
             # Butler check
             - name: Butler check
