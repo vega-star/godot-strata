@@ -39,45 +39,15 @@ jobs:
                 BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
               run: ./butler login
     
-    upload_linux:
-        name: 'Upload linux executable'
-        environment: 'production'
-        runs-on: ubuntu-latest
-        needs: [ butler ]
-        defaults:
-            run:
-                shell: bash
-        concurrency:
-            group: bulk_upload
-        steps:
-            # Checkout repo to Github Actions runner
-            - name: Checkout
-              uses: actions/checkout@v4.1.1
-
-            # Upload with parameters
-            - name: Upload
+            # Upload Linux executable
+            - name: Upload (Linux)
               env:
                 BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
               run:
                 ./butler push exports/linux nyeptun/strata-zero:linux --userversion ${{ github.event.inputs.version }}
     
-    upload_windows:
-        name: 'Upload windows executable'
-        environment: 'production'
-        runs-on: ubuntu-latest
-        needs: [ butler ]
-        defaults:
-            run:
-                shell: bash
-        concurrency:
-            group: bulk_upload
-        steps:
-            # Checkout repo to Github Actions runner
-            - name: Checkout
-              uses: actions/checkout@v4.1.1
-            
-            # Upload with parameters
-            - name: Upload
+            # Upload Windows executable
+            - name: Upload (Windows)
               env:
                 BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
               run:

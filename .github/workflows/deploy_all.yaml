@@ -6,19 +6,21 @@ on:
         - main
 
 jobs:
-    butler:
-        name: 'Butler validation'
+    upload_web:
+        name: 'Upload to web'
         environment: 'production'
         runs-on: ubuntu-latest
         defaults:
             run:
                 shell: bash
-        steps: 
+        concurrency:
+            group: bulk_upload
+        steps:
             # Checkout repo to Github Actions runner
             - name: Checkout
               uses: actions/checkout@v4.1.1
             
-            # Butler fresh install
+            # Butler install
             - name: Download butler
               run: curl -L -o butler.zip https://broth.itch.ovh/butler/linux-amd64/LATEST/archive/default
             
@@ -35,21 +37,6 @@ jobs:
               env:
                 BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
               run: ./butler login
-    
-    upload_web:
-        name: 'Upload to web'
-        environment: 'production'
-        runs-on: ubuntu-latest
-        needs: [ butler ]
-        defaults:
-            run:
-                shell: bash
-        concurrency:
-            group: bulk_upload
-        steps:
-            # Checkout repo to Github Actions runner
-            - name: Checkout
-              uses: actions/checkout@v4.1.1
             
             # Upload with parameters
             - name: Upload
@@ -62,7 +49,6 @@ jobs:
         name: 'Upload linux executable'
         environment: 'production'
         runs-on: ubuntu-latest
-        needs: [ butler ]
         defaults:
             run:
                 shell: bash
@@ -72,6 +58,24 @@ jobs:
             # Checkout repo to Github Actions runner
             - name: Checkout
               uses: actions/checkout@v4.1.1
+
+            # Butler install
+            - name: Download butler
+              run: curl -L -o butler.zip https://broth.itch.ovh/butler/linux-amd64/LATEST/archive/default
+            
+            - name: Install butler
+              run: unzip butler.zip && chmod +x butler
+            
+            # Butler check
+            - name: Butler check
+              run: ./butler -V
+
+            # Authenticate in butler with secret
+            - id: 'auth'
+              name: 'Itch.io login with Butler'
+              env:
+                BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
+              run: ./butler login
 
             # Upload with parameters
             - name: Upload
@@ -84,7 +88,6 @@ jobs:
         name: 'Upload windows executable'
         environment: 'production'
         runs-on: ubuntu-latest
-        needs: [ butler ]
         defaults:
             run:
                 shell: bash
@@ -94,6 +97,24 @@ jobs:
             # Checkout repo to Github Actions runner
             - name: Checkout
               uses: actions/checkout@v4.1.1
+            
+            # Butler install
+            - name: Download butler
+              run: curl -L -o butler.zip https://broth.itch.ovh/butler/linux-amd64/LATEST/archive/default
+            
+            - name: Install butler
+              run: unzip butler.zip && chmod +x butler
+            
+            # Butler check
+            - name: Butler check
+              run: ./butler -V
+
+            # Authenticate in butler with secret
+            - id: 'auth'
+              name: 'Itch.io login with Butler'
+              env:
+                BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
+              run: ./butler login
             
             # Upload with parameters
             - name: Upload
