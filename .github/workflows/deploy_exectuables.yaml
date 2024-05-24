@@ -1,0 +1,84 @@
+name: 'Deploy executables only'
+
+on: 
+    workflow_dispatch:
+        inputs:
+            version:
+                type: string
+                description: Version override
+                required: true
+
+jobs:
+    butler:
+        name: 'Butler validation'
+        environment: 'production'
+        runs-on: ubuntu-latest
+        defaults:
+            run:
+                shell: bash
+        steps: 
+            # Checkout repo to Github Actions runner
+            - name: Checkout
+              uses: actions/checkout@v4.1.1
+            
+            # Butler fresh install
+            - name: Butler fresh install
+              run:
+                curl -L -o butler.zip https://broth.itch.ovh/butler/linux-amd64/LATEST/archive/default
+                unzip butler.zip
+                chmod +x butler
+            
+            # Butler check
+            - name: Butler check
+              run: ./butler -V
+
+            # Authenticate in butler with secret
+            - id: 'auth'
+              name: 'Itch.io login with Butler'
+              env:
+                BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
+              run: ./butler login
+    
+    upload_linux:
+        name: 'Upload linux executable'
+        environment: 'production'
+        runs-on: ubuntu-latest
+        needs: [ butler ]
+        defaults:
+            run:
+                shell: bash
+        concurrency:
+            group: bulk_upload
+        steps:
+            # Checkout repo to Github Actions runner
+            - name: Checkout
+              uses: actions/checkout@v4.1.1
+
+            # Upload with parameters
+            - name: Upload
+              env:
+                BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
+              run:
+                ./butler push exports/linux nyeptun/strata-zero:linux --userversion ${{ github.event.inputs.version }}
+    
+    upload_windows:
+        name: 'Upload windows executable'
+        environment: 'production'
+        runs-on: ubuntu-latest
+        needs: [ butler ]
+        defaults:
+            run:
+                shell: bash
+        concurrency:
+            group: bulk_upload
+        steps:
+            # Checkout repo to Github Actions runner
+            - name: Checkout
+              uses: actions/checkout@v4.1.1
+            
+            # Upload with parameters
+            - name: Upload
+              env:
+                BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
+              run:
+                ./butler push exports/windows nyeptun/strata-zero:win64 --userversion ${{ github.event.inputs.version }}
