@@ -121,7 +121,7 @@
         "contain_items": false,
         "rules": {"spawn_override": "center"}
     },
-    "drone_1": {
+    "drone": {
         "scene": "res://entities/enemies/drone.tscn", 
         "type": 0,
         "contain_rules": false,

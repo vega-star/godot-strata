@@ -16,6 +16,7 @@ signal effect_deactivated(source)
 
 #region - Variables
 ## Data variables
+const button_scene = preload("res://scenes/selection_button.tscn")
 const weapons_data_path = "res://data/weapons_data.json"
 const items_data_path = "res://data/items_data.json"
 var items_dict : Dictionary
@@ -362,7 +363,6 @@ func present_choice(items):
 	
 	assert(items is Array)
 	for item in items:
-		var button_scene = load("res://scenes/selection_button.tscn")
 		var button = button_scene.instantiate()
 		var item_value = items_dict[item]["item_value"]
 		total_scrap += item_value

@@ -9,7 +9,7 @@ on:
                 required: true
 
 jobs:
-    butler:
+    upload:
         name: 'Butler validation'
         environment: 'production'
         runs-on: ubuntu-latest

@@ -43,7 +43,7 @@ jobs:
               env:
                 BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
               run:
-                ./butler push exports/web nyeptun/strata-zero:web --userversion build_number.txt
+                ./butler push exports/web nyeptun/strata-zero:web --userversion-file build_number.txt
     
     upload_linux:
         name: 'Upload linux executable'
@@ -82,7 +82,7 @@ jobs:
               env:
                 BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
               run:
-                ./butler push exports/linux nyeptun/strata-zero:linux --userversion build_number.txt
+                ./butler push exports/linux nyeptun/strata-zero:linux --userversion-file build_number.txt
     
     upload_windows:
         name: 'Upload windows executable'
@@ -121,4 +121,4 @@ jobs:
               env:
                 BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
               run:
-                ./butler push exports/windows nyeptun/strata-zero:win64 --userversion build_number.txt
+                ./butler push exports/windows nyeptun/strata-zero:win64 --userversion-file build_number.txt

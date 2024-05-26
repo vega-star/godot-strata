@@ -82,6 +82,7 @@ func set_button_properties(new_item_id, new_title, new_icon, new_description, ne
 	
 	$ButtonColor.set_color(rarity_dict[rarity]["box_color"])
 	$ButtonPatchRect.set_texture(rarity_dict[rarity]["box_texture"])
+	$SelectionIcon/ItemPatchRect.set_texture(rarity_dict[rarity]["box_texture"])
 	
 	button_set.emit()
 

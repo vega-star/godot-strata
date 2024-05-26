@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://co7x6mjl7feub"]
+[gd_scene load_steps=6 format=3 uid="uid://co7x6mjl7feub"]
 
 [ext_resource type="Texture2D" uid="uid://kmehlgls5vul" path="res://assets/textures/items/frames/box_common.png" id="2_rsc15"]
 [ext_resource type="Script" path="res://components/modules/selection_button.gd" id="3_n4uw4"]
 [ext_resource type="Theme" uid="uid://b1a5sjt2xibwo" path="res://assets/themes/strata_theme/strata_theme.tres" id="4_7hqab"]
-[ext_resource type="Texture2D" uid="uid://d17joid7wop0b" path="res://assets/textures/prototypes/player_test_sprite.png" id="5_wco63"]
+[ext_resource type="Texture2D" uid="uid://bf0jhyjt1aht7" path="res://assets/textures/items/alien-casket.png" id="4_qqtgs"]
+[ext_resource type="Texture2D" uid="uid://csjed3ay1r3wa" path="res://assets/textures/items/item-frame-basic.png" id="5_wjckh"]
 
 [node name="SelectionButton" type="TextureButton"]
 custom_minimum_size = Vector2(230, 378)
@@ -23,6 +24,7 @@ script = ExtResource("3_n4uw4")
 
 [node name="ButtonColor" type="ColorRect" parent="."]
 self_modulate = Color(1, 1, 1, 0.72549)
+z_index = -1
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -54,9 +56,9 @@ anchors_preset = -1
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -115.0
-offset_top = 162.0
-offset_right = 115.0
-offset_bottom = 188.0
+offset_top = 170.0
+offset_right = 114.0
+offset_bottom = 196.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("4_7hqab")
@@ -80,7 +82,34 @@ offset_right = 62.5
 offset_bottom = 154.5
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("5_wco63")
+texture = ExtResource("4_qqtgs")
+
+[node name="ItemPatchRect" type="NinePatchRect" parent="SelectionIcon"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -4.0
+offset_top = -4.0
+offset_right = 4.0
+offset_bottom = 4.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_rsc15")
+patch_margin_left = 10
+patch_margin_top = 10
+patch_margin_right = 10
+patch_margin_bottom = 10
+
+[node name="ItemBG" type="TextureRect" parent="SelectionIcon"]
+z_index = -1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_wjckh")
 
 [node name="SelectionDescription" type="Label" parent="."]
 layout_mode = 1
