@@ -1,4 +1,4 @@
-[gd_scene load_steps=85 format=3 uid="uid://biim58k38oa7h"]
+[gd_scene load_steps=87 format=3 uid="uid://biim58k38oa7h"]
 
 [ext_resource type="Script" path="res://scenes/scripts/main/player.gd" id="1_hermy"]
 [ext_resource type="PackedScene" uid="uid://dvut4oj0nogn0" path="res://components/general/trail_component.tscn" id="2_ev3b1"]
@@ -12,7 +12,9 @@
 [ext_resource type="Texture2D" uid="uid://vdotyl704dqi" path="res://assets/textures/entities/player/artemis/artemis-move-down.png" id="7_um8ao"]
 [ext_resource type="Texture2D" uid="uid://fc40jb673qac" path="res://assets/textures/entities/player/artemis/artemis-roll-back.png" id="10_ufq62"]
 [ext_resource type="Texture2D" uid="uid://csy8wcaaaiq2a" path="res://assets/textures/entities/player/artemis/artemis-roll-front.png" id="11_o1yfi"]
+[ext_resource type="PackedScene" uid="uid://c566s2lc6kg02" path="res://components/states/main/state_machine.tscn" id="12_otyjf"]
 [ext_resource type="PackedScene" uid="uid://c4rkui846g2ue" path="res://components/status/combat_component.tscn" id="12_u7fws"]
+[ext_resource type="Script" path="res://components/states/main/state.gd" id="13_ujhxs"]
 [ext_resource type="PackedScene" uid="uid://bdfaybp4djcn2" path="res://components/status/health_component.tscn" id="14_0w6r6"]
 [ext_resource type="PackedScene" uid="uid://c3atqdge540t0" path="res://components/status/hitbox_component.tscn" id="15_14evk"]
 
@@ -828,6 +830,20 @@ libraries = {
 "": SubResource("AnimationLibrary_svklm")
 }
 speed_scale = 2.0
+
+[node name="PlayerStateMachine" parent="." instance=ExtResource("12_otyjf")]
+state_conditions = {
+"rolling": false
+}
+
+[node name="Idle" type="Node" parent="PlayerStateMachine"]
+script = ExtResource("13_ujhxs")
+
+[node name="Moving" type="Node" parent="PlayerStateMachine"]
+script = ExtResource("13_ujhxs")
+
+[node name="Roll" type="Node" parent="PlayerStateMachine"]
+script = ExtResource("13_ujhxs")
 
 [node name="CombatComponent" parent="." instance=ExtResource("12_u7fws")]
 debug = true

@@ -148,7 +148,6 @@ func _ready():
 func set_stage_bar(max_value): ## Sets the progress bar max value equal to the StageTimer total time in seconds
 	stage_progress_bar.set_max(max_value)
 	stage_size = max_value
-	ui_animation_player.play("toggle_progress_bar")
 
 func construct_hud(hud_element, type, set_value, limit):
 	## Building the containers

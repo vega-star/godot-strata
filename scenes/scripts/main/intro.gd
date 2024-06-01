@@ -1,7 +1,7 @@
 extends Control
 
 @export var intro_timer : float = 3.5
-var fade_time : float = 1.5
+const fade_time : float = 1.5
 
 func _ready():
 	if OS.is_debug_build():

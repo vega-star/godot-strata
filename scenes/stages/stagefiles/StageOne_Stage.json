@@ -2,7 +2,8 @@
     "stage_scene": "res://scenes/stages/stage_one.tscn",
     "stage_name": "StageOne",
     "stage_description": "Alien invasion detected in the late evening at headquarters. All forces are immediately requested. The attack is relentless and sudden, but you are ready to go.",
-    "stage_length_in_minutes": 2.4,
+    "stage_length_in_minutes": 2,
     "allowed_random_enemies": ["scout"],
+    "next_stage": "construction_notice",
     "final_stage": false
 }

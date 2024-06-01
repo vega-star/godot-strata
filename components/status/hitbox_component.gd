@@ -21,7 +21,7 @@ var is_immune : bool = false
 
 ## HitboxComponent communicates with HealthComponent to react with projectiles and collision
 # As this component is a Area2D with body/area signals, needs one or multiple CollisionPolygon2D/CollisionShape2D nodes to work as intended
-# It also needs to have a HealthComponent tied to it to update health
+# It also needs to have a HealthComponent tied to it to update health, or else it just detects collision
 
 func _ready():
 	clamp(immunity_frames_count, 0, immunity_frame_limit)
@@ -66,5 +66,5 @@ func generate_damage(damage, source = null):
 			immunity_frames_count = 0
 			health_component.change_health(damage, true, source)
 
-func die(_source): # Deletes itself. Should only be invoked when the component is shielding
+func die(_source): #! Should only be invoked when the component is shielding or other entity type that doesn't use any other components
 	queue_free()

@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://csdnju38rqee8" path="res://scenes/stage_manager.tscn" id="2_0si3s"]
 [ext_resource type="PackedScene" uid="uid://biim58k38oa7h" path="res://entities/player/player.tscn" id="3_7g816"]
 [ext_resource type="PackedScene" uid="uid://b7d5rmrbmprps" path="res://scenes/stages/parallax/first_stage_parallax.tscn" id="4_6tpw4"]
-[ext_resource type="Script" path="res://scenes/scripts/main/stage_camera.gd" id="5_l7laj"]
+[ext_resource type="PackedScene" uid="uid://by20rofdwx3ph" path="res://scenes/stages/components/stage_camera.tscn" id="5_ksecj"]
 
 [node name="StageOne" type="Node2D" node_paths=PackedStringArray("stage_parallax")]
 light_mask = 2
@@ -14,6 +14,7 @@ stage_id = "StageOne"
 stage_title = "STAGE ONE"
 stage_description = "FIRST CONTACT"
 stage_ending_text = "RETURNING TO STAGE SELECTION"
+next_stage_path = "res://scenes/ui/construction_notice.tscn"
 stage_parallax = NodePath("FirstStageParallax")
 
 [node name="StageManager" parent="." node_paths=PackedStringArray("stage_timer") instance=ExtResource("2_0si3s")]
@@ -39,15 +40,6 @@ one_shot = true
 
 [node name="FirstStageParallax" parent="." instance=ExtResource("4_6tpw4")]
 
-[node name="StageCamera" type="Camera2D" parent="."]
-position = Vector2(-79, -60)
-limit_left = 0
-limit_top = -60
-limit_right = 960
-limit_bottom = 540
-limit_smoothed = true
-position_smoothing_enabled = true
-editor_draw_limits = true
-script = ExtResource("5_l7laj")
+[node name="StageCamera" parent="." instance=ExtResource("5_ksecj")]
 
 [connection signal="timeout" from="StageTimer" to="." method="_on_stage_timer_timeout"]

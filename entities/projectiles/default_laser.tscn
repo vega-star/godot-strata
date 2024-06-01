@@ -1,10 +1,9 @@
-[gd_scene load_steps=16 format=3 uid="uid://c1q12be6jjyek"]
+[gd_scene load_steps=15 format=3 uid="uid://c1q12be6jjyek"]
 
-[ext_resource type="Script" path="res://entities/projectiles/projectiles_scripts/player_projectile.gd" id="1_k0o8s"]
+[ext_resource type="Script" path="res://entities/projectiles/projectiles_scripts/projectile.gd" id="1_k0o8s"]
 [ext_resource type="AudioStream" uid="uid://b6m2my37txxgb" path="res://assets/audio/effects/laser_tweaking.wav" id="2_cdule"]
 [ext_resource type="Texture2D" uid="uid://c868sysa766fa" path="res://assets/textures/projectiles/default-laser.png" id="2_lky23"]
 [ext_resource type="PackedScene" uid="uid://c3atqdge540t0" path="res://components/status/hitbox_component.tscn" id="3_5k8xg"]
-[ext_resource type="Texture2D" uid="uid://blkwu4cpqgd0i" path="res://assets/textures/projectiles/default-laser-particle.png" id="3_bij42"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_747ym"]
 atlas = ExtResource("2_lky23")
@@ -77,27 +76,14 @@ light_mask = 2
 collision_layer = 4
 collision_mask = 2
 script = ExtResource("1_k0o8s")
-base_rate_of_fire = 30.0
+enemy_pass_limit = 2
 metadata/_edit_horizontal_guides_ = [-2.0, 2.0]
 metadata/_edit_vertical_guides_ = [-6.0, 6.0]
 
 [node name="ProjectileSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("2_cdule")
 
-[node name="GPUParticles2D" type="CPUParticles2D" parent="."]
-position = Vector2(-9, 0)
-texture = ExtResource("3_bij42")
-emission_shape = 3
-emission_rect_extents = Vector2(1, 3)
-direction = Vector2(-100, 0)
-spread = 10.0
-gravity = Vector2(-120, 0)
-initial_velocity_min = 100.0
-initial_velocity_max = 250.0
-scale_amount_max = 2.0
-
 [node name="LaserAnimatedSprite" type="AnimatedSprite2D" parent="."]
-position = Vector2(0, 0.5)
 rotation = 1.5708
 sprite_frames = SubResource("SpriteFrames_pvj6k")
 animation = &"laser_spawned"

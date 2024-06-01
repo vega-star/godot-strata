@@ -1,20 +1,29 @@
-[gd_scene load_steps=4 format=3 uid="uid://cu1bta608714a"]
+[gd_scene load_steps=5 format=3 uid="uid://cu1bta608714a"]
 
 [ext_resource type="Theme" uid="uid://b1a5sjt2xibwo" path="res://assets/themes/strata_theme/strata_theme.tres" id="1_onsj3"]
+[ext_resource type="Texture2D" uid="uid://vv2lfj648w46" path="res://assets/textures/icons/ui/boss_box.png" id="2_a2qxh"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xoohe"]
-bg_color = Color(0.431373, 0.152941, 0.152941, 1)
-shadow_color = Color(1, 1, 1, 0.6)
-shadow_size = 2
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_tu1fl"]
+texture = ExtResource("2_a2qxh")
+texture_margin_left = 8.0
+texture_margin_top = 4.0
+texture_margin_right = 8.0
+texture_margin_bottom = 4.0
+expand_margin_left = 8.0
+expand_margin_top = 4.0
+expand_margin_right = 8.0
+expand_margin_bottom = 4.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b8l6q"]
 bg_color = Color(0.909804, 0.231373, 0.231373, 1)
 
 [node name="ModuleBarTemplate" type="ProgressBar"]
 custom_minimum_size = Vector2(0, 8)
+offset_right = 53.0
+offset_bottom = 8.0
 theme = ExtResource("1_onsj3")
 theme_override_constants/outline_size = 2
-theme_override_styles/background = SubResource("StyleBoxFlat_xoohe")
+theme_override_styles/background = SubResource("StyleBoxTexture_tu1fl")
 theme_override_styles/fill = SubResource("StyleBoxFlat_b8l6q")
 value = 50.0
 allow_greater = true
@@ -25,12 +34,17 @@ layout_mode = 1
 anchors_preset = -1
 anchor_top = 0.5
 anchor_bottom = 0.5
-offset_left = -63.0
-offset_top = -8.0
-offset_bottom = 9.0
+offset_left = -76.0
+offset_top = -9.0
+offset_right = -13.0
+offset_bottom = 8.0
 grow_horizontal = 0
 grow_vertical = 2
+theme_override_colors/font_shadow_color = Color(0.352941, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/shadow_outline_size = 5
 theme_override_font_sizes/font_size = 16
 text = "MODULE_ID"
-horizontal_alignment = 1
+horizontal_alignment = 2
 vertical_alignment = 1

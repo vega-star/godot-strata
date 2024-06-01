@@ -154,13 +154,11 @@ func execute_event(event, event_name = "UNNAMED_EVENT"):
 			if !message_set:
 				message_player.request_message(
 					int(event["event_properties"]["message_content"]),
-					false,
 					message_timeout
 				)
 			else:
 				message_player.request_message(
 					str(event["event_properties"]["message_content"]),
-					true,
 					message_timeout
 				)
 		"toggle_random":

@@ -1,0 +1,113 @@
+[gd_scene load_steps=15 format=3 uid="uid://bblggp286sfst"]
+
+[ext_resource type="Script" path="res://entities/projectiles/projectiles_scripts/projectile.gd" id="1_toqxp"]
+[ext_resource type="AudioStream" uid="uid://b6m2my37txxgb" path="res://assets/audio/effects/laser_tweaking.wav" id="2_bc4n3"]
+[ext_resource type="Texture2D" uid="uid://c868sysa766fa" path="res://assets/textures/projectiles/default-laser.png" id="3_ygy8w"]
+[ext_resource type="PackedScene" uid="uid://c3atqdge540t0" path="res://components/status/hitbox_component.tscn" id="4_5obsm"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_747ym"]
+atlas = ExtResource("3_ygy8w")
+region = Rect2(0, 0, 6, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gots3"]
+atlas = ExtResource("3_ygy8w")
+region = Rect2(6, 0, 6, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hpe11"]
+atlas = ExtResource("3_ygy8w")
+region = Rect2(12, 0, 6, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b8qqy"]
+atlas = ExtResource("3_ygy8w")
+region = Rect2(18, 0, 6, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jys5r"]
+atlas = ExtResource("3_ygy8w")
+region = Rect2(24, 0, 6, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2y2wp"]
+atlas = ExtResource("3_ygy8w")
+region = Rect2(30, 0, 6, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fbmru"]
+atlas = ExtResource("3_ygy8w")
+region = Rect2(36, 0, 6, 18)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_pvj6k"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_747ym")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gots3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hpe11")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b8qqy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jys5r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2y2wp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fbmru")
+}],
+"loop": false,
+"name": &"laser_spawned",
+"speed": 16.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jewc2"]
+radius = 4.0
+height = 20.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_kcd5f"]
+radius = 3.0
+height = 18.0
+
+[node name="Projectile" type="Area2D" groups=["player_projectile"]]
+top_level = true
+light_mask = 2
+collision_layer = 4
+collision_mask = 2
+script = ExtResource("1_toqxp")
+metadata/_edit_horizontal_guides_ = [-2.0, 2.0]
+metadata/_edit_vertical_guides_ = [-6.0, 6.0]
+
+[node name="ProjectileSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_bc4n3")
+
+[node name="AnimatedSprite" type="AnimatedSprite2D" parent="."]
+rotation = 1.5708
+sprite_frames = SubResource("SpriteFrames_pvj6k")
+animation = &"laser_spawned"
+autoplay = "laser_spawned"
+frame = 6
+frame_progress = 1.0
+
+[node name="SelfHitbox" type="CollisionShape2D" parent="."]
+visible = false
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_jewc2")
+disabled = true
+
+[node name="OutsideScreenCheck" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(-96, 0)
+scale = Vector2(0.5, 0.5)
+
+[node name="HitboxComponent" parent="." instance=ExtResource("4_5obsm")]
+collision_layer = 4
+collision_mask = 2
+
+[node name="SelfProjectileBox" type="CollisionShape2D" parent="HitboxComponent"]
+visible = false
+rotation = -1.5708
+shape = SubResource("CapsuleShape2D_kcd5f")
+
+[connection signal="screen_exited" from="OutsideScreenCheck" to="." method="_on_outside_screen_check_exit_detected"]
+[connection signal="area_entered" from="HitboxComponent" to="." method="_on_hitbox_area_entered"]

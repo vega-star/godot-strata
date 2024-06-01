@@ -1,5 +1,6 @@
 extends Area2D
 
+const base_shielding_pass_add : int = 10
 const base_rate_of_fire : float = 5
 
 @onready var projectile_sound = $ProjectileSound

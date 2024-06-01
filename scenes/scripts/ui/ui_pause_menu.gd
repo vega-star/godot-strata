@@ -16,7 +16,7 @@ func pause():
 	
 	UI.set_pause(true)
 	AudioManager.set_pause(true)
-	
+	UI.UIOverlay.bars.toggle_progress_bar(true)
 	show()
 
 func unpause():
@@ -24,7 +24,7 @@ func unpause():
 	
 	UI.set_pause(false)
 	AudioManager.set_pause(false)
-	
+	UI.UIOverlay.bars.toggle_progress_bar(false)
 	hide()
 
 func lock(lock_bool):

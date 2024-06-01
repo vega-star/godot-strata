@@ -40,6 +40,7 @@ var base_primary_rof
 var base_secondary_rof
 var secondary_projectiles_amount : int = 1
 
+var heat_enabled : bool = true
 var primary_burst : bool
 var primary_burst_quantity : int
 var primary_heat : float = 0
@@ -108,16 +109,17 @@ func _process(_delta):
 			ammo_regeneration = false
 
 func _physics_process(delta):
-	if primary_on_cooldown:
-		if primary_heat <= 0:
-			primary_heat = 0
-			primary_overheat = false
+	if heat_enabled:
+		if primary_on_cooldown:
+			if primary_heat <= 0:
+				primary_heat = 0
+				primary_overheat = false
+			
+			heat_updated.emit(primary_linear_cooling, false)
+			primary_heat = lerpf(primary_heat, 0, primary_quick_cooling)
 		
-		heat_updated.emit(primary_linear_cooling, false)
-		primary_heat = lerpf(primary_heat, 0, primary_quick_cooling)
-	
-	if primary_heat > 0 and !primary_on_cooldown:
-		heat_updated.emit(primary_linear_cooling, false)
+		if primary_heat > 0 and !primary_on_cooldown:
+			heat_updated.emit(primary_linear_cooling, false)
 
 #region Equipment
 func load_equipment(set_primary = null, set_secondary = null): ## Loads equipment properly at the start of the scene. Can be used again after changes in Inventory.
@@ -134,17 +136,26 @@ func load_equipment(set_primary = null, set_secondary = null): ## Loads equipmen
 	## Load base values
 	primary_weapon_scene = load(eqquiped_primary["projectile_scene"])
 	secondary_weapon_scene = load(eqquiped_secondary["projectile_scene"])
-	
 	base_primary_rof = eqquiped_primary["base_rate_of_fire"]
 	base_secondary_rof = eqquiped_secondary["base_rate_of_fire"]
 	secondary_projectiles_amount = eqquiped_secondary["base_amount"]
 	regenerate_ammo = eqquiped_secondary["base_regeneration"]
 	
-	selected_primary_heat = eqquiped_primary["base_heat"]
-	primary_linear_cooling = eqquiped_primary["base_linear_cooling"]
-	primary_quick_cooling = eqquiped_primary["base_quick_cooling"]
-	primary_quick_cooling_timeout = eqquiped_primary["base_quick_cooling_timeout"]
-	max_primary_heat = eqquiped_primary["base_max_heat"]
+	## Heat
+	if eqquiped_primary["heating"] is bool:
+		UI.UIOverlay.heat_bar.visible = false
+		heat_enabled = false
+	else: 
+		heat_enabled = true
+	
+	if heat_enabled:
+		max_primary_heat = eqquiped_primary["heating"]["base_max_heat"]
+		selected_primary_heat = eqquiped_primary["heating"]["base_heat"]
+		primary_linear_cooling = eqquiped_primary["heating"]["base_linear_cooling"]
+		primary_quick_cooling = eqquiped_primary["heating"]["base_quick_cooling"]
+		primary_quick_cooling_timeout = eqquiped_primary["heating"]["base_quick_cooling_timeout"]
+	
+	## Burst
 	primary_burst = eqquiped_primary["base_burst"]
 	primary_burst_quantity = eqquiped_primary["base_burst_quantity"]
 	
@@ -199,13 +210,13 @@ func update_player_values():
 	owner.burst_quantity = primary_burst_quantity
 	
 	owner.status_change.emit()
-	UI.UIOverlay.update_heat(primary_heat, max_primary_heat)
+	if heat_enabled: UI.UIOverlay.update_heat(primary_heat, max_primary_heat)
 	UI.UIOverlay.update_hud()
 
 ## Weapon usage
 func _on_player_primary_fired(start_position):
 	if !primary_overheat:
-		heat_updated.emit(selected_primary_heat, true)
+		if heat_enabled: heat_updated.emit(selected_primary_heat, true)
 		
 		var primary_shot = primary_weapon_scene.instantiate()
 		primary_shot.rotation_degrees = owner.rotation_degrees

@@ -13,8 +13,6 @@ jobs:
         defaults:
             run:
                 shell: bash
-        concurrency:
-            group: bulk_upload
         steps:
             # Checkout repo to Github Actions runner
             - name: Checkout
@@ -52,8 +50,6 @@ jobs:
         defaults:
             run:
                 shell: bash
-        concurrency:
-            group: bulk_upload
         steps:
             # Checkout repo to Github Actions runner
             - name: Checkout
@@ -91,8 +87,6 @@ jobs:
         defaults:
             run:
                 shell: bash
-        concurrency:
-            group: bulk_upload
         steps:
             # Checkout repo to Github Actions runner
             - name: Checkout

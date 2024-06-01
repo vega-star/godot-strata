@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://by20rofdwx3ph"]
+
+[ext_resource type="Script" path="res://scenes/scripts/main/stage_camera.gd" id="1_lfkja"]
+
+[node name="StageCamera" type="Camera2D" groups=["stage_camera"]]
+position = Vector2(-79, -60)
+limit_left = 0
+limit_top = -60
+limit_right = 960
+limit_bottom = 540
+limit_smoothed = true
+position_smoothing_enabled = true
+editor_draw_limits = true
+script = ExtResource("1_lfkja")

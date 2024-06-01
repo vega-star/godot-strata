@@ -82,5 +82,3 @@ func _on_options_visibility_changed():
 	if !Options.visible:
 		set_focus(page_position, page_direction)
 
-func _exiting_menu():
-	AudioManager.set_pause(true)

@@ -17,7 +17,7 @@ func display_danger(direction : bool, horizontal : bool = true, timeout : float 
 	danger_player.display_danger(direction, horizontal, timeout, modulate_color)
 
 func _on_message_displayed():
-	print('Message successfully displayed')
+	if OS.is_debug_build(): print('Message successfully displayed')
 
 func toggle_message_layer(toggle):
 	info_layer.visible = toggle

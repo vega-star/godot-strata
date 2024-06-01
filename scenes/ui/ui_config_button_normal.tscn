@@ -1,0 +1,18 @@
+[gd_scene load_steps=5 format=3 uid="uid://b8i54d06xmri"]
+
+[ext_resource type="Texture2D" uid="uid://bf2tc7pr1ji5l" path="res://assets/textures/static/gear-icon-normal.png" id="1_8yn4o"]
+[ext_resource type="Texture2D" uid="uid://ihvj2q1itlqw" path="res://assets/textures/static/gear-icon-pressed.png" id="2_gvqxw"]
+[ext_resource type="Texture2D" uid="uid://c64dqe2nhqlg3" path="res://assets/textures/static/gear-icon-focus.png" id="3_4mx0u"]
+[ext_resource type="BitMap" uid="uid://dngmj6m7g1uu4" path="res://assets/textures/static/gear_icon_bitmap.bmp" id="4_qu63u"]
+
+[node name="ConfigButton" type="TextureButton"]
+offset_left = -41.0
+offset_top = -41.0
+offset_right = 41.0
+offset_bottom = 41.0
+texture_normal = ExtResource("1_8yn4o")
+texture_pressed = ExtResource("2_gvqxw")
+texture_hover = ExtResource("2_gvqxw")
+texture_focused = ExtResource("3_4mx0u")
+texture_click_mask = ExtResource("4_qu63u")
+stretch_mode = 6

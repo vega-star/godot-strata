@@ -45,7 +45,8 @@ func end_stage(turbo : bool = false): ## Clear cached data from stage on UI, suc
 		# Turbo means it will skip custcenes and other sequences and finish everything it needs to
 		await stage.end_stage_sequence(turbo)
 	
-	UI.UIOverlay.bars.clear_events()
+	UIOverlay.bars.clear_events()
+	UIOverlay.visible = false
 
 func set_pause(mode : bool = true):
 	get_tree().paused = mode

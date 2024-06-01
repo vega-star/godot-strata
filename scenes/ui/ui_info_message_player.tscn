@@ -22,6 +22,8 @@ grow_vertical = 2
 theme = ExtResource("1_e8tqe")
 script = ExtResource("2_6nf0b")
 
+[node name="MessageTimer" type="Timer" parent="."]
+
 [node name="MessageText" type="RichTextLabel" parent="."]
 clip_contents = false
 custom_minimum_size = Vector2(0, 7)
@@ -53,3 +55,5 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_e8tqe")
 theme_override_styles/panel = ExtResource("3_pfh27")
+
+[connection signal="timeout" from="MessageTimer" to="." method="_on_message_timer_timeout"]

@@ -14,7 +14,6 @@ size = Vector2(50, 50)
 collision_layer = 2
 collision_mask = 5
 script = ExtResource("1_uscle")
-enemy_name = "debug_enemy"
 self_sprite = NodePath("EnemySprite")
 bulk_updating = true
 

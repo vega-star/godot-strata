@@ -11,7 +11,7 @@ const self_scene_path = "res://entities/prototype_entities/enemy_gun.tscn"
 
 ## Properties
 @export var enemy_name : String = 'default_gun'
-@export var projectile_id : String = "default_enemy_laser"
+@export var projectile_id : String = "enemy_laser"
 @export var deactivate_instead : bool = false
 @export var activation_time : float = 2.5
 @export var self_sprite : Sprite2D

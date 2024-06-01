@@ -3,6 +3,7 @@ class_name Enemy extends Area2D
 signal enemy_died
 
 @export var enemy_name : String = "enemy"
+@export var enemy_title : String = "a intruder"
 const alpha_modulation = 0.5
 
 @export var set_health_bar : bool = true

@@ -7,11 +7,13 @@
             "base_projectile_passthrough": 2,
             "base_rate_of_fire": 0.25,
             "base_damage": 2,
-            "base_max_heat": 100,
-            "base_heat": 3.0,
-            "base_linear_cooling": 0.1,
-            "base_quick_cooling_timeout": 1.5,
-            "base_quick_cooling": 0.05,
+            "heating": {
+                "base_max_heat": 100,
+                "base_heat": 3.0,
+                "base_linear_cooling": 0.1,
+                "base_quick_cooling_timeout": 1.5,
+                "base_quick_cooling": 0.05
+            },
             "weapon_properties": {
                 "weapon_name": "Burst Laser",
                 "weapon_description": "Convert excess core energy into concentrated laser bursts",
@@ -26,18 +28,14 @@
             "base_projectile_passthrough": 1,
             "base_rate_of_fire": 0.15,
             "base_damage": 3,
-            "base_max_heat": 150,
-            "base_heat": 1.5,
-            "base_linear_cooling": 0.15,
-            "base_quick_cooling_timeout": 1.5,
-            "base_quick_cooling": 0.08,
+            "heating": false,
             "weapon_properties": {
                 "weapon_name": "Mounted Minigun",
                 "weapon_description": "A classic fighter-jet minigun that shoots high caliber bullets. Still packs a punch after all those years.",
                 "weapon_small_icon": null,
                 "weapon_icon": null
             }
-            }
+        }
     },
     "secondary": {
         "simple_missile": {

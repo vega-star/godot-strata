@@ -6,6 +6,7 @@ const bar_fadeout_time : float = 3
 ## Nodes
 @onready var progress_bar = $StageProgressBar/Bar
 @onready var boss_bar = $BossBar/Bar
+@onready var boss_name = $BossBar/BossName
 @onready var progress_bar_frame = $StageProgressBar/ProgressBarFrame
 @onready var bar_start = $StageProgressBar/BarStart
 @onready var bar_end = $StageProgressBar/BarEnd
@@ -41,12 +42,22 @@ var modules : Dictionary = {}
 func _ready():
 	bar_size = bar_start.position.distance_to(bar_end.position)
 
+func toggle_progress_bar(show : bool = true):
+	if show: ui_animation_player.play("toggle_progress_bar")
+	else: ui_animation_player.play_backwards("toggle_progress_bar")
+
 func set_boss_bar(new_boss_node):
 	boss_node = new_boss_node
 	await boss_node.ready
 	boss_health_component = boss_node.health_component
+	ui_animation_player.play("RESET")
 	
 	# Prepare boss bar
+	boss_name.set_text("[b]{0}[/b], {1}".format({
+		0:boss_node.enemy_name.capitalize(),
+		1:boss_node.enemy_title
+	}))
+	
 	boss_bar.set_max(boss_health_component.max_health)
 	boss_bar.set_value(boss_health_component.max_health)
 	boss_health_component.health_change.connect(_update_boss_bar)
@@ -99,10 +110,10 @@ func _update_module_bar(_previous_value : int, new_value : int, _type : bool):
 func close_boss_bar():
 	ui_animation_player.play_backwards("toggle_boss_bar")
 	await ui_animation_player.animation_finished
-	ui_animation_player.play("toggle_progress_bar")
+	# ui_animation_player.play("toggle_progress_bar")
 	await get_tree().create_timer(bar_fadeout_time).timeout
 	for m in $BossBar/ModulesBars.get_children():
-		m.call("queue_free")
+		m.call_deferred("queue_free")
 
 func display_event(event_data):
 	var event = event_node_scene.instantiate()

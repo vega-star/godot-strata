@@ -1,15 +1,14 @@
-[gd_scene load_steps=25 format=3 uid="uid://3js2ufvdnk2k"]
+[gd_scene load_steps=32 format=3 uid="uid://3js2ufvdnk2k"]
 
 [ext_resource type="Script" path="res://scenes/scripts/ui/menu_central_page.gd" id="1_gad2b"]
-[ext_resource type="Script" path="res://scenes/ui/central_menu_effect.gd" id="2_36efi"]
-[ext_resource type="Texture2D" uid="uid://drajfpsohsrud" path="res://assets/textures/static/menu_effect_left.png" id="3_imkp2"]
+[ext_resource type="PackedScene" uid="uid://b5ek1g4fsmfqu" path="res://scenes/ui/ui_menu_effect.tscn" id="2_c4osj"]
 [ext_resource type="Theme" uid="uid://b1a5sjt2xibwo" path="res://assets/themes/strata_theme/strata_theme.tres" id="3_l8my2"]
 [ext_resource type="Texture2D" uid="uid://1tra8xau03f" path="res://assets/textures/static/main_menu_cover.png" id="3_sguk8"]
-[ext_resource type="Texture2D" uid="uid://d1xelwrnq4ilq" path="res://assets/textures/static/menu_effect_right.png" id="4_3lqmx"]
 [ext_resource type="PackedScene" uid="uid://c2vd5a4tvc1kw" path="res://scenes/ui/ui_default_button.tscn" id="4_hujtw"]
 [ext_resource type="Texture2D" uid="uid://bmpah4ugbbs2w" path="res://assets/textures/static/zero.png" id="5_6d0yf"]
-[ext_resource type="Texture2D" uid="uid://b7ng4wgr4xch8" path="res://assets/textures/static/strata_logo.png" id="5_61mfq"]
 [ext_resource type="Script" path="res://scenes/scripts/ui/ui_default_button.gd" id="7_gmx1c"]
+[ext_resource type="Texture2D" uid="uid://ci5fsexvhn0kh" path="res://assets/textures/prototypes/notice/radish_holding_sign.png" id="7_le30h"]
+[ext_resource type="Texture2D" uid="uid://kt1283xaym8w" path="res://assets/textures/static/strata_logo_v2.png" id="8_cup24"]
 [ext_resource type="Texture2D" uid="uid://4qon6fwk2k6q" path="res://assets/textures/static/youtube.png" id="8_gfkgt"]
 [ext_resource type="Texture2D" uid="uid://c48tvc2reemnq" path="res://assets/textures/static/github_small.png" id="8_grpau"]
 [ext_resource type="Texture2D" uid="uid://bivosg7gi3xsk" path="res://assets/textures/static/youtube_filled.png" id="9_4afs7"]
@@ -34,7 +33,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(480, 393)]
+"values": [Vector2(366, 540)]
 }
 tracks/1/type = "bezier"
 tracks/1/imported = false
@@ -44,7 +43,7 @@ tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(480, -0.25, 0, 0.25, 0),
+"points": PackedFloat32Array(366, -0.25, 0, 0.25, 0),
 "times": PackedFloat32Array(0)
 }
 tracks/2/type = "bezier"
@@ -55,7 +54,7 @@ tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(681, -0.25, 0, 0.25, 0),
+"points": PackedFloat32Array(540, -0.25, 0, 0.25, 0),
 "times": PackedFloat32Array(0)
 }
 tracks/3/type = "bezier"
@@ -92,7 +91,7 @@ tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "handle_modes": PackedInt32Array(0, 0),
-"points": PackedFloat32Array(480, -0.25, 0, 0.25, 0, 480, -0.25, 0, 0.25, 0),
+"points": PackedFloat32Array(366, -0.25, 0, 0.25, 0, 366, -0.25, 0, 0.25, 0),
 "times": PackedFloat32Array(0.6, 1.1)
 }
 tracks/1/type = "bezier"
@@ -103,7 +102,7 @@ tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "handle_modes": PackedInt32Array(0, 0),
-"points": PackedFloat32Array(681, -0.25, 0, 0.25, 0, 409, -0.392703, -65, 0.25, 0),
+"points": PackedFloat32Array(540, -0.25, 0, 0.25, 0, 248, -0.25, 0, 0.25, 0),
 "times": PackedFloat32Array(0.6, 1.1)
 }
 tracks/2/type = "bezier"
@@ -135,6 +134,62 @@ _data = {
 "menu_opening": SubResource("Animation_jxb8k")
 }
 
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_54yu2"]
+texture = ExtResource("3_sguk8")
+texture_margin_left = 20.0
+texture_margin_top = 16.0
+texture_margin_right = 20.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_adkda"]
+atlas = ExtResource("7_le30h")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b78af"]
+atlas = ExtResource("7_le30h")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_av2ik"]
+atlas = ExtResource("7_le30h")
+region = Rect2(96, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u7sjb"]
+atlas = ExtResource("7_le30h")
+region = Rect2(144, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fk7lt"]
+atlas = ExtResource("7_le30h")
+region = Rect2(192, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_woj7c"]
+atlas = ExtResource("7_le30h")
+region = Rect2(240, 0, 48, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_62iot"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_adkda")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b78af")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_av2ik")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u7sjb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fk7lt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_woj7c")
+}],
+"loop": true,
+"name": &"main",
+"speed": 8.0
+}]
+
 [node name="CentralPage" type="Control"]
 layout_mode = 3
 anchors_preset = 0
@@ -149,50 +204,31 @@ libraries = {
 }
 autoplay = "menu_opening"
 
-[node name="MenuEffect" type="ParallaxBackground" parent="."]
-layer = -1
-script = ExtResource("2_36efi")
+[node name="MenuEffect" parent="." instance=ExtResource("2_c4osj")]
 
-[node name="ItchioBGRect" type="ColorRect" parent="MenuEffect"]
-offset_left = -1.0
-offset_right = 959.0
-offset_bottom = 540.0
-color = Color(0.180392, 0.133333, 0.184314, 1)
-
-[node name="GreenMiddle" type="ColorRect" parent="MenuEffect"]
-offset_left = 366.0
-offset_right = 593.0
-offset_bottom = 540.0
-color = Color(0.192157, 0.211765, 0.219608, 1)
-
-[node name="LeftSide" type="ParallaxLayer" parent="MenuEffect"]
-position = Vector2(-1, 0)
-motion_mirroring = Vector2(0, 540)
-
-[node name="MenuEffectLeft" type="Sprite2D" parent="MenuEffect/LeftSide"]
-position = Vector2(292, 270)
-texture = ExtResource("3_imkp2")
-
-[node name="RightSide" type="ParallaxLayer" parent="MenuEffect"]
-position = Vector2(-1, 0)
-motion_mirroring = Vector2(0, 540)
-
-[node name="MenuEffectRight" type="Sprite2D" parent="MenuEffect/RightSide"]
-position = Vector2(681, 270)
-texture = ExtResource("4_3lqmx")
-
-[node name="ButtonsCover" type="Sprite2D" parent="."]
-position = Vector2(480, 681)
-texture = ExtResource("3_sguk8")
+[node name="ButtonsCover" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -114.0
+offset_right = 114.0
+offset_bottom = 292.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxTexture_54yu2")
 
 [node name="ButtonsContainer" type="VBoxContainer" parent="ButtonsCover"]
+layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -200.5
-offset_top = -128.0
-offset_right = -19.5
-offset_bottom = 184.0
+offset_left = -90.5
+offset_top = 26.0
+offset_right = 90.5
+offset_bottom = 338.0
 grow_horizontal = 2
 
 [node name="ContinueButton" type="Button" parent="ButtonsCover/ButtonsContainer"]
@@ -209,13 +245,11 @@ text = "START"
 
 [node name="ProfileButton" parent="ButtonsCover/ButtonsContainer" instance=ExtResource("4_hujtw")]
 layout_mode = 2
-tooltip_text = "NOT IMPLEMENTED YET!"
 disabled = true
 text = "PROFILE"
 
 [node name="CodexButton" parent="ButtonsCover/ButtonsContainer" instance=ExtResource("4_hujtw")]
 layout_mode = 2
-tooltip_text = "NOT IMPLEMENTED YET!"
 disabled = true
 text = "CODEX"
 
@@ -241,9 +275,32 @@ grow_vertical = 0
 theme = ExtResource("3_l8my2")
 text = "v0.0.0"
 
+[node name="RadishHoldingSign" type="AnimatedSprite2D" parent="."]
+position = Vector2(111, 485)
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_62iot")
+animation = &"main"
+autoplay = "main"
+flip_h = true
+
+[node name="MessageMarker" type="Marker2D" parent="RadishHoldingSign"]
+position = Vector2(28, -76)
+
+[node name="SpriteZone" type="Control" parent="RadishHoldingSign"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -24.0
+offset_top = -24.0
+offset_right = -24.0
+offset_bottom = -24.0
+grow_horizontal = 2
+grow_vertical = 2
+
 [node name="StrataLogo" type="Sprite2D" parent="."]
 position = Vector2(478, 138)
-texture = ExtResource("5_61mfq")
+texture = ExtResource("8_cup24")
 
 [node name="Zero" type="Sprite2D" parent="StrataLogo"]
 position = Vector2(306, 55)
@@ -256,10 +313,10 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 975.0
-offset_top = 395.0
-offset_right = 1035.0
-offset_bottom = 519.0
+offset_left = 15.0
+offset_top = -145.0
+offset_right = 75.0
+offset_bottom = -21.0
 grow_horizontal = 0
 grow_vertical = 0
 theme_override_constants/separation = 4
@@ -307,6 +364,8 @@ stretch_mode = 3
 [connection signal="pressed" from="ButtonsCover/ButtonsContainer/CodexButton" to="." method="_on_codex_button_pressed"]
 [connection signal="pressed" from="ButtonsCover/ButtonsContainer/CreditsButton" to="." method="_on_credits_button_pressed"]
 [connection signal="pressed" from="ButtonsCover/ButtonsContainer/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="mouse_entered" from="RadishHoldingSign/SpriteZone" to="." method="_on_sprite_zone_mouse_entered"]
+[connection signal="mouse_exited" from="RadishHoldingSign/SpriteZone" to="." method="_on_sprite_zone_mouse_exited"]
 [connection signal="pressed" from="Links/ItchIoLink" to="." method="_on_itch_io_link_pressed"]
 [connection signal="pressed" from="Links/YoutubeLink" to="." method="_on_youtube_link_pressed"]
 [connection signal="pressed" from="Links/GitHubLink" to="." method="_on_git_hub_link_pressed"]

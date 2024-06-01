@@ -1,6 +1,6 @@
 [gd_scene load_steps=16 format=3 uid="uid://b754kyc8mncbj"]
 
-[ext_resource type="Script" path="res://entities/projectiles/projectiles_scripts/player_projectile.gd" id="1_r62c6"]
+[ext_resource type="Script" path="res://entities/projectiles/projectiles_scripts/projectile.gd" id="1_r62c6"]
 [ext_resource type="AudioStream" uid="uid://de3c150pw4b7u" path="res://assets/audio/effects/minigun_shoot.wav" id="2_5cmj5"]
 [ext_resource type="Texture2D" uid="uid://dktofbw8vpfmf" path="res://assets/textures/projectiles/minigun_capsule.png" id="3_qq78k"]
 [ext_resource type="PackedScene" uid="uid://c3atqdge540t0" path="res://components/status/hitbox_component.tscn" id="4_hq7xm"]
@@ -83,9 +83,6 @@ light_mask = 2
 collision_layer = 4
 collision_mask = 2
 script = ExtResource("1_r62c6")
-base_rate_of_fire = 30.0
-projectile_damage = 3
-enemy_pass_limit = 1
 penetration_factor = 0.6
 pitch_variation = 0.3
 

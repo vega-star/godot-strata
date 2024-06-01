@@ -11,10 +11,10 @@
 [ext_resource type="Texture2D" uid="uid://b4ebhxv8qnvmi" path="res://assets/themes/strata_theme/elements/misc/save_button_focus.png" id="7_4ibbr"]
 [ext_resource type="BitMap" uid="uid://dyy8flx0t02gv" path="res://assets/textures/static/red_button_bitmap.bmp" id="7_665qi"]
 [ext_resource type="Texture2D" uid="uid://dl4w0noxrrtow" path="res://assets/textures/static/red_button_cover.png" id="7_amcjc"]
+[ext_resource type="Script" path="res://scenes/scripts/ui/ui_default_texture_button.gd" id="7_byckj"]
 [ext_resource type="Script" path="res://scenes/scripts/ui/ui_default_button.gd" id="7_k46rw"]
 [ext_resource type="Texture2D" uid="uid://by60mh5hr16dr" path="res://assets/themes/strata_theme/elements/misc/save_button_disabled.png" id="8_2x7y7"]
 [ext_resource type="BitMap" uid="uid://dupnmu3lriidv" path="res://assets/themes/strata_theme/elements/misc/save_button_click_mask.bmp" id="9_2o3y0"]
-[ext_resource type="Script" path="res://scenes/ui/ui_default_texture_button.gd" id="15_7gswd"]
 
 [sub_resource type="Animation" id="Animation_bs5cd"]
 length = 0.001
@@ -112,11 +112,10 @@ offset_left = 806.0
 offset_top = 368.0
 offset_right = 942.0
 offset_bottom = 534.001
-tooltip_text = "Deploy fighter"
 theme = ExtResource("3_sltso")
 texture_normal = ExtResource("6_f1of6")
 texture_click_mask = ExtResource("7_665qi")
-script = ExtResource("15_7gswd")
+script = ExtResource("7_byckj")
 
 [node name="RedButtonCover" type="Sprite2D" parent="Dashboard"]
 position = Vector2(870, 498)
@@ -398,7 +397,7 @@ scale = Vector2(-1, 1)
 tooltip_text = "Return to main menu"
 theme = ExtResource("3_sltso")
 texture_normal = ExtResource("4_lfkuq")
-script = ExtResource("15_7gswd")
+script = ExtResource("7_byckj")
 
 [connection signal="pressed" from="Dashboard/StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="pressed" from="Dashboard/TutorialButton" to="." method="_on_tutorial_button_pressed"]

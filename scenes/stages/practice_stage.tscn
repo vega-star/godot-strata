@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://csdnju38rqee8" path="res://scenes/stage_manager.tscn" id="2_hwme0"]
 [ext_resource type="PackedScene" uid="uid://biim58k38oa7h" path="res://entities/player/player.tscn" id="3_flctw"]
 [ext_resource type="PackedScene" uid="uid://b81qbneypd7pp" path="res://scenes/stages/parallax/simulated_parallax.tscn" id="4_wfaoe"]
-[ext_resource type="Script" path="res://scenes/scripts/main/stage_camera.gd" id="5_btjjv"]
+[ext_resource type="PackedScene" uid="uid://by20rofdwx3ph" path="res://scenes/stages/components/stage_camera.tscn" id="5_e5vgk"]
 [ext_resource type="PackedScene" uid="uid://cfmi0lq8hncjn" path="res://scenes/ui/practice_menu_layer.tscn" id="6_y3xfg"]
 
 [node name="PracticeStage" type="Node2D" node_paths=PackedStringArray("stage_parallax")]
@@ -17,7 +17,6 @@ save_stage_data = false
 stage_parallax = NodePath("SimulationParallax")
 
 [node name="StageManager" parent="." instance=ExtResource("2_hwme0")]
-debug_generator = false
 
 [node name="PlayerStartPosition" type="Marker2D" parent="."]
 light_mask = 2
@@ -37,16 +36,8 @@ one_shot = true
 
 [node name="SimulationParallax" parent="." instance=ExtResource("4_wfaoe")]
 
-[node name="StageCamera" type="Camera2D" parent="."]
+[node name="StageCamera" parent="." instance=ExtResource("5_e5vgk")]
 position = Vector2(-122, -72)
-limit_left = 0
-limit_top = -60
-limit_right = 960
-limit_bottom = 540
-limit_smoothed = true
-position_smoothing_enabled = true
-editor_draw_limits = true
-script = ExtResource("5_btjjv")
 
 [node name="PracticeMenuLayer" parent="." instance=ExtResource("6_y3xfg")]
 

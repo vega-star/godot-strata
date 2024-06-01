@@ -41,7 +41,8 @@ const knockback_randomness = 0.2
 const roll_timer : float = 1.5
 
 # Status
-@onready var stage_camera : Camera2D = $"../StageCamera"
+@onready var stage_camera : Camera2D = get_tree().get_first_node_in_group('stage_camera')
+@onready var player_state_machine = $PlayerStateMachine
 @onready var health_component : HealthComponent = $HealthComponent
 @onready var equipment_module : EquipmentModule = $EquipmentModule
 @onready var hitbox_component : HitboxComponent = $HitboxComponent
@@ -247,6 +248,8 @@ func update_animation_state():
 
 ## Weapon firing
 func shoot_loop():
+	if animation_tree["parameters/conditions/back_roll"] or animation_tree["parameters/conditions/front_roll"]: return
+	
 	if !primary_fire_cooldown:
 		primary_fire_cooldown = true
 		

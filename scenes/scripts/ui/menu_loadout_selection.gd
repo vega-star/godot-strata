@@ -146,8 +146,6 @@ func confirm_selection():
 	Profile.add_run_data("INVENTORY", "ITEMS_STORED", selected_item)
 
 func start_run(stage_path):
-	confirm_selection()
-	main_menu._exiting_menu()
-	
 	await UI.fade('OUT')
+	await confirm_selection()
 	LoadManager.load_scene(stage_path)

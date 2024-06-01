@@ -1,0 +1,306 @@
+[gd_scene load_steps=35 format=3 uid="uid://i5y8q1d2qr2q"]
+
+[ext_resource type="PackedScene" uid="uid://b5ek1g4fsmfqu" path="res://scenes/ui/ui_menu_effect.tscn" id="1_1hu68"]
+[ext_resource type="Script" path="res://scenes/scripts/ui/construction_notice.gd" id="1_rqdvw"]
+[ext_resource type="Shader" path="res://scenes/ui/wavy_text.gdshader" id="2_q7iju"]
+[ext_resource type="FontFile" uid="uid://dtusi5ojlx75v" path="res://assets/themes/fonts/DePixelKlein.otf" id="3_sgo4p"]
+[ext_resource type="Theme" uid="uid://fmibt6brra62" path="res://assets/themes/monospace_vt323.tres" id="4_rptpc"]
+[ext_resource type="PackedScene" uid="uid://c2vd5a4tvc1kw" path="res://scenes/ui/ui_default_button.tscn" id="5_rldfo"]
+[ext_resource type="Texture2D" uid="uid://ci5fsexvhn0kh" path="res://assets/textures/prototypes/notice/radish_holding_sign.png" id="6_jiqwk"]
+[ext_resource type="Texture2D" uid="uid://brfwyrxhg3wg0" path="res://assets/textures/prototypes/notice/player_sitting.png" id="8_db8sa"]
+[ext_resource type="PackedScene" uid="uid://b8i54d06xmri" path="res://scenes/ui/ui_config_button_normal.tscn" id="8_re6w3"]
+[ext_resource type="Texture2D" uid="uid://b762s3o1xxw3y" path="res://assets/textures/prototypes/notice/gears.png" id="9_55lsd"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c7ty0"]
+bg_color = Color(0.243137, 0.207843, 0.27451, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_blend = true
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+shadow_color = Color(0, 0, 0, 0.772549)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_v4jek"]
+shader = ExtResource("2_q7iju")
+shader_parameter/height = 5.0
+shader_parameter/frequency = 5.0
+shader_parameter/speed = 5.0
+
+[sub_resource type="FontVariation" id="FontVariation_t3gna"]
+base_font = ExtResource("3_sgo4p")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_adkda"]
+atlas = ExtResource("6_jiqwk")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b78af"]
+atlas = ExtResource("6_jiqwk")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_av2ik"]
+atlas = ExtResource("6_jiqwk")
+region = Rect2(96, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u7sjb"]
+atlas = ExtResource("6_jiqwk")
+region = Rect2(144, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fk7lt"]
+atlas = ExtResource("6_jiqwk")
+region = Rect2(192, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_woj7c"]
+atlas = ExtResource("6_jiqwk")
+region = Rect2(240, 0, 48, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jsu72"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_adkda")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b78af")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_av2ik")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u7sjb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fk7lt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_woj7c")
+}],
+"loop": true,
+"name": &"main",
+"speed": 8.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oy10i"]
+atlas = ExtResource("8_db8sa")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_of85i"]
+atlas = ExtResource("8_db8sa")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mkj8n"]
+atlas = ExtResource("8_db8sa")
+region = Rect2(96, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0lcud"]
+atlas = ExtResource("8_db8sa")
+region = Rect2(144, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wit2y"]
+atlas = ExtResource("8_db8sa")
+region = Rect2(192, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nmnwv"]
+atlas = ExtResource("8_db8sa")
+region = Rect2(240, 0, 48, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_57adu"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oy10i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_of85i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mkj8n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0lcud")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wit2y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nmnwv")
+}],
+"loop": true,
+"name": &"main",
+"speed": 8.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h177q"]
+atlas = ExtResource("9_55lsd")
+region = Rect2(0, 0, 43, 71)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bx1e4"]
+atlas = ExtResource("9_55lsd")
+region = Rect2(43, 0, 43, 71)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5eth7"]
+atlas = ExtResource("9_55lsd")
+region = Rect2(86, 0, 43, 71)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8g50e"]
+atlas = ExtResource("9_55lsd")
+region = Rect2(129, 0, 43, 71)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v2fk1"]
+atlas = ExtResource("9_55lsd")
+region = Rect2(172, 0, 43, 71)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e2i33"]
+atlas = ExtResource("9_55lsd")
+region = Rect2(215, 0, 43, 71)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4yf18"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h177q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bx1e4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5eth7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8g50e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v2fk1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e2i33")
+}],
+"loop": true,
+"name": &"main",
+"speed": 8.0
+}]
+
+[node name="BuildingScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_rqdvw")
+
+[node name="MenuEffect" parent="." instance=ExtResource("1_1hu68")]
+
+[node name="CentralPanel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -174.0
+offset_top = -229.5
+offset_right = 174.0
+offset_bottom = 229.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_c7ty0")
+
+[node name="Title" type="Label" parent="CentralPanel"]
+material = SubResource("ShaderMaterial_v4jek")
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 8.0
+offset_bottom = 80.0
+grow_horizontal = 2
+theme_override_colors/font_shadow_color = Color(0.32549, 0, 0, 0.427451)
+theme_override_constants/shadow_outline_size = 5
+theme_override_fonts/font = SubResource("FontVariation_t3gna")
+theme_override_font_sizes/font_size = 30
+text = "THANK YOU!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Description" type="RichTextLabel" parent="CentralPanel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -163.0
+offset_top = -144.5
+offset_right = 163.0
+offset_bottom = 111.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("4_rptpc")
+theme_override_colors/font_shadow_color = Color(0.462745, 0, 0.0627451, 1)
+theme_override_font_sizes/normal_font_size = 24
+theme_override_font_sizes/bold_font_size = 24
+bbcode_enabled = true
+text = "[center]I'm currently building more ahead, but for now there's no content ready in this version. I'm working on it!
+
+This is a [b]prototype[/b] created to test features and code. All of its code is open-source and there'll be tutorials on each part. Stick around!
+[/center]"
+
+[node name="ReturnToMenu" parent="CentralPanel" instance=ExtResource("5_rldfo")]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -110.5
+offset_top = -95.0
+offset_right = 110.5
+offset_bottom = -42.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "RETURN TO MENU"
+
+[node name="Additionals" type="Node2D" parent="."]
+position = Vector2(852, 434)
+scale = Vector2(4, 4)
+
+[node name="RadishHoldingSign" type="AnimatedSprite2D" parent="Additionals"]
+sprite_frames = SubResource("SpriteFrames_jsu72")
+animation = &"main"
+autoplay = "main"
+frame = 4
+frame_progress = 0.902004
+
+[node name="PlayerSitting" type="AnimatedSprite2D" parent="Additionals"]
+position = Vector2(-178.75, -4.5)
+sprite_frames = SubResource("SpriteFrames_57adu")
+animation = &"main"
+autoplay = "main"
+frame = 2
+frame_progress = 0.0868043
+
+[node name="Gears" type="AnimatedSprite2D" parent="Additionals"]
+position = Vector2(-177.25, -42.25)
+sprite_frames = SubResource("SpriteFrames_4yf18")
+animation = &"main"
+autoplay = "main"
+frame = 1
+frame_progress = 0.59044
+
+[node name="ConfigButton" parent="." instance=ExtResource("8_re6w3")]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -90.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = 90.0
+grow_horizontal = 0
+
+[connection signal="pressed" from="CentralPanel/ReturnToMenu" to="." method="_on_return_to_menu_pressed"]
+[connection signal="pressed" from="ConfigButton" to="." method="_on_config_button_pressed"]
+[connection signal="visibility_changed" from="ConfigButton" to="." method="_on_config_button_visibility_changed"]

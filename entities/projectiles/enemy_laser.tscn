@@ -1,31 +1,32 @@
 [gd_scene load_steps=7 format=3 uid="uid://d3q7qlol4wnfp"]
 
-[ext_resource type="Script" path="res://entities/projectiles/projectiles_scripts/default_enemy_laser.gd" id="1_reim5"]
-[ext_resource type="AudioStream" uid="uid://dtcu8y1svt22a" path="res://assets/audio/effects/enemy_laser.wav" id="2_8gqao"]
-[ext_resource type="Texture2D" uid="uid://bh4o5e8lutt1u" path="res://assets/textures/projectiles/enemy_default_laser.png" id="3_135ps"]
-[ext_resource type="PackedScene" uid="uid://c3atqdge540t0" path="res://components/status/hitbox_component.tscn" id="3_ptfmk"]
+[ext_resource type="Script" path="res://entities/projectiles/projectiles_scripts/default_enemy_laser.gd" id="1_rci22"]
+[ext_resource type="AudioStream" uid="uid://dtcu8y1svt22a" path="res://assets/audio/effects/enemy_laser.wav" id="2_8whbf"]
+[ext_resource type="Texture2D" uid="uid://bh4o5e8lutt1u" path="res://assets/textures/projectiles/enemy_default_laser.png" id="3_chj3q"]
+[ext_resource type="PackedScene" uid="uid://c3atqdge540t0" path="res://components/status/hitbox_component.tscn" id="4_ypkoj"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jewc2"]
 radius = 4.0
 height = 20.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_43gnj"]
-radius = 4.0
+radius = 5.0
+height = 32.0
 
-[node name="DefaultEnemyLaser" type="Area2D" groups=["enemy_projectile"]]
+[node name="EnemyLaser" type="Area2D" groups=["enemy_projectile"]]
 top_level = true
 light_mask = 2
 collision_layer = 8
-script = ExtResource("1_reim5")
+script = ExtResource("1_rci22")
 
 [node name="ProjectileSound" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("2_8gqao")
+stream = ExtResource("2_8whbf")
 bus = &"Effects"
 
 [node name="LaserSprite" type="Sprite2D" parent="."]
 position = Vector2(1.13687e-13, 5.68434e-14)
 scale = Vector2(1.44869, 1.6)
-texture = ExtResource("3_135ps")
+texture = ExtResource("3_chj3q")
 
 [node name="SelfHitbox" type="CollisionShape2D" parent="."]
 visible = false
@@ -34,10 +35,10 @@ shape = SubResource("CapsuleShape2D_jewc2")
 disabled = true
 
 [node name="OutsideScreenCheck" type="VisibleOnScreenNotifier2D" parent="."]
-position = Vector2(-67, 0)
-scale = Vector2(0.3, 0.55)
+position = Vector2(-73, 0)
+scale = Vector2(1, 0.5)
 
-[node name="HitboxComponent" parent="." instance=ExtResource("3_ptfmk")]
+[node name="HitboxComponent" parent="." instance=ExtResource("4_ypkoj")]
 collision_layer = 8
 
 [node name="SelfProjectileBox" type="CollisionShape2D" parent="HitboxComponent"]
