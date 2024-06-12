@@ -73,9 +73,9 @@ func set_button_properties(new_item_id, new_title, new_icon, new_description, ne
 	if update:
 		$SelectionTitle.set_text(new_title)
 		if new_icon != "":
-			$SelectionIcon.set_texture(new_icon)
+			$SelectionIcon.set_texture(load(new_icon))
 		else:
-			$SelectionIcon.set_texture(load("res://assets/textures/prototypes/player_test_sprite.png"))
+			$SelectionIcon.set_texture(load("res://assets/textures/items/missing.png"))
 		$SelectionDescription.set_text(new_description)
 		rarity = new_rarity
 	

@@ -1,4 +1,24 @@
 {
+    "test_miniboss": {
+        "event_type": "spawn_challenge",
+        "event_description": "Spawns a mini boss. Can pause stage timer if required, and only resumes when it recieves a signal from the enemy.",
+        "event_icon": true,
+        "set_timer": true,
+        "has_rules": true,
+        "event_properties": {
+            "enemy": "lancer",
+            "challenge_type": 1,
+            "event_timer": {
+                "pause_stage_timer": true,
+                "timer_period": 2.0
+            },
+            "rules": {
+                "spawn_override": "center",
+                "set_boss_bar": true,
+                "challenge": true
+            }
+        }
+    },
     "spawn_kobold": {
         "event_type": "spawn_enemy",
         "event_description": "Spawn a cluster of enemies using the swarm rule set.",
@@ -156,26 +176,6 @@
                 "property_override": {
                     "spawn_bottom": false
                 }
-            }
-        }
-    },
-    "test_miniboss": {
-        "event_type": "spawn_challenge",
-        "event_description": "Spawns a mini boss. Can pause stage timer if required, and only resumes when it recieves a signal from the enemy.",
-        "event_icon": true,
-        "set_timer": true,
-        "has_rules": true,
-        "event_properties": {
-            "enemy": "lancer",
-            "challenge_type": 1,
-            "event_timer": {
-                "pause_stage_timer": true,
-                "timer_period": 2.0
-            },
-            "rules": {
-                "spawn_override": "center",
-                "set_boss_bar": true,
-                "challenge": true
             }
         }
     },

@@ -36,7 +36,7 @@ extends CanvasLayer
 	},
 	"classic_hp": {
 		"type": 0, # HP
-		"start_position_x": 8,
+		"start_position_x": 38,
 		"start_position_y": 0,
 		"position_offset": 0,
 		"has_start_sprite": true, 
@@ -47,19 +47,21 @@ extends CanvasLayer
 			"container_sprite_path": "res://assets/textures/ui/hud/classic/hpbar_container.png",
 			"short_container_sprite_path": "res://assets/textures/ui/hud/classic/hpbar_container_short.png",
 			"start_sprite": "res://assets/textures/ui/hud/classic/hpbar_start.png",
-			"end_sprite": "res://assets/textures/ui/hud/classic/hpbar_end.png"
+			"end_sprite": "res://assets/textures/ui/hud/classic/hpbar_end.png",
+			"heat_bar": "res://assets/textures/ui/hud/classic/heat_bar.png",
+			"heat_bar_danger": "res://assets/textures/ui/hud/classic/heat_bar_danger_tall.png"
 		},
 		"containers": {
 			"container_size_h": 52,
-			"container_size_y": 37,
+			"container_size_y": 38,
 			"short_container_size_h": 26,
-			"short_container_size_y": 37
+			"short_container_size_y": 38
 		},
 		"cells": {
 			"cell_size_h": 52,
-			"cell_size_y": 20,
+			"cell_size_y": 38,
 			"short_cell_size_h": 26,
-			"short_cell_size_y": 20
+			"short_cell_size_y": 38
 		}
 	},
 	"classic_ammo": {
@@ -76,16 +78,16 @@ extends CanvasLayer
 			"short_container_sprite_path": "res://assets/textures/ui/hud/classic/bomb_short_container.png"
 		},
 		"containers": {
-			"container_size_h": 22,
-			"container_size_y": 22,
-			"short_container_size_h": 11,
-			"short_container_size_y": 22
+			"container_size_h": 26,
+			"container_size_y": 26,
+			"short_container_size_h": 16,
+			"short_container_size_y": 26
 		},
 		"cells": {
-			"cell_size_h": 22,
-			"cell_size_y": 22,
-			"short_cell_size_h": 11,
-			"short_cell_size_y": 11
+			"cell_size_h": 26,
+			"cell_size_y": 26,
+			"short_cell_size_h": 16,
+			"short_cell_size_y": 26
 		}
 	},
 	"diamond_hp": {
@@ -138,12 +140,28 @@ extends CanvasLayer
 		stage_progress_bar.value = progress_value
 #endregion
 
+const heat_bar_factor : int = 25
+
 var stage_size : float
+var heat_bar_danger : Texture2D
+var heat_percentage : float
+var heat_urgent : bool
+var heating_alert : bool
 
 func _ready():
 	Profile.statistics_changed.connect(update_ui_elements)
 	update_hud()
 	update_ui_elements()
+	heat_bar_danger = load(hud_elements_list[selected_health_skin]["sprites"]["heat_bar_danger"])
+
+func _physics_process(delta):
+	if heat_urgent and !heating_alert:
+		heating_alert = true
+		heat_bar.set_over_texture(heat_bar_danger)
+		await get_tree().create_timer(heat_bar_factor / heat_percentage).timeout
+		heat_bar.set_over_texture(null)
+		await get_tree().create_timer(heat_bar_factor / heat_percentage).timeout
+		heating_alert = false
 
 func set_stage_bar(max_value): ## Sets the progress bar max value equal to the StageTimer total time in seconds
 	stage_progress_bar.set_max(max_value)
@@ -192,12 +210,15 @@ func construct_hud(hud_element, type, set_value, limit):
 	
 	## Adapting size, position and visibility
 	hud_nodes["container"].set_position(start_position)
+	if has_start_sprite: hud_nodes["cell"].set_position(start_position)
+	
 	if set_value <= limit: # If the value is lower than limit, construct bar without short containers.
 		hud_nodes["container"].size.x = hud_element["containers"]["container_size_h"] * set_value
 		hud_nodes["short_container"].visible = false
 		
 		if hud_element["has_end_sprite"]:
-			hud_element["end_sprite"].position.x = start_position.x + (hud_element["containers"]["container_size_h"] * set_value)
+			hud_nodes["end"].set_texture(load(hud_element["sprites"]["end_sprite"]))
+			hud_nodes["end"].position.x = start_position.x + (hud_element["containers"]["container_size_h"] * set_value)
 	else: # Else, the overflow value will become short containers to shorten occupied screen area
 		hud_nodes["short_container"].set_position(Vector2(start_position.x + (hud_element["containers"]["container_size_h"] * limit), start_position.y))
 		hud_nodes["container"].size.x = hud_element["containers"]["container_size_h"] * limit
@@ -222,13 +243,20 @@ func adapt_hud(hud_element, type, set_value, limit):
 		hud_nodes["short_cell"].position.x = (start_position.x + (hud_element["cells"]["cell_size_h"] * limit)) + hud_element["position_offset"]
 
 func update_heat(new_value, set_max : float = 0):
+	heat_percentage = (new_value / heat_bar.max_value) * 100
 	if set_max > 0: 
 		heat_bar.max_value = set_max
+	
+	if heat_percentage > 70: heat_urgent = true
+	else: heat_urgent = false
 	heat_bar.value = new_value
 
 func update_hud():
 	set_max_hp = Profile.current_run_data.get_value("INVENTORY", "MAX_HEALTH")
-	set_max_ammo = Profile.current_run_data.get_value("INVENTORY", "MAX_AMMO") + Profile.current_run_data.get_value("EFFECTS", "BONUS_AMMO")
+	if Profile.current_run_data.has_section_key("EFFECTS", "BONUS_AMMO"):
+		set_max_ammo = Profile.current_run_data.get_value("INVENTORY", "MAX_AMMO") + Profile.current_run_data.get_value("EFFECTS", "BONUS_AMMO")
+	else:
+		set_max_ammo = Profile.current_run_data.get_value("INVENTORY", "MAX_AMMO")
 
 func update_ui_elements():
 	var score = Profile.current_run_data.get_value("STATISTICS", "SCORE")

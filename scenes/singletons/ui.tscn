@@ -27,9 +27,8 @@ visible = false
 
 [node name="GameOver" parent="." instance=ExtResource("4_qb05l")]
 process_mode = 3
-layer = 15
+layer = 60
 visible = false
-follow_viewport_enabled = true
 
 [node name="ScreenTransitionLayer" parent="." instance=ExtResource("5_qtspi")]
 visible = false

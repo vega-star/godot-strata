@@ -42,6 +42,7 @@ scale = Vector2(1, 0.5)
 collision_layer = 8
 
 [node name="SelfProjectileBox" type="CollisionShape2D" parent="HitboxComponent"]
+visible = false
 rotation = -1.5708
 shape = SubResource("CapsuleShape2D_43gnj")
 debug_color = Color(0.588235, 0.537255, 0.301961, 0.419608)

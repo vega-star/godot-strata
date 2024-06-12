@@ -14,14 +14,14 @@ config/name="Strata ZERO"
 config/description="Prototype game in Godot 4.2+ made to exemplify how to make and test scripts, modular composition, and integrate various nodes. 
 
 [https://github.com/vega-star/godot-strata]"
-config/version="0.4.9"
+config/version="0.5.0"
 config/tags=PackedStringArray("demo")
 run/main_scene="res://scenes/ui/intro.tscn"
 config/features=PackedStringArray("4.2", "GL Compatibility")
 boot_splash/bg_color=Color(0.243137, 0.207843, 0.27451, 1)
 boot_splash/show_image=false
 boot_splash/use_filter=false
-config/icon="res://assets/textures/icons/box_icon.png"
+config/icon="res://assets/textures/icons/game_icon.png"
 boot_splash/minimum_display_time=10
 
 [audio]

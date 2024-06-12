@@ -15,6 +15,7 @@ const shielding_pass_add : int = 10
 @export var base_projectile_damage : int = 2
 @export var base_projectile_speed : int = 1300
 @export var enemy_pass_limit : int = 1
+@export var max_distance = 750
 @export var penetration_factor : float = 0.3
 @export var damage_on_challenge : float = 1
 @export var damage_on_critical : float = 2
@@ -23,8 +24,9 @@ const shielding_pass_add : int = 10
 
 ## ENVIRONMENT CONDITIONS
 # PROPERTIES THAT CHANGE THROUGHOUT THE PROJECTILE LIFETIME
-var projectile_speed = base_projectile_speed
-var projectile_damage = base_projectile_damage
+var initial_position : Vector2
+var projectile_speed : int = base_projectile_speed
+var projectile_damage : int = base_projectile_damage
 var can_damage_player : bool = false # Can change if bounced off an enemy or something similar
 var enemy_pass_count = 0
 var enemy_name : String = "LOST PROJECTILE" # Defaults to lost projectile, but gets set during instantiation!
@@ -34,12 +36,18 @@ func _ready():
 	
 	projectile_sound.set_pitch_scale(randf_range(1 - pitch_variation, 1 + pitch_variation))
 	projectile_sound.play()
+	
+	projectile_speed = base_projectile_speed
+	initial_position = global_position
 
 func _physics_process(delta):
 	global_position += Vector2(
 		projectile_speed * delta,
 		0
 	).rotated(rotation)
+	
+	var distance = (global_position - initial_position).x
+	if distance >= max_distance: delete_projectile()
 
 func _on_hitbox_area_entered(area):
 	var enemy : Node = area.owner

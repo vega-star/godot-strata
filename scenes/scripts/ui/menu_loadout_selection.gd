@@ -10,7 +10,7 @@ const items_data_path = "res://data/items_data.json"
 const weapons_data_path = "res://data/weapons_data.json"
 const first_stage = "res://scenes/stages/stage_one.tscn"
 
-const tutorial_stage_path = "res://scenes/stages/strata_scene.tscn"
+const tutorial_stage_path = "res://scenes/stages/stage_source.tscn"
 const practice_stage_path = "res://scenes/stages/practice_stage.tscn"
 
 var primary_weapons : Array
@@ -144,6 +144,8 @@ func confirm_selection():
 	Profile.current_run_data.set_value("INVENTORY", "PRIMARY_WEAPON", selected_primary)
 	Profile.current_run_data.set_value("INVENTORY", "SECONDARY_WEAPON", selected_secondary)
 	Profile.add_run_data("INVENTORY", "ITEMS_STORED", selected_item)
+	
+	Profile.save_previous_data()
 
 func start_run(stage_path):
 	await UI.fade('OUT')

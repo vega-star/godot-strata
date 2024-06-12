@@ -17,14 +17,19 @@ func _ready():
 func load_scene(next_scene):
 	_scene_path = next_scene
 	
+	## Control game components
+	UI.UIOverlay.bars.reset_bars()
+	
+	## Load scene start
 	var loading_screen = _loading_scene.instantiate()
 	get_tree().get_root().call_deferred("add_child", loading_screen)
-	
 	self.progress_changed.connect(loading_screen._update_progress_bar)
 	self.load_completed.connect(loading_screen._start_outro_animation)
 	
 	await Signal(loading_screen, "loading_screen_has_full_coverage")
 	start_load()
+
+func reload_scene(): load_scene(_scene_path)
 
 func start_load():
 	var state = ResourceLoader.load_threaded_request(_scene_path, "", use_sub_threads)

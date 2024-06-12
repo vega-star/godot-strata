@@ -19,3 +19,8 @@ func update_data():
 		output_list.add_item(stat_title)
 		var value = Profile.current_run_data.get_value("STATISTICS", stat)
 		values_list.add_item(str(value))
+	
+	output_list.add_item("Run success")
+	values_list.add_item(str(Profile.current_run_data.get_value("RUN_DETAILS", "SUCCESS")))
+	output_list.add_item("Defeated by")
+	values_list.add_item(Profile.current_run_data.get_value("RUN_DETAILS", "DEFEATED_BY"))

@@ -4,8 +4,6 @@ extends ParallaxBackground
 
 const sky_speed = 15
 const stars_speed = 5
-
-
 const far_clouds_speed = 20
 const before_far_cloud_speed = 50
 const medium_cloud_speed = 50

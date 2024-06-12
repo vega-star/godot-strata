@@ -16,7 +16,7 @@ var cast_available : bool = true
 var casting : bool = false
 var target : Object
 
-var laser_speed = 0.2
+var laser_speed = 0.7
 var laser_max_width = 25
 
 func _ready():
@@ -84,7 +84,7 @@ func activate():
 	end_emitter.emitting = true
 	
 	laser_tween = get_tree().create_tween()
-	laser_tween.tween_property(laser_line, "width", laser_max_width, laser_speed)
+	laser_tween.tween_property(laser_line, "width", laser_max_width, laser_speed).set_ease(Tween.EASE_IN)
 	
 	aim_line.width = 0
 	
@@ -98,7 +98,7 @@ func deactivate():
 	end_emitter.emitting = false
 	
 	laser_tween = get_tree().create_tween()
-	laser_tween.tween_property(laser_line, "width", 0, laser_speed)
+	laser_tween.tween_property(laser_line, "width", 0, laser_speed).set_trans(Tween.TRANS_EXPO)
 	await laser_tween.finished
 	enabled = false
 	laser_tween.kill()

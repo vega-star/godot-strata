@@ -3,20 +3,27 @@ extends CanvasLayer
 signal retry_button_pressed()
 signal exit_button_pressed()
 
-@onready var statistics_list = $GameOverPanel/Screen/TitleBox/LayoutBox/StatisticsList
+@onready var game_over_animation = $GameOverAnimation
+@onready var menu_button = $GameOverPanel/TitleBox/LayoutBox/TextBox/MenuButton
+@onready var statistics_list = $GameOverPanel/TitleBox/LayoutBox/TextBox/StatisticsList
 @export var active_timeout = 1.5
+
 var player_killed_status : bool = false
 
 func game_over_prompt(): # Toggles node visibiliy, as well as quit and reset functions.
+	visible = true
+	player_killed_status = true
+	UI.PauseMenu.lock(true)
+	UI.set_pause(true)
+	game_over_animation.play("toggle_game_over")
+	
+	menu_button.grab_focus()
+	UI.UIOverlay.bars.toggle_progress_bar()
 	UI.stage_timer.paused = true # Pauses stage timer
 	statistics_list.update_data()
 	Profile.end_run(false)
 	
-	await get_tree().create_timer(active_timeout).timeout
-	visible = true
-	UI.PauseMenu.lock(true)
-	$GameOverPanel/Screen/TitleBox/LayoutBox/TextBox/MenuButton.grab_focus()
-	player_killed_status = true
+	# await get_tree().create_timer(active_timeout).timeout
 
 func _input(_event): # Able us to use hotkeys instead of clicking the buttons, but should only work when this node is active
 	if player_killed_status == true:
@@ -28,10 +35,12 @@ func _input(_event): # Able us to use hotkeys instead of clicking the buttons, b
 func _on_retry_button_pressed(): # Reloads scene directly
 	visible = false
 	UI.PauseMenu.lock(false)
+	UI.set_pause(false)
 	
 	await Profile.load_previous_data()
 	statistics_list.update_data()
-	get_tree().reload_current_scene()
+	LoadManager.reload_scene()
+	game_over_animation.play("RESET")
 
 func _on_exit_button_pressed(): # Recieves signal from 'ExitButton', goes back to main menu
 	visible = false

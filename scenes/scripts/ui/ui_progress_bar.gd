@@ -6,6 +6,7 @@ const bar_fadeout_time : float = 3
 ## Nodes
 @onready var progress_bar = $StageProgressBar/Bar
 @onready var boss_bar = $BossBar/Bar
+@onready var damage_bar = $BossBar/Bar/DamageBar
 @onready var boss_name = $BossBar/BossName
 @onready var progress_bar_frame = $StageProgressBar/ProgressBarFrame
 @onready var bar_start = $StageProgressBar/BarStart
@@ -16,6 +17,7 @@ const bar_fadeout_time : float = 3
 @export var debug : bool = false
 
 ## Properties
+var bar_health
 var bar_size
 var boss_node
 var boss_health_component : HealthComponent
@@ -43,6 +45,9 @@ func _ready():
 	bar_size = bar_start.position.distance_to(bar_end.position)
 
 func toggle_progress_bar(show : bool = true):
+	if ui_animation_player.is_playing(): 
+		return
+		# await ui_animation_player.animation_finished
 	if show: ui_animation_player.play("toggle_progress_bar")
 	else: ui_animation_player.play_backwards("toggle_progress_bar")
 
@@ -53,15 +58,18 @@ func set_boss_bar(new_boss_node):
 	ui_animation_player.play("RESET")
 	
 	# Prepare boss bar
-	boss_name.set_text("[b]{0}[/b], {1}".format({
-		0:boss_node.enemy_name.capitalize(),
-		1:boss_node.enemy_title
-	}))
+	if boss_node.enemy_title:
+		boss_name.set_text("[b]{0}[/b], {1}".format({
+			0:boss_node.enemy_name.capitalize(),
+			1:boss_node.enemy_title
+		}))
+	else: boss_name.set_text("[b]{0}[/b]".format({0:boss_node.enemy_name.capitalize()}))
 	
 	boss_bar.set_max(boss_health_component.max_health)
 	boss_bar.set_value(boss_health_component.max_health)
 	boss_health_component.health_change.connect(_update_boss_bar)
 	boss_node.enemy_defeated.connect(close_boss_bar)
+	damage_bar.set_max(boss_health_component.max_health)
 	
 	# Show bar
 	ui_animation_player.play_backwards("toggle_progress_bar")
@@ -82,7 +90,13 @@ func set_boss_bar(new_boss_node):
 		module_label.set_text(str(module.name).capitalize())
 		module_bar.set_max(module.health_component.max_health)
 		module_bar.set_value(module.health_component.max_health)
-		module.health_component.health_change.connect(_update_module_bar)
+		
+		for m in modules:
+			var node = modules[m]["node"]
+			var bar = modules[m]["bar"]
+			if !is_instance_valid(node): return
+			var module_health_component = node.health_component
+			bar.set_bar(module_health_component)
 		
 		$BossBar/ModulesBars.add_child(module_bar)
 
@@ -90,30 +104,28 @@ func _update_boss_bar(_previous_value : int, new_value : int, _type : bool):
 	if !is_instance_valid(boss_health_component): return
 	var lives = boss_health_component.lives
 	
-	print(lives) ## TODO: UPDATE BOSS STAGES
+	## TODO: UPDATE BOSS STAGES
 	
 	if new_value <= 0:
 		boss_bar.set_value(0)
 		close_boss_bar()
 	else:
 		boss_bar.set_value(new_value)
-
-func _update_module_bar(_previous_value : int, new_value : int, _type : bool):
-	for m in modules:
-		var node = modules[m]["node"]
-		var bar = modules[m]["bar"]
-		if !is_instance_valid(node):
-			return
-		var module_health = node.health_component.current_health
-		bar.set_value(module_health)
+	
+	damage_bar._set_health(new_value)
 
 func close_boss_bar():
+	if ui_animation_player.is_playing(): await ui_animation_player.animation_finished
 	ui_animation_player.play_backwards("toggle_boss_bar")
 	await ui_animation_player.animation_finished
-	# ui_animation_player.play("toggle_progress_bar")
 	await get_tree().create_timer(bar_fadeout_time).timeout
 	for m in $BossBar/ModulesBars.get_children():
 		m.call_deferred("queue_free")
+	modules = {}
+
+func reset_bars(): 
+	close_boss_bar()
+	ui_animation_player.play("RESET")
 
 func display_event(event_data):
 	var event = event_node_scene.instantiate()

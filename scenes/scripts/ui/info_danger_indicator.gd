@@ -60,6 +60,7 @@ func display_danger(
 	side.modulate = modulate_color
 	side.visible = true
 	self.visible = true
+	if !owner.visible: owner.visible = true # Force layer to be visible
 	
 	if !Options.photosens_mode: activated = true # Don't flicker if photosens is active
 	

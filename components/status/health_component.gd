@@ -1,5 +1,6 @@
 class_name HealthComponent extends Node
 
+signal health_changed
 signal health_change(previous_value: int, new_value: int, type : bool)
 
 # Main variables
@@ -69,7 +70,8 @@ func change_health(amount : int, negative : bool = true, source = null):
 				lock_health_changes = true
 				owner.die(source) # Let the owner itself execute its death sequence, including queue_free()
 		
-		health_change.emit(previous_value, current_health, negative)
+		health_change.emit(previous_value, current_health, negative) # Signal that carry information about the change
+		health_changed.emit() # Simple signal that fires without carrying information
 		
 		## Update change on bar if there's one
 		if owner.set_health_bar and health_bar:

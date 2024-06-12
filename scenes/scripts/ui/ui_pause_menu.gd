@@ -2,7 +2,7 @@ extends CanvasLayer
 
 signal reset_focus
 
-var lock_pause : bool = false
+var lock_pause : bool = false # Locks only input, functions can still pause/unpause game!
 @export var pause_state : bool = false
 @onready var unpause_button = $PauseMenu/ButtonsContainer/UnpauseButton
 @onready var return_prompt = $ReturnPrompt

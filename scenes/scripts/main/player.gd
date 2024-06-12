@@ -9,7 +9,7 @@ var toggle_mode : bool
 var primary_fire_toggled = false
 
 # Signals
-signal fire_primary(initial_position) # Sends a signal to spawn projectile, as well as the coordinates of player from which the projectile should spawn relative to
+signal fire_primary(muzzle) # Sends a signal to spawn projectile, as well as the coordinates of player from which the projectile should spawn relative to
 signal fire_secondary(initial_position, secondary_ammo) # Also sends signal to spawn projectile as similar to primary
 signal health_change(previous_value, new_value) # Notifies health change for a variety of other nodes
 signal status_change
@@ -47,6 +47,7 @@ const roll_timer : float = 1.5
 @onready var equipment_module : EquipmentModule = $EquipmentModule
 @onready var hitbox_component : HitboxComponent = $HitboxComponent
 @onready var combat_component : CombatComponent = $CombatComponent
+@onready var muzzle_component : MuzzleComponent = $MuzzleComponent
 @onready var animation_tree = $PlayerAnimationTree
 
 # Control booleans
@@ -58,11 +59,7 @@ var randomize_roll : bool = true
 var locked_dash : bool = false
 
 ## Inventory
-@onready var muzzle_node = $Muzzles
-@onready var main_muzzle = $Muzzles/MainMuzzle
 @onready var secondary_ammo : int = equipment_module.ammo
-
-var muzzles : Array
 
 var primary_fire_rof : float # The rate of fire already comes with added multipliers
 var set_primary_rof:
@@ -73,8 +70,7 @@ var set_secondary_rof:
 	set(value):
 		secondary_fire_rof = value
 
-var burst : bool = false
-var burst_quantity : int = 3
+var burst_quantity : int = 0
 
 # Debug
 @export var debug : bool = true
@@ -87,12 +83,7 @@ func _ready():
 	toggle_mode = config.get_value("MAIN_OPTIONS","TOGGLE_FIRE")
 	Options.options_changed.connect(_on_config_changed)
 	
-	set_muzzles()
 	set_movement_limit()
-
-func set_muzzles():
-	for m in muzzle_node.get_children():
-		muzzles.append(m)
 
 func set_movement_limit():
 	vertical_limit = Vector2(
@@ -141,6 +132,8 @@ func _process(delta): # Frequent listener for input with delay (weapons, items, 
 			
 			hitbox_component.toggle_immunity(true)
 			hitbox_component.set_collision_layer_value(1, false)
+			# self.set_collision_mask_value(2, false)
+			# self.set_collision_mask_value(4, false)
 			$PlayerSprites.modulate.a = 0.5
 			
 			await get_tree().create_timer(roll_timer / roll_cooldown_factor, false).timeout
@@ -148,6 +141,8 @@ func _process(delta): # Frequent listener for input with delay (weapons, items, 
 
 			hitbox_component.toggle_immunity(false)
 			hitbox_component.set_collision_layer_value(1, true)
+			# self.set_collision_mask_value(2, true)
+			# self.set_collision_mask_value(4, true)
 			$PlayerSprites.modulate.a = 1
 			
 			## Wait for roll to be available again
@@ -248,28 +243,32 @@ func update_animation_state():
 
 ## Weapon firing
 func shoot_loop():
-	if animation_tree["parameters/conditions/back_roll"] or animation_tree["parameters/conditions/front_roll"]: return
+	if roll_cooldown: return # Do not shoot if player is currently rolling
 	
 	if !primary_fire_cooldown:
 		primary_fire_cooldown = true
 		
-		if burst:
+		if burst_quantity > 0: 
+			# Burst means dividing the rof (rate of fire) by a factor, than waiting the full period to shoot again
+			# Default is 2, but some weapons can change that for different feels
 			for n in burst_quantity:
 				shoot_primary()
 				await get_tree().create_timer(primary_fire_rof / 2, false).timeout
 		else:
 			shoot_primary()
+		
 		await get_tree().create_timer(primary_fire_rof, false).timeout
 		primary_fire_cooldown = false
 
 func shoot_primary():
-	for m in muzzles:
-		fire_primary.emit(m.global_position)
+	assert(muzzle_component)
+	for m in muzzle_component.muzzles:
+		fire_primary.emit(m)
 
 func shoot_secondary():
 	if secondary_ammo > 0:
 		if debug: print("Bomb launched! %d ammo left" % int(secondary_ammo - 1))
-		fire_secondary.emit(main_muzzle, secondary_ammo) # This signal both alters the hud value and emits the projectile at the same time
+		fire_secondary.emit(muzzle_component.muzzles[0], secondary_ammo) # This signal both alters the hud value and emits the projectile at the same time
 	else:
 		if debug: print("No ammo left!")
 

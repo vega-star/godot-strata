@@ -45,10 +45,9 @@ func _ready():
 		selected_profile = 'Anonymous'
 		save_data = profiles_data.get_value("Anonymous", "SAVE_DATA")
 	
+	await reset_run_data()
 	await load_profile()
 	profile_loaded.emit()
-	
-	reset_run_data()
 	run_started.emit()
 
 func load_profile(profile = selected_profile):
@@ -96,16 +95,13 @@ func change_profile(profile):
 
 func save_new_profile(profile_name, pilot_name, icon, color, xp : int = 0, save_data : bool = true):
 	var profile_data_load = profiles_data.load(profile_data_path)
-	
 	profiles_data.set_value(profile_name, "PROFILE_PILOT_NAME", pilot_name)
 	profiles_data.set_value(profile_name, "PROFILE_ICON", icon)
 	profiles_data.set_value(profile_name, "PROFILE_COLOR", color)
 	profiles_data.set_value(profile_name, "PROFILE_EXPERIENCE", xp)
 	profiles_data.set_value(profile_name, "SAVE_DATA", save_data)
-	
 	profiles_data.set(profile_name, "ACHIEVEMENTS")
 	profiles_data.set(profile_name, "CODEX")
-	
 	profiles_data.save(profile_data_path)
 
 func save_profile_data():
@@ -113,22 +109,12 @@ func save_profile_data():
 
 ## RUN DATA
 func reset_run_data():
-	var start_time = Time.get_unix_time_from_system()
-	
-	## STATISTICS
-	current_run_data.set_value("STATISTICS", "RUN_TIME_ELAPSED", 0)
+	## Cleans the current run data
+	current_run_data.erase_section("STAGES")
+	current_run_data.erase_section("EFFECTS")
 	current_run_data.set_value("STATISTICS", "SCORE", 0)
-	current_run_data.set_value("STATISTICS", "ENEMIES_DEFEATED", 0)
-	current_run_data.set_value("STATISTICS", "DAMAGE_TAKEN", 0)
-	current_run_data.set_value("STATISTICS", "HEALTH_RECOVERED", 0)
-	current_run_data.set_value("STATISTICS", "AMMO_CONSUMED", 0)
-	current_run_data.set_value("STATISTICS", "AMMO_RECOVERED", 0)
-	
-	## INVENTORY
-	current_run_data.set_value("INVENTORY", "PRIMARY_WEAPON", "")
-	current_run_data.set_value("INVENTORY", "SECONDARY_WEAPON", "")
 	current_run_data.set_value("INVENTORY", "CURRENT_HEALTH", 1)
-	current_run_data.set_value("INVENTORY", "MAX_HEALTH", 5)
+	current_run_data.set_value("INVENTORY", "MAX_HEALTH", 3)
 	current_run_data.set_value("INVENTORY", "HEALTH_REGENERATION", false)
 	current_run_data.set_value("INVENTORY", "CURRENT_AMMO", 1)
 	current_run_data.set_value("INVENTORY", "MAX_AMMO", 7)
@@ -136,26 +122,17 @@ func reset_run_data():
 	current_run_data.set_value("INVENTORY", "ACTIVE_ITEM", "")
 	current_run_data.set_value("INVENTORY", "ITEMS_STORED", [])
 	
-	## BUFFS
-	current_run_data.set_value("EFFECTS", "ACTIVE_EFFECTS", [])
-	current_run_data.set_value("EFFECTS", "BONUS_HEALTH", 0)
-	current_run_data.set_value("EFFECTS", "BONUS_AMMO", 0)
-	
-	## RESET
-	if current_run_data.has_section("STAGES"): current_run_data.erase_section("STAGES")
-	if current_run_data.has_section("RUN_DETAILS"): current_run_data.erase_section("RUN_DETAILS")
-	if current_run_data.has_section_key("STATISTICS", "DEFEATED_BY"): current_run_data.erase_section_key("STATISTICS", "DEFEATED_BY")
-	
-	## START
-	save_active_data()
+	await save_active_data()
 	run_started.emit(current_run_data)
 
 func start_run():
+	reset_run_data()
 	var start_time = Time.get_unix_time_from_system()
-	await reset_run_data()
+	var start_time_dict = Time.get_datetime_dict_from_system()
 	
 	current_run_data.set_value("RUN_DETAILS", "SUCCESS", false)
 	current_run_data.set_value("RUN_DETAILS", "STARTED_AT", start_time)
+	current_run_data.set_value("RUN_DETAILS", "START_TIME_DICT", start_time_dict)
 	current_run_data.set_value("RUN_DETAILS", "TIME_ELAPSED", 0)
 
 func end_run(success : bool = false, source : Variant = null):
@@ -219,13 +196,13 @@ func add_bulk_data(data): # Change multiple values in one execution, save change
 	save_active_data()
 
 func save_previous_data():
-	previous_run_data = current_run_data
+	save_active_data()
+	previous_run_data.load(current_run_data_path)
 	previous_run_data.save(previous_run_data_path)
 
 func load_previous_data():
-	await reset_run_data()
-	current_run_data = previous_run_data
-	await save_active_data()
+	current_run_data.load(previous_run_data_path)
+	save_active_data()
 
 func save_active_data(close : bool = false):
 	current_run_data.save(current_run_data_path)

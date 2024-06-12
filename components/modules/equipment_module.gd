@@ -15,6 +15,11 @@ signal effect_deactivated(source)
 # Modularization provides the developer with more control and perspective over the gameplay.
 
 #region - Variables
+@export var muzzle_node : Node2D
+@export var health_component : HealthComponent
+@export var inventory_module : InventoryModule
+@export var debug : bool
+
 ## Data variables
 const button_scene = preload("res://scenes/selection_button.tscn")
 const weapons_data_path = "res://data/weapons_data.json"
@@ -25,13 +30,10 @@ var eqquiped_primary : Dictionary
 var eqquiped_secondary : Dictionary
 var primary_weapon_scene : PackedScene
 var secondary_weapon_scene : PackedScene
-@export var health_component : HealthComponent
-@export var inventory_module : InventoryModule
 @onready var projectile_container = $"../../ProjectileContainer"
 @onready var selection_control = $InventoryUILayer/SelectionControl
 @onready var selection_options = $InventoryUILayer/SelectionControl/SelectionOptions
 @onready var scrap_button = $InventoryUILayer/SelectionControl/ScrapButton
-@export var debug : bool
 
 ## Equipped items and weapons
 var selected_primary : String
@@ -39,10 +41,9 @@ var selected_secondary : String
 var base_primary_rof
 var base_secondary_rof
 var secondary_projectiles_amount : int = 1
-
 var heat_enabled : bool = true
-var primary_burst : bool
-var primary_burst_quantity : int
+var primary_muzzles : int = 1
+var primary_burst : int = 0
 var primary_heat : float = 0
 var selected_primary_heat : float = 1.5
 var primary_linear_cooling : float = 0.5
@@ -51,7 +52,6 @@ var primary_quick_cooling_timeout : float = 1
 var max_primary_heat : float = 70
 var primary_on_cooldown : bool = false
 var primary_overheat : bool = false
-
 var ammo : int
 var max_ammo : int
 var regenerate_ammo : bool
@@ -60,15 +60,13 @@ var ammo_regeneration_cooldown : float
 
 ## Effect variables
 var active_buffs : Array
-
+var primary_damage : int
 var primary_damage_factor : float = 1.0
 var primary_rof_factor : float = 1.0
-
 var additional_ammo : int = 0
 var ammo_regeneration_cd_factor : float = 1
 var secondary_damage_factor : float = 1.0
 var secondary_rof_factor : float = 1.0
-
 var dash_cooldown_factor : float = 1.0
 var roll_cooldown_factor : float = 1.0
 
@@ -99,6 +97,8 @@ func _ready():
 	if lock_scrapping: 
 		$InventoryUILayer/SelectionControl/ScrapButton.disabled = true
 		$InventoryUILayer/SelectionControl/ScrapButton.set_tooltip_text("A condition prevents you from scrapping these items.")
+	
+	Profile.save_previous_data() # Saves immediately after loading the loadout in a new scene, intending to prevent locks when restarting from no checkpoint
 
 func _process(_delta):
 	if regenerate_ammo:
@@ -136,6 +136,7 @@ func load_equipment(set_primary = null, set_secondary = null): ## Loads equipmen
 	## Load base values
 	primary_weapon_scene = load(eqquiped_primary["projectile_scene"])
 	secondary_weapon_scene = load(eqquiped_secondary["projectile_scene"])
+	primary_damage = eqquiped_primary["base_damage"]
 	base_primary_rof = eqquiped_primary["base_rate_of_fire"]
 	base_secondary_rof = eqquiped_secondary["base_rate_of_fire"]
 	secondary_projectiles_amount = eqquiped_secondary["base_amount"]
@@ -155,12 +156,11 @@ func load_equipment(set_primary = null, set_secondary = null): ## Loads equipmen
 		primary_quick_cooling = eqquiped_primary["heating"]["base_quick_cooling"]
 		primary_quick_cooling_timeout = eqquiped_primary["heating"]["base_quick_cooling_timeout"]
 	
-	## Burst
-	primary_burst = eqquiped_primary["base_burst"]
-	primary_burst_quantity = eqquiped_primary["base_burst_quantity"]
+	## Gun behavior
+	primary_muzzles = eqquiped_primary["base_muzzles"]
+	primary_burst = eqquiped_primary["base_burst_quantity"]
 	
 	if regenerate_ammo: ammo_regeneration_cooldown = eqquiped_secondary["base_regeneration_cooldown"] * ammo_regeneration_cd_factor
-	
 	equipment_loaded.emit()
 
 func reload_ammo(start : bool = false):
@@ -206,25 +206,28 @@ func update_player_values():
 	owner.dash_cooldown_factor = dash_cooldown_factor
 	owner.roll_cooldown_factor = roll_cooldown_factor
 	
-	owner.burst = primary_burst
-	owner.burst_quantity = primary_burst_quantity
+	muzzle_node.muzzle_type = eqquiped_primary["base_muzzle_type"]
+	if primary_muzzles > 0: muzzle_node.set_muzzle(primary_muzzles)
+	owner.burst_quantity = primary_burst
 	
 	owner.status_change.emit()
 	if heat_enabled: UI.UIOverlay.update_heat(primary_heat, max_primary_heat)
 	UI.UIOverlay.update_hud()
 
 ## Weapon usage
-func _on_player_primary_fired(start_position):
+func _on_player_primary_fired(muzzle): 
+	# This is the function that spawns each projectile in each muzzle
+	# If too many projectiles are causing perfomance issues, this function is probably the first thing to check
 	if !primary_overheat:
 		if heat_enabled: heat_updated.emit(selected_primary_heat, true)
 		
 		var primary_shot = primary_weapon_scene.instantiate()
-		primary_shot.rotation_degrees = owner.rotation_degrees
-		primary_shot.global_position = start_position
-		primary_shot.projectile_damage *= primary_damage_factor
+		primary_shot.rotation_degrees = muzzle.rotation_degrees
+		primary_shot.global_position = muzzle.global_position
+		primary_shot.projectile_damage = primary_damage * primary_damage_factor
 		projectile_container.add_child(primary_shot)
 	else:
-		print('Gun stuck! Cooling down')
+		if debug: print('Gun stuck! Cooling down')
 
 # Secondary weapon
 func _on_player_secondary_fired(reference, _secondary_ammo):

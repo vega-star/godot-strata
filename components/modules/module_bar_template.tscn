@@ -1,7 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://cu1bta608714a"]
+[gd_scene load_steps=8 format=3 uid="uid://cu1bta608714a"]
 
 [ext_resource type="Theme" uid="uid://b1a5sjt2xibwo" path="res://assets/themes/strata_theme/strata_theme.tres" id="1_onsj3"]
 [ext_resource type="Texture2D" uid="uid://vv2lfj648w46" path="res://assets/textures/icons/ui/boss_box.png" id="2_a2qxh"]
+[ext_resource type="Script" path="res://components/modules/module_bar_template.gd" id="3_ld3rg"]
+[ext_resource type="PackedScene" uid="uid://ch503xpj8qn46" path="res://components/status/damage_bar.tscn" id="3_r2uua"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_tu1fl"]
 texture = ExtResource("2_a2qxh")
@@ -13,9 +15,13 @@ expand_margin_left = 8.0
 expand_margin_top = 4.0
 expand_margin_right = 8.0
 expand_margin_bottom = 4.0
+draw_center = false
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b8l6q"]
 bg_color = Color(0.909804, 0.231373, 0.231373, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l7wcb"]
+bg_color = Color(0.290196, 0.109804, 0.109804, 1)
 
 [node name="ModuleBarTemplate" type="ProgressBar"]
 custom_minimum_size = Vector2(0, 8)
@@ -28,6 +34,7 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_b8l6q")
 value = 50.0
 allow_greater = true
 show_percentage = false
+script = ExtResource("3_ld3rg")
 
 [node name="ModuleBarLabel" type="Label" parent="."]
 layout_mode = 1
@@ -48,3 +55,20 @@ theme_override_font_sizes/font_size = 16
 text = "MODULE_ID"
 horizontal_alignment = 2
 vertical_alignment = 1
+
+[node name="DamageBar" parent="." node_paths=PackedStringArray("source_bar") instance=ExtResource("3_r2uua")]
+layout_mode = 1
+source_bar = NodePath("..")
+
+[node name="Panel" type="Panel" parent="."]
+z_index = -2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_l7wcb")
+
+[connection signal="module_off" from="." to="." method="_on_module_off"]
+[connection signal="module_on" from="." to="." method="_on_module_on"]

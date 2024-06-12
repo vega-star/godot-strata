@@ -1,28 +1,33 @@
-[gd_scene load_steps=6 format=3 uid="uid://q5ddnm20kbtu"]
+[gd_scene load_steps=7 format=3 uid="uid://q5ddnm20kbtu"]
 
-[ext_resource type="Script" path="res://scenes/scripts/main/strata_scene.gd" id="1_yvb6t"]
+[ext_resource type="Script" path="res://scenes/scripts/main/stage.gd" id="1_yvb6t"]
 [ext_resource type="PackedScene" uid="uid://csdnju38rqee8" path="res://scenes/stage_manager.tscn" id="2_yuycq"]
 [ext_resource type="PackedScene" uid="uid://biim58k38oa7h" path="res://entities/player/player.tscn" id="3_2ft1y"]
 [ext_resource type="PackedScene" uid="uid://b81qbneypd7pp" path="res://scenes/stages/parallax/simulated_parallax.tscn" id="4_sk8ph"]
 [ext_resource type="PackedScene" uid="uid://by20rofdwx3ph" path="res://scenes/stages/components/stage_camera.tscn" id="5_32nl8"]
 
-[node name="StrataScene" type="Node2D" node_paths=PackedStringArray("stage_parallax") groups=["stage"]]
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_jocfp"]
+vertices = PackedVector2Array(950, 530, 10, 530, 10, 10, 950, 10)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(0, 540, 0, 0, 960, 0, 960, 540)])
+source_geometry_group_name = &"navigation_polygon_source_group"
+
+[node name="StageTemplate" type="Node2D" node_paths=PackedStringArray("stage_parallax") groups=["stage"]]
 light_mask = 2
 visibility_layer = 2
 script = ExtResource("1_yvb6t")
 save_stage_data = false
 stage_parallax = NodePath("SimulationParallax")
 
+[node name="StageNavigationRegion" type="NavigationRegion2D" parent="."]
+visible = false
+navigation_polygon = SubResource("NavigationPolygon_jocfp")
+
 [node name="StageManager" parent="." node_paths=PackedStringArray("stage_timer") instance=ExtResource("2_yuycq")]
 stage_timer = NodePath("../StageTimer")
 
-[node name="PlayerStartPosition" type="Marker2D" parent="."]
-light_mask = 2
-visibility_layer = 2
-position = Vector2(185, 270)
-
 [node name="Player" parent="." instance=ExtResource("3_2ft1y")]
-position = Vector2(-79, -60)
+position = Vector2(209, 270)
 
 [node name="CameraConnection" type="RemoteTransform2D" parent="Player"]
 remote_path = NodePath("../../StageCamera")
@@ -35,5 +40,6 @@ one_shot = true
 [node name="SimulationParallax" parent="." instance=ExtResource("4_sk8ph")]
 
 [node name="StageCamera" parent="." instance=ExtResource("5_32nl8")]
+position = Vector2(209, 270)
 
 [connection signal="timeout" from="StageTimer" to="." method="_on_stage_timer_timeout"]

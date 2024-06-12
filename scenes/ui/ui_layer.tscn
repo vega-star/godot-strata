@@ -1,8 +1,6 @@
-[gd_scene load_steps=30 format=3 uid="uid://chy6yrcopxpke"]
+[gd_scene load_steps=32 format=3 uid="uid://chy6yrcopxpke"]
 
 [ext_resource type="Script" path="res://scenes/scripts/ui/ui_overlay.gd" id="1_khion"]
-[ext_resource type="Texture2D" uid="uid://d4kflkwb5sakl" path="res://assets/themes/strata_theme/elements/styleboxes/enemy_health_bar.png" id="3_inpba"]
-[ext_resource type="Texture2D" uid="uid://by6dsndftqqym" path="res://assets/themes/strata_theme/elements/bars/heat_bar.png" id="4_5fna7"]
 [ext_resource type="Texture2D" uid="uid://ut7h7v0wsmy6" path="res://assets/textures/ui/hud/classic/hpbar_start.png" id="5_j7g2v"]
 [ext_resource type="Texture2D" uid="uid://c07e0wdpksuuj" path="res://assets/textures/ui/hud/classic/hpbar_container.png" id="6_g2k23"]
 [ext_resource type="Texture2D" uid="uid://ckafr2pt6i1cj" path="res://assets/textures/ui/hud/classic/hpbar_container_short.png" id="7_0mp74"]
@@ -21,6 +19,9 @@
 [ext_resource type="Texture2D" uid="uid://cano6k0rmkt8h" path="res://assets/textures/ui/hud/classic/stage_bar.png" id="15_5b0wf"]
 [ext_resource type="Texture2D" uid="uid://d5cyp7quoone" path="res://assets/textures/icons/ui/icon_boss_life.png" id="16_ekmyj"]
 [ext_resource type="Texture2D" uid="uid://bbri3ya332gll" path="res://assets/textures/icons/ui/boss_bar_box.png" id="16_iy8uk"]
+[ext_resource type="PackedScene" uid="uid://ch503xpj8qn46" path="res://components/status/damage_bar.tscn" id="17_iuoyt"]
+[ext_resource type="Texture2D" uid="uid://cnmh05ajspu3e" path="res://assets/textures/ui/hud/classic/heat_bar_tall.png" id="19_oixpu"]
+[ext_resource type="Texture2D" uid="uid://btqv2iu1ie3g2" path="res://assets/textures/ui/hud/classic/heat_bar_progress_tall.png" id="20_cy0ce"]
 
 [sub_resource type="Animation" id="Animation_nyykf"]
 length = 0.1
@@ -209,9 +210,17 @@ expand_margin_top = 6.0
 expand_margin_right = 10.0
 expand_margin_bottom = 6.0
 axis_stretch_horizontal = 2
+draw_center = false
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b8l6q"]
 bg_color = Color(0.909804, 0.231373, 0.231373, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_mhkus"]
+texture = ExtResource("16_iy8uk")
+texture_margin_left = 2.0
+texture_margin_right = 4.0
+axis_stretch_horizontal = 2
+region_rect = Rect2(12, 6, 32, 14)
 
 [node name="UIOverlay" type="CanvasLayer"]
 layer = 10
@@ -226,7 +235,7 @@ autoplay = "RESET"
 [node name="HP" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
-offset_right = 84.0
+offset_right = 258.0
 offset_bottom = 37.0
 size_flags_horizontal = 0
 size_flags_vertical = 0
@@ -234,8 +243,8 @@ size_flags_vertical = 0
 [node name="HP_Start" type="TextureRect" parent="HP"]
 custom_minimum_size = Vector2(8, 0)
 layout_mode = 1
-offset_right = 8.0
-offset_bottom = 37.0
+offset_right = 50.0
+offset_bottom = 38.0
 texture = ExtResource("5_j7g2v")
 expand_mode = 1
 stretch_mode = 2
@@ -243,18 +252,17 @@ stretch_mode = 2
 [node name="HP_Container" type="TextureRect" parent="HP"]
 custom_minimum_size = Vector2(52, 0)
 layout_mode = 1
-offset_left = 8.0
-offset_right = 164.0
+offset_left = 50.0
+offset_right = 206.0
 offset_bottom = 37.0
 texture = ExtResource("6_g2k23")
 expand_mode = 1
 stretch_mode = 1
 
 [node name="HP_Short_Container" type="TextureRect" parent="HP"]
-visible = false
 layout_mode = 1
-offset_left = 60.0
-offset_right = 86.0
+offset_left = 206.0
+offset_right = 232.0
 offset_bottom = 37.0
 size_flags_horizontal = 4
 texture = ExtResource("7_0mp74")
@@ -263,8 +271,8 @@ stretch_mode = 1
 
 [node name="HP_End" type="TextureRect" parent="HP"]
 layout_mode = 1
-offset_left = 164.0
-offset_right = 188.0
+offset_left = 232.0
+offset_right = 256.0
 offset_bottom = 37.0
 texture = ExtResource("8_knmas")
 expand_mode = 1
@@ -274,24 +282,24 @@ stretch_mode = 2
 layout_mode = 3
 anchors_preset = 0
 offset_left = 5.0
-offset_top = 43.0
-offset_right = 28.0
-offset_bottom = 66.0
+offset_top = 49.0
+offset_right = 203.0
+offset_bottom = 75.0
 
 [node name="Ammo_Container" type="TextureRect" parent="SecondaryAmmo"]
 custom_minimum_size = Vector2(22, 0)
 layout_mode = 1
-offset_right = 22.0
-offset_bottom = 22.0
+offset_right = 26.0
+offset_bottom = 26.0
 texture = ExtResource("9_vbydy")
 stretch_mode = 1
 
 [node name="Ammo_Short_Container" type="TextureRect" parent="SecondaryAmmo"]
 custom_minimum_size = Vector2(11, 0)
 layout_mode = 1
-offset_left = 23.0
-offset_right = 34.0
-offset_bottom = 22.0
+offset_left = 26.0
+offset_right = 42.0
+offset_bottom = 26.0
 size_flags_horizontal = 4
 texture = ExtResource("10_hqspw")
 stretch_mode = 1
@@ -308,10 +316,9 @@ metadata/_edit_use_anchors_ = true
 
 [node name="HP_Cells" type="TextureRect" parent="HUD"]
 layout_mode = 0
-offset_left = 8.0
-offset_top = 8.0
-offset_right = 60.0
-offset_bottom = 28.0
+offset_left = 50.0
+offset_right = 154.0
+offset_bottom = 38.0
 texture = ExtResource("11_s60dq")
 expand_mode = 1
 stretch_mode = 1
@@ -319,10 +326,8 @@ stretch_mode = 1
 [node name="HP_Short_Cells" type="TextureRect" parent="HUD"]
 visible = false
 layout_mode = 0
-offset_left = 64.0
-offset_top = 8.0
-offset_right = 90.0
-offset_bottom = 28.0
+offset_right = 26.0
+offset_bottom = 20.0
 texture = ExtResource("12_m8gnf")
 expand_mode = 1
 stretch_mode = 1
@@ -330,22 +335,35 @@ stretch_mode = 1
 [node name="Ammo_Cells" type="TextureRect" parent="HUD"]
 layout_mode = 1
 offset_left = 5.0
-offset_top = 43.0
-offset_right = 27.0
-offset_bottom = 65.0
+offset_top = 49.0
+offset_right = 31.0
+offset_bottom = 75.0
 texture = ExtResource("13_4k00c")
 expand_mode = 1
 stretch_mode = 1
 
 [node name="Ammo_Short_Cells" type="TextureRect" parent="HUD"]
 layout_mode = 1
-offset_left = 28.0
-offset_top = 43.0
-offset_right = 39.0
-offset_bottom = 65.0
+offset_left = 31.0
+offset_top = 49.0
+offset_right = 45.0
+offset_bottom = 75.0
 texture = ExtResource("14_bq438")
 expand_mode = 1
 stretch_mode = 1
+
+[node name="LifeCounter" type="RichTextLabel" parent="HUD"]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 6.0
+offset_right = 47.0
+offset_bottom = 29.0
+theme = ExtResource("13_chyk2")
+bbcode_enabled = true
+text = "[img]res://assets/textures/ui/hud/classic/life_icon.png[/img]x0"
+fit_content = true
+scroll_active = false
+scroll_following = true
 
 [node name="Inventory" type="Control" parent="."]
 visible = false
@@ -437,14 +455,14 @@ grow_horizontal = 2
 
 [node name="Bar" type="ProgressBar" parent="Bars/BossBar"]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
+anchors_preset = -1
+anchor_left = 0.03
 anchor_top = 0.5
-anchor_right = 0.5
+anchor_right = 0.97
 anchor_bottom = 0.5
-offset_left = -451.0
+offset_left = 0.199999
 offset_top = 10.5
-offset_right = 451.0
+offset_right = -0.200012
 offset_bottom = 22.5
 grow_horizontal = 2
 grow_vertical = 2
@@ -454,6 +472,21 @@ theme_override_styles/background = SubResource("StyleBoxTexture_ukxhf")
 theme_override_styles/fill = SubResource("StyleBoxFlat_b8l6q")
 value = 50.0
 show_percentage = false
+
+[node name="DamageBar" parent="Bars/BossBar/Bar" node_paths=PackedStringArray("source_bar") instance=ExtResource("17_iuoyt")]
+layout_mode = 1
+source_bar = NodePath("..")
+debug = true
+
+[node name="Panel" type="Panel" parent="Bars/BossBar/Bar"]
+z_index = -2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_mhkus")
 
 [node name="BossStages" type="HBoxContainer" parent="Bars/BossBar/Bar"]
 layout_mode = 1
@@ -488,18 +521,13 @@ anchor_right = 1.0
 anchor_bottom = 0.5
 offset_left = 967.0
 offset_top = -161.0
-offset_right = 1115.0
-offset_bottom = 14.9968
+offset_right = 1114.99
+offset_bottom = 14.9952
 grow_horizontal = 0
 grow_vertical = 2
 mouse_filter = 2
 theme_override_constants/separation = 10
 alignment = 2
-
-[node name="BossBarFrame" type="Sprite2D" parent="Bars/BossBar"]
-visible = false
-position = Vector2(480, 10)
-texture = ExtResource("15_5b0wf")
 
 [node name="BossName" type="RichTextLabel" parent="Bars/BossBar"]
 layout_mode = 0
@@ -524,23 +552,24 @@ text_direction = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -109.0
-offset_top = 11.0
-offset_right = -11.0
-offset_bottom = 31.0
+offset_left = -960.0
+offset_top = 34.0
+offset_right = -834.0
+offset_bottom = 46.0
 grow_horizontal = 0
 theme = ExtResource("13_chyk2")
-texture_under = ExtResource("3_inpba")
-texture_progress = ExtResource("4_5fna7")
-texture_progress_offset = Vector2(4, 6)
+value = 76.0
+nine_patch_stretch = true
+texture_under = ExtResource("19_oixpu")
+texture_progress = ExtResource("20_cy0ce")
 
 [node name="ScoreBar" type="LineEdit" parent="."]
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -108.5
-offset_right = 108.5
-offset_bottom = 46.0
+offset_left = -108.0
+offset_right = 109.0
+offset_bottom = 39.0
 grow_horizontal = 2
 theme = ExtResource("13_chyk2")
 theme_override_fonts/font = ExtResource("14_f31xd")

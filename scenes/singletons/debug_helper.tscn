@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dvernflkv3utr"]
+
+[ext_resource type="Script" path="res://scenes/scripts/main/debug_helper.gd" id="1_e53po"]
+
+[node name="DebugHelper" type="Node"]
+script = ExtResource("1_e53po")

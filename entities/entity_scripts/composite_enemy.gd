@@ -4,17 +4,12 @@ signal enemy_defeated
 signal behavior_changed(previous_behavior, current_behavior)
 signal behavior_ended
 
-# Terms
-# CM (Composite module) | Modular part of a composite enemy
-
 const damage_effect_flicker_count = 3
 const damage_effect_flicker = 0.15
 const alpha_modulation = 0.5
 
-var enemy_name = "composite_enemy"
-var enemy_title = "the Breacher"
-var player_y_position : float
-var weapons_dict : Dictionary
+@export var enemy_name = "lancer"
+@export var enemy_title = "Frontline Breacher"
 @export var speed = 150
 @export var maneuver_speed = 0.2
 @export var rotation_speed = 0.9
@@ -45,6 +40,8 @@ const base_pursuit_speed : float = 0.2
 const max_pursuit_speed : float = 1.5
 var pursuit_speed : float
 var pursuit_speed_acceleration : float = 1.02
+var player_y_position : float
+var weapons_dict : Dictionary
 
 @export var debug : bool = false
 

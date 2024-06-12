@@ -1,24 +1,223 @@
-[gd_scene load_steps=8 format=3 uid="uid://70mnen3idkqt"]
+[gd_scene load_steps=10 format=3 uid="uid://70mnen3idkqt"]
 
 [ext_resource type="Theme" uid="uid://b1a5sjt2xibwo" path="res://assets/themes/strata_theme/strata_theme.tres" id="1_oxe1g"]
 [ext_resource type="Script" path="res://scenes/scripts/ui/ui_game_over.gd" id="1_txsf5"]
+[ext_resource type="StyleBox" uid="uid://cf6sjtgjviook" path="res://assets/themes/strata_theme/elements/tresfiles/scroll_texture.tres" id="2_56p2w"]
 [ext_resource type="LabelSettings" uid="uid://dqqjjg0mh3bhh" path="res://assets/themes/labels/strata_label_settings.tres" id="3_0ahpm"]
 [ext_resource type="PackedScene" uid="uid://l3nrofdqijr6" path="res://scenes/statistics_console.tscn" id="4_g8mu7"]
-[ext_resource type="Texture2D" uid="uid://bl66ij78aurfm" path="res://assets/textures/static/gear_icon_outline.png" id="5_u1mwt"]
-[ext_resource type="Texture2D" uid="uid://nsnw7fqu4cml" path="res://assets/textures/static/gear_icon.png" id="6_6l212"]
-[ext_resource type="BitMap" uid="uid://dngmj6m7g1uu4" path="res://assets/textures/static/gear_icon_bitmap.bmp" id="7_5c3mt"]
+[ext_resource type="PackedScene" uid="uid://b8i54d06xmri" path="res://scenes/ui/ui_config_button_normal.tscn" id="6_fdl2v"]
+
+[sub_resource type="Animation" id="Animation_mmmjq"]
+resource_name = "toggle_game_over"
+length = 1.2
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GameOverPanel:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(350, -0.25, 0, 0.25, 0, 350, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 1.2)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("GameOverPanel:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(-398, -0.25, 0, 0, 288, 97, -0.9, 1, 0.25, 0),
+"times": PackedFloat32Array(0, 1.2)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("DimBlack:modulate:r")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.9)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("DimBlack:modulate:g")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.9)
+}
+tracks/4/type = "bezier"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("DimBlack:modulate:b")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.9)
+}
+tracks/5/type = "bezier"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("DimBlack:modulate:a")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.9)
+}
+tracks/6/type = "bezier"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("ConfigButton:position:x")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(982, -0.25, 0, 0.25, 0, 862, -0.9, -37.5, 0.25, 0),
+"times": PackedFloat32Array(0, 1)
+}
+tracks/7/type = "bezier"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("ConfigButton:position:y")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(16, -0.25, 0, 0.25, 0, 16, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 1)
+}
+
+[sub_resource type="Animation" id="Animation_enaph"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GameOverPanel:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(350, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("GameOverPanel:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(-398, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("DimBlack:modulate:r")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("DimBlack:modulate:g")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/4/type = "bezier"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("DimBlack:modulate:b")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/5/type = "bezier"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("DimBlack:modulate:a")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/6/type = "bezier"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("ConfigButton:position:x")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(982, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/7/type = "bezier"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("ConfigButton:position:y")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(16, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_cryc7"]
+_data = {
+"RESET": SubResource("Animation_enaph"),
+"toggle_game_over": SubResource("Animation_mmmjq")
+}
 
 [node name="GameOverScreen" type="CanvasLayer"]
 process_mode = 1
+layer = 10
 script = ExtResource("1_txsf5")
 
+[node name="GameOverAnimation" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_cryc7")
+}
+
 [node name="DimBlack" type="ColorRect" parent="."]
+modulate = Color(1, 1, 1, 0)
 show_behind_parent = true
 light_mask = 4
 visibility_layer = 4
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -92.0
+offset_top = -52.0
+offset_right = 110.0
+offset_bottom = 62.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.388235)
@@ -29,31 +228,20 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -195.0
-offset_top = -170.0
-offset_right = 195.0
-offset_bottom = 170.0
+offset_left = 350.0
+offset_top = -398.0
+offset_right = 610.0
+offset_bottom = -53.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/panel = ExtResource("2_56p2w")
 
-[node name="Backpanel" type="Panel" parent="GameOverPanel"]
-light_mask = 4
-visibility_layer = 4
-custom_minimum_size = Vector2(390, 324)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme = ExtResource("1_oxe1g")
-
-[node name="Screen" type="MarginContainer" parent="GameOverPanel"]
-layout_mode = 2
-
-[node name="TitleBox" type="VBoxContainer" parent="GameOverPanel/Screen"]
+[node name="TitleBox" type="VBoxContainer" parent="GameOverPanel"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="GameOver Text" type="Label" parent="GameOverPanel/Screen/TitleBox"]
+[node name="GameOver Text" type="Label" parent="GameOverPanel/TitleBox"]
 layout_mode = 2
 theme = ExtResource("1_oxe1g")
 text = "Game Over"
@@ -62,56 +250,47 @@ horizontal_alignment = 1
 vertical_alignment = 1
 uppercase = true
 
-[node name="LayoutBox" type="HBoxContainer" parent="GameOverPanel/Screen/TitleBox"]
+[node name="LayoutBox" type="HBoxContainer" parent="GameOverPanel/TitleBox"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="TextBox" type="VBoxContainer" parent="GameOverPanel/Screen/TitleBox/LayoutBox"]
+[node name="TextBox" type="VBoxContainer" parent="GameOverPanel/TitleBox/LayoutBox"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 alignment = 1
 
-[node name="Panel" type="Panel" parent="GameOverPanel/Screen/TitleBox/LayoutBox/TextBox"]
-light_mask = 4
-visibility_layer = 4
-custom_minimum_size = Vector2(180, 200)
+[node name="StatisticsList" parent="GameOverPanel/TitleBox/LayoutBox/TextBox" instance=ExtResource("4_g8mu7")]
+custom_minimum_size = Vector2(190, 200)
 layout_mode = 2
-theme = ExtResource("1_oxe1g")
+focus_neighbor_top = NodePath("../RetryButton")
 
-[node name="MenuButton" type="Button" parent="GameOverPanel/Screen/TitleBox/LayoutBox/TextBox"]
+[node name="MenuButton" type="Button" parent="GameOverPanel/TitleBox/LayoutBox/TextBox"]
+z_index = 5
 layout_mode = 2
 focus_neighbor_bottom = NodePath("../RetryButton")
 theme = ExtResource("1_oxe1g")
 text = "MAIN MENU"
 
-[node name="RetryButton" type="Button" parent="GameOverPanel/Screen/TitleBox/LayoutBox/TextBox"]
+[node name="RetryButton" type="Button" parent="GameOverPanel/TitleBox/LayoutBox/TextBox"]
+z_index = 5
 z_as_relative = false
 layout_mode = 2
 focus_neighbor_top = NodePath("../MenuButton")
 theme = ExtResource("1_oxe1g")
 text = "RETRY"
 
-[node name="StatisticsList" parent="GameOverPanel/Screen/TitleBox/LayoutBox" instance=ExtResource("4_g8mu7")]
-custom_minimum_size = Vector2(200, 200)
-layout_mode = 2
-
-[node name="ConfigButton" type="TextureButton" parent="."]
+[node name="ConfigButton" parent="." instance=ExtResource("6_fdl2v")]
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -92.0
-offset_top = 10.0
-offset_right = -10.0
-offset_bottom = 92.0
+offset_left = 982.0
+offset_top = 16.0
+offset_right = 1064.0
+offset_bottom = 98.0
 grow_horizontal = 0
-texture_normal = ExtResource("5_u1mwt")
-texture_pressed = ExtResource("5_u1mwt")
-texture_hover = ExtResource("6_6l212")
-texture_click_mask = ExtResource("7_5c3mt")
-stretch_mode = 6
 
-[connection signal="pressed" from="GameOverPanel/Screen/TitleBox/LayoutBox/TextBox/MenuButton" to="." method="_on_exit_button_pressed"]
-[connection signal="pressed" from="GameOverPanel/Screen/TitleBox/LayoutBox/TextBox/RetryButton" to="." method="_on_retry_button_pressed"]
+[connection signal="pressed" from="GameOverPanel/TitleBox/LayoutBox/TextBox/MenuButton" to="." method="_on_exit_button_pressed"]
+[connection signal="pressed" from="GameOverPanel/TitleBox/LayoutBox/TextBox/RetryButton" to="." method="_on_retry_button_pressed"]
 [connection signal="pressed" from="ConfigButton" to="." method="_on_config_button_pressed"]

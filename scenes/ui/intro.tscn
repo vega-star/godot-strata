@@ -191,6 +191,7 @@ tooltip_text = "
 theme_override_constants/separation = 20
 
 [node name="OurLogo" type="Control" parent="Logos"]
+visible = false
 custom_minimum_size = Vector2(172, 140)
 layout_mode = 2
 
@@ -215,6 +216,7 @@ position = Vector2(86, 50)
 texture = ExtResource("2_p8cey")
 
 [node name="Separator" type="Control" parent="Logos"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 4
 

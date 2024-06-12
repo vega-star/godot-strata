@@ -287,8 +287,7 @@ position = Vector2(-177.25, -42.25)
 sprite_frames = SubResource("SpriteFrames_4yf18")
 animation = &"main"
 autoplay = "main"
-frame = 1
-frame_progress = 0.59044
+frame_progress = 0.825094
 
 [node name="ConfigButton" parent="." instance=ExtResource("8_re6w3")]
 layout_mode = 1

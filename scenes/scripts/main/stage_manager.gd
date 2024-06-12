@@ -14,7 +14,7 @@ signal scene_loaded()
 @onready var threat_generator = $ThreatGenerator
 @onready var enemy_container = $EnemiesContainer
 @onready var drop_component = $DropComponent
-@onready var current_stage = owner.get_name()
+@onready var stage_id = owner.stage_id # Also the name of the files
 @onready var message_player = UI.InfoHUD.message_player
 
 ## Properties
@@ -40,9 +40,9 @@ func _ready():
 	
 	if debug_generator:
 		threat_generator.debug = true
-		print("ThreatGenerator located in %s with debug active" % current_stage)
-	var raw_events_file : String = "res://scenes/stages/schedules/{0}_events.json".format({0:current_stage})
-	var raw_stage_file : String = "res://scenes/stages/stagefiles/{0}_stage.json".format({0:current_stage})
+		print("ThreatGenerator located in %s with debug active" % stage_id)
+	var raw_events_file : String = "res://scenes/stages/schedules/{0}_events.json".format({0:stage_id})
+	var raw_stage_file : String = "res://scenes/stages/stagefiles/{0}_stage.json".format({0:stage_id})
 	
 	await load_stage_file(raw_stage_file)
 	load_events_file(raw_events_file)
@@ -239,4 +239,5 @@ func pause_stage_timer(toggle : bool):
 	stage_timer.set_paused(toggle)
 
 func _exit_tree():
-	UI.InfoHUD.toggle_message_layer(false)
+	# UI.InfoHUD.toggle_message_layer(false)
+	pass

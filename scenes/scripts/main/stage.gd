@@ -1,4 +1,4 @@
-class_name Scene extends Node2D
+class_name Stage extends Node2D
 
 signal stage_started
 signal stage_ended
@@ -18,7 +18,6 @@ var config = ConfigFile.new()
 var config_load = config.load("user://config.cfg")
 
 # Node variables
-@onready var player_spawn_pos = $PlayerStartPosition
 @onready var player_projectile_container = $ProjectileContainer
 @onready var player_health_component = $Player/HealthComponent
 @onready var player : CharacterBody2D = $Player
@@ -57,8 +56,8 @@ func _ready():
 	# player.equipment_module.ammo_changed.connect(_on_player_secondary_ammo_changed)
 	player.player_killed.connect(gameoverscreen.game_over_prompt)
 	
+	# await UI.stage_set
 	start_stage_sequence()
-	await Signal(stage_manager, "scene_loaded")
 
 func _process(_delta): # Updates stage timer bar
 	hud_component.stage_progress = stage_timer.time_left
@@ -77,12 +76,15 @@ func _on_stage_timer_timeout(): # Executes when StageTimer finishes
 func pause_stage_timer(toggle : bool):
 	stage_timer.set_paused(toggle)
 
+func set_checkpoint():
+	Profile.save_previous_data()
+
 func start_stage_sequence(): # Starting animations, fade-in, etc.
 	hud_component.set_ammo = Profile.current_run_data.get_value("INVENTORY", "MAX_AMMO")
 	
 	# Locking controls and starting animation
 	var player_move_to_action = get_tree().create_tween()
-	player_move_to_action.tween_property(player, "position", player_spawn_pos.global_position, 0.99)
+	# player_move_to_action.tween_property(player, "position", player_spawn_pos.global_position, 0.99)
 	
 	var parallax_tween = get_tree().create_tween()
 	stage_parallax.speed_factor = 3
@@ -98,7 +100,7 @@ func start_stage_sequence(): # Starting animations, fade-in, etc.
 	# Unlocking controls and starting timer
 	player.controls_lock(false)
 	
-	UI.set_stage(self, stage_timer, true) ## Start stage info on UI
+	UI.set_stage(self, stage_timer) ## Start stage info on UI
 	stage_started.emit()
 	stage_timer.start()
 	stage_start_time = Time.get_unix_time_from_system()

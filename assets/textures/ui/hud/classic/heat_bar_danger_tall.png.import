@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cl1shky6hbwf6"
-path="res://.godot/imported/box_icon.png-dbc31f9e23d5db4ae7bc33c9293e00bd.ctex"
+uid="uid://c75elsef8r87"
+path="res://.godot/imported/heat_bar_danger_tall.png-b36126c7367dc69d5cc3724193085851.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/textures/icons/box_icon.png"
-dest_files=["res://.godot/imported/box_icon.png-dbc31f9e23d5db4ae7bc33c9293e00bd.ctex"]
+source_file="res://assets/textures/ui/hud/classic/heat_bar_danger_tall.png"
+dest_files=["res://.godot/imported/heat_bar_danger_tall.png-b36126c7367dc69d5cc3724193085851.ctex"]
 
 [params]
 

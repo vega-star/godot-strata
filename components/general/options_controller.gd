@@ -36,13 +36,14 @@ var setting_key : bool = false
 var settings_changed : bool = false
 var photosens_mode : bool
 
-## Sound controllers
-@onready var master_slider = $OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons/VolumeContainer/MasterVol/Master_Toggle/Master_Slider
-@onready var music_slider = $OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons/VolumeContainer/MusicVol/Music_Toggle/Music_Slider
-@onready var effect_slider = $OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons/VolumeContainer/SoundEffectVol/Effect_Toggle/Effect_Slider
-@onready var master_toggle = $OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons/VolumeContainer/MasterVol/Master_Toggle
-@onready var music_toggle = $OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons/VolumeContainer/MusicVol/Music_Toggle
-@onready var sound_effect_toggle = $OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons/VolumeContainer/SoundEffectVol/Effect_Toggle
+## Node references
+@onready var master_slider = $"ConfigTabs/Main Options/Scroll/ConfigPanel/OptionsButtons/VolumeContainer/MasterVol/Master_Toggle/Master_Slider"
+@onready var music_slider = $"ConfigTabs/Main Options/Scroll/ConfigPanel/OptionsButtons/VolumeContainer/MusicVol/Music_Toggle/Music_Slider"
+@onready var effect_slider = $"ConfigTabs/Main Options/Scroll/ConfigPanel/OptionsButtons/VolumeContainer/SoundEffectVol/Effect_Toggle/Effect_Slider"
+@onready var master_toggle = $"ConfigTabs/Main Options/Scroll/ConfigPanel/OptionsButtons/VolumeContainer/MasterVol/Master_Toggle"
+@onready var music_toggle = $"ConfigTabs/Main Options/Scroll/ConfigPanel/OptionsButtons/VolumeContainer/MusicVol/Music_Toggle"
+@onready var sound_effect_toggle = $"ConfigTabs/Main Options/Scroll/ConfigPanel/OptionsButtons/VolumeContainer/SoundEffectVol/Effect_Toggle"
+@onready var effect_menu = $ConfigTabs/Graphics/Scroll/ConfigPanel/VisualEffects/VisualEffectsMenu
 
 func _ready():
 	await load_keys()
@@ -52,9 +53,9 @@ func _ready():
 		
 		var current_photosens_state = config_file.get_value("MAIN_OPTIONS","PHOTOSENS_MODE")
 		photosens_mode = current_photosens_state
-		$OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons/Photosens_Mode.button_pressed = current_photosens_state
-		$OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons/ScreenShake.button_pressed = config_file.get_value("MAIN_OPTIONS","SCREEN_SHAKE")
-		$OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons/ToggleFiring.button_pressed = config_file.get_value("MAIN_OPTIONS","TOGGLE_FIRE")
+		$ConfigTabs/Accessibility/Scroll/ConfigPanel/Photosens_Mode.button_pressed = current_photosens_state
+		$ConfigTabs/Accessibility/Scroll/ConfigPanel/ScreenShake.button_pressed = config_file.get_value("MAIN_OPTIONS","SCREEN_SHAKE")
+		$'ConfigTabs/Main Options/Scroll/ConfigPanel/OptionsButtons/ToggleFiring'.button_pressed = config_file.get_value("MAIN_OPTIONS","TOGGLE_FIRE")
 		master_slider.value = config_file.get_value("MAIN_OPTIONS","MASTER_VOLUME")
 		music_slider.value = config_file.get_value("MAIN_OPTIONS","MUSIC_VOLUME")
 		effect_slider.value = config_file.get_value("MAIN_OPTIONS","EFFECTS_VOLUME")
@@ -84,10 +85,10 @@ func _ready():
 	# Setting some menu's based on distant node configurations
 	await UI.ready
 	for key in UI.ScreenEffect.effects:
-		$OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons/VisualEffects/VisualEffectsMenu.add_item(key)
+		$ConfigTabs/Graphics/Scroll/ConfigPanel/VisualEffects/VisualEffectsMenu.add_item(key)
 	
 	for mode in screen_dict:
-		$OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons/ScreenMode/ScreenModeMenu.add_item(mode)
+		$ConfigTabs/Graphics/Scroll/ConfigPanel/ScreenMode/ScreenModeMenu.add_item(mode)
 
 func _exit(): # Clean temporary data and reset signal
 	Options.visible = false
@@ -123,18 +124,21 @@ func _on_options_visibility_changed():
 	# | Converts keycode physical elements from key_dict to their respectives string labels, abling players to visualize which keys are currently bound to what.
 	# I already know there's a efficient way to automate these attributions in the case other buttons are added, but I need to prioritize other elements first, so that's it for now
 	if visible:
-		$OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons/ToggleFiring.grab_focus() # Direct controller focus to this specific button
+		$ConfigTabs.current_tab = 0
+		$ConfigTabs.get_tab_bar().grab_focus() # Direct controller focus to this specific button
 		
-		$OptionsControl/ConfigContainer/Binds/BindGrids/BindGridLeft/UP_B.text = OS.get_keycode_string(key_dict["move_up"])
-		$OptionsControl/ConfigContainer/Binds/BindGrids/BindGridLeft/DOWN_B.text = OS.get_keycode_string(key_dict["move_down"])
-		$OptionsControl/ConfigContainer/Binds/BindGrids/BindGridLeft/RIGHT_B.text = OS.get_keycode_string(key_dict["move_right"])
-		$OptionsControl/ConfigContainer/Binds/BindGrids/BindGridLeft/LEFT_B.text = OS.get_keycode_string(key_dict["move_left"])
-		$OptionsControl/ConfigContainer/Binds/BindGrids/BindGridLeft/PAUSE_B.text = OS.get_keycode_string(key_dict["pause"])
-		$OptionsControl/ConfigContainer/Binds/BindGrids/BindGridRight/DASH_B.text = OS.get_keycode_string(key_dict["dash"])
-		$OptionsControl/ConfigContainer/Binds/BindGrids/BindGridRight/ROLL_B.text = OS.get_keycode_string(key_dict["roll"])
-		$OptionsControl/ConfigContainer/Binds/BindGrids/BindGridRight/RESET_B.text = OS.get_keycode_string(key_dict["reset"])
-		$OptionsControl/ConfigContainer/Binds/BindGrids/BindGridRight/SHOOT_B.text = OS.get_keycode_string(key_dict["shoot"])
-		$OptionsControl/ConfigContainer/Binds/BindGrids/BindGridRight/BOMB_B.text = OS.get_keycode_string(key_dict["bomb"])
+		$ConfigTabs/Controls/Scroll/ConfigPanel/BindGrids/BindGridLeft/UP_B.text = OS.get_keycode_string(key_dict["move_up"])
+		$ConfigTabs/Controls/Scroll/ConfigPanel/BindGrids/BindGridLeft/DOWN_B.text = OS.get_keycode_string(key_dict["move_down"])
+		$ConfigTabs/Controls/Scroll/ConfigPanel/BindGrids/BindGridLeft/RIGHT_B.text = OS.get_keycode_string(key_dict["move_right"])
+		$ConfigTabs/Controls/Scroll/ConfigPanel/BindGrids/BindGridLeft/LEFT_B.text = OS.get_keycode_string(key_dict["move_left"])
+		$ConfigTabs/Controls/Scroll/ConfigPanel/BindGrids/BindGridLeft/PAUSE_B.text = OS.get_keycode_string(key_dict["pause"])
+		$ConfigTabs/Controls/Scroll/ConfigPanel/BindGrids/BindGridRight/DASH_B.text = OS.get_keycode_string(key_dict["dash"])
+		$ConfigTabs/Controls/Scroll/ConfigPanel/BindGrids/BindGridRight/ROLL_B.text = OS.get_keycode_string(key_dict["roll"])
+		$ConfigTabs/Controls/Scroll/ConfigPanel/BindGrids/BindGridRight/RESET_B.text = OS.get_keycode_string(key_dict["reset"])
+		$ConfigTabs/Controls/Scroll/ConfigPanel/BindGrids/BindGridRight/SHOOT_B.text = OS.get_keycode_string(key_dict["shoot"])
+		$ConfigTabs/Controls/Scroll/ConfigPanel/BindGrids/BindGridRight/BOMB_B.text = OS.get_keycode_string(key_dict["bomb"])
+
+func _on_config_tabs_tab_selected(_tab): $ConfigTabs.get_tab_bar().grab_focus()
 
 func _on_exit_menu_pressed():
 	if debug == true: print('Has the keybind configuration changed?: {0}'.format({0:settings_changed}))
@@ -207,14 +211,14 @@ func _on_exit_check_canceled():
 	_exit()
 
 func _on_toggle_firing_pressed():
-	button_toggle($OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons/ToggleFiring, "TOGGLE_FIRE")
+	button_toggle($'ConfigTabs/Main Options/Scroll/ConfigPanel/OptionsButtons/ToggleFiring', "TOGGLE_FIRE")
 
 func _on_photosens_mode_pressed():
-	button_toggle($OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons/Photosens_Mode, "PHOTOSENS_MODE")
-	photosens_mode = $OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons/Photosens_Mode.button_pressed
+	button_toggle($ConfigTabs/Accessibility/Scroll/ConfigPanel/Photosens_Mode, "PHOTOSENS_MODE")
+	photosens_mode = $ConfigTabs/Accessibility/Scroll/ConfigPanel/Photosens_Mode.button_pressed
 
 func _on_screen_shake_pressed():
-	button_toggle($OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons/ScreenShake, "SCREEN_SHAKE")
+	button_toggle($ConfigTabs/Accessibility/Scroll/ConfigPanel/ScreenShake, "SCREEN_SHAKE")
 
 func button_toggle(button, config):
 	var button_status = bool(button.button_pressed)
@@ -255,15 +259,15 @@ func _on_master_toggle_toggled(toggled_on):
 	effect_slider.editable = toggled_on
 	
 	if toggled_on:
-		$OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons/VolumeContainer/MasterVol.modulate.a = 1
-		$OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons/VolumeContainer/MusicVol.modulate.a = 1
-		$OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons/VolumeContainer/SoundEffectVol.modulate.a = 1
+		$'ConfigTabs/Main Options/Scroll/ConfigPanel/OptionsButtons/VolumeContainer/MasterVol'.modulate.a = 1
+		$'ConfigTabs/Main Options/Scroll/ConfigPanel/OptionsButtons/VolumeContainer/MusicVol'.modulate.a = 1
+		$'ConfigTabs/Main Options/Scroll/ConfigPanel/OptionsButtons/VolumeContainer/SoundEffectVol'.modulate.a = 1
 		
 		set_volume(0, linear_to_db(config_file.get_value("MAIN_OPTIONS","MASTER_VOLUME")))
 	else:
-		$OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons/VolumeContainer/MasterVol.modulate.a = 0.5
-		$OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons/VolumeContainer/MusicVol.modulate.a = 0.5
-		$OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons/VolumeContainer/SoundEffectVol.modulate.a = 0.5
+		$'ConfigTabs/Main Options/Scroll/ConfigPanel/OptionsButtons/VolumeContainer/MasterVol'.modulate.a = 0.5
+		$'ConfigTabs/Main Options/Scroll/ConfigPanel/OptionsButtons/VolumeContainer/MusicVol'.modulate.a = 0.5
+		$'ConfigTabs/Main Options/Scroll/ConfigPanel/OptionsButtons/VolumeContainer/SoundEffectVol'.modulate.a = 0.5
 		
 		set_volume(0, linear_to_db(0))
 
@@ -272,10 +276,10 @@ func _on_music_toggle_toggled(toggled_on):
 	music_slider.editable = toggled_on
 	
 	if toggled_on:
-		$OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons/VolumeContainer/MusicVol.modulate.a = 1
+		$'ConfigTabs/Main Options/Scroll/ConfigPanel/OptionsButtons/VolumeContainer/MusicVol'.modulate.a = 1
 		set_volume(2, linear_to_db(config_file.get_value("MAIN_OPTIONS","MUSIC_VOLUME")))
 	else:
-		$OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons/VolumeContainer/MusicVol.modulate.a = 0.5
+		$'ConfigTabs/Main Options/Scroll/ConfigPanel/OptionsButtons/VolumeContainer/MusicVol'.modulate.a = 0.5
 		set_volume(2, linear_to_db(0))
 
 func _on_effect_toggle_toggled(toggled_on):
@@ -283,10 +287,10 @@ func _on_effect_toggle_toggled(toggled_on):
 	effect_slider.editable = toggled_on
 	
 	if toggled_on:
-		$OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons/VolumeContainer/SoundEffectVol.modulate.a = 1
+		$'ConfigTabs/Main Options/Scroll/ConfigPanel/OptionsButtons/VolumeContainer/SoundEffectVol'.modulate.a = 1
 		set_volume(1, linear_to_db(config_file.get_value("MAIN_OPTIONS","EFFECTS_VOLUME")))
 	else:
-		$OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons/VolumeContainer/SoundEffectVol.modulate.a = 0.5
+		$'ConfigTabs/Main Options/Scroll/ConfigPanel/OptionsButtons/VolumeContainer/SoundEffectVol'.modulate.a = 0.5
 		set_volume(1, linear_to_db(0))
 #endregion
 
@@ -317,5 +321,4 @@ func _on_effect_slider_drag_ended(_value_changed):
 #endregion
 
 func _on_visual_effect_selected(index):
-	var effect_menu = $OptionsControl/ConfigContainer/ConfigPanel/OptionsButtons/VisualEffects/VisualEffectsMenu
 	UI.ScreenEffect.change_effect(effect_menu.get_item_text(index))

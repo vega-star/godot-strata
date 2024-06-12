@@ -63,6 +63,7 @@ animations = [{
 script = ExtResource("1_7u43o")
 
 [node name="Sky" type="ParallaxLayer" parent="."]
+modulate = Color(0.270222, 0.270222, 0.270222, 1)
 motion_mirroring = Vector2(960, 540)
 
 [node name="SkyBG" type="ColorRect" parent="Sky"]
@@ -77,8 +78,10 @@ offset_bottom = 540.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.196078, 0.2, 0.32549, 1)
+metadata/_edit_use_anchors_ = true
 
 [node name="SkyDithering" type="ParallaxLayer" parent="."]
+modulate = Color(0.359069, 0.359069, 0.359069, 1)
 position = Vector2(480, 270)
 motion_mirroring = Vector2(960, 0)
 
@@ -98,6 +101,7 @@ autoplay = "main_sequence"
 frame_progress = 0.752999
 
 [node name="FarClouds" type="ParallaxLayer" parent="."]
+modulate = Color(0.321728, 0.321728, 0.321728, 1)
 position = Vector2(0, 72)
 motion_scale = Vector2(1, 1.2)
 motion_mirroring = Vector2(960, 0)
@@ -109,6 +113,7 @@ centered = false
 region_rect = Rect2(0, 96, 960, 304)
 
 [node name="BeforeFarClouds" type="ParallaxLayer" parent="."]
+modulate = Color(0.295867, 0.295866, 0.295866, 1)
 position = Vector2(0, 72)
 motion_scale = Vector2(1, 1.1)
 motion_mirroring = Vector2(960, 0)
@@ -120,6 +125,7 @@ centered = false
 region_rect = Rect2(0, 96, 960, 304)
 
 [node name="MediumClouds" type="ParallaxLayer" parent="."]
+modulate = Color(0.239578, 0.23194, 0.354796, 1)
 position = Vector2(0, 51)
 motion_scale = Vector2(1, 0.9)
 motion_mirroring = Vector2(960, 0)
@@ -131,6 +137,7 @@ centered = false
 region_rect = Rect2(0, 306, 960, 104)
 
 [node name="CloserClouds" type="ParallaxLayer" parent="."]
+modulate = Color(0.283961, 0.189162, 0.279672, 1)
 motion_scale = Vector2(1, 0.8)
 motion_mirroring = Vector2(960, 0)
 
@@ -141,6 +148,7 @@ centered = false
 region_rect = Rect2(0, 368, 960, 120)
 
 [node name="EvenCloserClouds" type="ParallaxLayer" parent="."]
+modulate = Color(0.323991, 0.218859, 0.19341, 1)
 position = Vector2(0, 1)
 motion_scale = Vector2(1, 0.5)
 motion_offset = Vector2(0, -20)

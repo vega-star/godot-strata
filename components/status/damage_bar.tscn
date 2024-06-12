@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://ch503xpj8qn46"]
+
+[ext_resource type="Script" path="res://scenes/ui/damage_bar.gd" id="1_2j0s4"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_nybdu"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ysgq3"]
+bg_color = Color(1, 1, 1, 1)
+
+[node name="DamageBar" type="ProgressBar"]
+z_index = -1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/background = SubResource("StyleBoxEmpty_nybdu")
+theme_override_styles/fill = SubResource("StyleBoxFlat_ysgq3")
+value = 75.0
+show_percentage = false
+script = ExtResource("1_2j0s4")
+timer_period = 1.1
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
