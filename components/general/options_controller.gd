@@ -84,11 +84,8 @@ func _ready():
 	
 	# Setting some menu's based on distant node configurations
 	await UI.ready
-	for key in UI.ScreenEffect.effects:
-		$ConfigTabs/Graphics/Scroll/ConfigPanel/VisualEffects/VisualEffectsMenu.add_item(key)
-	
-	for mode in screen_dict:
-		$ConfigTabs/Graphics/Scroll/ConfigPanel/ScreenMode/ScreenModeMenu.add_item(mode)
+	for key in UI.ScreenEffect.effects: $ConfigTabs/Graphics/Scroll/ConfigPanel/VisualEffects/VisualEffectsMenu.add_item(key)
+	for mode in screen_dict: $ConfigTabs/Graphics/Scroll/ConfigPanel/ScreenMode/ScreenModeMenu.add_item(mode)
 
 func _exit(): # Clean temporary data and reset signal
 	Options.visible = false

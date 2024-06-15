@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://b5ek1g4fsmfqu" path="res://scenes/ui/ui_menu_effect.tscn" id="1_1hu68"]
 [ext_resource type="Script" path="res://scenes/scripts/ui/construction_notice.gd" id="1_rqdvw"]
-[ext_resource type="Shader" path="res://scenes/ui/wavy_text.gdshader" id="2_q7iju"]
+[ext_resource type="Shader" path="res://assets/shaders/wavy_text.gdshader" id="2_q7iju"]
 [ext_resource type="FontFile" uid="uid://dtusi5ojlx75v" path="res://assets/themes/fonts/DePixelKlein.otf" id="3_sgo4p"]
 [ext_resource type="Theme" uid="uid://fmibt6brra62" path="res://assets/themes/monospace_vt323.tres" id="4_rptpc"]
 [ext_resource type="PackedScene" uid="uid://c2vd5a4tvc1kw" path="res://scenes/ui/ui_default_button.tscn" id="5_rldfo"]

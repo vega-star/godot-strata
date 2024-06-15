@@ -26,6 +26,7 @@ func _ready():
 func set_stage(stage_node, timer):
 	stage = stage_node
 	UIOverlay.visible = true
+	UIOverlay.toggle_info(true)
 	stage_timer = timer
 	
 	stage.stage_ended.connect(end_stage)
@@ -44,6 +45,7 @@ func end_stage(turbo : bool = false): ## Clear cached data from stage on UI, suc
 		await stage.end_stage_sequence(turbo)
 	
 	UIOverlay.bars.clear_events()
+	UIOverlay.toggle_info(false)
 	UIOverlay.visible = false
 
 func set_pause(mode : bool = true):

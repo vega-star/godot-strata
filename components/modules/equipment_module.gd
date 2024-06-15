@@ -374,6 +374,7 @@ var buttons_available : Array
 func present_choice(items):
 	var total_scrap : int
 	UI.set_pause(true)
+	UI.PauseMenu.lock(true)
 	
 	assert(items is Array)
 	for item in items:
@@ -404,6 +405,7 @@ func present_choice(items):
 
 func choose_item(item_id):
 	UI.set_pause(false)
+	UI.PauseMenu.lock(false)
 	buttons_available.clear()
 	$InventoryUILayer/SelectionControl.visible = false
 	

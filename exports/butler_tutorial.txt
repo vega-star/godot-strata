@@ -9,7 +9,7 @@ Everything here is based on that documentation, and applied to this project as a
 
 | USING BUTLER |
 
-You can run manual commands to push, por example:
+You can run manual commands to push, for example:
 
 	butler push exports/web nyeptun/strata-zero:web --userversion 0.4.8
 

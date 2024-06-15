@@ -4,6 +4,7 @@ extends Control
 const bar_fadeout_time : float = 3
 
 ## Nodes
+@onready var ui_animation_player = $"../../UIAnimations"
 @onready var progress_bar = $StageProgressBar/Bar
 @onready var boss_bar = $BossBar/Bar
 @onready var damage_bar = $BossBar/Bar/DamageBar
@@ -11,7 +12,6 @@ const bar_fadeout_time : float = 3
 @onready var progress_bar_frame = $StageProgressBar/ProgressBarFrame
 @onready var bar_start = $StageProgressBar/BarStart
 @onready var bar_end = $StageProgressBar/BarEnd
-@onready var ui_animation_player = $"../UIAnimations"
 @onready var event_container = $StageProgressBar/EventContainer
 @onready var event_cursor = $StageProgressBar/EventCursor
 @export var debug : bool = false

@@ -1,17 +1,47 @@
-[gd_scene load_steps=16 format=3 uid="uid://duws3qk7e45vs"]
+[gd_scene load_steps=29 format=3 uid="uid://duws3qk7e45vs"]
 
 [ext_resource type="Script" path="res://components/general/options_controller.gd" id="1_hjbun"]
 [ext_resource type="Theme" uid="uid://b1a5sjt2xibwo" path="res://assets/themes/strata_theme/strata_theme.tres" id="1_yjy47"]
 [ext_resource type="StyleBox" uid="uid://c8kj70nojml1" path="res://assets/themes/strata_theme/elements/tresfiles/short_style_box.tres" id="3_8n6wo"]
 [ext_resource type="PackedScene" uid="uid://cb1ygvja2x1ty" path="res://components/general/keybind_button.tscn" id="3_iy2y2"]
+[ext_resource type="Texture2D" uid="uid://dr4wu2nealxmp" path="res://assets/themes/strata_theme/elements/styleboxes/smaller/sb_disabled.png" id="3_wmbtv"]
+[ext_resource type="Texture2D" uid="uid://uq3362p3fn2o" path="res://assets/themes/strata_theme/elements/styleboxes/smaller/sb_hover.png" id="4_043w5"]
 [ext_resource type="Theme" uid="uid://fmibt6brra62" path="res://assets/themes/monospace_vt323.tres" id="4_aufuu"]
 [ext_resource type="Texture2D" uid="uid://b762s3o1xxw3y" path="res://assets/textures/prototypes/notice/gears.png" id="4_th1dw"]
 [ext_resource type="Texture2D" uid="uid://b1x73s2w45fin" path="res://assets/themes/strata_theme/elements/styleboxes/smaller/simple_box.png" id="5_gvo04"]
+[ext_resource type="Texture2D" uid="uid://ci5fsexvhn0kh" path="res://assets/textures/prototypes/notice/radish_holding_sign.png" id="10_1hxk4"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_yij72"]
+content_margin_left = 15.0
+content_margin_right = 15.0
+texture = ExtResource("3_wmbtv")
+texture_margin_left = 7.0
+texture_margin_top = 4.0
+texture_margin_right = 7.0
+texture_margin_bottom = 4.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_0rhrv"]
+content_margin_left = 15.0
+content_margin_right = 15.0
+texture = ExtResource("4_043w5")
+texture_margin_left = 7.0
+texture_margin_top = 4.0
+texture_margin_right = 7.0
+texture_margin_bottom = 4.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vqq7j"]
+content_margin_left = 15.0
+content_margin_right = 15.0
+texture = ExtResource("5_gvo04")
+texture_margin_left = 7.0
+texture_margin_top = 4.0
+texture_margin_right = 7.0
+texture_margin_bottom = 4.0
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_gh4hr"]
 texture = ExtResource("5_gvo04")
-texture_margin_left = 8.0
-texture_margin_top = 8.0
+texture_margin_left = 7.0
+texture_margin_top = 7.0
 texture_margin_right = 7.0
 texture_margin_bottom = 7.0
 
@@ -65,6 +95,56 @@ animations = [{
 "speed": 8.0
 }]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_adkda"]
+atlas = ExtResource("10_1hxk4")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b78af"]
+atlas = ExtResource("10_1hxk4")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_av2ik"]
+atlas = ExtResource("10_1hxk4")
+region = Rect2(96, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u7sjb"]
+atlas = ExtResource("10_1hxk4")
+region = Rect2(144, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fk7lt"]
+atlas = ExtResource("10_1hxk4")
+region = Rect2(192, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_woj7c"]
+atlas = ExtResource("10_1hxk4")
+region = Rect2(240, 0, 48, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_2qkao"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_adkda")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b78af")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_av2ik")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u7sjb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fk7lt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_woj7c")
+}],
+"loop": true,
+"name": &"main",
+"speed": 8.0
+}]
+
 [node name="Options" type="CanvasLayer"]
 process_mode = 3
 layer = 100
@@ -79,6 +159,9 @@ grow_vertical = 2
 theme = ExtResource("1_yjy47")
 theme_override_constants/icon_separation = 5
 theme_override_font_sizes/font_size = 28
+theme_override_styles/tab_selected = SubResource("StyleBoxTexture_yij72")
+theme_override_styles/tab_hovered = SubResource("StyleBoxTexture_0rhrv")
+theme_override_styles/tab_unselected = SubResource("StyleBoxTexture_vqq7j")
 theme_override_styles/tabbar_background = SubResource("StyleBoxTexture_gh4hr")
 tab_alignment = 1
 
@@ -121,7 +204,7 @@ offset_bottom = 455.0
 grow_horizontal = 2
 size_flags_horizontal = 4
 theme = ExtResource("1_yjy47")
-theme_override_constants/separation = 15
+theme_override_constants/separation = 8
 alignment = 1
 
 [node name="VolumeContainer" type="VBoxContainer" parent="ConfigTabs/Main Options/Scroll/ConfigPanel/OptionsButtons"]
@@ -159,6 +242,7 @@ theme_override_styles/normal = ExtResource("3_8n6wo")
 button_pressed = true
 
 [node name="Master_Slider" type="HSlider" parent="ConfigTabs/Main Options/Scroll/ConfigPanel/OptionsButtons/VolumeContainer/MasterVol/Master_Toggle"]
+show_behind_parent = true
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
@@ -201,6 +285,7 @@ theme_override_styles/normal = ExtResource("3_8n6wo")
 button_pressed = true
 
 [node name="Music_Slider" type="HSlider" parent="ConfigTabs/Main Options/Scroll/ConfigPanel/OptionsButtons/VolumeContainer/MusicVol/Music_Toggle"]
+show_behind_parent = true
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
@@ -243,6 +328,7 @@ theme_override_styles/normal = ExtResource("3_8n6wo")
 button_pressed = true
 
 [node name="Effect_Slider" type="HSlider" parent="ConfigTabs/Main Options/Scroll/ConfigPanel/OptionsButtons/VolumeContainer/SoundEffectVol/Effect_Toggle"]
+show_behind_parent = true
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
@@ -544,7 +630,7 @@ theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
 theme_override_constants/shadow_outline_size = 8
 theme_override_font_sizes/font_size = 45
-text = "BOMB"
+text = "POWER"
 horizontal_alignment = 2
 vertical_alignment = 1
 uppercase = true
@@ -567,6 +653,94 @@ size_flags_vertical = 4
 theme_override_colors/font_hover_color = Color(0.909804, 0.231373, 0.231373, 1)
 text = "RESET DEFAULT KEYBINDS"
 
+[node name="UI" type="TabBar" parent="ConfigTabs"]
+visible = false
+layout_mode = 2
+focus_mode = 0
+
+[node name="Scroll" type="ScrollContainer" parent="ConfigTabs/UI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Temporary" type="Node2D" parent="ConfigTabs/UI/Scroll"]
+position = Vector2(467, 0)
+
+[node name="RadishHoldingSign" type="AnimatedSprite2D" parent="ConfigTabs/UI/Scroll/Temporary"]
+position = Vector2(192, 72)
+scale = Vector2(3, 3)
+sprite_frames = SubResource("SpriteFrames_2qkao")
+animation = &"main"
+autoplay = "main"
+frame_progress = 0.825936
+
+[node name="Label" type="Label" parent="ConfigTabs/UI/Scroll/Temporary"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -77.5
+offset_top = 56.0
+offset_right = 77.5
+offset_bottom = 79.0
+grow_horizontal = 2
+theme = ExtResource("1_yjy47")
+theme_override_font_sizes/font_size = 40
+text = "WORK IN PROGRESS"
+
+[node name="ConfigPanel" type="VBoxContainer" parent="ConfigTabs/UI/Scroll"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+theme_override_constants/separation = 6
+
+[node name="SpinBoxes" type="HBoxContainer" parent="ConfigTabs/UI/Scroll/ConfigPanel"]
+layout_mode = 2
+alignment = 1
+
+[node name="Health Containers" type="VBoxContainer" parent="ConfigTabs/UI/Scroll/ConfigPanel/SpinBoxes"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 5
+alignment = 1
+
+[node name="HealthContainer" type="Label" parent="ConfigTabs/UI/Scroll/ConfigPanel/SpinBoxes/Health Containers"]
+layout_mode = 2
+text = "FULL SIZE HEALTH CONTAINERS"
+vertical_alignment = 1
+
+[node name="PowerContainer" type="Label" parent="ConfigTabs/UI/Scroll/ConfigPanel/SpinBoxes/Health Containers"]
+layout_mode = 2
+text = "FULL SIZE POWER CONTAINERS"
+vertical_alignment = 1
+
+[node name="AmmoContainers" type="VBoxContainer" parent="ConfigTabs/UI/Scroll/ConfigPanel/SpinBoxes"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 5
+
+[node name="HealthContainerNum" type="SpinBox" parent="ConfigTabs/UI/Scroll/ConfigPanel/SpinBoxes/AmmoContainers"]
+layout_mode = 2
+max_value = 15.0
+value = 3.0
+
+[node name="PowerContainerNum" type="SpinBox" parent="ConfigTabs/UI/Scroll/ConfigPanel/SpinBoxes/AmmoContainers"]
+layout_mode = 2
+max_value = 15.0
+value = 3.0
+
+[node name="ResetUIDefaultSpecs" type="CheckButton" parent="ConfigTabs/UI/Scroll/ConfigPanel"]
+layout_mode = 2
+text = "RESET UI DEFAULT SIZES"
+alignment = 1
+
+[node name="HideStageBar" type="CheckButton" parent="ConfigTabs/UI/Scroll/ConfigPanel"]
+layout_mode = 2
+text = "HIDE STAGE BAR WHILE PLAYING"
+alignment = 1
+
 [node name="Graphics" type="TabBar" parent="ConfigTabs"]
 visible = false
 layout_mode = 2
@@ -584,7 +758,7 @@ grow_vertical = 2
 [node name="ConfigPanel" type="VBoxContainer" parent="ConfigTabs/Graphics/Scroll"]
 layout_mode = 2
 size_flags_horizontal = 6
-size_flags_vertical = 2
+size_flags_vertical = 6
 
 [node name="ScreenMode" type="Label" parent="ConfigTabs/Graphics/Scroll/ConfigPanel"]
 custom_minimum_size = Vector2(0, 60)
@@ -664,7 +838,7 @@ alignment = 1
 
 [node name="FrontGears" type="AnimatedSprite2D" parent="ConfigTabs"]
 modulate = Color(0.712129, 0.712129, 0.712129, 1)
-position = Vector2(47, 455)
+position = Vector2(44, 455)
 rotation = 1.5708
 scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_mwkpm")
@@ -686,6 +860,7 @@ theme_override_font_sizes/font_size = 30
 text = "X"
 
 [node name="OptionsControl" type="Control" parent="."]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

@@ -1,34 +1,36 @@
-[gd_scene load_steps=32 format=3 uid="uid://chy6yrcopxpke"]
+[gd_scene load_steps=35 format=3 uid="uid://chy6yrcopxpke"]
 
 [ext_resource type="Script" path="res://scenes/scripts/ui/ui_overlay.gd" id="1_khion"]
-[ext_resource type="Texture2D" uid="uid://ut7h7v0wsmy6" path="res://assets/textures/ui/hud/classic/hpbar_start.png" id="5_j7g2v"]
-[ext_resource type="Texture2D" uid="uid://c07e0wdpksuuj" path="res://assets/textures/ui/hud/classic/hpbar_container.png" id="6_g2k23"]
-[ext_resource type="Texture2D" uid="uid://ckafr2pt6i1cj" path="res://assets/textures/ui/hud/classic/hpbar_container_short.png" id="7_0mp74"]
-[ext_resource type="Texture2D" uid="uid://denrlug3k85bi" path="res://assets/textures/ui/hud/classic/hpbar_end.png" id="8_knmas"]
-[ext_resource type="Texture2D" uid="uid://3dn1dt62oo7f" path="res://assets/textures/ui/hud/classic/bomb_container.png" id="9_vbydy"]
-[ext_resource type="Texture2D" uid="uid://dn767jx01lhy4" path="res://assets/textures/ui/hud/classic/bomb_short_container.png" id="10_hqspw"]
-[ext_resource type="Texture2D" uid="uid://dg4bawag1gvsx" path="res://assets/textures/ui/hud/classic/hp_cell.png" id="11_s60dq"]
-[ext_resource type="Texture2D" uid="uid://c6nrrcsu7x2hh" path="res://assets/textures/ui/hud/classic/hp_short_cell.png" id="12_m8gnf"]
+[ext_resource type="Texture2D" uid="uid://m6hpkh3yxab3" path="res://assets/textures/ui/hud/neptune/external_frame.png" id="2_cbaw4"]
+[ext_resource type="Texture2D" uid="uid://gyxwxdqbwn80" path="res://assets/textures/ui/hud/neptune/bar_start.png" id="3_y5aqv"]
+[ext_resource type="Texture2D" uid="uid://cy4b58qbm78ty" path="res://assets/textures/ui/hud/neptune/health_container.png" id="4_vketc"]
+[ext_resource type="Texture2D" uid="uid://sykmjjf5bbus" path="res://assets/textures/ui/hud/neptune/health_capsule.png" id="5_li1y3"]
+[ext_resource type="Texture2D" uid="uid://cryudub4j35r8" path="res://assets/textures/ui/hud/neptune/health_container_small.png" id="6_kq84e"]
+[ext_resource type="Texture2D" uid="uid://c0qthw6oyl5aj" path="res://assets/textures/ui/hud/neptune/health_capsule_small.png" id="7_5gx6q"]
+[ext_resource type="Texture2D" uid="uid://bwqlwr23lb1m6" path="res://assets/textures/ui/hud/neptune/bar_end.png" id="8_n3p5o"]
+[ext_resource type="Texture2D" uid="uid://dql722swq0f3o" path="res://assets/textures/ui/hud/neptune/mixed_bar_start.png" id="9_no8mf"]
+[ext_resource type="Texture2D" uid="uid://42a583jr4l4j" path="res://assets/textures/ui/hud/neptune/ammo_container.png" id="10_f13tq"]
+[ext_resource type="Texture2D" uid="uid://bcg6s4xlvcjhv" path="res://assets/textures/ui/hud/neptune/ammo_capsule.png" id="11_koh1o"]
+[ext_resource type="Texture2D" uid="uid://c5cjti4v1unsw" path="res://assets/textures/ui/hud/neptune/ammo_container_small.png" id="12_ps2pv"]
 [ext_resource type="Script" path="res://scenes/scripts/ui/ui_progress_bar.gd" id="12_s4dc2"]
-[ext_resource type="Texture2D" uid="uid://451teuktm8oy" path="res://assets/textures/ui/hud/classic/bomb_cell.png" id="13_4k00c"]
+[ext_resource type="Texture2D" uid="uid://cx1wjsbqfhste" path="res://assets/textures/ui/hud/neptune/ammo_capsule_short.png" id="13_31sav"]
 [ext_resource type="Theme" uid="uid://b1a5sjt2xibwo" path="res://assets/themes/strata_theme/strata_theme.tres" id="13_chyk2"]
-[ext_resource type="Texture2D" uid="uid://cnafgvhwn8x3f" path="res://assets/textures/ui/hud/classic/bomb_short_cell.png" id="14_bq438"]
 [ext_resource type="FontFile" uid="uid://0bmvakfotygp" path="res://assets/themes/fonts/VT323-Regular.ttf" id="14_f31xd"]
 [ext_resource type="Texture2D" uid="uid://csay5l63c4eul" path="res://assets/textures/icons/events/event_cursor.png" id="15_0f1bk"]
 [ext_resource type="Texture2D" uid="uid://clyo4shejv2k7" path="res://assets/textures/icons/ui/icon_boss_life_deactivated.png" id="15_1dt3e"]
 [ext_resource type="Texture2D" uid="uid://cano6k0rmkt8h" path="res://assets/textures/ui/hud/classic/stage_bar.png" id="15_5b0wf"]
+[ext_resource type="Texture2D" uid="uid://ds8n8qkmbj3yu" path="res://assets/textures/ui/hud/neptune/heat_bar.png" id="15_bbfms"]
 [ext_resource type="Texture2D" uid="uid://d5cyp7quoone" path="res://assets/textures/icons/ui/icon_boss_life.png" id="16_ekmyj"]
 [ext_resource type="Texture2D" uid="uid://bbri3ya332gll" path="res://assets/textures/icons/ui/boss_bar_box.png" id="16_iy8uk"]
+[ext_resource type="Texture2D" uid="uid://dk0vt0rmsn7su" path="res://assets/textures/ui/hud/neptune/heat_progress.png" id="16_sd3tp"]
 [ext_resource type="PackedScene" uid="uid://ch503xpj8qn46" path="res://components/status/damage_bar.tscn" id="17_iuoyt"]
-[ext_resource type="Texture2D" uid="uid://cnmh05ajspu3e" path="res://assets/textures/ui/hud/classic/heat_bar_tall.png" id="19_oixpu"]
-[ext_resource type="Texture2D" uid="uid://btqv2iu1ie3g2" path="res://assets/textures/ui/hud/classic/heat_bar_progress_tall.png" id="20_cy0ce"]
 
 [sub_resource type="Animation" id="Animation_nyykf"]
 length = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Bars/BossBar:position")
+tracks/0/path = NodePath("HUD/Bars/BossBar:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -40,7 +42,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Bars/BossBar:size")
+tracks/1/path = NodePath("HUD/Bars/BossBar:size")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -52,7 +54,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Bars/StageProgressBar:size")
+tracks/2/path = NodePath("HUD/Bars/StageProgressBar:size")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -64,7 +66,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Bars/BossBar/ModulesBars:position")
+tracks/3/path = NodePath("HUD/Bars/BossBar/ModulesBars:position")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -76,7 +78,7 @@ tracks/3/keys = {
 tracks/4/type = "bezier"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("Bars:position:x")
+tracks/4/path = NodePath("HUD/Bars:position:x")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -87,7 +89,7 @@ tracks/4/keys = {
 tracks/5/type = "bezier"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("Bars:position:y")
+tracks/5/path = NodePath("HUD/Bars:position:y")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
@@ -98,7 +100,7 @@ tracks/5/keys = {
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("Bars/StageProgressBar:position")
+tracks/6/path = NodePath("HUD/Bars/StageProgressBar:position")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
@@ -110,7 +112,7 @@ tracks/6/keys = {
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("Bars/BossBar:visible")
+tracks/7/path = NodePath("HUD/Bars/BossBar:visible")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
@@ -119,6 +121,52 @@ tracks/7/keys = {
 "update": 1,
 "values": [false]
 }
+tracks/8/type = "bezier"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("HUD/Info:position:x")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0.1)
+}
+tracks/9/type = "bezier"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("HUD/Info:position:y")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(-72, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0.1)
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("HUD/Info:visible")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("HUD/Info:anchors_preset")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [15]
+}
 
 [sub_resource type="Animation" id="Animation_ixm4x"]
 resource_name = "toggle_boss_bar"
@@ -126,7 +174,7 @@ length = 0.7
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Bars/BossBar:position")
+tracks/0/path = NodePath("HUD/Bars/BossBar:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -138,7 +186,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Bars/BossBar/ModulesBars:position")
+tracks/1/path = NodePath("HUD/Bars/BossBar/ModulesBars:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -150,7 +198,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Bars/BossBar:visible")
+tracks/2/path = NodePath("HUD/Bars/BossBar:visible")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -166,7 +214,7 @@ length = 0.3
 tracks/0/type = "bezier"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Bars:position:x")
+tracks/0/path = NodePath("HUD/Bars:position:x")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -177,7 +225,7 @@ tracks/0/keys = {
 tracks/1/type = "bezier"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Bars:position:y")
+tracks/1/path = NodePath("HUD/Bars:position:y")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -186,11 +234,49 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.3)
 }
 
+[sub_resource type="Animation" id="Animation_5jysy"]
+resource_name = "toggle_ui"
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HUD/Info:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.7, 1)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("HUD/Info:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(-72, -0.25, 0, 0.25, 0, 0, -0.1, -80.5, 0.1, 39.5, 0, -0.1, -0.5, 0.25, 0),
+"times": PackedFloat32Array(0, 0.7, 1)
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("HUD/Info:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_gyubf"]
 _data = {
 "RESET": SubResource("Animation_nyykf"),
 "toggle_boss_bar": SubResource("Animation_ixm4x"),
-"toggle_progress_bar": SubResource("Animation_3yjbw")
+"toggle_progress_bar": SubResource("Animation_3yjbw"),
+"toggle_ui": SubResource("Animation_5jysy")
 }
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_32oi1"]
@@ -225,84 +311,13 @@ region_rect = Rect2(12, 6, 32, 14)
 [node name="UIOverlay" type="CanvasLayer"]
 layer = 10
 script = ExtResource("1_khion")
+limit_secondary_ammo = 3
 
 [node name="UIAnimations" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_gyubf")
 }
 autoplay = "RESET"
-
-[node name="HP" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 258.0
-offset_bottom = 37.0
-size_flags_horizontal = 0
-size_flags_vertical = 0
-
-[node name="HP_Start" type="TextureRect" parent="HP"]
-custom_minimum_size = Vector2(8, 0)
-layout_mode = 1
-offset_right = 50.0
-offset_bottom = 38.0
-texture = ExtResource("5_j7g2v")
-expand_mode = 1
-stretch_mode = 2
-
-[node name="HP_Container" type="TextureRect" parent="HP"]
-custom_minimum_size = Vector2(52, 0)
-layout_mode = 1
-offset_left = 50.0
-offset_right = 206.0
-offset_bottom = 37.0
-texture = ExtResource("6_g2k23")
-expand_mode = 1
-stretch_mode = 1
-
-[node name="HP_Short_Container" type="TextureRect" parent="HP"]
-layout_mode = 1
-offset_left = 206.0
-offset_right = 232.0
-offset_bottom = 37.0
-size_flags_horizontal = 4
-texture = ExtResource("7_0mp74")
-expand_mode = 1
-stretch_mode = 1
-
-[node name="HP_End" type="TextureRect" parent="HP"]
-layout_mode = 1
-offset_left = 232.0
-offset_right = 256.0
-offset_bottom = 37.0
-texture = ExtResource("8_knmas")
-expand_mode = 1
-stretch_mode = 2
-
-[node name="SecondaryAmmo" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-offset_left = 5.0
-offset_top = 49.0
-offset_right = 203.0
-offset_bottom = 75.0
-
-[node name="Ammo_Container" type="TextureRect" parent="SecondaryAmmo"]
-custom_minimum_size = Vector2(22, 0)
-layout_mode = 1
-offset_right = 26.0
-offset_bottom = 26.0
-texture = ExtResource("9_vbydy")
-stretch_mode = 1
-
-[node name="Ammo_Short_Container" type="TextureRect" parent="SecondaryAmmo"]
-custom_minimum_size = Vector2(11, 0)
-layout_mode = 1
-offset_left = 26.0
-offset_right = 42.0
-offset_bottom = 26.0
-size_flags_horizontal = 4
-texture = ExtResource("10_hqspw")
-stretch_mode = 1
 
 [node name="HUD" type="Control" parent="."]
 layout_mode = 3
@@ -312,47 +327,241 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-metadata/_edit_use_anchors_ = true
 
-[node name="HP_Cells" type="TextureRect" parent="HUD"]
+[node name="Info" type="Control" parent="HUD"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -72.0
+offset_right = 960.0
+offset_bottom = 468.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="ExternalFrame" type="NinePatchRect" parent="HUD/Info"]
+custom_minimum_size = Vector2(0, 62)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = -36.0
+offset_top = -16.0
+offset_right = 36.0
+offset_bottom = 46.0
+grow_horizontal = 2
+texture = ExtResource("2_cbaw4")
+patch_margin_left = 36
+patch_margin_top = 14
+patch_margin_right = 36
+axis_stretch_vertical = 1
+
+[node name="Health" type="Control" parent="HUD/Info"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+mouse_filter = 2
+
+[node name="Start" type="TextureRect" parent="HUD/Info/Health"]
+custom_minimum_size = Vector2(8, 0)
+layout_mode = 1
+offset_right = 46.0
+offset_bottom = 38.0
+texture = ExtResource("3_y5aqv")
+expand_mode = 1
+stretch_mode = 2
+
+[node name="Container" type="TextureRect" parent="HUD/Info/Health"]
+custom_minimum_size = Vector2(52, 0)
+layout_mode = 1
+offset_left = 46.0
+offset_right = 110.0
+offset_bottom = 38.0
+texture = ExtResource("4_vketc")
+expand_mode = 1
+stretch_mode = 1
+
+[node name="HealthCounter" type="TextureRect" parent="HUD/Info/Health/Container"]
+z_index = 1
 layout_mode = 0
-offset_left = 50.0
+offset_right = 64.0
+offset_bottom = 38.0
+texture = ExtResource("5_li1y3")
+expand_mode = 1
+stretch_mode = 1
+
+[node name="SmallContainer" type="TextureRect" parent="HUD/Info/Health"]
+layout_mode = 1
+offset_left = 110.0
+offset_right = 130.0
+offset_bottom = 38.0
+size_flags_horizontal = 4
+texture = ExtResource("6_kq84e")
+expand_mode = 1
+stretch_mode = 1
+
+[node name="HealthCounter" type="TextureRect" parent="HUD/Info/Health/SmallContainer"]
+z_index = 1
+layout_mode = 0
+offset_right = 20.0
+offset_bottom = 38.0
+texture = ExtResource("7_5gx6q")
+expand_mode = 1
+stretch_mode = 1
+
+[node name="End" type="TextureRect" parent="HUD/Info/Health"]
+layout_mode = 1
+offset_left = 130.0
 offset_right = 154.0
 offset_bottom = 38.0
-texture = ExtResource("11_s60dq")
+texture = ExtResource("8_n3p5o")
+expand_mode = 1
+stretch_mode = 2
+
+[node name="Ammo" type="Control" parent="HUD/Info"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Start" type="TextureRect" parent="HUD/Info/Ammo"]
+custom_minimum_size = Vector2(8, 0)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -46.0
+offset_bottom = 46.0
+grow_horizontal = 0
+texture = ExtResource("9_no8mf")
+expand_mode = 1
+stretch_mode = 2
+
+[node name="Container" type="TextureRect" parent="HUD/Info/Ammo"]
+custom_minimum_size = Vector2(22, 0)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -78.0
+offset_right = -46.0
+offset_bottom = 38.0
+grow_horizontal = 0
+pivot_offset = Vector2(32, 0)
+texture = ExtResource("10_f13tq")
+stretch_mode = 1
+
+[node name="AmmoCounter" type="TextureRect" parent="HUD/Info/Ammo/Container"]
+z_index = 1
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -32.0
+offset_bottom = 38.0
+grow_horizontal = 0
+pivot_offset = Vector2(32, 0)
+texture = ExtResource("11_koh1o")
 expand_mode = 1
 stretch_mode = 1
 
-[node name="HP_Short_Cells" type="TextureRect" parent="HUD"]
-visible = false
+[node name="SmallContainer" type="TextureRect" parent="HUD/Info/Ammo"]
+custom_minimum_size = Vector2(11, 0)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -98.0
+offset_right = -78.0
+offset_bottom = 38.0
+grow_horizontal = 0
+pivot_offset = Vector2(20, 0)
+size_flags_horizontal = 4
+texture = ExtResource("12_ps2pv")
+stretch_mode = 1
+
+[node name="AmmoCounter" type="TextureRect" parent="HUD/Info/Ammo/SmallContainer"]
+z_index = 1
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -20.0
+offset_bottom = 38.0
+grow_horizontal = 0
+pivot_offset = Vector2(20, 0)
+texture = ExtResource("13_31sav")
+expand_mode = 1
+stretch_mode = 1
+
+[node name="End" type="TextureRect" parent="HUD/Info/Ammo"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -118.0
+offset_right = -98.0
+offset_bottom = 38.0
+grow_horizontal = 0
+texture = ExtResource("8_n3p5o")
+expand_mode = 1
+stretch_mode = 2
+flip_h = true
+
+[node name="Elements" type="Control" parent="HUD/Info"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="HeatBar" type="TextureProgressBar" parent="HUD/Info/Elements"]
+custom_minimum_size = Vector2(128, 22)
 layout_mode = 0
-offset_right = 26.0
-offset_bottom = 20.0
-texture = ExtResource("12_m8gnf")
-expand_mode = 1
-stretch_mode = 1
+offset_top = 38.0
+offset_right = 128.0
+offset_bottom = 60.0
+theme = ExtResource("13_chyk2")
+value = 10.0
+stretch_margin_left = 28
+stretch_margin_top = 2
+stretch_margin_right = 8
+stretch_margin_bottom = 2
+texture_under = ExtResource("15_bbfms")
+texture_progress = ExtResource("16_sd3tp")
 
-[node name="Ammo_Cells" type="TextureRect" parent="HUD"]
+[node name="ScoreBar" type="LineEdit" parent="HUD/Info/Elements"]
 layout_mode = 1
-offset_left = 5.0
-offset_top = 49.0
-offset_right = 31.0
-offset_bottom = 75.0
-texture = ExtResource("13_4k00c")
-expand_mode = 1
-stretch_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -108.5
+offset_right = 108.5
+offset_bottom = 39.0
+grow_horizontal = 2
+theme = ExtResource("13_chyk2")
+theme_override_fonts/font = ExtResource("14_f31xd")
+theme_override_font_sizes/font_size = 32
+placeholder_text = "SCORE: 0"
+alignment = 1
+expand_to_text_length = true
+selecting_enabled = false
+flat = true
 
-[node name="Ammo_Short_Cells" type="TextureRect" parent="HUD"]
-layout_mode = 1
-offset_left = 31.0
-offset_top = 49.0
-offset_right = 45.0
-offset_bottom = 75.0
-texture = ExtResource("14_bq438")
-expand_mode = 1
-stretch_mode = 1
-
-[node name="LifeCounter" type="RichTextLabel" parent="HUD"]
+[node name="LifeCounter" type="RichTextLabel" parent="HUD/Info/Elements"]
+visible = false
 layout_mode = 0
 offset_left = 6.0
 offset_top = 6.0
@@ -365,19 +574,18 @@ fit_content = true
 scroll_active = false
 scroll_following = true
 
-[node name="Inventory" type="Control" parent="."]
-visible = false
-layout_mode = 3
+[node name="Inventory" type="Control" parent="HUD"]
+layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
-offset_top = -166.0
+offset_top = 84.0
 offset_right = 47.0
-offset_bottom = 166.0
+offset_bottom = 416.0
 grow_vertical = 2
 
-[node name="Bars" type="Control" parent="."]
-layout_mode = 3
+[node name="Bars" type="Control" parent="HUD"]
+layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
@@ -391,7 +599,7 @@ grow_vertical = 0
 mouse_filter = 2
 script = ExtResource("12_s4dc2")
 
-[node name="StageProgressBar" type="Control" parent="Bars"]
+[node name="StageProgressBar" type="Control" parent="HUD/Bars"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -402,7 +610,7 @@ offset_bottom = 70.0
 grow_horizontal = 2
 mouse_filter = 2
 
-[node name="Bar" type="ProgressBar" parent="Bars/StageProgressBar"]
+[node name="Bar" type="ProgressBar" parent="HUD/Bars/StageProgressBar"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -424,25 +632,25 @@ value = 50.0
 fill_mode = 1
 show_percentage = false
 
-[node name="ProgressBarFrame" type="Sprite2D" parent="Bars/StageProgressBar"]
+[node name="ProgressBarFrame" type="Sprite2D" parent="HUD/Bars/StageProgressBar"]
 position = Vector2(480, 10)
 texture = ExtResource("15_5b0wf")
 
-[node name="BarStart" type="Marker2D" parent="Bars/StageProgressBar"]
+[node name="BarStart" type="Marker2D" parent="HUD/Bars/StageProgressBar"]
 position = Vector2(37, 9)
 
-[node name="BarEnd" type="Marker2D" parent="Bars/StageProgressBar"]
+[node name="BarEnd" type="Marker2D" parent="HUD/Bars/StageProgressBar"]
 position = Vector2(923, 9)
 
-[node name="EventCursor" type="Sprite2D" parent="Bars/StageProgressBar"]
+[node name="EventCursor" type="Sprite2D" parent="HUD/Bars/StageProgressBar"]
 position = Vector2(37, -6)
 texture = ExtResource("15_0f1bk")
 
-[node name="EventContainer" type="Node2D" parent="Bars/StageProgressBar"]
+[node name="EventContainer" type="Node2D" parent="HUD/Bars/StageProgressBar"]
 position = Vector2(37, 9)
 metadata/_edit_use_anchors_ = true
 
-[node name="BossBar" type="Control" parent="Bars"]
+[node name="BossBar" type="Control" parent="HUD/Bars"]
 visible = false
 layout_mode = 1
 anchors_preset = 5
@@ -453,7 +661,7 @@ offset_right = 960.0
 offset_bottom = 107.0
 grow_horizontal = 2
 
-[node name="Bar" type="ProgressBar" parent="Bars/BossBar"]
+[node name="Bar" type="ProgressBar" parent="HUD/Bars/BossBar"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.03
@@ -473,12 +681,12 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_b8l6q")
 value = 50.0
 show_percentage = false
 
-[node name="DamageBar" parent="Bars/BossBar/Bar" node_paths=PackedStringArray("source_bar") instance=ExtResource("17_iuoyt")]
+[node name="DamageBar" parent="HUD/Bars/BossBar/Bar" node_paths=PackedStringArray("source_bar") instance=ExtResource("17_iuoyt")]
 layout_mode = 1
 source_bar = NodePath("..")
 debug = true
 
-[node name="Panel" type="Panel" parent="Bars/BossBar/Bar"]
+[node name="Panel" type="Panel" parent="HUD/Bars/BossBar/Bar"]
 z_index = -2
 layout_mode = 1
 anchors_preset = 15
@@ -488,7 +696,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_mhkus")
 
-[node name="BossStages" type="HBoxContainer" parent="Bars/BossBar/Bar"]
+[node name="BossStages" type="HBoxContainer" parent="HUD/Bars/BossBar/Bar"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -500,19 +708,19 @@ offset_bottom = -3.0
 grow_horizontal = 2
 alignment = 1
 
-[node name="BossLife" type="Control" parent="Bars/BossBar/Bar/BossStages"]
+[node name="BossLife" type="Control" parent="HUD/Bars/BossBar/Bar/BossStages"]
 custom_minimum_size = Vector2(20, 20)
 layout_mode = 2
 
-[node name="BossLifeDeactivated" type="Sprite2D" parent="Bars/BossBar/Bar/BossStages/BossLife"]
+[node name="BossLifeDeactivated" type="Sprite2D" parent="HUD/Bars/BossBar/Bar/BossStages/BossLife"]
 position = Vector2(10, 13)
 texture = ExtResource("15_1dt3e")
 
-[node name="BossLifeActive" type="Sprite2D" parent="Bars/BossBar/Bar/BossStages/BossLife"]
+[node name="BossLifeActive" type="Sprite2D" parent="HUD/Bars/BossBar/Bar/BossStages/BossLife"]
 position = Vector2(10, 13)
 texture = ExtResource("16_ekmyj")
 
-[node name="ModulesBars" type="VBoxContainer" parent="Bars/BossBar"]
+[node name="ModulesBars" type="VBoxContainer" parent="HUD/Bars/BossBar"]
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
@@ -529,7 +737,7 @@ mouse_filter = 2
 theme_override_constants/separation = 10
 alignment = 2
 
-[node name="BossName" type="RichTextLabel" parent="Bars/BossBar"]
+[node name="BossName" type="RichTextLabel" parent="HUD/Bars/BossBar"]
 layout_mode = 0
 offset_left = 18.0
 offset_top = -11.0
@@ -547,35 +755,3 @@ fit_content = true
 scroll_active = false
 autowrap_mode = 0
 text_direction = 1
-
-[node name="HeatBar" type="TextureProgressBar" parent="."]
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -960.0
-offset_top = 34.0
-offset_right = -834.0
-offset_bottom = 46.0
-grow_horizontal = 0
-theme = ExtResource("13_chyk2")
-value = 76.0
-nine_patch_stretch = true
-texture_under = ExtResource("19_oixpu")
-texture_progress = ExtResource("20_cy0ce")
-
-[node name="ScoreBar" type="LineEdit" parent="."]
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -108.0
-offset_right = 109.0
-offset_bottom = 39.0
-grow_horizontal = 2
-theme = ExtResource("13_chyk2")
-theme_override_fonts/font = ExtResource("14_f31xd")
-theme_override_font_sizes/font_size = 32
-placeholder_text = "SCORE: 0"
-alignment = 1
-expand_to_text_length = true
-selecting_enabled = false
-flat = true

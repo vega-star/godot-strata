@@ -64,7 +64,7 @@
     "secondary": {
         "simple_missile": {
             "projectile_scene": "res://entities/projectiles/default_missile.tscn",
-            "base_rate_of_fire": 5,
+            "base_rate_of_fire": 1.5,
             "base_damage": 5,
             "base_amount": 3,
             "base_regeneration": true,
