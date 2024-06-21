@@ -1,20 +1,29 @@
 extends CanvasLayer
 
 #region MAIN VARIABLES
-@export var selected_health_skin = "classic_hp"
-@export var selected_ammo_skin = "classic_ammo"
-@export var limit_hp_slots = 3
-@export var limit_secondary_ammo = 7
-@export var debug : bool = false
-@onready var ui_animation_player = $UIAnimations
-@onready var heat_bar = $HUD/Info/Elements/HeatBar
-@onready var bars = $HUD/Bars
-@onready var stage_progress_bar = $HUD/Bars/StageProgressBar/Bar
+@export_group("Node Connections")
+@export var ui_animation_player : AnimationPlayer
+@export var heat_bar : TextureProgressBar
+@export var bars : Control
+
+@export_group("UI Configuration")
+@export var selected_health_skin = "classic_hp" ## HP texture
+@export var selected_ammo_skin = "classic_ammo" ## Ammo texture
+@export var show_boss_bar : bool = true
+@export var hide_progress_bar : bool = false
+@export var debug : bool = false ## Print displayed values on update
+
+@export_group("UI Values")
+@export var limit_hp_slots : int = 3 ## How many full-sized containers until it shifts to small containers
+@export var limit_secondary_ammo : int = 3 ## How many full-sized containers until it shifts to small containers
+
+@onready var power_indicator = $HUD/Info/Elements/PowerIndicator/IndicatorLight
+@onready var roll_indicator = $HUD/Info/Elements/RollIndicator/IndicatorLight
 
 ## HUD Constructor Data
 ## Briefing
-# This is a hud constructor, meaning it builds a series of control nodes and position them in a modular, fully scalable way
-# This is totally spaghetti code and I *REALLY* do not recommend using it, for even I don't understand it fully sometimes
+# This is used by a hud constructor that builds a series of control nodes and position them in a modular, fully scalable way
+# This is totally spaghetti code and I *REALLY* do not recommend using it, for even I sincerely don't understand it fully sometimes
 # I made this when I was first learning Godot and it was pretty good practice, but it's not pratical AT ALL and too complex
 
 @onready var hud_nodes_list : Dictionary = {
@@ -154,26 +163,22 @@ const hud_elements_list : Dictionary = {
 			"short_cell_size_y": 38
 		}}}
 
-## HP
+# Setters
 @onready var set_hp:
 	set(hp):
 		adapt_hud(hud_elements_list[selected_health_skin], "hp", hp, limit_hp_slots)
 @onready var set_max_hp:
 	set(max_hp):
 		construct_hud(hud_elements_list[selected_health_skin], "hp", max_hp, limit_hp_slots)
-
-## Ammo
 @onready var set_ammo:
 	set(ammo):
 		adapt_hud(hud_elements_list[selected_ammo_skin], "ammo", ammo, limit_secondary_ammo)
 @onready var set_max_ammo:
 	set(max_ammo):
 		construct_hud(hud_elements_list[selected_ammo_skin], "ammo", max_ammo, limit_secondary_ammo)
-
-## Stage bar
-@onready var stage_progress = stage_progress_bar: # Recieves and updates stage progress on hud bar
-	set(progress_value):
-		stage_progress_bar.value = progress_value
+@onready var stage_progress = bars.progress_bar :
+	set(progress_value): ## Recieves and updates stage progress on hud bar
+		bars.progress_bar.value = progress_value
 #endregion
 
 const heat_bar_factor : int = 25
@@ -195,14 +200,14 @@ func _ready():
 func _physics_process(delta):
 	if heat_urgent and !heating_alert:
 		heating_alert = true
-		heat_bar.set_over_texture(heat_bar_danger)
+		bars.heat_bar.set_over_texture(heat_bar_danger)
 		await get_tree().create_timer(heat_bar_factor / heat_percentage).timeout
-		heat_bar.set_over_texture(null)
+		bars.heat_bar.set_over_texture(null)
 		await get_tree().create_timer(heat_bar_factor / heat_percentage).timeout
 		heating_alert = false
 
 func set_stage_bar(max_value): ## Sets the progress bar max value equal to the StageTimer total time in seconds
-	stage_progress_bar.set_max(max_value)
+	bars.progress_bar.set_max(max_value)
 	stage_size = max_value
 
 func construct_hud(hud_element, type, set_value, limit):
@@ -318,13 +323,13 @@ func adapt_hud(hud_element, type, set_value, limit):
 			hud_nodes["short_cell"].position.x = (start_position.x + (hud_element["cells"]["cell_size_h"] * limit)) + hud_element["position_offset"]
 
 func update_heat(new_value, set_max : float = 0):
-	heat_percentage = (new_value / heat_bar.max_value) * 100
+	heat_percentage = (new_value / bars.heat_bar.max_value) * 100
 	if set_max > 0: 
-		heat_bar.max_value = set_max
+		bars.heat_bar.max_value = set_max
 	
 	if heat_percentage > 70: heat_urgent = true
 	else: heat_urgent = false
-	heat_bar.value = new_value
+	bars.heat_bar.value = new_value
 
 func update_hud():
 	set_max_hp = Profile.current_run_data.get_value("INVENTORY", "MAX_HEALTH")

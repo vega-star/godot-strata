@@ -90,6 +90,7 @@ pitch_variation = 0.3
 stream = ExtResource("2_5cmj5")
 
 [node name="CapsuleSprite" type="AnimatedSprite2D" parent="."]
+self_modulate = Color(2.5, 2, 1.5, 1)
 rotation = 1.5708
 sprite_frames = SubResource("SpriteFrames_up7xc")
 animation = &"capsule_shot"

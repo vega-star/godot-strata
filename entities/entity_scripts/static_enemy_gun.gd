@@ -27,7 +27,7 @@ var speed = 150
 @export var contact_damage = 1
 @export var rate_of_fire : float = 1
 @export var rof_randomness : float = 1.01
-@onready var projectile_scene = preload("res://entities/projectiles/default_enemy_laser.tscn")
+@onready var projectile_scene = preload("res://entities/projectiles/enemy_laser.tscn")
 
 var shoot_cooldown : bool = false
 var shoot_lock : bool = false

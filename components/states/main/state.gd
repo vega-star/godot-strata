@@ -11,7 +11,8 @@ class_name State
 
 signal transitioned(current_state, new_state_name)
 
-@onready var state_machine = get_parent()
+@onready var state_machine : StateMachine = get_parent()
+@onready var conditions : Dictionary = state_machine.state_conditions
 
 func enter():
 	pass

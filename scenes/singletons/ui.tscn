@@ -26,7 +26,6 @@ layer = 50
 visible = false
 
 [node name="GameOver" parent="." instance=ExtResource("4_qb05l")]
-process_mode = 3
 layer = 60
 visible = false
 

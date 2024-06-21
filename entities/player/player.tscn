@@ -933,9 +933,6 @@ libraries = {
 speed_scale = 2.0
 
 [node name="PlayerStateMachine" parent="." instance=ExtResource("12_otyjf")]
-state_conditions = {
-"rolling": false
-}
 
 [node name="Idle" type="Node" parent="PlayerStateMachine"]
 script = ExtResource("13_ujhxs")
@@ -952,7 +949,6 @@ debug = true
 [node name="EquipmentModule" parent="." node_paths=PackedStringArray("muzzle_node", "health_component") instance=ExtResource("7_0klvy")]
 muzzle_node = NodePath("../MuzzleComponent")
 health_component = NodePath("../HealthComponent")
-metadata/_edit_vertical_guides_ = [480.0]
 
 [node name="HealthComponent" parent="." instance=ExtResource("14_0w6r6")]
 max_health = 3

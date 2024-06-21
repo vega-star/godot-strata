@@ -18,16 +18,17 @@ class_name StateMachine
 #     	Ideally, these conditionals are string keys with boolean values stored in the state_conditions dictionary.
 # 4 - Be creative! You can design complex and modular behaviors to use in a variety of enemies simultaneously. (I'll make sure to leave some examples for you to try on)
 
+@export var entity : Node
 @export var initial_state : State
-@export var state_conditions : Dictionary = {}
+@export var initial_state_conditions : Dictionary
+@export var debug : bool = false
 
-var entity : Node
 var current_state : State
+var state_conditions : Dictionary = initial_state_conditions
 var states : Dictionary = {}
 
 func _ready():
-	entity = owner
-	print(entity)
+	if !entity: entity = owner
 	
 	for child in get_children():
 		if child is State:
@@ -56,4 +57,5 @@ func _on_child_transition(state, new_state_name):
 	current_state = new_state
 
 func change_conditional(key, value):
+	if debug: print('{2} ||| CONDITION CHANGED: {0} | {1}'.format({0: key, 1: value, 2: owner.name}))
 	state_conditions[key] = value

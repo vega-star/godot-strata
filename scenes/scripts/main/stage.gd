@@ -4,6 +4,7 @@ signal stage_started
 signal stage_ended
 
 # Stage Properties
+var checkpoints : Array = []
 var stage_active : bool = true
 @export var stage_id : String = "StrataScene"
 @export var stage_title : String = 'STAGE ZERO'

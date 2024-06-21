@@ -4,6 +4,7 @@ signal bomb_exploded()
 
 # Node connections
 @onready var combat_component = $CombatComponent
+@onready var hitbox_component = $HitboxComponent
 
 # Proprieties
 const base_rate_of_fire : float = 50

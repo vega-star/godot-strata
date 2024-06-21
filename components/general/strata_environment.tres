@@ -1,0 +1,19 @@
+[gd_resource type="Environment" load_steps=3 format=3 uid="uid://bhdalqc61fnt1"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_fcf0r"]
+
+[sub_resource type="Sky" id="Sky_vwlop"]
+sky_material = SubResource("ProceduralSkyMaterial_fcf0r")
+
+[resource]
+background_mode = 3
+sky = SubResource("Sky_vwlop")
+reflected_light_source = 2
+glow_enabled = true
+glow_levels/1 = 0.15
+glow_levels/2 = 0.2
+glow_normalized = true
+glow_intensity = 0.5
+glow_strength = 0.8
+glow_bloom = 0.2
+glow_blend_mode = 1

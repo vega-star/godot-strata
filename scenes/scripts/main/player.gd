@@ -120,15 +120,18 @@ func _process(delta): # Frequent listener for input with delay (weapons, items, 
 		if secondary_ammo >= 1:
 			if !secondary_fire_cooldown:
 				secondary_fire_cooldown = true
+				UI.UIOverlay.power_indicator.visible = false
 				shoot_secondary()
 				await get_tree().create_timer(secondary_fire_rof, false).timeout
 				secondary_fire_cooldown = false
+				UI.UIOverlay.power_indicator.visible = true
 		else:
 			if debug: print("No ammo left!")
 	
 	if Input.is_action_just_pressed("roll"):
 		if !roll_cooldown:
 			roll_cooldown = true
+			UI.UIOverlay.roll_indicator.visible = false
 			
 			hitbox_component.toggle_immunity(true)
 			hitbox_component.set_collision_layer_value(1, false)
@@ -149,6 +152,7 @@ func _process(delta): # Frequent listener for input with delay (weapons, items, 
 			await get_tree().create_timer(roll_cooldown_timer)
 			AudioManager.emit_sound_effect(position, "roll_recharged", true)
 			roll_cooldown = false
+			UI.UIOverlay.roll_indicator.visible = true
 	
 	update_animation_state()
 

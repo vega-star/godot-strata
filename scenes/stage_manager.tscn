@@ -38,6 +38,9 @@ grow_vertical = 2
 [node name="FarBottom" type="Marker2D" parent="ThreatGenerator/ScreenArea/SpawnArea"]
 position = Vector2(38, 591)
 
+[node name="MiddleBottomSpawnPos" type="Marker2D" parent="ThreatGenerator/ScreenArea/SpawnArea"]
+position = Vector2(39, 326)
+
 [node name="BottomSpawnPos" type="Marker2D" parent="ThreatGenerator/ScreenArea/SpawnArea"]
 position = Vector2(39, 438)
 
@@ -46,6 +49,9 @@ position = Vector2(39, 219)
 
 [node name="TopSpawnPos" type="Marker2D" parent="ThreatGenerator/ScreenArea/SpawnArea"]
 position = Vector2(39, 0)
+
+[node name="MiddleTopSpawnPos" type="Marker2D" parent="ThreatGenerator/ScreenArea/SpawnArea"]
+position = Vector2(39, 104)
 
 [node name="FarTop" type="Marker2D" parent="ThreatGenerator/ScreenArea/SpawnArea"]
 position = Vector2(38, -177)

@@ -1,6 +1,9 @@
 extends RayCast2D
 
-const frames_to_repeat_heal : int = 10
+signal target_health_at_max
+signal target_missed
+
+const frames_to_repeat_heal : int = 15
 const heal_charge_time : float = 0.8
 
 @export var laser_max_width = 25
@@ -11,6 +14,7 @@ const heal_charge_time : float = 0.8
 
 @onready var laser_tween : Tween
 @onready var end_emitter = $EndEmitter
+@onready var start_emitter = $StartEmitter
 
 var heal_available : bool = false
 var heal_frames : int
@@ -19,7 +23,7 @@ var charging : bool = false
 var cast_available : bool = true
 var casting : bool = false
 var target : Object
-var laser_speed = 0.2
+var laser_speed = 0.8
 
 func _ready():
 	randomize()
@@ -31,7 +35,8 @@ func _ready():
 
 func set_target(new_target):
 	if enabled: await deactivate(2)
-	target = new_target
+	if is_instance_valid(new_target): 
+		target = new_target
 
 func _physics_process(_delta):
 	cast_point = target_position
@@ -42,9 +47,19 @@ func _physics_process(_delta):
 		cast_point = to_local(get_collision_point())
 		target = get_collider()
 		if enabled and heal_available:
-			target.health_component.change_health(laser_heal, false, self)
-			heal_available = false
-			heal_frames = 0
+			if target is HitboxComponent:
+				target.health_component.change_health(laser_heal, false, self)
+				heal_available = false
+				heal_frames = 0
+				
+				if target.health_component.current_health == target.health_component.max_health:
+					target_health_at_max.emit()
+					target_missed.emit()
+					deactivate(2)
+			
+			if !is_instance_valid(target): 
+				target_missed.emit()
+				deactivate(2)
 	else:
 		if aim_line: aim_line.material.set_shader_parameter("line_colliding", false)
 	
@@ -83,6 +98,7 @@ func activate(timeout : float = 0.0):
 	laser_tween.tween_property(laser_line, "width", laser_max_width, laser_speed)
 	
 	end_emitter.emitting = true
+	start_emitter.emitting = true
 	
 	if aim_line: aim_line.width = 0
 	
@@ -96,6 +112,7 @@ func activate(timeout : float = 0.0):
 
 func deactivate(urgency_factor : float = 1):
 	end_emitter.emitting = false
+	start_emitter.emitting = false
 	
 	laser_tween = get_tree().create_tween()
 	laser_tween.tween_property(laser_line, "width", 0, laser_speed * urgency_factor)

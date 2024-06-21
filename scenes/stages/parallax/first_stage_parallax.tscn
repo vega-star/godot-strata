@@ -59,8 +59,10 @@ animations = [{
 "speed": 8.0
 }]
 
-[node name="FirstStageParallax" type="ParallaxBackground"]
+[node name="FirstStageParallax" type="ParallaxBackground" node_paths=PackedStringArray("layers")]
 script = ExtResource("1_7u43o")
+layers = [NodePath("Sky"), NodePath("Stars"), NodePath("FarClouds"), NodePath("BeforeFarClouds"), NodePath("MediumClouds"), NodePath("CloserClouds"), NodePath("EvenCloserClouds")]
+layer_speed = Array[int]([15, 5, 20, 45, 50, 200, 500])
 
 [node name="Sky" type="ParallaxLayer" parent="."]
 modulate = Color(0.270222, 0.270222, 0.270222, 1)

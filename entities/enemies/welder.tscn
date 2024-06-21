@@ -1,0 +1,162 @@
+[gd_scene load_steps=21 format=3 uid="uid://cfk8r8gx6ndl1"]
+
+[ext_resource type="Script" path="res://entities/entity_scripts/welder-drone.gd" id="1_g8sot"]
+[ext_resource type="Material" uid="uid://cvfmn1g3c8nd3" path="res://assets/shaders/entities/enemy_outline.tres" id="2_tudut"]
+[ext_resource type="Texture2D" uid="uid://ccskgr8nw80ia" path="res://assets/textures/entities/enemies/welder/welder_drone.png" id="3_3m8sq"]
+[ext_resource type="PackedScene" uid="uid://bdh4k0v17f0wc" path="res://entities/enemies/core.tscn" id="4_5htw6"]
+[ext_resource type="PackedScene" uid="uid://cxk85efxpd3at" path="res://entities/composite_elements/composite_shielding.tscn" id="5_lpauq"]
+[ext_resource type="Texture2D" uid="uid://drqou43mvadda" path="res://assets/textures/entities/enemies/lancer/lancer-barrier.png" id="6_ucqj8"]
+[ext_resource type="PackedScene" uid="uid://c4rkui846g2ue" path="res://components/status/combat_component.tscn" id="7_oh5dr"]
+[ext_resource type="PackedScene" uid="uid://cifxjpiop3cha" path="res://components/status/drop_component.tscn" id="8_bne2u"]
+[ext_resource type="PackedScene" uid="uid://bdfaybp4djcn2" path="res://components/status/health_component.tscn" id="9_lke0b"]
+[ext_resource type="PackedScene" uid="uid://c566s2lc6kg02" path="res://components/states/main/state_machine.tscn" id="10_auxrv"]
+[ext_resource type="PackedScene" uid="uid://d14uch8qmcpyc" path="res://components/states/main/state.tscn" id="11_oblm6"]
+[ext_resource type="Script" path="res://components/states/entities/welder/welder_update.gd" id="13_qte80"]
+[ext_resource type="Script" path="res://components/states/entities/welder/welder_healing.gd" id="14_fq2ge"]
+[ext_resource type="Script" path="res://components/states/entities/timed_idle.gd" id="15_u3niy"]
+[ext_resource type="Script" path="res://components/states/entities/welder/welder_moving.gd" id="16_l05no"]
+[ext_resource type="PackedScene" uid="uid://c3atqdge540t0" path="res://components/status/hitbox_component.tscn" id="17_4xmx8"]
+[ext_resource type="PackedScene" uid="uid://btwqvvv1ehwdu" path="res://entities/prototype_entities/healing_gun.tscn" id="18_ye12x"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0tu0k"]
+size = Vector2(4, 28)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bpjgm"]
+size = Vector2(6, 19)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_v4ii1"]
+radius = 8.0
+
+[node name="WelderDrone" type="Area2D" node_paths=PackedStringArray("self_sprite") groups=["enemy", "welder"]]
+collision_layer = 2
+collision_mask = 5
+script = ExtResource("1_g8sot")
+enemy_name = "welder"
+enemy_title = "repair drone"
+set_health_bar = false
+score_value = 15
+speed = 15
+self_sprite = NodePath("EnemySprite")
+
+[node name="MCBody" type="StaticBody2D" parent="."]
+collision_layer = 2
+
+[node name="SelfCollision" type="CollisionPolygon2D" parent="MCBody"]
+polygon = PackedVector2Array(-23, -10, -21, -12, -9, -12, 2, -22, 19, -12, 19, 12, 2, 22, -9, 12, -21, 12, -23, 10, 4, 10, 9, 6, 9, -6, 3, -10)
+
+[node name="EnemySprite" type="Sprite2D" parent="."]
+material = ExtResource("2_tudut")
+texture = ExtResource("3_3m8sq")
+offset = Vector2(-2, 0)
+
+[node name="Core" parent="EnemySprite" node_paths=PackedStringArray("health_component") instance=ExtResource("4_5htw6")]
+animation = &"small_core_active"
+frame_progress = 0.369806
+health_component = NodePath("../../HealthComponent")
+
+[node name="SelfCollision" type="CollisionPolygon2D" parent="."]
+visible = false
+polygon = PackedVector2Array(-26, -10, -22, -15, -11, -18, 2, -30, 14, -24, 22, -17, 23, -7, 23, 7, 22, 17, 15, 24, 2, 30, -12, 19, -22, 15, -26, 10, 4, 10, 9, 6, 9, -6, 3, -10)
+
+[node name="Shielding" type="Node2D" parent="."]
+
+[node name="Barrier1" parent="Shielding" instance=ExtResource("5_lpauq")]
+position = Vector2(-21, 0)
+set_max_health = 20
+override_max_health = 15
+
+[node name="BarrierHitbox" type="CollisionShape2D" parent="Shielding/Barrier1"]
+visible = false
+shape = SubResource("RectangleShape2D_0tu0k")
+
+[node name="BarrierSprite" type="Sprite2D" parent="Shielding/Barrier1"]
+position = Vector2(0, 0.344826)
+scale = Vector2(1, 0.689655)
+texture = ExtResource("6_ucqj8")
+
+[node name="BarrierBody" type="StaticBody2D" parent="Shielding/Barrier1"]
+scale = Vector2(1, -1)
+collision_layer = 2
+collision_mask = 5
+
+[node name="BodyShape" type="CollisionShape2D" parent="Shielding/Barrier1/BarrierBody"]
+visible = false
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_bpjgm")
+
+[node name="Barrier2" parent="Shielding" instance=ExtResource("5_lpauq")]
+position = Vector2(-12, 0)
+set_max_health = 20
+override_max_health = 15
+
+[node name="BarrierHitbox" type="CollisionShape2D" parent="Shielding/Barrier2"]
+visible = false
+shape = SubResource("RectangleShape2D_0tu0k")
+
+[node name="BarrierSprite" type="Sprite2D" parent="Shielding/Barrier2"]
+position = Vector2(0, 0.344826)
+scale = Vector2(1, 0.689655)
+texture = ExtResource("6_ucqj8")
+
+[node name="BarrierBody" type="StaticBody2D" parent="Shielding/Barrier2"]
+scale = Vector2(1, -1)
+collision_layer = 2
+collision_mask = 5
+
+[node name="BodyShape" type="CollisionShape2D" parent="Shielding/Barrier2/BarrierBody"]
+visible = false
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_bpjgm")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(150, 0)
+
+[node name="CombatComponent" parent="." instance=ExtResource("7_oh5dr")]
+
+[node name="DropComponent" parent="." instance=ExtResource("8_bne2u")]
+
+[node name="HealthComponent" parent="." instance=ExtResource("9_lke0b")]
+max_health = 50
+
+[node name="StateMachine" parent="." node_paths=PackedStringArray("entity", "initial_state") instance=ExtResource("10_auxrv")]
+entity = NodePath("..")
+initial_state = NodePath("Moving")
+
+[node name="Update" parent="StateMachine" instance=ExtResource("11_oblm6")]
+script = ExtResource("13_qte80")
+max_updates = 5
+
+[node name="Healing" parent="StateMachine" instance=ExtResource("11_oblm6")]
+script = ExtResource("14_fq2ge")
+
+[node name="Charge" parent="StateMachine" node_paths=PackedStringArray("next_state") instance=ExtResource("11_oblm6")]
+script = ExtResource("15_u3niy")
+timeout = 3.5
+next_state = NodePath("../Update")
+
+[node name="Moving" parent="StateMachine" instance=ExtResource("11_oblm6")]
+script = ExtResource("16_l05no")
+prevent_drifting = true
+
+[node name="HitboxComponent" parent="." node_paths=PackedStringArray("simple_hitbox", "health_component", "combat_component") instance=ExtResource("17_4xmx8")]
+collision_layer = 66
+collision_mask = 5
+simple_hitbox = NodePath("CoreBox")
+health_component = NodePath("../HealthComponent")
+combat_component = NodePath("../CombatComponent")
+
+[node name="CoreBox" type="CollisionShape2D" parent="HitboxComponent"]
+visible = false
+shape = SubResource("CircleShape2D_v4ii1")
+
+[node name="HealingGun" parent="." instance=ExtResource("18_ye12x")]
+visible = false
+modulate = Color(1, 1.5, 1.3, 1)
+collision_mask = 7
+immune_to_damage = true
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="enemy_died" from="." to="DropComponent" method="_on_enemy_died"]
+[connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_screen_reentered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
+[connection signal="health_change" from="HealthComponent" to="." method="_on_health_component_health_change"]

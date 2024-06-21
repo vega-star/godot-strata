@@ -1,4 +1,4 @@
-extends "res://scenes/scripts/main/strata_scene.gd"
+extends Stage
 
 ## Practice Stage function
 # Modified version of Tutorial stage, useful for debugging and testing new features

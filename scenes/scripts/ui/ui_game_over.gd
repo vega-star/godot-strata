@@ -15,6 +15,7 @@ func game_over_prompt(): # Toggles node visibiliy, as well as quit and reset fun
 	player_killed_status = true
 	UI.PauseMenu.lock(true)
 	UI.set_pause(true)
+	
 	game_over_animation.play("toggle_game_over")
 	
 	menu_button.grab_focus()
@@ -34,13 +35,13 @@ func _input(_event): # Able us to use hotkeys instead of clicking the buttons, b
 
 func _on_retry_button_pressed(): # Reloads scene directly
 	visible = false
-	UI.PauseMenu.lock(false)
-	UI.set_pause(false)
 	
 	await Profile.load_previous_data()
 	statistics_list.update_data()
 	LoadManager.reload_scene()
 	game_over_animation.play("RESET")
+	
+	UI.PauseMenu.lock(false)
 
 func _on_exit_button_pressed(): # Recieves signal from 'ExitButton', goes back to main menu
 	visible = false

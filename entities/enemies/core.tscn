@@ -1,0 +1,82 @@
+[gd_scene load_steps=13 format=3 uid="uid://bdh4k0v17f0wc"]
+
+[ext_resource type="Texture2D" uid="uid://dxblkn3pbs3x6" path="res://assets/textures/entities/enemies/simple/small_core_animation.png" id="1_6123s"]
+[ext_resource type="Texture2D" uid="uid://dxt6px7kksixs" path="res://assets/textures/entities/enemies/simple/core_alternative.png" id="1_bm81x"]
+[ext_resource type="Script" path="res://entities/entity_scripts/core.gd" id="2_a1aoy"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_spnhw"]
+atlas = ExtResource("1_bm81x")
+region = Rect2(0, 0, 20, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xc280"]
+atlas = ExtResource("1_bm81x")
+region = Rect2(20, 0, 20, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nq7b6"]
+atlas = ExtResource("1_bm81x")
+region = Rect2(40, 0, 20, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rrxc5"]
+atlas = ExtResource("1_bm81x")
+region = Rect2(60, 0, 20, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rll38"]
+atlas = ExtResource("1_6123s")
+region = Rect2(0, 0, 14, 14)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ggogg"]
+atlas = ExtResource("1_6123s")
+region = Rect2(14, 0, 14, 14)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uf645"]
+atlas = ExtResource("1_6123s")
+region = Rect2(28, 0, 14, 14)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wu5yh"]
+atlas = ExtResource("1_6123s")
+region = Rect2(42, 0, 14, 14)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_qhuxy"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_spnhw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xc280")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nq7b6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rrxc5")
+}],
+"loop": true,
+"name": &"core_active",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rll38")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ggogg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uf645")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wu5yh")
+}],
+"loop": true,
+"name": &"small_core_active",
+"speed": 12.0
+}]
+
+[node name="Core" type="AnimatedSprite2D"]
+modulate = Color(1.5, 1.5, 1.5, 1)
+sprite_frames = SubResource("SpriteFrames_qhuxy")
+animation = &"core_active"
+autoplay = "small_core_active"
+frame_progress = 0.622369
+script = ExtResource("2_a1aoy")

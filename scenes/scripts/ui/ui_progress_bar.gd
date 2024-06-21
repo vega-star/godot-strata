@@ -37,7 +37,9 @@ var event_icons : Dictionary = {
 	"mysterious_yellow": preload("%s/event_icon_mysterious_yellow.png" % events_icons_path),
 	"mysterious_pink": preload("%s/event_icon_mysterious_pink.png" % events_icons_path),
 	"mysterious_purple": preload("%s/event_icon_mysterious_purple.png" % events_icons_path),
-	"exclamation_mark": preload("%s/event_icon_exclamation_mark.png" % events_icons_path)
+	"exclamation_mark": preload("%s/event_icon_exclamation_mark.png" % events_icons_path),
+	"checkpoint": preload("%s/checkpoint_icon.png" % events_icons_path),
+	"star_yellow": preload("%s/star_yellow.png" % events_icons_path)
 }
 var modules : Dictionary = {}
 

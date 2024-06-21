@@ -18,6 +18,7 @@ func load_scene(next_scene):
 	_scene_path = next_scene
 	
 	## Control game components
+	UI.set_pause(false)
 	UI.UIOverlay.bars.reset_bars()
 	
 	## Load scene start

@@ -26,7 +26,9 @@ const enemy_data = "res://data/enemy_data.json"
 
 @onready var spawn_positions : Dictionary = {
 	"bottom": $ScreenArea/SpawnArea/BottomSpawnPos,
+	"middle_bottom": $ScreenArea/SpawnArea/MiddleBottomSpawnPos,
 	"center": $ScreenArea/SpawnArea/CenterSpawnPos,
+	"middle_top": $ScreenArea/SpawnArea/MiddleTopSpawnPos,
 	"top": $ScreenArea/SpawnArea/TopSpawnPos,
 	"bottom_forward": $ScreenArea/SpawnAreaForward/BottomSpawnPos,
 	"center_forward": $ScreenArea/SpawnAreaForward/CenterSpawnPos,

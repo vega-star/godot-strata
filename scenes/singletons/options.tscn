@@ -1,7 +1,9 @@
-[gd_scene load_steps=29 format=3 uid="uid://duws3qk7e45vs"]
+[gd_scene load_steps=31 format=3 uid="uid://duws3qk7e45vs"]
 
 [ext_resource type="Script" path="res://components/general/options_controller.gd" id="1_hjbun"]
 [ext_resource type="Theme" uid="uid://b1a5sjt2xibwo" path="res://assets/themes/strata_theme/strata_theme.tres" id="1_yjy47"]
+[ext_resource type="Environment" uid="uid://bhdalqc61fnt1" path="res://components/general/strata_environment.tres" id="2_2seij"]
+[ext_resource type="ButtonGroup" uid="uid://ceppqi3meu3ji" path="res://components/button_groups/config_menu_group.tres" id="2_ei3sc"]
 [ext_resource type="StyleBox" uid="uid://c8kj70nojml1" path="res://assets/themes/strata_theme/elements/tresfiles/short_style_box.tres" id="3_8n6wo"]
 [ext_resource type="PackedScene" uid="uid://cb1ygvja2x1ty" path="res://components/general/keybind_button.tscn" id="3_iy2y2"]
 [ext_resource type="Texture2D" uid="uid://dr4wu2nealxmp" path="res://assets/themes/strata_theme/elements/styleboxes/smaller/sb_disabled.png" id="3_wmbtv"]
@@ -149,6 +151,11 @@ animations = [{
 process_mode = 3
 layer = 100
 script = ExtResource("1_hjbun")
+menu_button_group = ExtResource("2_ei3sc")
+reset_config_on_load = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource("2_2seij")
 
 [node name="ConfigTabs" type="TabContainer" parent="."]
 anchors_preset = 15
@@ -166,7 +173,7 @@ theme_override_styles/tabbar_background = SubResource("StyleBoxTexture_gh4hr")
 tab_alignment = 1
 
 [node name="BackgroundGears" type="AnimatedSprite2D" parent="ConfigTabs"]
-position = Vector2(783, 149)
+position = Vector2(15, 133)
 scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_mwkpm")
 animation = &"main"
@@ -731,14 +738,19 @@ layout_mode = 2
 max_value = 15.0
 value = 3.0
 
-[node name="ResetUIDefaultSpecs" type="CheckButton" parent="ConfigTabs/UI/Scroll/ConfigPanel"]
+[node name="ShowBossBar" type="CheckButton" parent="ConfigTabs/UI/Scroll/ConfigPanel"]
 layout_mode = 2
-text = "RESET UI DEFAULT SIZES"
+text = "SHOW BOSS BAR"
 alignment = 1
 
 [node name="HideStageBar" type="CheckButton" parent="ConfigTabs/UI/Scroll/ConfigPanel"]
 layout_mode = 2
-text = "HIDE STAGE BAR WHILE PLAYING"
+text = "HIDE STAGE BAR WHILE ACTIVE"
+alignment = 1
+
+[node name="ResetUIDefaultSpecs" type="CheckButton" parent="ConfigTabs/UI/Scroll/ConfigPanel"]
+layout_mode = 2
+text = "RESET UI DEFAULT SIZES"
 alignment = 1
 
 [node name="Graphics" type="TabBar" parent="ConfigTabs"]
@@ -761,49 +773,50 @@ size_flags_horizontal = 6
 size_flags_vertical = 6
 
 [node name="ScreenMode" type="Label" parent="ConfigTabs/Graphics/Scroll/ConfigPanel"]
-custom_minimum_size = Vector2(0, 60)
+custom_minimum_size = Vector2(0, 74)
 layout_mode = 2
 text = "SCREEN MODE"
 horizontal_alignment = 1
 
 [node name="ScreenModeMenu" type="OptionButton" parent="ConfigTabs/Graphics/Scroll/ConfigPanel/ScreenMode"]
 layout_mode = 1
-anchors_preset = 7
+anchors_preset = 5
 anchor_left = 0.5
-anchor_top = 1.0
 anchor_right = 0.5
-anchor_bottom = 1.0
 offset_left = -160.0
-offset_top = -40.0
+offset_top = 24.0
 offset_right = 160.0
-offset_bottom = 3.0
+offset_bottom = 67.0
 grow_horizontal = 2
-grow_vertical = 0
 theme = ExtResource("1_yjy47")
 fit_to_longest_item = false
 
 [node name="VisualEffects" type="Label" parent="ConfigTabs/Graphics/Scroll/ConfigPanel"]
-custom_minimum_size = Vector2(0, 60)
+custom_minimum_size = Vector2(0, 74)
 layout_mode = 2
 text = "VISUAL EFFECTS"
 horizontal_alignment = 1
 
 [node name="VisualEffectsMenu" type="OptionButton" parent="ConfigTabs/Graphics/Scroll/ConfigPanel/VisualEffects"]
 layout_mode = 1
-anchors_preset = 7
+anchors_preset = 5
 anchor_left = 0.5
-anchor_top = 1.0
 anchor_right = 0.5
-anchor_bottom = 1.0
 offset_left = -160.0
-offset_top = -40.0
+offset_top = 24.0
 offset_right = 160.0
-offset_bottom = 3.0
+offset_bottom = 67.0
 grow_horizontal = 2
-grow_vertical = 0
 theme = ExtResource("1_yjy47")
 text_overrun_behavior = 4
 fit_to_longest_item = false
+
+[node name="GlowEffect" type="CheckButton" parent="ConfigTabs/Graphics/Scroll/ConfigPanel"]
+visible = false
+layout_mode = 2
+tooltip_text = "Creates a red outline around enemies to make them easier to see"
+text = "PROJECTILES GLOW EFFECT"
+alignment = 1
 
 [node name="Accessibility" type="TabBar" parent="ConfigTabs"]
 visible = false
@@ -826,6 +839,13 @@ size_flags_horizontal = 6
 size_flags_vertical = 6
 theme_override_constants/separation = 6
 
+[node name="EnemiesStandOut" type="CheckButton" parent="ConfigTabs/Accessibility/Scroll/ConfigPanel"]
+visible = false
+layout_mode = 2
+tooltip_text = "Creates a red outline around enemies to make them easier to see"
+text = "ENEMIES STAND OUT"
+alignment = 1
+
 [node name="Photosens_Mode" type="CheckButton" parent="ConfigTabs/Accessibility/Scroll/ConfigPanel"]
 layout_mode = 2
 text = "PHOTOSENSIBILITY MODE"
@@ -847,10 +867,11 @@ autoplay = "main"
 frame_progress = 0.243996
 
 [node name="ExitMenu" type="Button" parent="."]
+custom_minimum_size = Vector2(50, 50)
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -55.0
+offset_left = -65.0
 offset_top = 15.0
 offset_right = -15.0
 offset_bottom = 65.0
@@ -902,6 +923,8 @@ dialog_text = "Reset default keybinds?"
 [connection signal="pressed" from="ConfigTabs/Controls/Scroll/ConfigPanel/ResetDefKeybind" to="." method="_on_reset_default_keybinds_button"]
 [connection signal="item_selected" from="ConfigTabs/Graphics/Scroll/ConfigPanel/ScreenMode/ScreenModeMenu" to="." method="_on_screen_mode_selected"]
 [connection signal="item_selected" from="ConfigTabs/Graphics/Scroll/ConfigPanel/VisualEffects/VisualEffectsMenu" to="." method="_on_visual_effect_selected"]
+[connection signal="pressed" from="ConfigTabs/Graphics/Scroll/ConfigPanel/GlowEffect" to="." method="_on_photosens_mode_pressed"]
+[connection signal="pressed" from="ConfigTabs/Accessibility/Scroll/ConfigPanel/EnemiesStandOut" to="." method="_on_photosens_mode_pressed"]
 [connection signal="pressed" from="ConfigTabs/Accessibility/Scroll/ConfigPanel/Photosens_Mode" to="." method="_on_photosens_mode_pressed"]
 [connection signal="pressed" from="ConfigTabs/Accessibility/Scroll/ConfigPanel/ScreenShake" to="." method="_on_screen_shake_pressed"]
 [connection signal="pressed" from="ExitMenu" to="." method="_on_exit_menu_pressed"]

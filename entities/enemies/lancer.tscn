@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://cmqhgcn8ma7k5"]
+[gd_scene load_steps=35 format=3 uid="uid://cmqhgcn8ma7k5"]
 
 [ext_resource type="Script" path="res://entities/entity_scripts/composite_enemy.gd" id="1_sosx1"]
 [ext_resource type="PackedScene" uid="uid://cifxjpiop3cha" path="res://components/status/drop_component.tscn" id="2_hipol"]
@@ -13,7 +13,6 @@
 [ext_resource type="Texture2D" uid="uid://drqou43mvadda" path="res://assets/textures/entities/enemies/lancer/lancer-barrier.png" id="5_rl624"]
 [ext_resource type="PackedScene" uid="uid://vi1edwldfrtq" path="res://entities/composite_elements/composite_enemy_module.tscn" id="7_xcaug"]
 [ext_resource type="PackedScene" uid="uid://dqge7meaumoi5" path="res://entities/prototype_entities/enemy_gun.tscn" id="8_4ogds"]
-[ext_resource type="Texture2D" uid="uid://cbvo8oiu7ddns" path="res://assets/textures/entities/enemies/lancer/lancer-gun.png" id="9_mgqek"]
 [ext_resource type="Texture2D" uid="uid://bosqr445kargj" path="res://assets/textures/entities/enemies/lancer/lancer-gun-component.png" id="10_nywvu"]
 [ext_resource type="Texture2D" uid="uid://d2550xwswv3ba" path="res://assets/textures/entities/enemies/lancer/rocket-launcher-back.png" id="10_ruwc2"]
 [ext_resource type="Texture2D" uid="uid://cstbhuqch3l5a" path="res://assets/textures/entities/enemies/lancer/lancer-back-shielding.png" id="11_1wt2q"]
@@ -22,10 +21,12 @@
 [ext_resource type="Texture2D" uid="uid://b2qqxoc8m32vq" path="res://assets/textures/entities/enemies/lancer/rocket-launcher.png" id="13_2d4b0"]
 [ext_resource type="Script" path="res://components/status/combat_component.gd" id="13_wkyrh"]
 [ext_resource type="Texture2D" uid="uid://c0i2mg8nhoobw" path="res://assets/textures/entities/enemies/lancer/rocket-launcher-cover.png" id="14_i7pe5"]
-[ext_resource type="Texture2D" uid="uid://dtrusbnc5ft7s" path="res://assets/textures/entities/enemies/lancer/core.png" id="15_34mug"]
+[ext_resource type="Texture2D" uid="uid://b7jltfyppimxq" path="res://assets/textures/entities/enemies/simple/enemy_gun_long.png" id="14_ubtkx"]
 [ext_resource type="PackedScene" uid="uid://capsl03als0q0" path="res://entities/projectiles/enemy_ray.tscn" id="15_xg2si"]
 [ext_resource type="PackedScene" uid="uid://ctksiqxkq8ue5" path="res://entities/prototype_entities/enemy_missile_launcher.tscn" id="16_b2wr1"]
 [ext_resource type="Script" path="res://components/status/hitbox_component.gd" id="16_ppdj8"]
+[ext_resource type="PackedScene" uid="uid://bdh4k0v17f0wc" path="res://entities/enemies/core.tscn" id="25_cmi1k"]
+[ext_resource type="PackedScene" uid="uid://x002al2q548f" path="res://scenes/ui/shader_test.tscn" id="27_35df4"]
 
 [sub_resource type="Animation" id="Animation_5b3dw"]
 length = 0.3
@@ -253,13 +254,6 @@ autoplay = "cycle_carapace"
 
 [node name="StateMachine" parent="." node_paths=PackedStringArray("initial_state") instance=ExtResource("2_sjjdg")]
 initial_state = NodePath("Idle")
-state_conditions = {
-"center": false,
-"charge": false,
-"pursuit": false,
-"rotate": false,
-"static": false
-}
 
 [node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("health_component")]
 script = ExtResource("3_q1e55")
@@ -454,7 +448,7 @@ override_max_health = 25
 
 [node name="GunSprite" type="Sprite2D" parent="CompositeParts/TopGun/EnemyGun"]
 rotation = 3.14159
-texture = ExtResource("9_mgqek")
+texture = ExtResource("14_ubtkx")
 offset = Vector2(-14, 0)
 
 [node name="Muzzle" type="Marker2D" parent="CompositeParts/TopGun/EnemyGun"]
@@ -500,7 +494,7 @@ override_max_health = 25
 
 [node name="GunSprite" type="Sprite2D" parent="CompositeParts/LowerGun/EnemyGun"]
 rotation = 3.14159
-texture = ExtResource("9_mgqek")
+texture = ExtResource("14_ubtkx")
 offset = Vector2(-14, 0)
 
 [node name="Muzzle" type="Marker2D" parent="CompositeParts/LowerGun/EnemyGun"]
@@ -602,12 +596,17 @@ script = ExtResource("13_wkyrh")
 visible = false
 shape = SubResource("CircleShape2D_s6g41")
 
-[node name="CoreSprite" type="Sprite2D" parent="HitboxComponent"]
-texture = ExtResource("15_34mug")
+[node name="SmallCore" parent="HitboxComponent" node_paths=PackedStringArray("health_component") instance=ExtResource("25_cmi1k")]
+autoplay = "core_active"
+frame_progress = 0.186599
+health_component = NodePath("../../HealthComponent")
+strength = 10.0
 
 [node name="Laser" parent="." instance=ExtResource("15_xg2si")]
 position = Vector2(54, 0)
 collision_mask = 1
+
+[node name="ShaderTest" parent="." instance=ExtResource("27_35df4")]
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="enemy_defeated" from="." to="DropComponent" method="_on_enemy_died"]

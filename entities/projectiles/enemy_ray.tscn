@@ -1,25 +1,47 @@
-[gd_scene load_steps=8 format=3 uid="uid://capsl03als0q0"]
+[gd_scene load_steps=15 format=3 uid="uid://capsl03als0q0"]
 
 [ext_resource type="Script" path="res://entities/entity_scripts/enemy_ray.gd" id="1_ivol7"]
 [ext_resource type="Texture2D" uid="uid://cnve83mws0p8y" path="res://assets/textures/entities/enemies/misc/aimline.png" id="2_3hkay"]
 [ext_resource type="Material" uid="uid://ce6elcaqhqekp" path="res://assets/shaders/sprite_movement_horizontal.tres" id="2_wn680"]
 [ext_resource type="Texture2D" uid="uid://dcjknhla6rmgm" path="res://assets/textures/projectiles/laser_texture.png" id="4_cge0j"]
+[ext_resource type="Texture2D" uid="uid://3jbx5edyxhpk" path="res://assets/textures/particles/simple_particle.png" id="5_7oljp"]
+[ext_resource type="Texture2D" uid="uid://c2aj7wanfw344" path="res://assets/textures/particles/big_particle.png" id="6_q4wwe"]
+
+[sub_resource type="Curve" id="Curve_t4idx"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.101852, 0.242995), 2.67266, 2.67266, 0, 0, Vector2(0.884259, 0.931699), -0.637477, -0.637477, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
 
 [sub_resource type="Gradient" id="Gradient_upcad"]
-colors = PackedColorArray(0.824512, 0, 0.41841, 1, 0.945098, 0, 0.501961, 0)
+offsets = PackedFloat32Array(0, 0.113861, 1)
+colors = PackedColorArray(1, 1, 1, 0.17737, 1, 1, 1, 1, 1, 1, 1, 0)
 
 [sub_resource type="Curve" id="Curve_ie0gm"]
 min_value = -0.5
 max_value = 0.5
-_data = [Vector2(0, -0.28022), 0.0, 0.0, 0, 0, Vector2(1, 0.335165), 0.0, 0.0, 0, 0]
+_data = [Vector2(0, -0.5), 0.0, 0.0, 0, 0, Vector2(0.24537, -0.330998), 2.82312, 2.82312, 0, 0, Vector2(0.935185, -0.14317), -5.0816, -5.0816, 0, 0, Vector2(1, -0.484676), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="Curve" id="Curve_xiuw2"]
+max_value = 100.0
+_data = [Vector2(0, 100), 0.0, -12.2944, 0, 0, Vector2(1, 1), -323.931, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="Gradient" id="Gradient_k4wxn"]
-offsets = PackedFloat32Array(0.661157, 0.991736)
-colors = PackedColorArray(1, 0, 0, 1, 1, 0, 0, 0)
+[sub_resource type="Curve" id="Curve_mhd56"]
+_data = [Vector2(0, 0), 0.0, 6.55692, 0, 0, Vector2(0.365741, 0.271454), -1.7105, -1.7105, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Curve" id="Curve_fkl0d"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.546296, 0.74387), -1.50884, -1.50884, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_m72jm"]
+colors = PackedColorArray(1, 1, 1, 1, 0.788235, 0, 0.172549, 0)
+
+[sub_resource type="Curve" id="Curve_c63cm"]
+_data = [Vector2(0, 1), 0.0, 6.03534, 0, 0, Vector2(0.219907, 0.982925), -3.60631, -3.60631, 0, 0, Vector2(1, 0.00394046), 0.0, 0.0, 0, 0]
+point_count = 3
 
 [node name="Laser" type="RayCast2D" node_paths=PackedStringArray("laser_line", "aim_line", "charging_emitter", "source_emitter", "beam_emitter", "end_emitter")]
-position = Vector2(932, 262)
 enabled = false
 target_position = Vector2(-1800, 0)
 collision_mask = 5
@@ -34,6 +56,7 @@ beam_emitter = NodePath("Emitters/BeamEmitter")
 end_emitter = NodePath("Emitters/EndEmitter")
 
 [node name="AimLine" type="Line2D" parent="."]
+modulate = Color(1.3, 1, 1, 1)
 light_mask = 2
 visibility_layer = 2
 texture_repeat = 2
@@ -46,9 +69,10 @@ begin_cap_mode = 2
 end_cap_mode = 2
 
 [node name="LaserLine" type="Line2D" parent="."]
+modulate = Color(3.5, 1, 1, 1)
 light_mask = 2
 visibility_layer = 2
-points = PackedVector2Array(0, 0, -144, 0)
+points = PackedVector2Array(0, 0, -960, 0)
 width = 0.0
 texture = ExtResource("4_cge0j")
 texture_mode = 1
@@ -63,9 +87,11 @@ light_mask = 2
 visibility_layer = 2
 emitting = false
 amount = 30
+lifetime = 1.5
 explosiveness = 0.05
 randomness = 0.75
 lifetime_randomness = 1.0
+texture = ExtResource("5_7oljp")
 emission_shape = 1
 emission_sphere_radius = 128.0
 direction = Vector2(0, 0)
@@ -78,52 +104,60 @@ radial_accel_max = -150.0
 tangential_accel_max = 2.0
 angle_min = 45.0
 angle_max = 90.0
-scale_amount_min = 5.0
-scale_amount_max = 10.0
+scale_amount_min = 0.5
+scale_amount_curve = SubResource("Curve_t4idx")
 color = Color(1, 0.129412, 0.129412, 1)
 color_initial_ramp = SubResource("Gradient_upcad")
 
 [node name="SourceEmitter" type="CPUParticles2D" parent="Emitters"]
+self_modulate = Color(10, 4, 2, 1)
 light_mask = 2
 visibility_layer = 2
 emitting = false
-amount = 30
-lifetime = 2.0
+amount = 40
+lifetime = 5.0
 speed_scale = 2.0
-explosiveness = 0.2
-randomness = 0.5
+randomness = 0.1
 lifetime_randomness = 1.0
+local_coords = true
+texture = ExtResource("6_q4wwe")
 direction = Vector2(0, 0)
 spread = 180.0
 gravity = Vector2(0, 0)
-initial_velocity_min = 50.0
-initial_velocity_max = 100.0
-orbit_velocity_max = 1.0
+initial_velocity_min = 5.0
+initial_velocity_max = 20.0
+orbit_velocity_min = 0.2
+orbit_velocity_max = 1.5
 orbit_velocity_curve = SubResource("Curve_ie0gm")
 linear_accel_max = 2.0
 radial_accel_min = 1.0
 radial_accel_max = 2.0
 tangential_accel_max = 2.0
+damping_max = 1.0
+damping_curve = SubResource("Curve_xiuw2")
 angle_min = 45.0
 angle_max = 90.0
-scale_amount_min = 10.0
-scale_amount_max = 15.0
+scale_amount_min = 0.2
+scale_amount_max = 1.5
+scale_amount_curve = SubResource("Curve_mhd56")
 color = Color(1, 0.129412, 0.129412, 1)
 color_initial_ramp = SubResource("Gradient_upcad")
 
 [node name="BeamEmitter" type="CPUParticles2D" parent="Emitters"]
+self_modulate = Color(10, 5, 2, 1)
 light_mask = 2
 visibility_layer = 2
-position = Vector2(-216, 0)
+position = Vector2(-496, 0)
 emitting = false
 amount = 100
-lifetime = 2.0
+lifetime = 2.5
 speed_scale = 2.0
 explosiveness = 0.2
 randomness = 0.5
 lifetime_randomness = 1.0
+texture = ExtResource("5_7oljp")
 emission_shape = 3
-emission_rect_extents = Vector2(250, 1)
+emission_rect_extents = Vector2(460, 1)
 direction = Vector2(0, 0)
 spread = 180.0
 gravity = Vector2(50, 0)
@@ -136,34 +170,34 @@ radial_accel_max = 2.0
 tangential_accel_max = 2.0
 angle_min = 45.0
 angle_max = 45.0
-scale_amount_min = 3.0
-scale_amount_max = 5.0
-color = Color(1, 0.129412, 0.129412, 1)
-color_ramp = SubResource("Gradient_k4wxn")
+scale_amount_min = 0.0
+scale_amount_max = 1.5
+scale_amount_curve = SubResource("Curve_fkl0d")
+color_ramp = SubResource("Gradient_m72jm")
 
 [node name="EndEmitter" type="CPUParticles2D" parent="Emitters"]
+self_modulate = Color(5, 2, 1, 1)
 light_mask = 2
 visibility_layer = 2
-position = Vector2(-448, 0)
+position = Vector2(-960, 0)
 emitting = false
 amount = 25
-lifetime = 1.5
+lifetime = 5.0
 speed_scale = 2.5
 randomness = 1.0
 lifetime_randomness = 1.0
+texture = ExtResource("6_q4wwe")
 emission_shape = 3
 emission_rect_extents = Vector2(5, 15)
 direction = Vector2(0, 0)
 spread = 90.0
 gravity = Vector2(120, 0)
-initial_velocity_min = 50.0
+initial_velocity_min = 5.0
 initial_velocity_max = 100.0
-angular_velocity_min = 5.0
+angular_velocity_min = 1.0
 angular_velocity_max = 20.0
-linear_accel_min = 1.0
 linear_accel_max = 5.0
 damping_max = 5.0
-scale_amount_min = 5.0
-scale_amount_max = 25.0
-color = Color(0.952941, 0, 0.486275, 1)
+scale_amount_min = 0.0
+scale_amount_curve = SubResource("Curve_c63cm")
 color_initial_ramp = SubResource("Gradient_upcad")

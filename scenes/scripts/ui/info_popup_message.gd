@@ -5,26 +5,26 @@ signal message_displayed
 const default_growth : Vector2 = Vector2(400, 120)
 const growth_speed : float = 0.5
 const default_timeout : float = 3
+const text_dict : Dictionary = {
+	0: "This is a debug message and should [b]NOT[/b] be appearing in normal gameplay",
+	1: "This is message number 1.\nTest 1 successful",
+	2: "Welcome! This is a simulation meant to test your movement and action.",
+	3: "Press [color=#f9c22b][b][{shoot}][/b][/color] to fire the [color=#4d9be6]primary weapon[/color]. Firing can be also be toggled instead of pressed.",
+	4: "Press [color=#f9c22b][b][{bomb}][/b][/color] to fire the [color=#4d9be6]secondary weapon[/color]. A red light indicator in the top right of the screen signals when you can fire again.",
+	5: "Ammo is limited, but regenerates very slowly.\n\nYou can speed up the process with items.",
+	6: "For mobility, you can use the afterburner pressing [color=#f9c22b][b][{dash}][/b][/color].\n\nThe trail signals when dash is available.",
+	7: "You can also roll by pressing [color=#f9c22b][b][{roll}][/b][/color].\n\nRolling makes you immune but prevents you from shooting your primary weapon.",
+	8: "You can also set your own keybinds in options.\n\nThe game also supports controllers, even on web!",
+	9: "Sometimes [color=#ea4f36][b]Enemies[/b][/color] can also spawn from behind. A [color=#f9c22b][b]danger indicator[/b][/color] will appear on screen.",
+	10: "All stages have a progress bar.\n\nSometimes the bar pauses and only resumes after completion of an event.",
+	11: "Items are mostly dropped by [color=#ea4f36][b]challenging foes[/b][/color], combining them how you get stronger.",
+	14: "Everything you discover in the game will be registered in the codex [currently WIP], so you can further research them and plan your future runs",
+	15: "That's all for now. Thanks for playing, and good luck!"
+}
 
 @onready var message_timer = $MessageTimer
 @onready var text_node = $MessageText
 @onready var keybinds_dict : Dictionary = {}
-@onready var text_dict : Dictionary = {
-	0: "This is a debug message and should [b]NOT[/b] be appearing in normal gameplay",
-	1: "This is message number 1.\nTest 1 successful",
-	2: "Welcome! This stage is a simulation meant to test your movement and action.",
-	3: "Press [color=#f9c22b][b][{shoot}][/b][/color] to fire the [color=#4d9be6]primary weapon[/color]. Firing can be also be toggled in the configuration menu.",
-	4: "Press [color=#f9c22b][b][{bomb}][/b][/color] to fire the [color=#4d9be6]secondary weapon[/color]. It consumes ammo, but deals a lot more damage.",
-	5: "Ammo can be retrieved from fallen enemies, but its limited by a max amount.\n\nYou can increase it with items just like that.",
-	6: "For mobility, you can use the afterburner pressing [color=#f9c22b][b][{dash}][/b][/color].\n\nThe trail indicates when dash is available.",
-	7: "You can also roll by pressing [color=#f9c22b][b][{roll}][/b][/color] and evade projectiles and collisions.\n\nIt also can be used simultaneously with dash.",
-	8: "If the current settings aren't confortable to you, you can set your own keybinds in options.\n\nThe game also supports controllers, even on web!",
-	9: "[color=#ea4f36][b]Enemies[/b][/color] can also spawn from far behind. A [color=#f9c22b][b]danger indicator[/b][/color] will appear on screen.",
-	10: "Stages have a progress bar.\n\nSometimes the bar pauses and only resumes after completion of an event.",
-	11: "Items are mostly dropped by [color=#ea4f36][b]challenging foes[/b][/color], but combining them is essential.",
-	14: "Everything you discover in the game will be registered in the codex [currently WIP], so you can further research them and plan your future runs",
-	15: "That's all for now. Thanks for playing, and good luck!"
-}
 
 @export var default_position_marker : Marker2D
 var message_ready : bool = true

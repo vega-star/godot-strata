@@ -1,7 +1,8 @@
-[gd_scene load_steps=21 format=3 uid="uid://dij0tvr20bhkw"]
+[gd_scene load_steps=22 format=3 uid="uid://dij0tvr20bhkw"]
 
-[ext_resource type="Script" path="res://entities/projectiles/scatter_projectile.gd" id="1_gqjwj"]
+[ext_resource type="Script" path="res://entities/projectiles/projectiles_scripts/scatter_projectile.gd" id="1_gqjwj"]
 [ext_resource type="AudioStream" uid="uid://b6m2my37txxgb" path="res://assets/audio/effects/laser_tweaking.wav" id="2_t8bmh"]
+[ext_resource type="Material" uid="uid://3pokl82cbjx1" path="res://assets/shaders/player_projectile_outline.tres" id="3_64t5a"]
 [ext_resource type="Texture2D" uid="uid://ukbs4oty6hxw" path="res://assets/textures/projectiles/scatter_bullet_decay.png" id="3_elkm3"]
 [ext_resource type="Texture2D" uid="uid://py7f06uskx2x" path="res://assets/textures/projectiles/scatter_bullet_decayed.png" id="3_wj13v"]
 [ext_resource type="PackedScene" uid="uid://c3atqdge540t0" path="res://components/status/hitbox_component.tscn" id="4_bvv4x"]
@@ -112,6 +113,7 @@ radius = 6.0
 height = 18.0
 
 [node name="ScatterBullet" type="Area2D" groups=["player_projectile"]]
+modulate = Color(30, 30, 30, 1)
 top_level = true
 light_mask = 2
 collision_layer = 4
@@ -127,10 +129,13 @@ metadata/_edit_vertical_guides_ = [-6.0, 6.0]
 stream = ExtResource("2_t8bmh")
 
 [node name="ScatterAnimations" type="AnimatedSprite2D" parent="."]
+material = ExtResource("3_64t5a")
 rotation = 1.5708
 sprite_frames = SubResource("SpriteFrames_xo1gm")
-animation = &"decayed_bullet"
+animation = &"scatter_projectile"
 autoplay = "scatter_projectile"
+frame = 7
+frame_progress = 1.0
 
 [node name="SelfHitbox" type="CollisionShape2D" parent="."]
 rotation = 1.5708

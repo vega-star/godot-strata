@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://x002al2q548f"]
+
+[ext_resource type="Environment" uid="uid://bhdalqc61fnt1" path="res://components/general/strata_environment.tres" id="1_gx1c8"]
+[ext_resource type="Script" path="res://scenes/ui/shader_test.gd" id="2_d2dlg"]
+
+[node name="ShaderTest" type="WorldEnvironment"]
+environment = ExtResource("1_gx1c8")
+script = ExtResource("2_d2dlg")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+z_index = -100
+offset_left = -960.0
+offset_top = -540.0
+offset_right = 960.0
+offset_bottom = 540.0
+color = Color(0, 0, 0, 1)

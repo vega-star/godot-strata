@@ -13,7 +13,6 @@ const self_scene_path = "res://entities/dummy_enemies/enemy_gun.tscn"
 @export var muzzle : Marker2D
 @onready var self_hitbox = $HitboxComponent
 @onready var health_bar_component : HealthBarComponent
-@onready var hitbox_component : HitboxComponent = $HitboxComponent
 @onready var projectile_container = get_tree().get_first_node_in_group('ProjectileContainer')
 
 ## Properties

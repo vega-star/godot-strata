@@ -53,7 +53,7 @@ func _on_visible_on_screen_notifier_2d_screen_exited(): # Deletes the enemy enti
 	request_deletion()
 
 func request_deletion():
-	await get_tree().create_timer(outside_screen_timeout).timeout
+	await get_tree().create_timer(outside_screen_timeout, false).timeout
 	
 	if !present_on_screen: queue_free()
 
@@ -79,30 +79,22 @@ func die(_source): # Entity death sequence, called by HealthComponent when healt
 	
 	queue_free()
 
+const heal_modulation : Color = Color(1.2, 2.5, 1.2)
+const damage_modulation : Color = Color(1.5,1.4,1.4)
+const reset_modulation : Color = Color(1,1,1)
+
 func _on_health_component_health_change(_previous_value, _new_value, type):
-	var has_shader : bool = is_instance_valid(self_sprite.get_material())
-	var flicker_on : bool = true
-	if Options.photosens_mode:
-		flicker_on = false
-	
-	if receives_knockback:
+	if receives_knockback: # Knockback action
 		speed /= knockback_damping
 	
-	if type and flicker_on:
-		if has_shader:
-			var original_color : Color = self_sprite.material.get_shader_parameter("original_line_color")
-			
-			for n in damage_effect_flicker_count:
-				self_sprite.material.set_shader_parameter("line_color", outline_color_on_damage)
-				await get_tree().create_timer(damage_effect_flicker).timeout
-				self_sprite.material.set_shader_parameter("line_color", original_color)
-				await get_tree().create_timer(damage_effect_flicker).timeout
+	if !Options.photosens_mode: # Sprite flicker
+		if type:
+			self_sprite.modulate = damage_modulation
+			await get_tree().create_timer(damage_effect_flicker).timeout
+			self_sprite.modulate = reset_modulation
+			await get_tree().create_timer(damage_effect_flicker).timeout
 		else:
-			for n in damage_effect_flicker_count:
-				self_sprite.modulate = Color(0,0,0)
-				await get_tree().create_timer(damage_effect_flicker).timeout
-				self_sprite.modulate = Color(255,255,255)
-				await get_tree().create_timer(damage_effect_flicker).timeout
-	
-	if receives_knockback:
-		speed *= knockback_damping
+			self_sprite.modulate = heal_modulation
+			await get_tree().create_timer(damage_effect_flicker).timeout
+			self_sprite.modulate = reset_modulation
+			await get_tree().create_timer(damage_effect_flicker).timeout

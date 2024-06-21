@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://berd4tu2gfm0b"]
+[gd_scene load_steps=9 format=3 uid="uid://berd4tu2gfm0b"]
 
 [ext_resource type="Script" path="res://entities/entity_scripts/enemy.gd" id="1_uscle"]
 [ext_resource type="Texture2D" uid="uid://dq4s3s0h3le1a" path="res://assets/textures/prototypes/enemy_test_sprite.png" id="2_npmfq"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://c3atqdge540t0" path="res://components/status/hitbox_component.tscn" id="4_js4fs"]
 [ext_resource type="PackedScene" uid="uid://c4rkui846g2ue" path="res://components/status/combat_component.tscn" id="4_r3whd"]
 [ext_resource type="PackedScene" uid="uid://cifxjpiop3cha" path="res://components/status/drop_component.tscn" id="4_rx6yb"]
+[ext_resource type="PackedScene" uid="uid://c566s2lc6kg02" path="res://components/states/main/state_machine.tscn" id="5_thy2b"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tq5bo"]
 size = Vector2(50, 50)
@@ -17,22 +18,30 @@ script = ExtResource("1_uscle")
 self_sprite = NodePath("EnemySprite")
 bulk_updating = true
 
-[node name="EnemySprite" type="Sprite2D" parent="."]
-texture = ExtResource("2_npmfq")
-
-[node name="SelfCollision" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_tq5bo")
-debug_color = Color(0, 0.6, 0.701961, 0)
-
-[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
-position = Vector2(130, 0)
-
 [node name="CombatComponent" parent="." instance=ExtResource("4_r3whd")]
 
 [node name="DropComponent" parent="." instance=ExtResource("4_rx6yb")]
 
 [node name="HealthComponent" parent="." instance=ExtResource("3_r8fkk")]
 max_health = 5
+
+[node name="StateMachine" parent="." instance=ExtResource("5_thy2b")]
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(130, 0)
+
+[node name="MovementCollision" type="StaticBody2D" parent="."]
+collision_layer = 2
+
+[node name="SelfCollision" type="CollisionPolygon2D" parent="MovementCollision"]
+polygon = PackedVector2Array(-18, 18, -18, -18, 18, -18, 18, 18)
+
+[node name="SelfCollision" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_tq5bo")
+debug_color = Color(0, 0.6, 0.701961, 0)
+
+[node name="EnemySprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_npmfq")
 
 [node name="HitboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("4_js4fs")]
 collision_layer = 2
@@ -45,6 +54,6 @@ debug_color = Color(0.701961, 0, 0.152941, 0.2)
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="enemy_died" from="." to="DropComponent" method="_on_enemy_died"]
+[connection signal="health_change" from="HealthComponent" to="." method="_on_health_component_health_change"]
 [connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_screen_reentered"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
-[connection signal="health_change" from="HealthComponent" to="." method="_on_health_component_health_change"]

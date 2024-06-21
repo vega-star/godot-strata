@@ -7,11 +7,11 @@
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jewc2"]
 radius = 4.0
-height = 20.0
+height = 22.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_43gnj"]
-radius = 5.0
-height = 32.0
+radius = 4.0
+height = 24.0
 
 [node name="EnemyLaser" type="Area2D" groups=["enemy_projectile"]]
 top_level = true
@@ -24,6 +24,7 @@ stream = ExtResource("2_8whbf")
 bus = &"Effects"
 
 [node name="LaserSprite" type="Sprite2D" parent="."]
+modulate = Color(4.2, 1.5, 1.5, 1)
 position = Vector2(1.13687e-13, 5.68434e-14)
 scale = Vector2(1.44869, 1.6)
 texture = ExtResource("3_chj3q")

@@ -8,6 +8,7 @@ class_name HitboxComponent extends Area2D
 @export var health_component : HealthComponent
 @export var combat_component : CombatComponent
 @export var immunity_frame_limit : int = 5
+var hitbox_component : HitboxComponent = self
 
 # Properties
 var active_hitbox
@@ -36,9 +37,9 @@ func _ready():
 	elif !hitbox and simple_hitbox:
 		active_hitbox = simple_hitbox
 	else:
-		pass
 		# In that case, the entity is missing an 'active' hitbox.
 		# Collisions still works as it inherits the child hitbox node, but will not flicker when recieving constant damage, rendering some weapons useless.
+		pass
 	
 	if hitsound:
 		hitsound_emitter.set_stream(hitsound)

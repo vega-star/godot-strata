@@ -6,12 +6,12 @@ const normal_pass_add : int = 1
 const shielding_pass_add : int = 10
 
 ## MAIN VARIABLES 
-# CORE PROPERTIES THAT CHANGE THE PROJECTILE BEHAVIOR
+# Base properties that serve as a foundation to the projectile
 @export_enum('Bullet', 'Laser', 'Bomb') var projectile_type = 'Bullet'
-@onready var projectile_sound = $ProjectileSound
+@export var debug : bool = false
 
-# Base in that sense means the projectile start with this properties, but they can be changed by items and buffs before instantiation
-@export var base_rate_of_fire : float = 5 # The base changes for each projectile, thus exported
+@export_group("Properties")
+@export var base_rate_of_fire : float = 5
 @export var base_projectile_damage : int = 2
 @export var base_projectile_speed : int = 1300
 @export var enemy_pass_limit : int = 1
@@ -20,7 +20,8 @@ const shielding_pass_add : int = 10
 @export var damage_on_challenge : float = 1
 @export var damage_on_critical : float = 2
 @export var pitch_variation = 0.2
-@export var debug : bool = false
+
+@onready var projectile_sound = $ProjectileSound
 
 ## ENVIRONMENT CONDITIONS
 # PROPERTIES THAT CHANGE THROUGHOUT THE PROJECTILE LIFETIME
@@ -29,7 +30,7 @@ var projectile_speed : int = base_projectile_speed
 var projectile_damage : int = base_projectile_damage
 var can_damage_player : bool = false # Can change if bounced off an enemy or something similar
 var enemy_pass_count = 0
-var enemy_name : String = "LOST PROJECTILE" # Defaults to lost projectile, but gets set during instantiation!
+var enemy_name : String = "LOST PROJECTILE" # Defaults to lost projectile, but gets set during instantiation so you can see which enemy killed you (fun!)
 
 func _ready():
 	randomize()
@@ -49,6 +50,10 @@ func _physics_process(delta):
 	var distance = (global_position - initial_position).x
 	if distance >= max_distance: delete_projectile()
 
+func change_layer(layer_id : int, layer_bool : bool): set_collision_layer_value(layer_id, layer_bool)
+
+func change_mask(mask_id : int, mask_bool : bool): set_collision_mask_value(mask_id, mask_bool)
+
 func _on_hitbox_area_entered(area):
 	var enemy : Node = area.owner
 	var damage_buildup : float
@@ -59,6 +64,8 @@ func _on_hitbox_area_entered(area):
 		
 		for group in enemy.get_groups():
 			match group:
+				'player':
+					damage_buildup = 1
 				'shielding', 'shield':
 					damage_buildup = projectile_damage * penetration_factor
 					_check_pass_count(shielding_pass_add) # Check again to stop immediately

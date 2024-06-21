@@ -14,6 +14,7 @@ func state_physics_update(_delta : float):
 	frame_count += 1
 	if check_available and frame_count >= check_cooldown:
 		check_available = false
-		if !state_machine.state_conditions["shield_up"]:
+		if !conditions["shield_up"]:
 			transitioned.emit(self, "chargeshield")
+		frame_count = 0
 		check_available = true

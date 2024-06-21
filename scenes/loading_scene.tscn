@@ -155,6 +155,7 @@ texture_margin_right = 15.0
 texture_margin_bottom = 15.0
 
 [node name="LoadingScene" type="CanvasLayer"]
+process_mode = 3
 layer = 50
 script = ExtResource("1_f6n00")
 

@@ -1,13 +1,17 @@
 class_name HealthComponent extends Node
 
+signal life_consumed
 signal health_changed
 signal health_change(previous_value: int, new_value: int, type : bool)
 
 # Main variables
 @onready var damage_indicator = preload("res://scenes/ui/ui_damage_indicator.tscn")
+
+@export_group("Health Properties")
 @export var health_bar : HealthBarComponent
 @export var max_health : int
 @export var lives : int = 1
+@export var show_indicator : bool = false
 
 # Properties
 var set_max_health:
@@ -41,10 +45,11 @@ func change_health(amount : int, negative : bool = true, source = null):
 	if amount == 0: return
 	
 	## Show change
-	var indicator = damage_indicator.instantiate()
-	indicator.global_position = owner.global_position
-	indicator.set_indicator(amount, negative)
-	UI.InfoHUD.info_container.call_deferred("add_child", indicator)
+	if show_indicator:
+		var indicator = damage_indicator.instantiate()
+		indicator.global_position = owner.global_position
+		indicator.set_indicator(amount, negative)
+		UI.InfoHUD.info_container.call_deferred("add_child", indicator)
 	
 	# Apply change
 	if !lock_health_changes:
@@ -66,6 +71,8 @@ func change_health(amount : int, negative : bool = true, source = null):
 		
 		if current_health <= 0:
 			lives -= 1
+			current_health = max_health
+			life_consumed.emit() # Use this signal to create ressurection animations and such
 			if lives == 0:
 				lock_health_changes = true
 				owner.die(source) # Let the owner itself execute its death sequence, including queue_free()

@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://ch503xpj8qn46"]
 
-[ext_resource type="Script" path="res://scenes/ui/damage_bar.gd" id="1_2j0s4"]
+[ext_resource type="Script" path="res://scenes/scripts/damage_bar.gd" id="1_2j0s4"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_nybdu"]
 

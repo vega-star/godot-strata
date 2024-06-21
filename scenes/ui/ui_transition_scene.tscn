@@ -53,7 +53,7 @@ _data = {
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_751yf"]
 shader = ExtResource("1_yh4l6")
-shader_parameter/progress = 1.0
+shader_parameter/progress = 0.301
 shader_parameter/diamondPixelSize = 60.0
 shader_parameter/color = Color(0.243137, 0.207843, 0.27451, 1)
 
@@ -79,6 +79,7 @@ libraries = {
 autoplay = "FADE"
 
 [node name="Shader" type="MeshInstance2D" parent="ScreenTransition"]
+light_mask = 0
 material = SubResource("ShaderMaterial_751yf")
 position = Vector2(480.534, 271.007)
 rotation = -3.14159

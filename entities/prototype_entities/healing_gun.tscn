@@ -14,6 +14,8 @@ max_angle_limit = 370.0
 override_max_health = 15
 
 [node name="HealingLaser" parent="." instance=ExtResource("1_ein37")]
+target_position = Vector2(750, 0)
+collision_mask = 65
 
 [node name="CombatComponent" parent="." instance=ExtResource("2_keitw")]
 
@@ -21,4 +23,5 @@ override_max_health = 15
 max_health = 10
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="target_missed" from="HealingLaser" to="." method="_on_healing_laser_target_missed"]
 [connection signal="health_change" from="HealthComponent" to="." method="_on_health_component_health_change"]

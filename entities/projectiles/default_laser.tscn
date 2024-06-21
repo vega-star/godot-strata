@@ -71,6 +71,7 @@ radius = 3.0
 height = 18.0
 
 [node name="DefaultLaser" type="Area2D" groups=["player_projectile"]]
+modulate = Color(30, 30, 30, 1)
 top_level = true
 light_mask = 2
 collision_layer = 4

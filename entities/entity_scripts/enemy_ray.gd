@@ -69,7 +69,9 @@ func charge():
 	
 	var charging_tween = get_tree().create_tween()
 	charging_tween.tween_property(charging_emitter, "speed_scale", 5, 5)
-	await get_tree().create_timer(5, false).timeout
+	await get_tree().create_timer(3, false).timeout
+	source_emitter.emitting = true
+	await get_tree().create_timer(2, false).timeout
 	
 	charging_emitter.emitting = false
 	charging_tween.kill()
@@ -79,7 +81,6 @@ func charge():
 
 func activate():
 	charging_emitter.emitting = false
-	source_emitter.emitting = true
 	beam_emitter.emitting = true
 	end_emitter.emitting = true
 	

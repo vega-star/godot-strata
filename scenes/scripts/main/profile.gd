@@ -101,6 +101,7 @@ func save_new_profile(profile_name, pilot_name, icon, color, xp : int = 0, save_
 	profiles_data.set_value(profile_name, "PROFILE_EXPERIENCE", xp)
 	profiles_data.set_value(profile_name, "SAVE_DATA", save_data)
 	profiles_data.set(profile_name, "ACHIEVEMENTS")
+	profiles_data.set_value(profile_name, "TUTORIAL_COMPLETED", false)
 	profiles_data.set(profile_name, "CODEX")
 	profiles_data.save(profile_data_path)
 

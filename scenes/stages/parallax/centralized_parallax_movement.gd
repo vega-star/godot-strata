@@ -1,22 +1,22 @@
 extends ParallaxBackground
 
-@export var speed_factor : float = 1
+signal color_cycle_finished(node)
 
-const sky_speed = 15
-const stars_speed = 5
-const far_clouds_speed = 20
-const before_far_cloud_speed = 50
-const medium_cloud_speed = 50
-const close_clouds_speed = 200
-const even_closer_speed = 500
+@export_range(0,10) var speed_factor : float = 1
+@export var layers : Array[ParallaxLayer] = []
+@export var layer_speed : Array[int]
 
-func _process(delta):
-	$Sky.motion_offset.x -= sky_speed * speed_factor * delta 
-	$Stars.motion_offset.x -= stars_speed * speed_factor * delta 
-	
-	## Clouds
-	$FarClouds.motion_offset.x -= far_clouds_speed * speed_factor * delta
-	$BeforeFarClouds.motion_offset.x -= before_far_cloud_speed * speed_factor * delta
-	$MediumClouds.motion_offset.x -= medium_cloud_speed * speed_factor * delta
-	$CloserClouds.motion_offset.x -= close_clouds_speed * speed_factor * delta
-	$EvenCloserClouds.motion_offset.x -= even_closer_speed * speed_factor * delta
+func _ready():
+	assert(layers.size() == layer_speed.size())
+
+func _physics_process(delta):
+	for l in layers.size():
+		var target_layer = layers[l - 1]
+		var target_speed = layer_speed[l - 1]
+		target_layer.motion_offset.x -= target_speed * speed_factor * delta
+
+func initiate_color_cycle(node : Object, modulate_to : Color, period : float):
+	var color_tween = create_tween()
+	color_tween.tween_property(node, "modulate", modulate_to, period)
+	await color_tween.finished
+	color_cycle_finished.emit(node)

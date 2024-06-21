@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://chy6yrcopxpke"]
+[gd_scene load_steps=38 format=3 uid="uid://chy6yrcopxpke"]
 
 [ext_resource type="Script" path="res://scenes/scripts/ui/ui_overlay.gd" id="1_khion"]
 [ext_resource type="Texture2D" uid="uid://m6hpkh3yxab3" path="res://assets/textures/ui/hud/neptune/external_frame.png" id="2_cbaw4"]
@@ -15,12 +15,15 @@
 [ext_resource type="Script" path="res://scenes/scripts/ui/ui_progress_bar.gd" id="12_s4dc2"]
 [ext_resource type="Texture2D" uid="uid://cx1wjsbqfhste" path="res://assets/textures/ui/hud/neptune/ammo_capsule_short.png" id="13_31sav"]
 [ext_resource type="Theme" uid="uid://b1a5sjt2xibwo" path="res://assets/themes/strata_theme/strata_theme.tres" id="13_chyk2"]
+[ext_resource type="Texture2D" uid="uid://2esk7wliywb3" path="res://assets/textures/icons/ui/indicator_purple.png" id="14_1crju"]
 [ext_resource type="FontFile" uid="uid://0bmvakfotygp" path="res://assets/themes/fonts/VT323-Regular.ttf" id="14_f31xd"]
 [ext_resource type="Texture2D" uid="uid://csay5l63c4eul" path="res://assets/textures/icons/events/event_cursor.png" id="15_0f1bk"]
 [ext_resource type="Texture2D" uid="uid://clyo4shejv2k7" path="res://assets/textures/icons/ui/icon_boss_life_deactivated.png" id="15_1dt3e"]
 [ext_resource type="Texture2D" uid="uid://cano6k0rmkt8h" path="res://assets/textures/ui/hud/classic/stage_bar.png" id="15_5b0wf"]
 [ext_resource type="Texture2D" uid="uid://ds8n8qkmbj3yu" path="res://assets/textures/ui/hud/neptune/heat_bar.png" id="15_bbfms"]
+[ext_resource type="Texture2D" uid="uid://bys1fosnikml2" path="res://assets/textures/icons/ui/indicator_red_light.png" id="15_nqapa"]
 [ext_resource type="Texture2D" uid="uid://d5cyp7quoone" path="res://assets/textures/icons/ui/icon_boss_life.png" id="16_ekmyj"]
+[ext_resource type="Texture2D" uid="uid://swrt4k1amtkf" path="res://assets/textures/icons/ui/indicator_blue_light.png" id="16_fsli8"]
 [ext_resource type="Texture2D" uid="uid://bbri3ya332gll" path="res://assets/textures/icons/ui/boss_bar_box.png" id="16_iy8uk"]
 [ext_resource type="Texture2D" uid="uid://dk0vt0rmsn7su" path="res://assets/textures/ui/hud/neptune/heat_progress.png" id="16_sd3tp"]
 [ext_resource type="PackedScene" uid="uid://ch503xpj8qn46" path="res://components/status/damage_bar.tscn" id="17_iuoyt"]
@@ -308,10 +311,12 @@ texture_margin_right = 4.0
 axis_stretch_horizontal = 2
 region_rect = Rect2(12, 6, 32, 14)
 
-[node name="UIOverlay" type="CanvasLayer"]
+[node name="UIOverlay" type="CanvasLayer" node_paths=PackedStringArray("ui_animation_player", "heat_bar", "bars")]
 layer = 10
 script = ExtResource("1_khion")
-limit_secondary_ammo = 3
+ui_animation_player = NodePath("UIAnimations")
+heat_bar = NodePath("HUD/Info/Elements/HeatBar")
+bars = NodePath("HUD/Bars")
 
 [node name="UIAnimations" type="AnimationPlayer" parent="."]
 libraries = {
@@ -335,8 +340,7 @@ anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_top = -72.0
-offset_right = 960.0
-offset_bottom = 468.0
+offset_bottom = -72.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
@@ -527,6 +531,52 @@ grow_vertical = 2
 mouse_filter = 2
 metadata/_edit_use_anchors_ = true
 
+[node name="PowerIndicator" type="TextureRect" parent="HUD/Info/Elements"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -39.0
+offset_top = 6.0
+offset_right = -23.0
+offset_bottom = 30.0
+grow_horizontal = 0
+texture = ExtResource("14_1crju")
+stretch_mode = 1
+
+[node name="IndicatorLight" type="TextureRect" parent="HUD/Info/Elements/PowerIndicator"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("15_nqapa")
+stretch_mode = 1
+
+[node name="RollIndicator" type="TextureRect" parent="HUD/Info/Elements"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -19.0
+offset_top = 6.0
+offset_right = -3.0
+offset_bottom = 30.0
+grow_horizontal = 0
+texture = ExtResource("14_1crju")
+stretch_mode = 1
+
+[node name="IndicatorLight" type="TextureRect" parent="HUD/Info/Elements/RollIndicator"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("16_fsli8")
+stretch_mode = 1
+
 [node name="HeatBar" type="TextureProgressBar" parent="HUD/Info/Elements"]
 custom_minimum_size = Vector2(128, 22)
 layout_mode = 0
@@ -534,7 +584,7 @@ offset_top = 38.0
 offset_right = 128.0
 offset_bottom = 60.0
 theme = ExtResource("13_chyk2")
-value = 10.0
+value = 50.0
 stretch_margin_left = 28
 stretch_margin_top = 2
 stretch_margin_right = 8

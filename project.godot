@@ -14,7 +14,7 @@ config/name="Strata ZERO"
 config/description="Prototype game in Godot 4.2+ made to exemplify how to make and test scripts, modular composition, and integrate various nodes. 
 
 [https://github.com/vega-star/godot-strata]"
-config/version="0.5.0"
+config/version="0.5.1"
 config/tags=PackedStringArray("demo")
 run/main_scene="res://scenes/ui/intro.tscn"
 config/features=PackedStringArray("4.2", "GL Compatibility")
@@ -47,7 +47,7 @@ window/size/viewport_height=540
 window/size/extend_to_title=true
 window/stretch/mode="viewport"
 window/per_pixel_transparency/allowed=true
-mouse_cursor/custom_image="res://assets/textures/static/strata_cursor.png"
+mouse_cursor/custom_image="res://assets/textures/icons/ui/strata_cursor_v2.png"
 window/canvas_textures/default_texture_repeat=0
 
 [file_customization]
@@ -132,11 +132,14 @@ roll={
 2d_physics/layer_3="Player Projectiles"
 2d_physics/layer_4="Enemy Projectiles"
 2d_physics/layer_5="Items Layer"
+2d_physics/layer_6="Secondary "
+2d_physics/layer_7="Secondary "
 
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
+viewport/hdr_2d=true
 2d/snap/snap_2d_transforms_to_pixel=true
 2d/snap/snap_2d_vertices_to_pixel=true

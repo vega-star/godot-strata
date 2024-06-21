@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://b5ek1g4fsmfqu"]
 
 [ext_resource type="Script" path="res://scenes/scripts/ui/central_menu_effect.gd" id="1_mujv4"]
-[ext_resource type="Texture2D" uid="uid://drajfpsohsrud" path="res://assets/textures/static/menu_effect_left.png" id="2_8xadr"]
-[ext_resource type="Texture2D" uid="uid://d1xelwrnq4ilq" path="res://assets/textures/static/menu_effect_right.png" id="3_hq73a"]
+[ext_resource type="Texture2D" uid="uid://b0eyi6pq7gqxv" path="res://assets/textures/static/menu_effect_left_v2.png" id="2_rtlbm"]
+[ext_resource type="Texture2D" uid="uid://7f6iqta1sed" path="res://assets/textures/static/menu_effect_right_v2.png" id="3_1ruaw"]
 
 [node name="MenuEffect" type="ParallaxBackground"]
 layer = -1
@@ -14,24 +14,32 @@ offset_right = 959.0
 offset_bottom = 540.0
 color = Color(0.180392, 0.133333, 0.184314, 1)
 
-[node name="GreenMiddle" type="ColorRect" parent="."]
-offset_left = 366.0
-offset_right = 593.0
-offset_bottom = 540.0
-color = Color(0.192157, 0.211765, 0.219608, 1)
+[node name="Middle" type="ColorRect" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -149.0
+offset_top = -270.0
+offset_right = 120.0
+offset_bottom = 270.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.270588, 0.160784, 0.247059, 1)
 
 [node name="LeftSide" type="ParallaxLayer" parent="."]
 position = Vector2(-1, 0)
-motion_mirroring = Vector2(0, 540)
+motion_mirroring = Vector2(0, 707)
 
 [node name="MenuEffectLeft" type="Sprite2D" parent="LeftSide"]
-position = Vector2(292, 270)
-texture = ExtResource("2_8xadr")
+position = Vector2(201, 270)
+texture = ExtResource("2_rtlbm")
 
 [node name="RightSide" type="ParallaxLayer" parent="."]
 position = Vector2(-1, 0)
-motion_mirroring = Vector2(0, 540)
+motion_mirroring = Vector2(0, 707)
 
 [node name="MenuEffectRight" type="Sprite2D" parent="RightSide"]
-position = Vector2(681, 270)
-texture = ExtResource("3_hq73a")
+position = Vector2(708, 270)
+texture = ExtResource("3_1ruaw")

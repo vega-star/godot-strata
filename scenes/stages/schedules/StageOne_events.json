@@ -1,24 +1,35 @@
 {
-    "spawn_kobold": {
+    "spawn_welder": {
         "event_type": "spawn_enemy",
         "event_description": "Spawn a cluster of enemies using the swarm rule set.",
         "event_icon": true,
         "set_timer": true,
         "has_rules": true,
         "event_properties": {
-            "enemy": "kobold",
+            "enemy": "welder",
             "event_timer": {
                 "pause_stage_timer": false,
                 "timer_period": 5.0
             },
             "rules": {
-                "spawn_override": "center", 
-                "swarm": {
-                    "method": 0, 
-                    "separation": 77,
-                    "amount": 5,
-                    "delay": 0
-                }
+                "spawn_override": "middle_top"
+            }
+        }
+    },
+    "spawn_welder_2": {
+        "event_type": "spawn_enemy",
+        "event_description": "Spawn a cluster of enemies using the swarm rule set.",
+        "event_icon": true,
+        "set_timer": true,
+        "has_rules": true,
+        "event_properties": {
+            "enemy": "welder",
+            "event_timer": {
+                "pause_stage_timer": false,
+                "timer_period": 5.0
+            },
+            "rules": {
+                "spawn_override": "middle_bottom"
             }
         }
     },

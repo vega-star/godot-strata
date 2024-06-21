@@ -25,7 +25,6 @@ const self_scene_path = "res://entities/prototype_entities/enemy_gun.tscn"
 @export var min_angle_limit : float = -90 # If both are positive, the angle is locked facing the player. You can test it in remote tab and tweak the values
 @export var max_angle_limit : float = 90
 @export var health_bar_component : HealthBarComponent
-@export var hitbox_component : HitboxComponent = self
 
 ## Nodes
 @onready var projectile_container = get_tree().get_first_node_in_group('ProjectileContainer')

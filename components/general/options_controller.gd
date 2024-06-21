@@ -1,9 +1,28 @@
 extends CanvasLayer
+## The Options controller is a modular component used to connect and distribute properties around a project, while containing a built-in menu to control them
+## As a part of Strata, this node contains a lot of things that can be used in a multitute of other projects as well.
+## It has keybind controls, screen reformatting and resizing, config file management and other functions.
+## The menu can be rearranged very easily with a few node references adjustments!
+## 
+## This node is intended to be autoloaded.
 
+signal config_file_loaded
 signal options_changed
+
+#region Configuration
+@export_group("Main Configuration")
+@export var reset_window_size_on_boot : bool = false
+@export var menu_button_group : ButtonGroup
+
+@export_group("Tools")
+@export var reset_config_on_load : bool = false # Will override config files with a completely new default one
+@export var show_keycode : bool = false ## Print the exact keycode for an input pressed anytime
+@export var debug : bool = false ## Print messages in some actions to facilitate direct debug
 
 const keybind_file_path = "res://data/keybinding_reg.json"
 const config_file_path = "user://config.cfg"
+
+## Different configurations to screen (Borderless is currently bugged, TODO)
 const screen_dict : Array = [
 	"WINDOWED",
 	"WINDOWED + BORDERLESS",
@@ -11,13 +30,8 @@ const screen_dict : Array = [
 	"FULLSCREEN",
 	"EXCLUSIVE FULLSCREEN"
 ]
-var config_file = ConfigFile.new()
-var config_file_load = config_file.load(config_file_path) 
-
-@export var show_keycode : bool = false
-@export var debug : bool = false
-
-var default_key_dict : Dictionary = {
+## Default keybinds that is loaded when the game is first loaded
+const default_key_dict : Dictionary = {
 	"move_up":4194320,
 	"move_down":4194322,
 	"move_right":4194321,
@@ -30,13 +44,33 @@ var default_key_dict : Dictionary = {
 	"pause":96,
 	"quit":81
 }
+## Default keybinds that is loaded when the game is first loaded
+const default_configurations : Dictionary = {
+	"window_mode": ["MAIN_OPTIONS","WINDOW_MODE", "WINDOW_MODE_WINDOWED"],
+	"window_size": ["MAIN_OPTIONS","MINIMUM_WINDOW_SIZE", Vector2(480,270)],
+	"toggle_photosens": ["MAIN_OPTIONS","PHOTOSENS_MODE", false],
+	"toggle_fire": ["MAIN_OPTIONS","TOGGLE_FIRE", false],
+	"toggle_screen_shake": ["MAIN_OPTIONS","SCREEN_SHAKE", true],
+	"master_volume": ["MAIN_OPTIONS","MASTER_VOLUME", 0.5],
+	"master_toggled": ["MAIN_OPTIONS","MASTER_TOGGLED", true],
+	"music_volume": ["MAIN_OPTIONS","MUSIC_VOLUME", 0.25],
+	"music_toggled": ["MAIN_OPTIONS","MUSIC_TOGGLED", true],
+	"effects_volume": ["MAIN_OPTIONS","EFFECTS_VOLUME", 0.5],
+	"effects_toggled": ["MAIN_OPTIONS","EFFECTS_TOGGLED", true],
+	"limit_hp": ["UI_OPTIONS", "LIMIT_HP_FSC", 3],
+	"limit_ammo": ["UI_OPTIONS", "LIMIT_AMMO_FSC", 3],
+	"hide_stage_bar": ["UI_OPTIONS", "HIDE_STAGE_BAR", false],
+	"hide_boss_bar": ["UI_OPTIONS", "HIDE_BOSS_BAR", false]
+}
 
+var config_file = ConfigFile.new()
+var config_file_load = config_file.load(config_file_path) 
 var key_dict : Dictionary = {}
 var setting_key : bool = false
 var settings_changed : bool = false
 var photosens_mode : bool
 
-## Node references
+## Internal node references
 @onready var master_slider = $"ConfigTabs/Main Options/Scroll/ConfigPanel/OptionsButtons/VolumeContainer/MasterVol/Master_Toggle/Master_Slider"
 @onready var music_slider = $"ConfigTabs/Main Options/Scroll/ConfigPanel/OptionsButtons/VolumeContainer/MusicVol/Music_Toggle/Music_Slider"
 @onready var effect_slider = $"ConfigTabs/Main Options/Scroll/ConfigPanel/OptionsButtons/VolumeContainer/SoundEffectVol/Effect_Toggle/Effect_Slider"
@@ -44,54 +78,58 @@ var photosens_mode : bool
 @onready var music_toggle = $"ConfigTabs/Main Options/Scroll/ConfigPanel/OptionsButtons/VolumeContainer/MusicVol/Music_Toggle"
 @onready var sound_effect_toggle = $"ConfigTabs/Main Options/Scroll/ConfigPanel/OptionsButtons/VolumeContainer/SoundEffectVol/Effect_Toggle"
 @onready var effect_menu = $ConfigTabs/Graphics/Scroll/ConfigPanel/VisualEffects/VisualEffectsMenu
+#endregion
 
 func _ready():
 	await load_keys()
 	
-	if config_file_load == OK: # Config file generator and loader checker
-		# DisplayServer.window_set_mode(config_file.get_value("MAIN_OPTIONS","WINDOW_MODE"))
-		
-		var current_photosens_state = config_file.get_value("MAIN_OPTIONS","PHOTOSENS_MODE")
-		photosens_mode = current_photosens_state
-		$ConfigTabs/Accessibility/Scroll/ConfigPanel/Photosens_Mode.button_pressed = current_photosens_state
-		$ConfigTabs/Accessibility/Scroll/ConfigPanel/ScreenShake.button_pressed = config_file.get_value("MAIN_OPTIONS","SCREEN_SHAKE")
-		$'ConfigTabs/Main Options/Scroll/ConfigPanel/OptionsButtons/ToggleFiring'.button_pressed = config_file.get_value("MAIN_OPTIONS","TOGGLE_FIRE")
-		master_slider.value = config_file.get_value("MAIN_OPTIONS","MASTER_VOLUME")
-		music_slider.value = config_file.get_value("MAIN_OPTIONS","MUSIC_VOLUME")
-		effect_slider.value = config_file.get_value("MAIN_OPTIONS","EFFECTS_VOLUME")
-		_on_master_toggle_toggled(config_file.get_value("MAIN_OPTIONS","MASTER_TOGGLED"))
-		_on_music_toggle_toggled(config_file.get_value("MAIN_OPTIONS","MUSIC_TOGGLED"))
-		_on_effect_toggle_toggled(config_file.get_value("MAIN_OPTIONS","EFFECTS_TOGGLED"))
-		
-		config_file.save(config_file_path)
-	else: 
-		printerr("CONFIG FILE NOT FOUND | GENERATING DEFAULT VALUES")
-		config_file.set_value("MAIN_OPTIONS","WINDOW_MODE", "WINDOW_MODE_WINDOWED")
-		config_file.set_value("MAIN_OPTIONS","MINIMUM_WINDOW_SIZE", Vector2(480,270))
-		config_file.set_value("MAIN_OPTIONS","PHOTOSENS_MODE", false)
-		config_file.set_value("MAIN_OPTIONS","TOGGLE_FIRE", false)
-		config_file.set_value("MAIN_OPTIONS","SCREEN_SHAKE", true)
-		config_file.set_value("MAIN_OPTIONS","MASTER_VOLUME", 0.7)
-		config_file.set_value("MAIN_OPTIONS","MASTER_TOGGLED", true)
-		config_file.set_value("MAIN_OPTIONS","MUSIC_VOLUME", 0.6)
-		config_file.set_value("MAIN_OPTIONS","MUSIC_TOGGLED", true)
-		config_file.set_value("MAIN_OPTIONS","EFFECTS_VOLUME", 0.6)
-		config_file.set_value("MAIN_OPTIONS","EFFECTS_TOGGLED", true)
-		
-		config_file.save(config_file_path)
+	if visible: visible = false # Here just in case I forgot to make this node invisible after making UI changes. It can confuse players
 	
-	if visible: visible = false # Just in case I forgot to make this node invisible after making UI changes
+	## Button Group
+	#for button in menu_button_group.get_buttons():
+	#	button.pressed.connect(func(): _button_group_input(button.get_index()))
 	
-	# Setting some menu's based on distant node configurations
-	await UI.ready
+	## Config file loader
+	if reset_config_on_load: 
+		print("OPTIONS | RESETTING CONFIG_FILE TO DEFAULT VALUES | This is useful to test fresh installations, but be careful!")
+		if !OS.is_debug_build():
+			push_warning("SET TO RESET IN NON-DEBUG BUILD | This could prevent saving previously made changes, so it is being deactivated.")
+			reset_config_on_load = false
+	
+	if config_file_load == OK and !reset_config_on_load: pass # Existing file found, being loaded
+	else: # Config file not found
+		printerr("CONFIG FILE NOT FOUND | GENERATING A NEW FILE WITH DEFAULT VALUES")
+		for c in default_configurations:
+			var command = default_configurations[c]
+			config_file.set_value(command[0], command[1], command[2])
+	config_file.save(config_file_path)
+	config_file_loaded.emit()
+	
+	$ConfigTabs/Accessibility/Scroll/ConfigPanel/Photosens_Mode.button_pressed = config_file.get_value("MAIN_OPTIONS","PHOTOSENS_MODE")
+	$ConfigTabs/Accessibility/Scroll/ConfigPanel/ScreenShake.button_pressed = config_file.get_value("MAIN_OPTIONS","SCREEN_SHAKE")
+	$'ConfigTabs/Main Options/Scroll/ConfigPanel/OptionsButtons/ToggleFiring'.button_pressed = config_file.get_value("MAIN_OPTIONS","TOGGLE_FIRE")
+	master_slider.value = config_file.get_value("MAIN_OPTIONS","MASTER_VOLUME")
+	music_slider.value = config_file.get_value("MAIN_OPTIONS","MUSIC_VOLUME")
+	effect_slider.value = config_file.get_value("MAIN_OPTIONS","EFFECTS_VOLUME")
+	_on_master_toggle_toggled(config_file.get_value("MAIN_OPTIONS","MASTER_TOGGLED"))
+	_on_music_toggle_toggled(config_file.get_value("MAIN_OPTIONS","MUSIC_TOGGLED"))
+	_on_effect_toggle_toggled(config_file.get_value("MAIN_OPTIONS","EFFECTS_TOGGLED"))
+	
+	if reset_window_size_on_boot: DisplayServer.window_set_mode(config_file.get_value("MAIN_OPTIONS","WINDOW_MODE"))
+	
+	## Nodes to hide if build is different
+	match OS.get_name():
+		"Web":
+			$ConfigTabs/Graphics/Scroll/ConfigPanel/ScreenMode.visible = false
+		_: pass
+	
+	if !UI.is_node_ready(): await UI.ready
 	for key in UI.ScreenEffect.effects: $ConfigTabs/Graphics/Scroll/ConfigPanel/VisualEffects/VisualEffectsMenu.add_item(key)
 	for mode in screen_dict: $ConfigTabs/Graphics/Scroll/ConfigPanel/ScreenMode/ScreenModeMenu.add_item(mode)
 
 func _exit(): # Clean temporary data and reset signal
 	Options.visible = false
 	settings_changed = false
-
-# OPTIONS MENU FUNCTIONS
 
 func _input(event): # Able the player to exit options screen using actions, needed for when using controllers
 	if Input.is_action_pressed("quit") or Input.is_action_pressed("pause") and Options.visible == true:
@@ -101,6 +139,10 @@ func _input(event): # Able the player to exit options screen using actions, need
 		# This is useful to fill key_dict manually, and I think it's faster than searching in docs.
 		if event is InputEventKey: 
 			print(event.get_keycode_with_modifiers()) 
+
+func _button_group_input(button_index):
+	var index = button_index - 1
+	print(index)
 
 func _emit_sound(sound_id : String):
 	AudioManager.emit_sound_effect(null, sound_id, false, true)
@@ -124,18 +166,27 @@ func _on_options_visibility_changed():
 		$ConfigTabs.current_tab = 0
 		$ConfigTabs.get_tab_bar().grab_focus() # Direct controller focus to this specific button
 		
-		$ConfigTabs/Controls/Scroll/ConfigPanel/BindGrids/BindGridLeft/UP_B.text = OS.get_keycode_string(key_dict["move_up"])
-		$ConfigTabs/Controls/Scroll/ConfigPanel/BindGrids/BindGridLeft/DOWN_B.text = OS.get_keycode_string(key_dict["move_down"])
-		$ConfigTabs/Controls/Scroll/ConfigPanel/BindGrids/BindGridLeft/RIGHT_B.text = OS.get_keycode_string(key_dict["move_right"])
-		$ConfigTabs/Controls/Scroll/ConfigPanel/BindGrids/BindGridLeft/LEFT_B.text = OS.get_keycode_string(key_dict["move_left"])
-		$ConfigTabs/Controls/Scroll/ConfigPanel/BindGrids/BindGridLeft/PAUSE_B.text = OS.get_keycode_string(key_dict["pause"])
-		$ConfigTabs/Controls/Scroll/ConfigPanel/BindGrids/BindGridRight/DASH_B.text = OS.get_keycode_string(key_dict["dash"])
-		$ConfigTabs/Controls/Scroll/ConfigPanel/BindGrids/BindGridRight/ROLL_B.text = OS.get_keycode_string(key_dict["roll"])
-		$ConfigTabs/Controls/Scroll/ConfigPanel/BindGrids/BindGridRight/RESET_B.text = OS.get_keycode_string(key_dict["reset"])
-		$ConfigTabs/Controls/Scroll/ConfigPanel/BindGrids/BindGridRight/SHOOT_B.text = OS.get_keycode_string(key_dict["shoot"])
-		$ConfigTabs/Controls/Scroll/ConfigPanel/BindGrids/BindGridRight/BOMB_B.text = OS.get_keycode_string(key_dict["bomb"])
+		_screen_mode_update()
+		_bind_display_update()
 
-func _on_config_tabs_tab_selected(_tab): $ConfigTabs.get_tab_bar().grab_focus()
+func _on_config_tabs_tab_selected(_tab): 
+	$ConfigTabs.get_tab_bar().grab_focus()
+
+func _bind_display_update():
+	$ConfigTabs/Controls/Scroll/ConfigPanel/BindGrids/BindGridLeft/UP_B.text = OS.get_keycode_string(key_dict["move_up"])
+	$ConfigTabs/Controls/Scroll/ConfigPanel/BindGrids/BindGridLeft/DOWN_B.text = OS.get_keycode_string(key_dict["move_down"])
+	$ConfigTabs/Controls/Scroll/ConfigPanel/BindGrids/BindGridLeft/RIGHT_B.text = OS.get_keycode_string(key_dict["move_right"])
+	$ConfigTabs/Controls/Scroll/ConfigPanel/BindGrids/BindGridLeft/LEFT_B.text = OS.get_keycode_string(key_dict["move_left"])
+	$ConfigTabs/Controls/Scroll/ConfigPanel/BindGrids/BindGridLeft/PAUSE_B.text = OS.get_keycode_string(key_dict["pause"])
+	$ConfigTabs/Controls/Scroll/ConfigPanel/BindGrids/BindGridRight/DASH_B.text = OS.get_keycode_string(key_dict["dash"])
+	$ConfigTabs/Controls/Scroll/ConfigPanel/BindGrids/BindGridRight/ROLL_B.text = OS.get_keycode_string(key_dict["roll"])
+	$ConfigTabs/Controls/Scroll/ConfigPanel/BindGrids/BindGridRight/RESET_B.text = OS.get_keycode_string(key_dict["reset"])
+	$ConfigTabs/Controls/Scroll/ConfigPanel/BindGrids/BindGridRight/SHOOT_B.text = OS.get_keycode_string(key_dict["shoot"])
+	$ConfigTabs/Controls/Scroll/ConfigPanel/BindGrids/BindGridRight/BOMB_B.text = OS.get_keycode_string(key_dict["bomb"])
+
+func _screen_mode_update():
+	var new_mode = DisplayServer.window_get_mode()
+	config_file.set_value("MAIN_OPTIONS", "WINDOW_MODE", new_mode)
 
 func _on_exit_menu_pressed():
 	if debug == true: print('Has the keybind configuration changed?: {0}'.format({0:settings_changed}))
@@ -224,17 +275,18 @@ func button_toggle(button, config):
 	settings_changed = true
 
 func _on_screen_mode_selected(index):
-	var window_modes = { # Reason behind this weird dict: https://docs.godotengine.org/en/stable/classes/class_displayserver.html#enum-displayserver-windowmode
+	## Window mode translator
+	# The real reason behind this weird dict is that I didn't like the default numbers
+	# Source: https://docs.godotengine.org/en/stable/classes/class_displayserver.html#enum-displayserver-windowmode
+	var window_modes = {
 		0:0, #? WINDOWED
 		1:0, #? WINDOWED + BORDERLESS
 		2:2, #? MAXIMIZED
 		3:3, #? FULLSCREEN
 		4:4  #? EXCLUSIVE FULLSCREEN
 	}
-	if index == 1:
-		DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS,true)
-	else:
-		DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS,false)
+	if index == 1: DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS,true)
+	else: DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS,false)
 	DisplayServer.window_set_mode(window_modes[index])
 	config_file.set_value("MAIN_OPTIONS","WINDOW_MODE",window_modes[index])
 	if debug: print('Display format selected: {0}'.format({0:window_modes[index]}))
