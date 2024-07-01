@@ -1,0 +1,76 @@
+keys,en,pt-br
+START,Start,Iniciar
+PROFILE,Profile,Perfil
+CODEX,Codex,Códice
+CREDITS,Credits,Créditos
+QUIT,Quit,Sair
+ALPHA_MESSAGE,"You're playing an alpha version. There'll be weird things, have fun!","Você está jogando uma versão alfa. Coisas estranhas acontecerão, se divirta!"
+CREATORS,CREATORS,CRIADORES
+CREATOR1,"CREATOR, PROGRAMMER & ARTIST","CRIADOR, PROGRAMADOR E ARTISTA"
+CREATOR2,DESIGNER & ARTIST,DESIGNER E ARTISTA
+DANGER,DANGER,PERIGO
+DEBUGMESSAGE,This is a debug message and should [b]NOT[/b] be appearing in normal gameplay,Esta é uma mensagem de debug e [b]NÃO[/b] deveria estar aparecendo na gameplay normal.
+MESSAGE2,Welcome! This is a simulation meant to test your movement and action.,Bem vindo! Esta é uma simulação criada para testar seu movimento e ação.
+MESSAGE3,"Press [color=#f9c22b][b][{shoot}][/b][/color] to fire your [color=#4d9be6]primary weapon[/color], also referred as [color=#4d9be6]Shot[/color]. Firing can be also be toggled instead of pressed.","Aperte [color=#f9c22b][b][{shoot}][/b][/color] para atirar [color=#4d9be6]sua arma primária[/color], também chamada de [color=#4d9be6]Tiro[/color]. O tiro também pode ser alternado ao invés de pressionado."
+MESSAGE4,"Press [color=#f9c22b][b][{bomb}][/b][/color] to fire your [color=#4d9be6]secondary weapon[/color], also referred as [color=#4d9be6]Power[/color]. The red light signals when you can fire it again.","Aperte [color=#f9c22b][b][{bomb}][/b][/color] para atirar [color=#4d9be6]sua arma secundária[/color], também chamada de [color=#4d9be6]Poder[/color]. A luz vermelha indica que você pode atirar de novo."
+MESSAGE5,"Ammo is limited, but regenerates very slowly.\n\nYou can speed up the process with items.","Munição é limitada, mas regenera bem devagar.\n\nVocê pode acelerar o processo com itens."
+MESSAGE6,"For mobility, you can use the afterburner pressing [color=#f9c22b][b][{dash}][/b][/color].\n\nThe trail signals when dash is available.","Para mobilidade, você pode usar o pós-combustor apertando [color=#f9c22b][b][{dash}][/b][/color].\n\nO rastro da nave indica quando está disponível."
+MESSAGE7,You can also roll by pressing [color=#f9c22b][b][{roll}][/b][/color].\n\nRolling makes you immune but prevents you from shooting your primary weapon.,Você também pode rolar apertando [color=#f9c22b][b][{roll}][/b][/color].\n\nRolar deixa você imune mas impede você de usar sua arma primária.
+MESSAGE8,"You can also set your own keybinds in options.\n\nThe game also supports controllers, even on web!","Você também pode reconfigurar as teclas nas opções.\n\nO jogo suporta controles, até na web!"
+MESSAGE9,Sometimes [color=#ea4f36][b]Enemies[/b][/color] can also spawn from behind. A [color=#f9c22b][b]danger indicator[/b][/color] will appear on screen.,As vezes [color=#ea4f36][b]inimigos[/b][/color] também podem surgir por trás. O [color=#f9c22b][b]indicador de perigo[/b][/color] vai aparecer na tela.
+MESSAGE10,All stages have a progress bar.\n\nSometimes the bar pauses and only resumes after completion of an event.,Todas as fases possuem uma barra de progresso.\n\nEm certas ocasiões a barra para e só continua após um evento ser completado.
+MESSAGE11,"Items are mostly dropped by [color=#ea4f36][b]challenging foes[/b][/color], combining them how you get stronger.","Itens são deixados por [color=#ea4f36][b]inimigos desafiadores[/b][/color], você fica mais forte combinando eles."
+MESSAGE12,"Everything you discover in the game will be registered in the codex [currently WIP], so you can further plan your future runs!","Tudo que você descobrir no jogo vai ser registrado no códice [ainda sendo feito], para que você possa planejar suas futuras tentativas!"
+MESSAGE13,"That's all for now. Thanks for playing, and good luck!","Isso é tudo por agora. Obrigado por jogar, e boa sorte!"
+LANGUAGE,Language,Linguagem
+TOGGLE_FIRING,Toggle Firing,Alternar Tiro
+TOGGLE_FIRING_TOOLTIP,Switches pressing modes to fire primary weapon.,Alterna os modos de atirar a arma primária
+MASTER_VOLUME,Master Volume,Volume Principal
+MUSIC_VOLUME,Music,Música
+SOUND_EFFECT_VOLUME,Sound Effects,Efeitos Sonoros
+UP,Up,Cima
+DOWN,Down,Baixo
+LEFT,Left,Esquerda
+RIGHT,Right,Direita
+PAUSE,Pause,Pausar
+DASH,Dash,Dash
+ROLL,Roll,Rolar
+RESET,Reset,Reset
+SHOOT,Shoot,Atirar
+POWER,Power,Poder
+RESET_DEFAULT_KEYBINDS,RESET DEFAULT KEYBINDS,RESTAURAR PADRÃO DE CONTROLE
+HIDE_STAGE_BAR,Hide Stage Bar,Ocultar Barra de Estágio
+HIDE_STAGE_BAR_TOOLTIP,Hide stage progress bar during gameplay. Useful if the events are distracting. Pausing the game will unhide the bar.,Oculta a barra de progresso dos estágios durante o jogo.\nÚtil se os eventos forem distrativos. Pausar o jogo ainda mostrará a barra.
+HIDE_BOSS_BAR,Hide Boss Bar,Ocultar Barra de Boss
+HIDE_BOSS_BAR_TOOLTIP,Hide enemy health bar when fighting. Useful if the bar is draining your focus.,Oculta a barra do inimigo durante a luta.\nÚtil se a barra estiver drenando seu foco.
+MAIN_OPTIONS,Main Options,Opções Principais
+CONTROLS,Controls,Controles
+UI,UI,UI
+GRAPHICS,Graphics,Gráficos
+ACCESSIBILITY,Accessibility,Acessibilidade
+RESET_UI_DEFAULT_SIZES,Reset UI Default Sizes,Redefinir Tamanho Padrão da UI
+FULL_SIZE_POWER_CONTAINERS,Big Power Containers,Contêineres Grandes de Poder
+FULL_SIZE_HEALTH_CONTAINERS,Big Health Containers,Contêineres Grandes de Vida
+HEALTH,Health,Vida
+AMMO,Ammo,Munição
+WORK_IN_PROGRESS,WORK IN PROGRESS,Trabalho em Andamento
+SCREEN_MODE,Screen Mode,Modo de Tela
+VISUAL_EFFECTS,Visual Effects,Efeitos Visuais
+PHOTOSENSIBILITY_MODE,Photosensibility Mode,Modo de Fotossensibilidade
+SCREEN_SHAKE,Screen Shake,Tremor de Tela
+SELECT_LOADOUT,Select Loadout,Selecione a Carga
+SCATTER_GUN,Scatter Cannon,Canhão de Dispersão
+SCATTER_GUN_DESCRIPTION,"Shoots unstable projectiles in a precisely divided conic trajectory, perfect for up close combat. Massive damage that decays wth time along with the bullet.","Atira projéteis instáveis em uma trajetória cônica precisa, perfeito pra combate de curto alcance. Dano massivo que decai com o tempo assim como o projétil."
+MINIGUN,Mounted Minigun,Metralhadora Montada
+MINIGUN_DESCRIPTION,A classic fighter-jet minigun that shoots high caliber bullets. Still does its job after all.,Uma metralhadora clássica de caças a jato que tira balas de alto calibre. Faz o seu trabalho bem.
+BURST_LASER,Burst Laser,Laser de Rajada
+BURST_LASER_DESCRIPTION,Convert excess core energy into concentrated laser bursts.,Converte o excesso de energia do núcleo em rajadas de laser.
+GUIDED_MISSILE,Guided Missile,Míssil Guiado
+GUIDED_MISSILE_DESCRIPTION,Missiles with an internal guidance system. Tends to seek untargeted enemies.,Mísseis com sistema interno de orientação. Tendem a alvejar inimigos não marcados.
+STASIS_BOMB,Stasis Bomb,Bomba de Estorvo
+STASIS_BOMB_DESCRIPTION,"Slows down on air until stopped, and explodes soon after. Also explodes if in contact with enemy. Inflicts Stasis.","Desacelera no ar até parar, e explode logo depois. Também explode se entrar em contato com o inimigo. Provoca Estorvo."
+UNPAUSE,UNPAUSE,RESUMIR
+MAIN_MENU,MAIN MENU,MENU PRINCIPAL
+VERSION,Version,Versão
+TUTORIAL,Tutorial,Tutorial
+PRACTICE,Practice,Praticar

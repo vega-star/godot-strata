@@ -1,9 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://dldj16ybumshf"]
+[gd_scene load_steps=4 format=3 uid="uid://dldj16ybumshf"]
 
 [ext_resource type="Script" path="res://scenes/scripts/ui/credits.gd" id="1_v1mn1"]
 [ext_resource type="Theme" uid="uid://b1a5sjt2xibwo" path="res://assets/themes/strata_theme/strata_theme.tres" id="2_v38rq"]
-[ext_resource type="Texture2D" uid="uid://cqdy1oun853by" path="res://assets/themes/strata_theme/elements/misc/menu_big_button.png" id="3_1apnc"]
-[ext_resource type="Script" path="res://scenes/scripts/ui/ui_default_texture_button.gd" id="4_cqpab"]
+[ext_resource type="PackedScene" uid="uid://os3hgx0i6vhv" path="res://scenes/ui/ui_big_button.tscn" id="3_shadn"]
 
 [node name="Credits" type="Control" node_paths=PackedStringArray("container")]
 layout_mode = 3
@@ -13,72 +12,86 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_v1mn1")
-container = NodePath("CreditContainer")
+container = NodePath("ScrollContainer/CreditContainer")
+metadata/_edit_vertical_guides_ = [480.0]
 
-[node name="CreditContainer" type="VBoxContainer" parent="."]
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -275.0
-offset_top = -122.5
-offset_right = 275.0
-offset_bottom = 122.5
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -110.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 30
+
+[node name="CreditContainer" type="VBoxContainer" parent="ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 50
 alignment = 1
 
-[node name="CreditsHeader" type="RichTextLabel" parent="CreditContainer"]
+[node name="CreditsHeader" type="Label" parent="ScrollContainer/CreditContainer"]
 custom_minimum_size = Vector2(550, 45)
 layout_mode = 2
+size_flags_horizontal = 4
 theme = ExtResource("2_v38rq")
-theme_override_font_sizes/normal_font_size = 30
-theme_override_font_sizes/bold_font_size = 40
-bbcode_enabled = true
-text = "[center][b] CREATORS [/b][/center]"
+theme_override_font_sizes/font_size = 45
+text = "CREATORS"
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
 
-[node name="CaioV" type="RichTextLabel" parent="CreditContainer"]
-custom_minimum_size = Vector2(550, 70)
+[node name="CaioV" type="RichTextLabel" parent="ScrollContainer/CreditContainer"]
+clip_contents = false
+custom_minimum_size = Vector2(550, 35)
 layout_mode = 2
+size_flags_horizontal = 4
 theme = ExtResource("2_v38rq")
 theme_override_font_sizes/normal_font_size = 30
 theme_override_font_sizes/bold_font_size = 20
 theme_override_font_sizes/italics_font_size = 30
 bbcode_enabled = true
-text = "[center][b] CREATOR, PROGRAMMER & ARTIST [/b]
-Nyeptun | [i]Caio V.[/i][/center] [img]res://assets/textures/icons/random/me.png[/img]"
+text = "[center]Nyeptun | [i]Caio V.[/i][/center] [img]res://assets/textures/icons/random/me.png[/img]"
 
-[node name="NathJ" type="RichTextLabel" parent="CreditContainer"]
-custom_minimum_size = Vector2(550, 70)
-layout_mode = 2
-theme = ExtResource("2_v38rq")
-theme_override_font_sizes/normal_font_size = 30
-theme_override_font_sizes/bold_font_size = 20
-theme_override_font_sizes/italics_font_size = 30
-bbcode_enabled = true
-text = "[center][b] DESIGNER & ARTIST [/b]
-[img]uid://16ninadxps4s[/img] zeronath | [i]Nathalia J.[/i][/center]"
-
-[node name="ReturnToMainMenu" type="TextureButton" parent="."]
+[node name="CreatorLabel" type="Label" parent="ScrollContainer/CreditContainer/CaioV"]
 layout_mode = 1
-anchors_preset = 7
+anchors_preset = 5
 anchor_left = 0.5
-anchor_top = 1.0
 anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = 40.0
-offset_top = -96.0
-offset_right = 122.0
-offset_bottom = -14.0
+offset_left = -36.0
+offset_top = -23.0
+offset_right = 36.0
 grow_horizontal = 2
-grow_vertical = 0
-rotation = 1.5708
-focus_neighbor_right = NodePath("../../../ConfigButton")
+text = "CREATOR1"
+
+[node name="NathJ" type="RichTextLabel" parent="ScrollContainer/CreditContainer"]
+clip_contents = false
+custom_minimum_size = Vector2(550, 35)
+layout_mode = 2
+size_flags_horizontal = 4
 theme = ExtResource("2_v38rq")
-texture_normal = ExtResource("3_1apnc")
-script = ExtResource("4_cqpab")
+theme_override_font_sizes/normal_font_size = 30
+theme_override_font_sizes/bold_font_size = 20
+theme_override_font_sizes/italics_font_size = 30
+bbcode_enabled = true
+text = "[center][img]uid://16ninadxps4s[/img] zeronath | [i]Nathalia J.[/i][/center]"
+
+[node name="CreatorLabel" type="Label" parent="ScrollContainer/CreditContainer/NathJ"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -36.0
+offset_top = -24.0
+offset_right = 36.0
+offset_bottom = -1.0
+grow_horizontal = 2
+text = "CREATOR2"
+
+[node name="ReturnToMainMenu" parent="." instance=ExtResource("3_shadn")]
+layout_mode = 1
+offset_top = -101.0
+offset_bottom = -19.0
 
 [connection signal="pressed" from="ReturnToMainMenu" to="." method="_on_return_to_main_menu_pressed"]

@@ -1,6 +1,10 @@
 extends Control
 
 @onready var main_menu = get_parent().get_parent()
+@onready var primary_weapons_list = $Dashboard/CustomizeLoadoutContainer/LoadoutLists/PrimaryWeaponsList
+@onready var secondary_weapons_list = $Dashboard/CustomizeLoadoutContainer/LoadoutLists/SecondaryWeaponsList
+@onready var starter_items_list = $Dashboard/CustomizeLoadoutContainer/LoadoutLists/StarterItemsList
+
 @export var debug : bool = false
 
 var run_started : bool = false
@@ -26,10 +30,11 @@ func _ready():
 	if OS.is_debug_build():
 		$Dashboard/PracticeButton.disabled = false
 	
-	## Make ready
-	var primary_weapons_list = $Dashboard/CustomizeLoadoutContainer/LoadoutLists/PrimaryWeaponsList
-	var secondary_weapons_list = $Dashboard/CustomizeLoadoutContainer/LoadoutLists/SecondaryWeaponsList
-	var starter_items_list = $Dashboard/CustomizeLoadoutContainer/LoadoutLists/StarterItemsList
+	Options.language_changed.connect(_on_language_changed)
+	
+	load_items()
+
+func load_items():
 	primary_weapons_list.clear()
 	secondary_weapons_list.clear()
 	starter_items_list.clear()
@@ -47,7 +52,7 @@ func _ready():
 	for primary in weapons_dict["primary"]:
 		primary_weapons.append(primary)
 		primary_weapons_list.add_item(
-			weapons_dict["primary"][primary]["weapon_properties"]["weapon_name"]
+			TranslationServer.tr(primary)
 			# weapons_dict["primary"][primary]["weapon_properties"]["weapon_small_icon"]
 		)
 	
@@ -55,7 +60,7 @@ func _ready():
 	for secondary in weapons_dict["secondary"]:
 		secondary_weapons.append(secondary)
 		secondary_weapons_list.add_item(
-			weapons_dict["secondary"][secondary]["weapon_properties"]["weapon_name"]
+			TranslationServer.tr(secondary)
 		)
 	
 	## Items
@@ -86,9 +91,6 @@ func _ready():
 		selected_primary = primary_weapons[0]
 		selected_secondary = secondary_weapons[0]
 		selected_item = starter_items[0]
-	
-	## Patches
-	# $StartButton.position = Vector2(802, 368)
 
 func set_focus():
 	$Dashboard/StartButton.grab_focus()
@@ -97,7 +99,7 @@ func _on_start_button_pressed(): # StartButton
 	if !run_started: 
 		$AnimationPlayer.play("press_button")
 		start_run(first_stage)
-		AudioManager.emit_sound_effect(null, "analog-appliance-button", false, true)
+		AudioManager.emit_sound_effect(null, "analog-appliance-button")
 	run_started = true
 
 func _on_tutorial_button_pressed():
@@ -119,17 +121,17 @@ func _on_options_visibility_changed():
 func _on_primary_weapons_list_item_selected(index):
 	if debug: print(primary_weapons[index])
 	selected_primary = primary_weapons[index]
-	AudioManager.emit_sound_effect(null, "select_sound_1", false, true)
+	AudioManager.emit_sound_effect(null, "select_sound_1")
 
 func _on_secondary_weapons_list_item_selected(index):
 	if debug: print(secondary_weapons[index])
 	selected_secondary = secondary_weapons[index]
-	AudioManager.emit_sound_effect(null, "select_sound_1", false, true)
+	AudioManager.emit_sound_effect(null, "select_sound_1")
 
 func _on_starter_items_list_item_selected(index):
 	if debug: print(starter_items[index])
 	selected_item = starter_items[index]
-	AudioManager.emit_sound_effect(null, "select_sound_1", false, true)
+	AudioManager.emit_sound_effect(null, "select_sound_1")
 
 func confirm_selection():
 	Profile.start_run() 
@@ -146,6 +148,9 @@ func confirm_selection():
 	Profile.add_run_data("INVENTORY", "ITEMS_STORED", selected_item)
 	
 	Profile.save_previous_data()
+
+func _on_language_changed():
+	load_items()
 
 func start_run(stage_path):
 	await UI.fade('OUT')

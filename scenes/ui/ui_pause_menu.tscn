@@ -56,15 +56,14 @@ layout_mode = 2
 focus_neighbor_top = NodePath("../../../ConfigButton")
 focus_neighbor_bottom = NodePath("../ReturnMenuButton")
 theme = ExtResource("2_k8a1f")
-text = "UNPAUSE
-"
+text = "UNPAUSE"
 
 [node name="ReturnMenuButton" type="Button" parent="PauseMenu/ButtonsContainer"]
 layout_mode = 2
 focus_neighbor_top = NodePath("../UnpauseButton")
 focus_neighbor_bottom = NodePath("../../../ConfigButton")
 theme = ExtResource("2_k8a1f")
-text = "MAIN MENU"
+text = "MAIN_MENU"
 
 [node name="ConfigButton" type="TextureButton" parent="."]
 show_behind_parent = true

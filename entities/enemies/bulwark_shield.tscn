@@ -1,15 +1,20 @@
-[gd_scene load_steps=9 format=3 uid="uid://bp1tdscfgeg0w"]
+[gd_scene load_steps=11 format=3 uid="uid://bp1tdscfgeg0w"]
 
 [ext_resource type="Script" path="res://entities/entity_scripts/composite_enemy_barrier.gd" id="1_tgihl"]
 [ext_resource type="AudioStream" uid="uid://603bgij057tr" path="res://assets/audio/effects/bulwark_shield_reset.wav" id="2_2eiti"]
 [ext_resource type="Texture2D" uid="uid://04edr73iton4" path="res://assets/textures/entities/enemies/bulwark/bulwark_shield.png" id="2_60fi8"]
 [ext_resource type="AudioStream" uid="uid://d11eq87yby6pk" path="res://assets/audio/effects/shield_hum.wav" id="3_1pyw5"]
 [ext_resource type="PackedScene" uid="uid://c4rkui846g2ue" path="res://components/status/combat_component.tscn" id="4_driop"]
+[ext_resource type="Material" uid="uid://do6x0uuo6jr1m" path="res://assets/shaders/materials/energy.tres" id="5_5egam"]
 [ext_resource type="Script" path="res://components/status/health_component.gd" id="5_pe4dd"]
 [ext_resource type="PackedScene" uid="uid://c3atqdge540t0" path="res://components/status/hitbox_component.tscn" id="6_3m6aj"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_82eko"]
+radius = 3.0
 height = 72.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3f2eg"]
+size = Vector2(5, 70)
 
 [node name="BulwarkShield" type="Node2D" groups=["shield"]]
 light_mask = 2
@@ -34,6 +39,18 @@ area_mask = 2
 [node name="BarrierSprite" type="Sprite2D" parent="."]
 texture = ExtResource("2_60fi8")
 
+[node name="EnergyEffect" type="ColorRect" parent="BarrierSprite"]
+material = ExtResource("5_5egam")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -9.0
+offset_top = -43.0
+offset_right = -9.0
+offset_bottom = -43.0
+grow_horizontal = 2
+grow_vertical = 2
+
 [node name="CombatComponent" parent="." instance=ExtResource("4_driop")]
 
 [node name="HealthComponent" type="Node" parent="." groups=["shielding"]]
@@ -49,5 +66,13 @@ combat_component = NodePath("../CombatComponent")
 immunity_frame_limit = 3
 
 [node name="BarrierHitbox" type="CollisionShape2D" parent="HitboxComponent"]
-position = Vector2(7, 0)
+visible = false
+position = Vector2(3, 0)
 shape = SubResource("CapsuleShape2D_82eko")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="StaticHitbox" type="CollisionShape2D" parent="StaticBody2D"]
+visible = false
+position = Vector2(1.5, 0)
+shape = SubResource("RectangleShape2D_3f2eg")

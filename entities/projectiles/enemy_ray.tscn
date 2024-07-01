@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://capsl03als0q0"]
+[gd_scene load_steps=16 format=3 uid="uid://capsl03als0q0"]
 
 [ext_resource type="Script" path="res://entities/entity_scripts/enemy_ray.gd" id="1_ivol7"]
 [ext_resource type="Texture2D" uid="uid://cnve83mws0p8y" path="res://assets/textures/entities/enemies/misc/aimline.png" id="2_3hkay"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://dcjknhla6rmgm" path="res://assets/textures/projectiles/laser_texture.png" id="4_cge0j"]
 [ext_resource type="Texture2D" uid="uid://3jbx5edyxhpk" path="res://assets/textures/particles/simple_particle.png" id="5_7oljp"]
 [ext_resource type="Texture2D" uid="uid://c2aj7wanfw344" path="res://assets/textures/particles/big_particle.png" id="6_q4wwe"]
+[ext_resource type="Texture2D" uid="uid://dhpty07uboivr" path="res://assets/textures/static/2d_lights_and_shadows_neutral_point_light.webp" id="7_krvbl"]
 
 [sub_resource type="Curve" id="Curve_t4idx"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.101852, 0.242995), 2.67266, 2.67266, 0, 0, Vector2(0.884259, 0.931699), -0.637477, -0.637477, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -43,7 +44,7 @@ point_count = 3
 
 [node name="Laser" type="RayCast2D" node_paths=PackedStringArray("laser_line", "aim_line", "charging_emitter", "source_emitter", "beam_emitter", "end_emitter")]
 enabled = false
-target_position = Vector2(-1800, 0)
+target_position = Vector2(-960, 0)
 collision_mask = 5
 collide_with_areas = true
 collide_with_bodies = false
@@ -81,6 +82,8 @@ begin_cap_mode = 2
 antialiased = true
 
 [node name="Emitters" type="Node2D" parent="."]
+light_mask = 2
+visibility_layer = 2
 
 [node name="ChargingEmitter" type="CPUParticles2D" parent="Emitters"]
 light_mask = 2
@@ -140,14 +143,13 @@ angle_max = 90.0
 scale_amount_min = 0.2
 scale_amount_max = 1.5
 scale_amount_curve = SubResource("Curve_mhd56")
-color = Color(1, 0.129412, 0.129412, 1)
 color_initial_ramp = SubResource("Gradient_upcad")
 
 [node name="BeamEmitter" type="CPUParticles2D" parent="Emitters"]
 self_modulate = Color(10, 5, 2, 1)
 light_mask = 2
 visibility_layer = 2
-position = Vector2(-496, 0)
+position = Vector2(-460, 0)
 emitting = false
 amount = 100
 lifetime = 2.5
@@ -171,7 +173,7 @@ tangential_accel_max = 2.0
 angle_min = 45.0
 angle_max = 45.0
 scale_amount_min = 0.0
-scale_amount_max = 1.5
+scale_amount_max = 0.5
 scale_amount_curve = SubResource("Curve_fkl0d")
 color_ramp = SubResource("Gradient_m72jm")
 
@@ -201,3 +203,17 @@ damping_max = 5.0
 scale_amount_min = 0.0
 scale_amount_curve = SubResource("Curve_c63cm")
 color_initial_ramp = SubResource("Gradient_upcad")
+
+[node name="LaserLight" type="DirectionalLight2D" parent="."]
+visible = false
+enabled = false
+color = Color(0.981529, 0, 0.327783, 1)
+shadow_enabled = true
+shadow_item_cull_mask = 2
+max_distance = 400.0
+
+[node name="LaserSourceLight" type="PointLight2D" parent="LaserLight"]
+enabled = false
+color = Color(1, 0.476933, 0.487246, 1)
+energy = 5.0
+texture = ExtResource("7_krvbl")

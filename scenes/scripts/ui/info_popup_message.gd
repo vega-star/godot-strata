@@ -2,24 +2,25 @@ extends Control
 
 signal message_displayed
 
+const cursor_point_scene : PackedScene = preload("res://scenes/ui/cursor_point.tscn")
 const default_growth : Vector2 = Vector2(400, 120)
 const growth_speed : float = 0.5
 const default_timeout : float = 3
 const text_dict : Dictionary = {
-	0: "This is a debug message and should [b]NOT[/b] be appearing in normal gameplay",
-	1: "This is message number 1.\nTest 1 successful",
-	2: "Welcome! This is a simulation meant to test your movement and action.",
-	3: "Press [color=#f9c22b][b][{shoot}][/b][/color] to fire the [color=#4d9be6]primary weapon[/color]. Firing can be also be toggled instead of pressed.",
-	4: "Press [color=#f9c22b][b][{bomb}][/b][/color] to fire the [color=#4d9be6]secondary weapon[/color]. A red light indicator in the top right of the screen signals when you can fire again.",
-	5: "Ammo is limited, but regenerates very slowly.\n\nYou can speed up the process with items.",
-	6: "For mobility, you can use the afterburner pressing [color=#f9c22b][b][{dash}][/b][/color].\n\nThe trail signals when dash is available.",
-	7: "You can also roll by pressing [color=#f9c22b][b][{roll}][/b][/color].\n\nRolling makes you immune but prevents you from shooting your primary weapon.",
-	8: "You can also set your own keybinds in options.\n\nThe game also supports controllers, even on web!",
-	9: "Sometimes [color=#ea4f36][b]Enemies[/b][/color] can also spawn from behind. A [color=#f9c22b][b]danger indicator[/b][/color] will appear on screen.",
-	10: "All stages have a progress bar.\n\nSometimes the bar pauses and only resumes after completion of an event.",
-	11: "Items are mostly dropped by [color=#ea4f36][b]challenging foes[/b][/color], combining them how you get stronger.",
-	14: "Everything you discover in the game will be registered in the codex [currently WIP], so you can further research them and plan your future runs",
-	15: "That's all for now. Thanks for playing, and good luck!"
+	0: "DEBUGMESSAGE",
+	1: "DEBUGMESSAGE",
+	2: "MESSAGE2",
+	3: "MESSAGE3",
+	4: "MESSAGE4",
+	5: "MESSAGE5",
+	6: "MESSAGE6",
+	7: "MESSAGE7",
+	8: "MESSAGE8",
+	9: "MESSAGE9",
+	10: "MESSAGE10",
+	11: "MESSAGE11",
+	14: "MESSAGE12",
+	15: "MESSAGE13"
 }
 
 @onready var message_timer = $MessageTimer
@@ -107,12 +108,9 @@ func close_message(force_close : bool = true, speed : float = growth_speed):
 
 func load_text(text_id):
 	var text = text_dict[text_id]
-	
+	text = TranslationServer.tr(text, Options.config_file.get_value("MAIN_OPTIONS","LANGUAGE"))
 	text = text.format(keybinds_dict)
-	
-	text_node.set_text(
-		"[center]{0}[/center]".format({0:text})
-	)
+	text_node.set_text(text)
 
 func manual_set_text(text):
 	text_node.set_text(text)

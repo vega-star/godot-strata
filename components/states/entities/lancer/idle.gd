@@ -1,10 +1,10 @@
 extends State
 
 ## Lancer Idle
-# Just a temporary state before avail. Will change to 'avail' after a variable period of time
+# Unique temporary state before avail. Will change to 'avail' after a variable period of time and check conditions
 # Idle time gets shortened based on health so the fight gets slightly faster with time
 
-const base_idle_timer : float = 4
+const base_idle_timer : float = 1
 const clamp_minimum : float = 0.4
 const clamp_maximum : float = 1
 
@@ -12,12 +12,7 @@ const clamp_maximum : float = 1
 
 func enter():
 	var health_factor = health_component.current_health / health_component.max_health
-	print(health_factor)
 	health_factor = clamp(health_factor, clamp_minimum, clamp_maximum)
-	print(health_factor)
 	
-	await get_tree().create_timer(base_idle_timer * health_factor).timeout
+	await get_tree().create_timer(base_idle_timer * health_factor, false).timeout
 	transitioned.emit(self, 'avail')
-
-func exit():
-	pass

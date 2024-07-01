@@ -53,9 +53,9 @@ _data = {
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_751yf"]
 shader = ExtResource("1_yh4l6")
-shader_parameter/progress = 0.301
+shader_parameter/progress = 0.33
 shader_parameter/diamondPixelSize = 60.0
-shader_parameter/color = Color(0.243137, 0.207843, 0.27451, 1)
+shader_parameter/color = Color(0.243, 0.208, 0.275, 1)
 
 [sub_resource type="QuadMesh" id="QuadMesh_6sq6t"]
 

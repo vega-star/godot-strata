@@ -1,32 +1,43 @@
-[gd_scene load_steps=35 format=3 uid="uid://cmqhgcn8ma7k5"]
+[gd_scene load_steps=51 format=3 uid="uid://cmqhgcn8ma7k5"]
 
 [ext_resource type="Script" path="res://entities/entity_scripts/composite_enemy.gd" id="1_sosx1"]
 [ext_resource type="PackedScene" uid="uid://cifxjpiop3cha" path="res://components/status/drop_component.tscn" id="2_hipol"]
 [ext_resource type="PackedScene" uid="uid://c566s2lc6kg02" path="res://components/states/main/state_machine.tscn" id="2_sjjdg"]
+[ext_resource type="Script" path="res://components/states/entities/timed_idle.gd" id="3_38hd4"]
 [ext_resource type="Material" uid="uid://cvfmn1g3c8nd3" path="res://assets/shaders/entities/enemy_outline.tres" id="3_deqqd"]
 [ext_resource type="Texture2D" uid="uid://3a8hr5l56s5t" path="res://assets/textures/entities/enemies/lancer/lancer.png" id="3_mv7tp"]
-[ext_resource type="Script" path="res://components/states/main/state.gd" id="3_nv3fj"]
-[ext_resource type="Script" path="res://components/states/entities/lancer_idle.gd" id="3_q1e55"]
-[ext_resource type="Script" path="res://components/states/entities/lancer_avail.gd" id="4_nxqo6"]
+[ext_resource type="Script" path="res://components/states/entities/lancer/idle.gd" id="3_q1e55"]
+[ext_resource type="Script" path="res://components/states/entities/lancer/avail.gd" id="4_nxqo6"]
+[ext_resource type="Script" path="res://components/states/entities/lancer/pursuit.gd" id="5_4do7a"]
 [ext_resource type="Texture2D" uid="uid://b2a7ig38c38qp" path="res://assets/textures/entities/enemies/lancer/lancer-front-shielding.png" id="5_6n170"]
 [ext_resource type="PackedScene" uid="uid://cxk85efxpd3at" path="res://entities/composite_elements/composite_shielding.tscn" id="5_iqo4a"]
 [ext_resource type="Texture2D" uid="uid://drqou43mvadda" path="res://assets/textures/entities/enemies/lancer/lancer-barrier.png" id="5_rl624"]
+[ext_resource type="Script" path="res://components/states/entities/lancer/pursuit_charge.gd" id="6_fqoso"]
+[ext_resource type="Script" path="res://components/states/entities/lancer/point_charge.gd" id="7_e6te1"]
 [ext_resource type="PackedScene" uid="uid://vi1edwldfrtq" path="res://entities/composite_elements/composite_enemy_module.tscn" id="7_xcaug"]
+[ext_resource type="Script" path="res://components/states/entities/lancer/pursuit_rotate_charge.gd" id="8_1w5km"]
+[ext_resource type="Script" path="res://components/states/entities/lancer/solicit_repair.gd" id="8_2p0v4"]
 [ext_resource type="PackedScene" uid="uid://dqge7meaumoi5" path="res://entities/prototype_entities/enemy_gun.tscn" id="8_4ogds"]
+[ext_resource type="Script" path="res://components/states/entities/lancer/death_spin.gd" id="9_7v46b"]
+[ext_resource type="Script" path="res://components/states/entities/lancer/stop_charge.gd" id="9_xof5r"]
 [ext_resource type="Texture2D" uid="uid://bosqr445kargj" path="res://assets/textures/entities/enemies/lancer/lancer-gun-component.png" id="10_nywvu"]
 [ext_resource type="Texture2D" uid="uid://d2550xwswv3ba" path="res://assets/textures/entities/enemies/lancer/rocket-launcher-back.png" id="10_ruwc2"]
 [ext_resource type="Texture2D" uid="uid://cstbhuqch3l5a" path="res://assets/textures/entities/enemies/lancer/lancer-back-shielding.png" id="11_1wt2q"]
 [ext_resource type="PackedScene" uid="uid://bdfaybp4djcn2" path="res://components/status/health_component.tscn" id="11_imk7k"]
+[ext_resource type="Texture2D" uid="uid://bv4xo74edjevv" path="res://assets/textures/entities/enemies/lancer/lancer-front-shielding-normal.png" id="11_qxbj4"]
 [ext_resource type="PackedScene" uid="uid://c3atqdge540t0" path="res://components/status/hitbox_component.tscn" id="12_rl3ew"]
 [ext_resource type="Texture2D" uid="uid://b2qqxoc8m32vq" path="res://assets/textures/entities/enemies/lancer/rocket-launcher.png" id="13_2d4b0"]
 [ext_resource type="Script" path="res://components/status/combat_component.gd" id="13_wkyrh"]
 [ext_resource type="Texture2D" uid="uid://c0i2mg8nhoobw" path="res://assets/textures/entities/enemies/lancer/rocket-launcher-cover.png" id="14_i7pe5"]
 [ext_resource type="Texture2D" uid="uid://b7jltfyppimxq" path="res://assets/textures/entities/enemies/simple/enemy_gun_long.png" id="14_ubtkx"]
 [ext_resource type="PackedScene" uid="uid://capsl03als0q0" path="res://entities/projectiles/enemy_ray.tscn" id="15_xg2si"]
+[ext_resource type="Texture2D" uid="uid://dbhv3xmi05jgk" path="res://assets/textures/entities/enemies/lancer/lancer_glow.png" id="16_4c5ag"]
 [ext_resource type="PackedScene" uid="uid://ctksiqxkq8ue5" path="res://entities/prototype_entities/enemy_missile_launcher.tscn" id="16_b2wr1"]
 [ext_resource type="Script" path="res://components/status/hitbox_component.gd" id="16_ppdj8"]
+[ext_resource type="Texture2D" uid="uid://c6umsbmosn2j2" path="res://assets/textures/entities/enemies/lancer/lancer-gun-component-normal.png" id="17_abov4"]
+[ext_resource type="Texture2D" uid="uid://dykji6r43g5u0" path="res://assets/textures/entities/enemies/lancer/lancer-back-shielding-normal.png" id="20_jfyeb"]
 [ext_resource type="PackedScene" uid="uid://bdh4k0v17f0wc" path="res://entities/enemies/core.tscn" id="25_cmi1k"]
-[ext_resource type="PackedScene" uid="uid://x002al2q548f" path="res://scenes/ui/shader_test.tscn" id="27_35df4"]
+[ext_resource type="PackedScene" uid="uid://x002al2q548f" path="res://scenes/ui/shader_test.tscn" id="38_5ow2f"]
 
 [sub_resource type="Animation" id="Animation_5b3dw"]
 length = 0.3
@@ -90,10 +101,120 @@ tracks/4/keys = {
 "update": 0,
 "values": [Vector2(128, -2)]
 }
+tracks/5/type = "bezier"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Barriers/FrontBarrier2:position:x")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(-125, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0.3)
+}
+tracks/6/type = "bezier"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Barriers/FrontBarrier2:position:y")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(36, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0.3)
+}
+tracks/7/type = "bezier"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Barriers/FrontBarrier1:position:x")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(-125, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0.3)
+}
+tracks/8/type = "bezier"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Barriers/FrontBarrier1:position:y")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(-36, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0.3)
+}
+tracks/9/type = "bezier"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("CompositeParts/LowerGun:position:x")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/10/type = "bezier"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("CompositeParts/LowerGun:position:y")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(49, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/11/type = "bezier"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("CompositeParts/TopGun:position:x")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/12/type = "bezier"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("CompositeParts/TopGun:position:y")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(-50, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/13/type = "bezier"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("CompositeParts/LowerGun:rotation")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/14/type = "bezier"
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/path = NodePath("CompositeParts/TopGun:rotation")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
 
 [sub_resource type="Animation" id="Animation_arkps"]
 resource_name = "cycle_carapace"
-length = 2.0
+length = 3.0
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -102,7 +223,7 @@ tracks/0/path = NodePath("Barriers/FrontBarrier1:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 1.1),
+"times": PackedFloat32Array(0.6, 2),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector2(-125, -36), Vector2(-130, -40)]
@@ -114,7 +235,7 @@ tracks/1/path = NodePath("Barriers/FrontBarrier2:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.9),
+"times": PackedFloat32Array(0.5, 1.8),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector2(-125, 36), Vector2(-130, 40)]
@@ -126,7 +247,7 @@ tracks/2/path = NodePath("CompositeParts/TopGun:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 1),
+"times": PackedFloat32Array(0.7, 1.9),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector2(0, -50), Vector2(0, -58)]
@@ -138,7 +259,7 @@ tracks/3/path = NodePath("CompositeParts/LowerGun:position")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0, 1.2),
+"times": PackedFloat32Array(0.8, 2.1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector2(0, 49), Vector2(0, 57)]
@@ -150,7 +271,7 @@ tracks/4/path = NodePath("CompositeParts/MissileLauncher:position")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"times": PackedFloat32Array(0, 1),
+"times": PackedFloat32Array(0.6, 1.9),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector2(128, -2), Vector2(131, -2)]
@@ -159,7 +280,6 @@ tracks/4/keys = {
 [sub_resource type="Animation" id="Animation_hfswd"]
 resource_name = "open_carapace"
 length = 1.5
-loop_mode = 2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -167,10 +287,10 @@ tracks/0/path = NodePath("CompositeParts/LowerGun:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.4),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0.1, 0.4, 0.8, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
-"values": [Vector2(0, 49), Vector2(8, 57)]
+"values": [Vector2(0, 49), Vector2(8, 57), Vector2(8, 57), Vector2(-9.53674e-07, 65)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -179,10 +299,10 @@ tracks/1/path = NodePath("CompositeParts/TopGun:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0.1, 0.5),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0.2, 0.5, 0.8, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
-"values": [Vector2(0, -50), Vector2(8, -58)]
+"values": [Vector2(0, -50), Vector2(8, -58), Vector2(8, -58), Vector2(0, -66)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -191,7 +311,7 @@ tracks/2/path = NodePath("Barriers/FrontBarrier1:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0.2, 0.6),
+"times": PackedFloat32Array(0.9, 1.2),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector2(-125, -36), Vector2(-125, -44)]
@@ -203,24 +323,155 @@ tracks/3/path = NodePath("Barriers/FrontBarrier2:position")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0.1, 0.6),
+"times": PackedFloat32Array(0.9, 1.3),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector2(-125, 36), Vector2(-125, 44)]
+}
+tracks/4/type = "bezier"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("CompositeParts/LowerGun:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 0.139626, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0.8, 1.5)
+}
+tracks/5/type = "bezier"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("CompositeParts/TopGun:rotation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, -0.15708, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0.8, 1.5)
+}
+
+[sub_resource type="Animation" id="Animation_022yq"]
+resource_name = "toggle_beak"
+length = 1.5
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Barriers/FrontBarrier2:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0),
+"points": PackedFloat32Array(-125, -0.25, 0, 0.25, 0, -165, -0.25, 0, 0.25, 0, -165, -0.25, 0, 0.25, 0, -205, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0.2, 0.7, 1, 1.5)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Barriers/FrontBarrier2:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0),
+"points": PackedFloat32Array(36, -0.25, 0, 0.25, 0, 36, -0.25, 0, 0.25, 0, 36, -0.25, 0, 0.25, 0, 20, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0.2, 0.7, 1, 1.5)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Barriers/FrontBarrier1:position:x")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0),
+"points": PackedFloat32Array(-125, -0.25, 0, 0.25, 0, -165, -0.25, 0, 0.25, 0, -165, -0.25, 0, 0.25, 0, -205, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0.2, 0.7, 1, 1.5)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Barriers/FrontBarrier1:position:y")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0),
+"points": PackedFloat32Array(-36, -0.25, 0, 0.25, 0, -36, -0.25, 0, 0.25, 0, -36, -0.25, 0, 0.25, 0, -20, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0.2, 0.7, 1, 1.5)
+}
+tracks/4/type = "bezier"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("CompositeParts/LowerGun:position:x")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.4, -3, -32, -0.2, 28, 0.2, -27, -80, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0.5, 1.1, 1.5)
+}
+tracks/5/type = "bezier"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("CompositeParts/LowerGun:position:y")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(49, -0.25, 0, 0.25, 0, 49, -0.25, 0, 0.25, 0, 33, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0.5, 1.1, 1.5)
+}
+tracks/6/type = "bezier"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("CompositeParts/TopGun:position:x")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, -33, -0.2, 32.5, 0.2, -25.5, -80, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0.5, 1.1, 1.5)
+}
+tracks/7/type = "bezier"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("CompositeParts/TopGun:position:y")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(-50, -0.25, 0, 0.25, 0, -50, -0.25, 0, 0.25, 0, -33, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0.5, 1.1, 1.5)
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_153th"]
 _data = {
 "RESET": SubResource("Animation_5b3dw"),
 "cycle_carapace": SubResource("Animation_arkps"),
-"open_carapace": SubResource("Animation_hfswd")
+"open_carapace": SubResource("Animation_hfswd"),
+"toggle_beak": SubResource("Animation_022yq")
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y4one"]
 size = Vector2(4, 28)
 
+[sub_resource type="CanvasTexture" id="CanvasTexture_leek7"]
+diffuse_texture = ExtResource("5_6n170")
+normal_texture = ExtResource("11_qxbj4")
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ta6t2"]
 size = Vector2(6, 29)
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_54nn0"]
+diffuse_texture = ExtResource("10_nywvu")
+normal_texture = ExtResource("17_abov4")
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_hvj08"]
+diffuse_texture = ExtResource("10_nywvu")
+normal_texture = ExtResource("17_abov4")
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_qjelp"]
+diffuse_texture = ExtResource("11_1wt2q")
+normal_texture = ExtResource("20_jfyeb")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_s6g41"]
 
@@ -252,8 +503,15 @@ autoplay = "cycle_carapace"
 
 [node name="TemporaryContainer" type="Node2D" parent="."]
 
-[node name="StateMachine" parent="." node_paths=PackedStringArray("initial_state") instance=ExtResource("2_sjjdg")]
-initial_state = NodePath("Idle")
+[node name="StateMachine" parent="." node_paths=PackedStringArray("entity", "initial_state") instance=ExtResource("2_sjjdg")]
+entity = NodePath("..")
+initial_state = NodePath("Start")
+debug = true
+
+[node name="Start" type="Node" parent="StateMachine" node_paths=PackedStringArray("next_state")]
+script = ExtResource("3_38hd4")
+timeout = 1.0
+next_state = NodePath("../Idle")
 
 [node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("health_component")]
 script = ExtResource("3_q1e55")
@@ -263,31 +521,49 @@ health_component = NodePath("../../HealthComponent")
 script = ExtResource("4_nxqo6")
 
 [node name="Pursuit" type="Node" parent="StateMachine"]
-script = ExtResource("3_nv3fj")
+script = ExtResource("5_4do7a")
 
-[node name="PursuitCharge" type="Node" parent="StateMachine"]
-script = ExtResource("3_nv3fj")
+[node name="PursuitCharge" type="Node" parent="StateMachine" node_paths=PackedStringArray("laser", "animation_player")]
+script = ExtResource("6_fqoso")
+laser = NodePath("../../Laser")
+animation_player = NodePath("../../LancerAnimationPlayer")
 
-[node name="PursuitRotateCharge" type="Node" parent="StateMachine"]
-script = ExtResource("3_nv3fj")
+[node name="PursuitRotateCharge" type="Node" parent="StateMachine" node_paths=PackedStringArray("laser", "animation_player")]
+script = ExtResource("8_1w5km")
+laser = NodePath("../../Laser")
+animation_player = NodePath("../../LancerAnimationPlayer")
 
-[node name="StopCharge" type="Node" parent="StateMachine"]
-script = ExtResource("3_nv3fj")
+[node name="StopCharge" type="Node" parent="StateMachine" node_paths=PackedStringArray("laser", "animation_player")]
+script = ExtResource("9_xof5r")
+laser = NodePath("../../Laser")
+animation_player = NodePath("../../LancerAnimationPlayer")
 
-[node name="MoveCharge" type="Node" parent="StateMachine"]
-script = ExtResource("3_nv3fj")
+[node name="PointCharge" type="Node" parent="StateMachine" node_paths=PackedStringArray("laser", "animation_player")]
+script = ExtResource("7_e6te1")
+laser = NodePath("../../Laser")
+animation_player = NodePath("../../LancerAnimationPlayer")
 
-[node name="DeathSpin" type="Node" parent="StateMachine"]
-script = ExtResource("3_nv3fj")
+[node name="SolicitRepair" type="Node" parent="StateMachine" node_paths=PackedStringArray("animation_player")]
+script = ExtResource("8_2p0v4")
+animation_player = NodePath("../../LancerAnimationPlayer")
+
+[node name="DeathSpin" type="Node" parent="StateMachine" node_paths=PackedStringArray("laser", "animation_player")]
+script = ExtResource("9_7v46b")
+laser = NodePath("../../Laser")
+animation_player = NodePath("../../LancerAnimationPlayer")
 
 [node name="DropComponent" parent="." instance=ExtResource("2_hipol")]
 
-[node name="CESprite" type="Sprite2D" parent="."]
+[node name="LancerFrame" type="Sprite2D" parent="."]
 light_mask = 2
 visibility_layer = 2
 z_index = -3
 material = ExtResource("3_deqqd")
 texture = ExtResource("3_mv7tp")
+
+[node name="LancerGlow" type="Sprite2D" parent="LancerFrame"]
+modulate = Color(5, 1.5, 1.7, 1)
+texture = ExtResource("16_4c5ag")
 
 [node name="Barriers" type="Node2D" parent="."]
 position = Vector2(21, 0)
@@ -303,8 +579,15 @@ visible = false
 shape = SubResource("RectangleShape2D_y4one")
 
 [node name="BarrierSprite" type="Sprite2D" parent="Barriers/FrontBarrier1"]
-position = Vector2(4, 1)
-texture = ExtResource("5_6n170")
+texture = SubResource("CanvasTexture_leek7")
+
+[node name="BarrierC2" type="StaticBody2D" parent="Barriers/FrontBarrier1"]
+scale = Vector2(1, -1)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Barriers/FrontBarrier1/BarrierC2"]
+visible = false
+position = Vector2(-7, 72)
+polygon = PackedVector2Array(-52, -57, -44, -70, 51, -88, 58, -57)
 
 [node name="FrontBarrier2" parent="Barriers" instance=ExtResource("5_iqo4a")]
 position = Vector2(-125, 36)
@@ -316,11 +599,17 @@ visible = false
 shape = SubResource("RectangleShape2D_y4one")
 
 [node name="BarrierSprite" type="Sprite2D" parent="Barriers/FrontBarrier2"]
-position = Vector2(4, 0)
-texture = ExtResource("5_6n170")
+texture = SubResource("CanvasTexture_leek7")
+
+[node name="BarrierC" type="StaticBody2D" parent="Barriers/FrontBarrier2"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Barriers/FrontBarrier2/BarrierC"]
+visible = false
+position = Vector2(-8, 0)
+polygon = PackedVector2Array(-44, -3, -52, -17, 59, -17, 51, 16)
 
 [node name="Barrier5" parent="Barriers" instance=ExtResource("5_iqo4a")]
-position = Vector2(17, 0)
+position = Vector2(-27, 0)
 set_max_health = 20
 override_max_health = 15
 
@@ -332,6 +621,7 @@ shape = SubResource("RectangleShape2D_y4one")
 texture = ExtResource("5_rl624")
 
 [node name="BarrierBody" type="StaticBody2D" parent="Barriers/Barrier5"]
+visible = false
 scale = Vector2(1, -1)
 collision_layer = 2
 collision_mask = 5
@@ -341,7 +631,7 @@ position = Vector2(0, 1)
 shape = SubResource("RectangleShape2D_ta6t2")
 
 [node name="Barrier4" parent="Barriers" instance=ExtResource("5_iqo4a")]
-position = Vector2(8, 0)
+position = Vector2(-16, 0)
 set_max_health = 20
 override_max_health = 15
 
@@ -353,6 +643,7 @@ shape = SubResource("RectangleShape2D_y4one")
 texture = ExtResource("5_rl624")
 
 [node name="BarrierBody" type="StaticBody2D" parent="Barriers/Barrier4"]
+visible = false
 scale = Vector2(1, -1)
 collision_layer = 2
 collision_mask = 5
@@ -362,7 +653,7 @@ position = Vector2(0, 1)
 shape = SubResource("RectangleShape2D_ta6t2")
 
 [node name="Barrier3" parent="Barriers" instance=ExtResource("5_iqo4a")]
-position = Vector2(-1, 0)
+position = Vector2(-5, 0)
 set_max_health = 20
 override_max_health = 15
 
@@ -374,6 +665,7 @@ shape = SubResource("RectangleShape2D_y4one")
 texture = ExtResource("5_rl624")
 
 [node name="BarrierBody" type="StaticBody2D" parent="Barriers/Barrier3"]
+visible = false
 scale = Vector2(1, -1)
 collision_layer = 2
 collision_mask = 5
@@ -383,7 +675,7 @@ position = Vector2(0, 1)
 shape = SubResource("RectangleShape2D_ta6t2")
 
 [node name="Barrier2" parent="Barriers" instance=ExtResource("5_iqo4a")]
-position = Vector2(-10, 0)
+position = Vector2(5, 0)
 set_max_health = 20
 override_max_health = 15
 
@@ -395,6 +687,7 @@ shape = SubResource("RectangleShape2D_y4one")
 texture = ExtResource("5_rl624")
 
 [node name="BarrierBody" type="StaticBody2D" parent="Barriers/Barrier2"]
+visible = false
 scale = Vector2(1, -1)
 collision_layer = 2
 collision_mask = 5
@@ -404,7 +697,7 @@ position = Vector2(0, 1)
 shape = SubResource("RectangleShape2D_ta6t2")
 
 [node name="Barrier1" parent="Barriers" instance=ExtResource("5_iqo4a")]
-position = Vector2(-19, 0)
+position = Vector2(15, 0)
 set_max_health = 20
 override_max_health = 15
 
@@ -420,6 +713,7 @@ collision_layer = 2
 collision_mask = 5
 
 [node name="BodyShape" type="CollisionShape2D" parent="Barriers/Barrier1/BarrierBody"]
+visible = false
 position = Vector2(0, -0.5)
 shape = SubResource("RectangleShape2D_ta6t2")
 
@@ -441,7 +735,7 @@ muzzle = NodePath("Muzzle")
 temporary_container = NodePath("../../../TemporaryContainer")
 switch_from_temporary = true
 limit_angle = true
-min_angle_limit = 176.0
+min_angle_limit = 168.5
 max_angle_limit = 315.0
 hitbox = NodePath("GunCollision")
 override_max_health = 25
@@ -462,7 +756,7 @@ polygon = PackedVector2Array(12, -19.0002, 12, -11.0002, 2.99998, -8.00024, -19,
 
 [node name="ModuleSprite" type="Sprite2D" parent="CompositeParts/TopGun"]
 position = Vector2(25, 0)
-texture = ExtResource("10_nywvu")
+texture = SubResource("CanvasTexture_54nn0")
 
 [node name="ModuleCollision" type="CollisionPolygon2D" parent="CompositeParts/TopGun"]
 visible = false
@@ -487,7 +781,7 @@ muzzle = NodePath("Muzzle")
 temporary_container = NodePath("../../../TemporaryContainer")
 switch_from_temporary = true
 limit_angle = true
-min_angle_limit = 180.0
+min_angle_limit = 168.5
 max_angle_limit = 315.0
 hitbox = NodePath("GunCollision")
 override_max_health = 25
@@ -508,7 +802,7 @@ polygon = PackedVector2Array(12, -19.0002, 12, -11.0002, 2.99998, -8.00024, -19,
 
 [node name="ModuleSprite" type="Sprite2D" parent="CompositeParts/LowerGun"]
 position = Vector2(25, 0)
-texture = ExtResource("10_nywvu")
+texture = SubResource("CanvasTexture_hvj08")
 
 [node name="ModuleCollision" type="CollisionPolygon2D" parent="CompositeParts/LowerGun"]
 visible = false
@@ -529,14 +823,14 @@ position = Vector2(12, 2)
 texture = ExtResource("10_ruwc2")
 
 [node name="ModuleSprite" type="Sprite2D" parent="CompositeParts/MissileLauncher"]
-texture = ExtResource("11_1wt2q")
+texture = SubResource("CanvasTexture_qjelp")
 
 [node name="MissileLauncher" parent="CompositeParts/MissileLauncher" node_paths=PackedStringArray("self_sprite", "muzzle", "hitbox") instance=ExtResource("16_b2wr1")]
 position = Vector2(16, 2)
-self_sprite = NodePath("LauncherSprite")
-muzzle = NodePath("LauncherMuzzle")
 rate_of_fire = 5.0
 rof_randomness = 1.05
+self_sprite = NodePath("LauncherSprite")
+muzzle = NodePath("LauncherMuzzle")
 switch_timer = 0.5
 limit_angle = true
 min_angle_limit = 0.0
@@ -597,8 +891,9 @@ visible = false
 shape = SubResource("CircleShape2D_s6g41")
 
 [node name="SmallCore" parent="HitboxComponent" node_paths=PackedStringArray("health_component") instance=ExtResource("25_cmi1k")]
+animation = &"core_active"
 autoplay = "core_active"
-frame_progress = 0.186599
+frame_progress = 0.872758
 health_component = NodePath("../../HealthComponent")
 strength = 10.0
 
@@ -606,7 +901,7 @@ strength = 10.0
 position = Vector2(54, 0)
 collision_mask = 1
 
-[node name="ShaderTest" parent="." instance=ExtResource("27_35df4")]
+[node name="ShaderTest" parent="." instance=ExtResource("38_5ow2f")]
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="enemy_defeated" from="." to="DropComponent" method="_on_enemy_died"]

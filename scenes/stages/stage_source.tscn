@@ -12,12 +12,19 @@ polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(0, 540, 0, 0, 960, 0, 960, 540)])
 source_geometry_group_name = &"navigation_polygon_source_group"
 
-[node name="StageTemplate" type="Node2D" node_paths=PackedStringArray("stage_parallax") groups=["stage"]]
+[node name="StageTemplate" type="Node2D" node_paths=PackedStringArray("stage_parallax", "stage_camera") groups=["stage"]]
 light_mask = 2
 visibility_layer = 2
 script = ExtResource("1_yvb6t")
+stage_id = null
+stage_title = null
+stage_description = null
+stage_ending_text = null
+next_stage_path = null
+stage_songs = null
 save_stage_data = false
 stage_parallax = NodePath("SimulationParallax")
+stage_camera = NodePath("StageCamera")
 
 [node name="StageNavigationRegion" type="NavigationRegion2D" parent="."]
 visible = false

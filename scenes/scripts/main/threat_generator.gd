@@ -133,6 +133,7 @@ func generate_threat(enemy, rule_override = null):
 						rule_property["timeout"],
 						modulate_color
 					)
+					await get_tree().create_timer(rule_property["timeout"] / 2).timeout
 				"swarm":
 					swarm_constructor(
 						loaded_entity,

@@ -14,6 +14,7 @@ radius = 4.0
 height = 24.0
 
 [node name="EnemyLaser" type="Area2D" groups=["enemy_projectile"]]
+modulate = Color(4.2, 1.5, 1.5, 1)
 top_level = true
 light_mask = 2
 collision_layer = 8
@@ -24,7 +25,6 @@ stream = ExtResource("2_8whbf")
 bus = &"Effects"
 
 [node name="LaserSprite" type="Sprite2D" parent="."]
-modulate = Color(4.2, 1.5, 1.5, 1)
 position = Vector2(1.13687e-13, 5.68434e-14)
 scale = Vector2(1.44869, 1.6)
 texture = ExtResource("3_chj3q")
@@ -36,6 +36,7 @@ shape = SubResource("CapsuleShape2D_jewc2")
 disabled = true
 
 [node name="OutsideScreenCheck" type="VisibleOnScreenNotifier2D" parent="."]
+visible = false
 position = Vector2(-73, 0)
 scale = Vector2(1, 0.5)
 

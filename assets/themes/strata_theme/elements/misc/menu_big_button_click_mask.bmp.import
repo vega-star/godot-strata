@@ -1,0 +1,16 @@
+[remap]
+
+importer="bitmap"
+type="BitMap"
+uid="uid://b7liuxnly3ka5"
+path="res://.godot/imported/menu_big_button_click_mask.bmp-ff1b9ccd152b7ca1b4d717ceeda5c990.res"
+
+[deps]
+
+source_file="res://assets/themes/strata_theme/elements/misc/menu_big_button_click_mask.bmp"
+dest_files=["res://.godot/imported/menu_big_button_click_mask.bmp-ff1b9ccd152b7ca1b4d717ceeda5c990.res"]
+
+[params]
+
+create_from=0
+threshold=0.5

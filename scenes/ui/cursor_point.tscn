@@ -1,0 +1,95 @@
+[gd_scene load_steps=12 format=3 uid="uid://c75cq4jl0xa20"]
+
+[ext_resource type="Texture2D" uid="uid://br4qifrevapdo" path="res://assets/textures/ui/misc/cursor_point_animation.png" id="1_q6cni"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kqr7c"]
+atlas = ExtResource("1_q6cni")
+region = Rect2(0, 0, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gopra"]
+atlas = ExtResource("1_q6cni")
+region = Rect2(16, 0, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_txbt3"]
+atlas = ExtResource("1_q6cni")
+region = Rect2(32, 0, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wrptj"]
+atlas = ExtResource("1_q6cni")
+region = Rect2(48, 0, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xagld"]
+atlas = ExtResource("1_q6cni")
+region = Rect2(64, 0, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lst21"]
+atlas = ExtResource("1_q6cni")
+region = Rect2(80, 0, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jy4mv"]
+atlas = ExtResource("1_q6cni")
+region = Rect2(96, 0, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cysow"]
+atlas = ExtResource("1_q6cni")
+region = Rect2(112, 0, 16, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_mlqaf"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kqr7c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gopra")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_txbt3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wrptj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xagld")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lst21")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jy4mv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cysow")
+}],
+"loop": true,
+"name": &"cursor_pointing",
+"speed": 10.0
+}]
+
+[sub_resource type="GDScript" id="GDScript_x3kb2"]
+resource_name = "Pointer"
+script/source = "extends AnimatedSprite2D
+
+@export var cursor_exposure_time : float = 5
+@onready var cursor_timer = $CursorTimer
+
+func _ready():
+	cursor_timer.start(cursor_exposure_time)
+
+func _on_cursor_timer_timeout():
+	queue_free()
+"
+
+[node name="CursorPoint" type="AnimatedSprite2D"]
+scale = Vector2(3, 3)
+sprite_frames = SubResource("SpriteFrames_mlqaf")
+animation = &"cursor_pointing"
+autoplay = "cursor_pointing"
+frame_progress = 0.34363
+offset = Vector2(1, 12)
+script = SubResource("GDScript_x3kb2")
+
+[node name="CursorTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="CursorTimer" to="." method="_on_cursor_timer_timeout"]

@@ -6,13 +6,20 @@ signal stage_ended
 # Stage Properties
 var checkpoints : Array = []
 var stage_active : bool = true
-@export var stage_id : String = "StrataScene"
-@export var stage_title : String = 'STAGE ZERO'
-@export var stage_description : String = 'SIMULATION'
-@export var stage_ending_text : String = 'RETURNING TO MAIN MENU'
-@export var next_stage_path : String = "res://scenes/ui/main_menu.tscn"
-@export var save_stage_data : bool = true
-@export var stage_parallax : ParallaxBackground
+
+@export var stage_id : String = "StrataScene" ## Stage direct ID. Needs to be accurate
+@export var stage_title : String = 'STAGE ZERO' ## Stage title shows first. Usually it is the stage number following the progression order
+@export var stage_description : String = 'SIMULATION' ## Resumes what the stage is about, can be one word or more
+@export var stage_ending_text : String = 'RETURNING TO MAIN MENU' ## If not null, will show at the end of the stage along with 'STAGE_FINISHED' label
+
+@export_group('Stage Properties')
+@export var next_stage_path : String = "res://scenes/ui/main_menu.tscn" ## Direct path to the next stage after. Sends it to LoadManager
+@export var stage_songs : Array[String] = [] ## All possible songs to play in the stage. Always starts with the first one. You call it with play_song() function
+@export var save_stage_data : bool = true ## Stage performance counts to score / progression
+
+@export_group('Node Connections')
+@export var stage_parallax : ParallaxBackground ## Connects to parallax layer to control speed and other characteristics of the background during stage
+@export var stage_camera : Camera2D ## Connects to camera to create cutscenes and other scripted actions
 
 # Options
 var config = ConfigFile.new()
@@ -73,6 +80,14 @@ func _process(_delta): # Updates stage timer bar
 
 func _on_stage_timer_timeout(): # Executes when StageTimer finishes
 	end_stage_sequence()
+
+func play_music(
+	music_id : int = 0,
+	fade : bool = true,
+	random : bool = false
+	):
+		var selected_music = stage_songs[music_id]
+		AudioManager.set_music(selected_music, fade, random, stage_songs)
 
 func pause_stage_timer(toggle : bool):
 	stage_timer.set_paused(toggle)

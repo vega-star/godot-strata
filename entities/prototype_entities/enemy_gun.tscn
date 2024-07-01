@@ -1,17 +1,71 @@
-[gd_scene load_steps=4 format=3 uid="uid://dqge7meaumoi5"]
+[gd_scene load_steps=10 format=3 uid="uid://dqge7meaumoi5"]
 
 [ext_resource type="Script" path="res://entities/entity_scripts/enemy_gun.gd" id="1_ko834"]
+[ext_resource type="Texture2D" uid="uid://c2aj7wanfw344" path="res://assets/textures/particles/big_particle.png" id="2_e74ur"]
 [ext_resource type="PackedScene" uid="uid://c4rkui846g2ue" path="res://components/status/combat_component.tscn" id="4_7tmbe"]
 [ext_resource type="PackedScene" uid="uid://bdfaybp4djcn2" path="res://components/status/health_component.tscn" id="4_22w5n"]
 
-[node name="EnemyGun" type="Area2D" node_paths=PackedStringArray("hitbox_component", "health_component", "combat_component") groups=["object"]]
+[sub_resource type="CircleShape2D" id="CircleShape2D_n08f2"]
+radius = 460.0
+
+[sub_resource type="Curve" id="Curve_e31ay"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_e6t5f"]
+max_value = 5.0
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.74537, 3.00788), 14.7531, 14.7531, 0, 0, Vector2(1, 5), 1.11766, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Curve" id="Curve_l5omq"]
+min_value = -45.0
+max_value = 45.0
+_data = [Vector2(0, -0.630493), 0.0, 0.0, 0, 0, Vector2(0.675926, 0.433449), 0.0, 0.0, 0, 0, Vector2(0.828704, 15.289), 387.268, 387.268, 0, 0, Vector2(0.939815, -14.4221), -170.228, -170.228, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 5
+
+[sub_resource type="Curve" id="Curve_7tyl7"]
+_data = [Vector2(0, 0.0779334), 0.0, 0.0512259, 0, 0, Vector2(1e-05, 0.533275), 18.137, 18.137, 0, 0, Vector2(0.111111, 0.817912), -3.17688, -3.17688, 0, 0, Vector2(1, 0), -0.109503, 0.0, 0, 0]
+point_count = 4
+
+[node name="EnemyGun" type="Area2D" node_paths=PackedStringArray("charge_timer", "charging_particles", "health_component", "combat_component") groups=["object"]]
 collision_layer = 2
 collision_mask = 5
 script = ExtResource("1_ko834")
-hitbox_component = NodePath(".")
+charge_timer = NodePath("ChargeTimer")
+charging_particles = NodePath("ChargingParticles")
 health_component = NodePath("HealthComponent")
 combat_component = NodePath("CombatComponent")
 override_max_health = 15
+
+[node name="Detector" type="RayCast2D" parent="."]
+target_position = Vector2(960, 0)
+collide_with_areas = true
+
+[node name="DetectionSphere" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("CircleShape2D_n08f2")
+disabled = true
+debug_color = Color(0.556863, 0.529412, 0.521569, 0.00392157)
+
+[node name="ChargeTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="ChargingParticles" type="CPUParticles2D" parent="."]
+emitting = false
+local_coords = true
+texture = ExtResource("2_e74ur")
+direction = Vector2(1, 1)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_max = 50.0
+orbit_velocity_curve = SubResource("Curve_e31ay")
+damping_max = 50.0
+damping_curve = SubResource("Curve_e6t5f")
+angle_max = 45.0
+angle_curve = SubResource("Curve_l5omq")
+scale_amount_min = 0.2
+scale_amount_max = 0.5
+scale_amount_curve = SubResource("Curve_7tyl7")
 
 [node name="CombatComponent" parent="." instance=ExtResource("4_7tmbe")]
 

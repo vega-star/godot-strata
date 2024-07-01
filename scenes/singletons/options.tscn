@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://duws3qk7e45vs"]
+[gd_scene load_steps=32 format=3 uid="uid://duws3qk7e45vs"]
 
 [ext_resource type="Script" path="res://components/general/options_controller.gd" id="1_hjbun"]
 [ext_resource type="Theme" uid="uid://b1a5sjt2xibwo" path="res://assets/themes/strata_theme/strata_theme.tres" id="1_yjy47"]
@@ -97,6 +97,13 @@ animations = [{
 "speed": 8.0
 }]
 
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_r2gvp"]
+texture = ExtResource("5_gvo04")
+texture_margin_left = 8.0
+texture_margin_top = 8.0
+texture_margin_right = 8.0
+texture_margin_bottom = 8.0
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_adkda"]
 atlas = ExtResource("10_1hxk4")
 region = Rect2(0, 0, 48, 48)
@@ -152,7 +159,6 @@ process_mode = 3
 layer = 100
 script = ExtResource("1_hjbun")
 menu_button_group = ExtResource("2_ei3sc")
-reset_config_on_load = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource("2_2seij")
@@ -180,12 +186,12 @@ animation = &"main"
 autoplay = "main"
 frame_progress = 0.557049
 
-[node name="Main Options" type="TabBar" parent="ConfigTabs"]
+[node name="MAIN_OPTIONS" type="TabBar" parent="ConfigTabs"]
 layout_mode = 2
 focus_neighbor_bottom = NodePath("Scroll/ConfigPanel/OptionsButtons/VolumeContainer/MasterVol/Master_Toggle/Master_Slider")
 focus_mode = 0
 
-[node name="Scroll" type="ScrollContainer" parent="ConfigTabs/Main Options"]
+[node name="Scroll" type="ScrollContainer" parent="ConfigTabs/MAIN_OPTIONS"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -193,14 +199,14 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ConfigPanel" type="Control" parent="ConfigTabs/Main Options/Scroll"]
+[node name="ConfigPanel" type="Control" parent="ConfigTabs/MAIN_OPTIONS/Scroll"]
 custom_minimum_size = Vector2(540, 0)
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 4
 theme = ExtResource("1_yjy47")
 
-[node name="OptionsButtons" type="VBoxContainer" parent="ConfigTabs/Main Options/Scroll/ConfigPanel"]
+[node name="OptionsButtons" type="VBoxContainer" parent="ConfigTabs/MAIN_OPTIONS/Scroll/ConfigPanel"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -214,21 +220,22 @@ theme = ExtResource("1_yjy47")
 theme_override_constants/separation = 8
 alignment = 1
 
-[node name="VolumeContainer" type="VBoxContainer" parent="ConfigTabs/Main Options/Scroll/ConfigPanel/OptionsButtons"]
+[node name="VolumeContainer" type="VBoxContainer" parent="ConfigTabs/MAIN_OPTIONS/Scroll/ConfigPanel/OptionsButtons"]
 custom_minimum_size = Vector2(0, 115)
 layout_mode = 2
 size_flags_vertical = 4
 size_flags_stretch_ratio = 0.0
 theme_override_constants/separation = 12
 
-[node name="MasterVol" type="Label" parent="ConfigTabs/Main Options/Scroll/ConfigPanel/OptionsButtons/VolumeContainer"]
+[node name="MasterVol" type="Label" parent="ConfigTabs/MAIN_OPTIONS/Scroll/ConfigPanel/OptionsButtons/VolumeContainer"]
 layout_mode = 2
 theme = ExtResource("1_yjy47")
-text = "MASTER VOLUME"
+text = "MASTER_VOLUME"
 horizontal_alignment = 1
 vertical_alignment = 1
+uppercase = true
 
-[node name="Master_Toggle" type="CheckButton" parent="ConfigTabs/Main Options/Scroll/ConfigPanel/OptionsButtons/VolumeContainer/MasterVol"]
+[node name="Master_Toggle" type="CheckButton" parent="ConfigTabs/MAIN_OPTIONS/Scroll/ConfigPanel/OptionsButtons/VolumeContainer/MasterVol"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -248,7 +255,7 @@ theme = ExtResource("1_yjy47")
 theme_override_styles/normal = ExtResource("3_8n6wo")
 button_pressed = true
 
-[node name="Master_Slider" type="HSlider" parent="ConfigTabs/Main Options/Scroll/ConfigPanel/OptionsButtons/VolumeContainer/MasterVol/Master_Toggle"]
+[node name="Master_Slider" type="HSlider" parent="ConfigTabs/MAIN_OPTIONS/Scroll/ConfigPanel/OptionsButtons/VolumeContainer/MasterVol/Master_Toggle"]
 show_behind_parent = true
 layout_mode = 1
 anchors_preset = 4
@@ -256,7 +263,7 @@ anchor_top = 0.5
 anchor_bottom = 0.5
 offset_left = 42.0
 offset_top = -9.0
-offset_right = 337.0
+offset_right = 335.0
 offset_bottom = 9.0
 grow_vertical = 2
 focus_neighbor_bottom = NodePath("../../../MusicVol/Music_Toggle")
@@ -264,14 +271,27 @@ max_value = 1.0
 step = 0.001
 value = 0.7
 
-[node name="MusicVol" type="Label" parent="ConfigTabs/Main Options/Scroll/ConfigPanel/OptionsButtons/VolumeContainer"]
+[node name="Label" type="Panel" parent="ConfigTabs/MAIN_OPTIONS/Scroll/ConfigPanel/OptionsButtons/VolumeContainer/MasterVol/Master_Toggle/Master_Slider"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_right = 6.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_r2gvp")
+
+[node name="MusicVol" type="Label" parent="ConfigTabs/MAIN_OPTIONS/Scroll/ConfigPanel/OptionsButtons/VolumeContainer"]
 layout_mode = 2
 theme = ExtResource("1_yjy47")
-text = "MUSIC VOLUME
-"
+text = "MUSIC_VOLUME"
 horizontal_alignment = 1
+uppercase = true
 
-[node name="Music_Toggle" type="CheckButton" parent="ConfigTabs/Main Options/Scroll/ConfigPanel/OptionsButtons/VolumeContainer/MusicVol"]
+[node name="Music_Toggle" type="CheckButton" parent="ConfigTabs/MAIN_OPTIONS/Scroll/ConfigPanel/OptionsButtons/VolumeContainer/MusicVol"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -291,7 +311,7 @@ theme = ExtResource("1_yjy47")
 theme_override_styles/normal = ExtResource("3_8n6wo")
 button_pressed = true
 
-[node name="Music_Slider" type="HSlider" parent="ConfigTabs/Main Options/Scroll/ConfigPanel/OptionsButtons/VolumeContainer/MusicVol/Music_Toggle"]
+[node name="Music_Slider" type="HSlider" parent="ConfigTabs/MAIN_OPTIONS/Scroll/ConfigPanel/OptionsButtons/VolumeContainer/MusicVol/Music_Toggle"]
 show_behind_parent = true
 layout_mode = 1
 anchors_preset = 4
@@ -308,13 +328,27 @@ max_value = 1.0
 step = 0.001
 value = 0.7
 
-[node name="SoundEffectVol" type="Label" parent="ConfigTabs/Main Options/Scroll/ConfigPanel/OptionsButtons/VolumeContainer"]
+[node name="Label" type="Panel" parent="ConfigTabs/MAIN_OPTIONS/Scroll/ConfigPanel/OptionsButtons/VolumeContainer/MusicVol/Music_Toggle/Music_Slider"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_right = 5.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_r2gvp")
+
+[node name="SoundEffectVol" type="Label" parent="ConfigTabs/MAIN_OPTIONS/Scroll/ConfigPanel/OptionsButtons/VolumeContainer"]
 layout_mode = 2
 theme = ExtResource("1_yjy47")
-text = "SOUND EFFECT VOLUME"
+text = "SOUND_EFFECT_VOLUME"
 horizontal_alignment = 1
+uppercase = true
 
-[node name="Effect_Toggle" type="CheckButton" parent="ConfigTabs/Main Options/Scroll/ConfigPanel/OptionsButtons/VolumeContainer/SoundEffectVol"]
+[node name="Effect_Toggle" type="CheckButton" parent="ConfigTabs/MAIN_OPTIONS/Scroll/ConfigPanel/OptionsButtons/VolumeContainer/SoundEffectVol"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -334,7 +368,7 @@ theme = ExtResource("1_yjy47")
 theme_override_styles/normal = ExtResource("3_8n6wo")
 button_pressed = true
 
-[node name="Effect_Slider" type="HSlider" parent="ConfigTabs/Main Options/Scroll/ConfigPanel/OptionsButtons/VolumeContainer/SoundEffectVol/Effect_Toggle"]
+[node name="Effect_Slider" type="HSlider" parent="ConfigTabs/MAIN_OPTIONS/Scroll/ConfigPanel/OptionsButtons/VolumeContainer/SoundEffectVol/Effect_Toggle"]
 show_behind_parent = true
 layout_mode = 1
 anchors_preset = 4
@@ -351,18 +385,60 @@ max_value = 1.0
 step = 0.001
 value = 0.7
 
-[node name="ToggleFiring" type="CheckButton" parent="ConfigTabs/Main Options/Scroll/ConfigPanel/OptionsButtons"]
+[node name="Label" type="Panel" parent="ConfigTabs/MAIN_OPTIONS/Scroll/ConfigPanel/OptionsButtons/VolumeContainer/SoundEffectVol/Effect_Toggle/Effect_Slider"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_right = 5.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_r2gvp")
+
+[node name="ToggleFiring" type="CheckButton" parent="ConfigTabs/MAIN_OPTIONS/Scroll/ConfigPanel/OptionsButtons"]
 layout_mode = 2
-text = "TOGGLE FIRING"
+tooltip_text = "TOGGLE_FIRING_TOOLTIP"
+text = "TOGGLE_FIRING"
 alignment = 1
 
-[node name="Controls" type="TabBar" parent="ConfigTabs"]
+[node name="Language" type="Label" parent="ConfigTabs/MAIN_OPTIONS/Scroll/ConfigPanel/OptionsButtons"]
+layout_mode = 2
+theme = ExtResource("1_yjy47")
+text = "LANGUAGE"
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
+[node name="LanguageMenu" type="OptionButton" parent="ConfigTabs/MAIN_OPTIONS/Scroll/ConfigPanel/OptionsButtons/Language"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -160.0
+offset_right = 160.0
+offset_bottom = 43.0
+grow_horizontal = 2
+grow_vertical = 0
+alignment = 1
+item_count = 2
+selected = 0
+popup/item_0/text = "English"
+popup/item_0/id = 0
+popup/item_1/text = "Português Brasileiro"
+popup/item_1/id = 1
+
+[node name="CONTROLS" type="TabBar" parent="ConfigTabs"]
 visible = false
 layout_mode = 2
 focus_neighbor_bottom = NodePath("Scroll/ConfigPanel/BindGrids/BindGridLeft/UP_B")
 focus_mode = 0
 
-[node name="Scroll" type="ScrollContainer" parent="ConfigTabs/Controls"]
+[node name="Scroll" type="ScrollContainer" parent="ConfigTabs/CONTROLS"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -370,26 +446,28 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ConfigPanel" type="VBoxContainer" parent="ConfigTabs/Controls/Scroll"]
+[node name="ConfigPanel" type="VBoxContainer" parent="ConfigTabs/CONTROLS/Scroll"]
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 6
 theme_override_constants/separation = 6
 
-[node name="BindGrids" type="HBoxContainer" parent="ConfigTabs/Controls/Scroll/ConfigPanel"]
-layout_mode = 2
-
-[node name="BindGridLeft" type="GridContainer" parent="ConfigTabs/Controls/Scroll/ConfigPanel/BindGrids"]
-layout_direction = 1
+[node name="BindGrids" type="HBoxContainer" parent="ConfigTabs/CONTROLS/Scroll/ConfigPanel"]
 layout_mode = 2
 size_flags_horizontal = 4
+size_flags_vertical = 6
+
+[node name="BindGridLeft" type="GridContainer" parent="ConfigTabs/CONTROLS/Scroll/ConfigPanel/BindGrids"]
+layout_direction = 1
+layout_mode = 2
+size_flags_horizontal = 10
 size_flags_vertical = 4
 theme = ExtResource("1_yjy47")
 theme_override_constants/h_separation = 10
 theme_override_constants/v_separation = 6
 columns = 2
 
-[node name="UP" type="Label" parent="ConfigTabs/Controls/Scroll/ConfigPanel/BindGrids/BindGridLeft"]
+[node name="UP" type="Label" parent="ConfigTabs/CONTROLS/Scroll/ConfigPanel/BindGrids/BindGridLeft"]
 layout_mode = 2
 theme = ExtResource("1_yjy47")
 theme_override_colors/font_shadow_color = Color(0.180392, 0.133333, 0.184314, 1)
@@ -398,13 +476,13 @@ theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
 theme_override_constants/shadow_outline_size = 8
 theme_override_font_sizes/font_size = 45
-text = "Up"
+text = "UP"
 horizontal_alignment = 2
 vertical_alignment = 1
 uppercase = true
 
-[node name="UP_B" parent="ConfigTabs/Controls/Scroll/ConfigPanel/BindGrids/BindGridLeft" instance=ExtResource("3_iy2y2")]
-custom_minimum_size = Vector2(140, 0)
+[node name="UP_B" parent="ConfigTabs/CONTROLS/Scroll/ConfigPanel/BindGrids/BindGridLeft" instance=ExtResource("3_iy2y2")]
+custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 focus_neighbor_right = NodePath("../../BindGridRight/DASH_B")
 focus_neighbor_bottom = NodePath("../DOWN_B")
@@ -414,7 +492,7 @@ theme = ExtResource("4_aufuu")
 theme_override_font_sizes/font_size = 45
 keybind = "move_up"
 
-[node name="DOWN" type="Label" parent="ConfigTabs/Controls/Scroll/ConfigPanel/BindGrids/BindGridLeft"]
+[node name="DOWN" type="Label" parent="ConfigTabs/CONTROLS/Scroll/ConfigPanel/BindGrids/BindGridLeft"]
 layout_mode = 2
 theme = ExtResource("1_yjy47")
 theme_override_colors/font_shadow_color = Color(0.180392, 0.133333, 0.184314, 1)
@@ -422,12 +500,12 @@ theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
 theme_override_constants/shadow_outline_size = 8
 theme_override_font_sizes/font_size = 45
-text = "Down"
+text = "DOWN"
 horizontal_alignment = 2
 vertical_alignment = 1
 uppercase = true
 
-[node name="DOWN_B" parent="ConfigTabs/Controls/Scroll/ConfigPanel/BindGrids/BindGridLeft" instance=ExtResource("3_iy2y2")]
+[node name="DOWN_B" parent="ConfigTabs/CONTROLS/Scroll/ConfigPanel/BindGrids/BindGridLeft" instance=ExtResource("3_iy2y2")]
 custom_minimum_size = Vector2(140, 0)
 layout_mode = 2
 focus_neighbor_top = NodePath("../UP_B")
@@ -440,7 +518,7 @@ theme = ExtResource("4_aufuu")
 theme_override_font_sizes/font_size = 45
 keybind = "move_down"
 
-[node name="LEFT" type="Label" parent="ConfigTabs/Controls/Scroll/ConfigPanel/BindGrids/BindGridLeft"]
+[node name="LEFT" type="Label" parent="ConfigTabs/CONTROLS/Scroll/ConfigPanel/BindGrids/BindGridLeft"]
 layout_mode = 2
 theme = ExtResource("1_yjy47")
 theme_override_colors/font_shadow_color = Color(0.180392, 0.133333, 0.184314, 1)
@@ -448,12 +526,12 @@ theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
 theme_override_constants/shadow_outline_size = 8
 theme_override_font_sizes/font_size = 45
-text = "Left"
+text = "LEFT"
 horizontal_alignment = 2
 vertical_alignment = 1
 uppercase = true
 
-[node name="LEFT_B" parent="ConfigTabs/Controls/Scroll/ConfigPanel/BindGrids/BindGridLeft" instance=ExtResource("3_iy2y2")]
+[node name="LEFT_B" parent="ConfigTabs/CONTROLS/Scroll/ConfigPanel/BindGrids/BindGridLeft" instance=ExtResource("3_iy2y2")]
 custom_minimum_size = Vector2(140, 0)
 layout_mode = 2
 focus_neighbor_top = NodePath("../DOWN_B")
@@ -466,7 +544,7 @@ theme = ExtResource("4_aufuu")
 theme_override_font_sizes/font_size = 45
 keybind = "move_left"
 
-[node name="RIGHT" type="Label" parent="ConfigTabs/Controls/Scroll/ConfigPanel/BindGrids/BindGridLeft"]
+[node name="RIGHT" type="Label" parent="ConfigTabs/CONTROLS/Scroll/ConfigPanel/BindGrids/BindGridLeft"]
 layout_mode = 2
 theme = ExtResource("1_yjy47")
 theme_override_colors/font_shadow_color = Color(0.180392, 0.133333, 0.184314, 1)
@@ -474,13 +552,13 @@ theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
 theme_override_constants/shadow_outline_size = 8
 theme_override_font_sizes/font_size = 45
-text = "Right"
+text = "RIGHT"
 horizontal_alignment = 2
 vertical_alignment = 1
 uppercase = true
 
-[node name="RIGHT_B" parent="ConfigTabs/Controls/Scroll/ConfigPanel/BindGrids/BindGridLeft" instance=ExtResource("3_iy2y2")]
-custom_minimum_size = Vector2(140, 0)
+[node name="RIGHT_B" parent="ConfigTabs/CONTROLS/Scroll/ConfigPanel/BindGrids/BindGridLeft" instance=ExtResource("3_iy2y2")]
+custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 focus_neighbor_top = NodePath("../LEFT_B")
 focus_neighbor_right = NodePath("../../BindGridRight/SHOOT_B")
@@ -492,7 +570,7 @@ theme = ExtResource("4_aufuu")
 theme_override_font_sizes/font_size = 45
 keybind = "move_right"
 
-[node name="PAUSE" type="Label" parent="ConfigTabs/Controls/Scroll/ConfigPanel/BindGrids/BindGridLeft"]
+[node name="PAUSE" type="Label" parent="ConfigTabs/CONTROLS/Scroll/ConfigPanel/BindGrids/BindGridLeft"]
 layout_mode = 2
 theme = ExtResource("1_yjy47")
 theme_override_colors/font_shadow_color = Color(0.180392, 0.133333, 0.184314, 1)
@@ -500,12 +578,12 @@ theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
 theme_override_constants/shadow_outline_size = 8
 theme_override_font_sizes/font_size = 45
-text = "Pause"
+text = "PAUSE"
 horizontal_alignment = 2
 vertical_alignment = 1
 uppercase = true
 
-[node name="PAUSE_B" parent="ConfigTabs/Controls/Scroll/ConfigPanel/BindGrids/BindGridLeft" instance=ExtResource("3_iy2y2")]
+[node name="PAUSE_B" parent="ConfigTabs/CONTROLS/Scroll/ConfigPanel/BindGrids/BindGridLeft" instance=ExtResource("3_iy2y2")]
 custom_minimum_size = Vector2(140, 0)
 layout_mode = 2
 focus_neighbor_top = NodePath("../RIGHT_B")
@@ -517,29 +595,16 @@ theme = ExtResource("4_aufuu")
 theme_override_font_sizes/font_size = 45
 keybind = "pause"
 
-[node name="BindGridRight" type="GridContainer" parent="ConfigTabs/Controls/Scroll/ConfigPanel/BindGrids"]
+[node name="BindGridRight" type="GridContainer" parent="ConfigTabs/CONTROLS/Scroll/ConfigPanel/BindGrids"]
 layout_mode = 2
-size_flags_horizontal = 4
+size_flags_horizontal = 2
 size_flags_vertical = 4
 theme_override_constants/h_separation = 10
 theme_override_constants/v_separation = 6
 columns = 2
 
-[node name="DASH" type="Label" parent="ConfigTabs/Controls/Scroll/ConfigPanel/BindGrids/BindGridRight"]
-layout_mode = 2
-theme = ExtResource("1_yjy47")
-theme_override_colors/font_shadow_color = Color(0.180392, 0.133333, 0.184314, 1)
-theme_override_constants/shadow_offset_x = 0
-theme_override_constants/shadow_offset_y = 0
-theme_override_constants/shadow_outline_size = 8
-theme_override_font_sizes/font_size = 45
-text = "DASH"
-horizontal_alignment = 2
-vertical_alignment = 1
-uppercase = true
-
-[node name="DASH_B" parent="ConfigTabs/Controls/Scroll/ConfigPanel/BindGrids/BindGridRight" instance=ExtResource("3_iy2y2")]
-custom_minimum_size = Vector2(140, 0)
+[node name="DASH_B" parent="ConfigTabs/CONTROLS/Scroll/ConfigPanel/BindGrids/BindGridRight" instance=ExtResource("3_iy2y2")]
+custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 focus_neighbor_left = NodePath("../../BindGridLeft/UP_B")
 focus_neighbor_bottom = NodePath("../ROLL_B")
@@ -550,7 +615,7 @@ theme = ExtResource("1_yjy47")
 theme_override_font_sizes/font_size = 45
 keybind = "dash"
 
-[node name="ROLL" type="Label" parent="ConfigTabs/Controls/Scroll/ConfigPanel/BindGrids/BindGridRight"]
+[node name="DASH" type="Label" parent="ConfigTabs/CONTROLS/Scroll/ConfigPanel/BindGrids/BindGridRight"]
 layout_mode = 2
 theme = ExtResource("1_yjy47")
 theme_override_colors/font_shadow_color = Color(0.180392, 0.133333, 0.184314, 1)
@@ -558,13 +623,11 @@ theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
 theme_override_constants/shadow_outline_size = 8
 theme_override_font_sizes/font_size = 45
-text = "ROLL
-"
-horizontal_alignment = 2
+text = "DASH"
 vertical_alignment = 1
 uppercase = true
 
-[node name="ROLL_B" parent="ConfigTabs/Controls/Scroll/ConfigPanel/BindGrids/BindGridRight" instance=ExtResource("3_iy2y2")]
+[node name="ROLL_B" parent="ConfigTabs/CONTROLS/Scroll/ConfigPanel/BindGrids/BindGridRight" instance=ExtResource("3_iy2y2")]
 custom_minimum_size = Vector2(140, 0)
 layout_mode = 2
 focus_neighbor_left = NodePath("../../BindGridLeft/DOWN_B")
@@ -577,7 +640,7 @@ theme = ExtResource("1_yjy47")
 theme_override_font_sizes/font_size = 45
 keybind = "roll"
 
-[node name="RESET" type="Label" parent="ConfigTabs/Controls/Scroll/ConfigPanel/BindGrids/BindGridRight"]
+[node name="ROLL" type="Label" parent="ConfigTabs/CONTROLS/Scroll/ConfigPanel/BindGrids/BindGridRight"]
 layout_mode = 2
 theme = ExtResource("1_yjy47")
 theme_override_colors/font_shadow_color = Color(0.180392, 0.133333, 0.184314, 1)
@@ -585,12 +648,11 @@ theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
 theme_override_constants/shadow_outline_size = 8
 theme_override_font_sizes/font_size = 45
-text = "REset"
-horizontal_alignment = 2
+text = "ROLL"
 vertical_alignment = 1
 uppercase = true
 
-[node name="RESET_B" parent="ConfigTabs/Controls/Scroll/ConfigPanel/BindGrids/BindGridRight" instance=ExtResource("3_iy2y2")]
+[node name="RESET_B" parent="ConfigTabs/CONTROLS/Scroll/ConfigPanel/BindGrids/BindGridRight" instance=ExtResource("3_iy2y2")]
 custom_minimum_size = Vector2(140, 0)
 layout_mode = 2
 focus_neighbor_left = NodePath("../../BindGridLeft/LEFT_B")
@@ -603,7 +665,7 @@ theme = ExtResource("1_yjy47")
 theme_override_font_sizes/font_size = 45
 keybind = "reset"
 
-[node name="SHOOT" type="Label" parent="ConfigTabs/Controls/Scroll/ConfigPanel/BindGrids/BindGridRight"]
+[node name="RESET" type="Label" parent="ConfigTabs/CONTROLS/Scroll/ConfigPanel/BindGrids/BindGridRight"]
 layout_mode = 2
 theme = ExtResource("1_yjy47")
 theme_override_colors/font_shadow_color = Color(0.180392, 0.133333, 0.184314, 1)
@@ -611,12 +673,11 @@ theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
 theme_override_constants/shadow_outline_size = 8
 theme_override_font_sizes/font_size = 45
-text = "Shoot"
-horizontal_alignment = 2
+text = "RESET"
 vertical_alignment = 1
 uppercase = true
 
-[node name="SHOOT_B" parent="ConfigTabs/Controls/Scroll/ConfigPanel/BindGrids/BindGridRight" instance=ExtResource("3_iy2y2")]
+[node name="SHOOT_B" parent="ConfigTabs/CONTROLS/Scroll/ConfigPanel/BindGrids/BindGridRight" instance=ExtResource("3_iy2y2")]
 custom_minimum_size = Vector2(140, 0)
 layout_mode = 2
 focus_neighbor_left = NodePath("../../BindGridLeft/RIGHT_B")
@@ -629,7 +690,7 @@ theme = ExtResource("1_yjy47")
 theme_override_font_sizes/font_size = 45
 keybind = "shoot"
 
-[node name="BOMB" type="Label" parent="ConfigTabs/Controls/Scroll/ConfigPanel/BindGrids/BindGridRight"]
+[node name="SHOOT" type="Label" parent="ConfigTabs/CONTROLS/Scroll/ConfigPanel/BindGrids/BindGridRight"]
 layout_mode = 2
 theme = ExtResource("1_yjy47")
 theme_override_colors/font_shadow_color = Color(0.180392, 0.133333, 0.184314, 1)
@@ -637,12 +698,11 @@ theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
 theme_override_constants/shadow_outline_size = 8
 theme_override_font_sizes/font_size = 45
-text = "POWER"
-horizontal_alignment = 2
+text = "SHOOT"
 vertical_alignment = 1
 uppercase = true
 
-[node name="BOMB_B" parent="ConfigTabs/Controls/Scroll/ConfigPanel/BindGrids/BindGridRight" instance=ExtResource("3_iy2y2")]
+[node name="BOMB_B" parent="ConfigTabs/CONTROLS/Scroll/ConfigPanel/BindGrids/BindGridRight" instance=ExtResource("3_iy2y2")]
 custom_minimum_size = Vector2(140, 0)
 layout_mode = 2
 focus_neighbor_left = NodePath("../../BindGridLeft/PAUSE_B")
@@ -653,12 +713,24 @@ theme = ExtResource("1_yjy47")
 theme_override_font_sizes/font_size = 45
 keybind = "bomb"
 
-[node name="ResetDefKeybind" type="Button" parent="ConfigTabs/Controls/Scroll/ConfigPanel"]
+[node name="BOMB" type="Label" parent="ConfigTabs/CONTROLS/Scroll/ConfigPanel/BindGrids/BindGridRight"]
+layout_mode = 2
+theme = ExtResource("1_yjy47")
+theme_override_colors/font_shadow_color = Color(0.180392, 0.133333, 0.184314, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 8
+theme_override_font_sizes/font_size = 45
+text = "POWER"
+vertical_alignment = 1
+uppercase = true
+
+[node name="ResetDefKeybind" type="Button" parent="ConfigTabs/CONTROLS/Scroll/ConfigPanel"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_colors/font_hover_color = Color(0.909804, 0.231373, 0.231373, 1)
-text = "RESET DEFAULT KEYBINDS"
+text = "RESET_DEFAULT_KEYBINDS"
 
 [node name="UI" type="TabBar" parent="ConfigTabs"]
 visible = false
@@ -695,7 +767,7 @@ offset_bottom = 79.0
 grow_horizontal = 2
 theme = ExtResource("1_yjy47")
 theme_override_font_sizes/font_size = 40
-text = "WORK IN PROGRESS"
+text = "WORK_IN_PROGRESS"
 
 [node name="ConfigPanel" type="VBoxContainer" parent="ConfigTabs/UI/Scroll"]
 layout_mode = 2
@@ -715,12 +787,12 @@ alignment = 1
 
 [node name="HealthContainer" type="Label" parent="ConfigTabs/UI/Scroll/ConfigPanel/SpinBoxes/Health Containers"]
 layout_mode = 2
-text = "FULL SIZE HEALTH CONTAINERS"
+text = "FULL_SIZE_HEALTH_CONTAINERS"
 vertical_alignment = 1
 
 [node name="PowerContainer" type="Label" parent="ConfigTabs/UI/Scroll/ConfigPanel/SpinBoxes/Health Containers"]
 layout_mode = 2
-text = "FULL SIZE POWER CONTAINERS"
+text = "FULL_SIZE_POWER_CONTAINERS"
 vertical_alignment = 1
 
 [node name="AmmoContainers" type="VBoxContainer" parent="ConfigTabs/UI/Scroll/ConfigPanel/SpinBoxes"]
@@ -738,28 +810,30 @@ layout_mode = 2
 max_value = 15.0
 value = 3.0
 
-[node name="ShowBossBar" type="CheckButton" parent="ConfigTabs/UI/Scroll/ConfigPanel"]
+[node name="HideBossBar" type="CheckButton" parent="ConfigTabs/UI/Scroll/ConfigPanel"]
 layout_mode = 2
-text = "SHOW BOSS BAR"
+tooltip_text = "HIDE_BOSS_BAR_TOOLTIP"
+text = "HIDE_BOSS_BAR"
 alignment = 1
 
 [node name="HideStageBar" type="CheckButton" parent="ConfigTabs/UI/Scroll/ConfigPanel"]
 layout_mode = 2
-text = "HIDE STAGE BAR WHILE ACTIVE"
+tooltip_text = "HIDE_STAGE_BAR_TOOLTIP"
+text = "HIDE_STAGE_BAR"
 alignment = 1
 
 [node name="ResetUIDefaultSpecs" type="CheckButton" parent="ConfigTabs/UI/Scroll/ConfigPanel"]
 layout_mode = 2
-text = "RESET UI DEFAULT SIZES"
+text = "RESET_UI_DEFAULT_SIZES"
 alignment = 1
 
-[node name="Graphics" type="TabBar" parent="ConfigTabs"]
+[node name="GRAPHICS" type="TabBar" parent="ConfigTabs"]
 visible = false
 layout_mode = 2
 focus_neighbor_bottom = NodePath("Scroll/ConfigPanel/ScreenMode/ScreenModeMenu")
 focus_mode = 0
 
-[node name="Scroll" type="ScrollContainer" parent="ConfigTabs/Graphics"]
+[node name="Scroll" type="ScrollContainer" parent="ConfigTabs/GRAPHICS"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -767,18 +841,19 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ConfigPanel" type="VBoxContainer" parent="ConfigTabs/Graphics/Scroll"]
+[node name="ConfigPanel" type="VBoxContainer" parent="ConfigTabs/GRAPHICS/Scroll"]
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 6
 
-[node name="ScreenMode" type="Label" parent="ConfigTabs/Graphics/Scroll/ConfigPanel"]
+[node name="ScreenMode" type="Label" parent="ConfigTabs/GRAPHICS/Scroll/ConfigPanel"]
 custom_minimum_size = Vector2(0, 74)
 layout_mode = 2
-text = "SCREEN MODE"
+text = "SCREEN_MODE"
 horizontal_alignment = 1
+uppercase = true
 
-[node name="ScreenModeMenu" type="OptionButton" parent="ConfigTabs/Graphics/Scroll/ConfigPanel/ScreenMode"]
+[node name="ScreenModeMenu" type="OptionButton" parent="ConfigTabs/GRAPHICS/Scroll/ConfigPanel/ScreenMode"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -791,13 +866,14 @@ grow_horizontal = 2
 theme = ExtResource("1_yjy47")
 fit_to_longest_item = false
 
-[node name="VisualEffects" type="Label" parent="ConfigTabs/Graphics/Scroll/ConfigPanel"]
+[node name="VisualEffects" type="Label" parent="ConfigTabs/GRAPHICS/Scroll/ConfigPanel"]
 custom_minimum_size = Vector2(0, 74)
 layout_mode = 2
-text = "VISUAL EFFECTS"
+text = "VISUAL_EFFECTS"
 horizontal_alignment = 1
+uppercase = true
 
-[node name="VisualEffectsMenu" type="OptionButton" parent="ConfigTabs/Graphics/Scroll/ConfigPanel/VisualEffects"]
+[node name="VisualEffectsMenu" type="OptionButton" parent="ConfigTabs/GRAPHICS/Scroll/ConfigPanel/VisualEffects"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -811,20 +887,20 @@ theme = ExtResource("1_yjy47")
 text_overrun_behavior = 4
 fit_to_longest_item = false
 
-[node name="GlowEffect" type="CheckButton" parent="ConfigTabs/Graphics/Scroll/ConfigPanel"]
+[node name="GlowEffect" type="CheckButton" parent="ConfigTabs/GRAPHICS/Scroll/ConfigPanel"]
 visible = false
 layout_mode = 2
 tooltip_text = "Creates a red outline around enemies to make them easier to see"
 text = "PROJECTILES GLOW EFFECT"
 alignment = 1
 
-[node name="Accessibility" type="TabBar" parent="ConfigTabs"]
+[node name="ACCESSIBILITY" type="TabBar" parent="ConfigTabs"]
 visible = false
 layout_mode = 2
 focus_neighbor_bottom = NodePath("Scroll/ConfigPanel/Photosens_Mode")
 focus_mode = 0
 
-[node name="Scroll" type="ScrollContainer" parent="ConfigTabs/Accessibility"]
+[node name="Scroll" type="ScrollContainer" parent="ConfigTabs/ACCESSIBILITY"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -832,28 +908,28 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ConfigPanel" type="VBoxContainer" parent="ConfigTabs/Accessibility/Scroll"]
+[node name="ConfigPanel" type="VBoxContainer" parent="ConfigTabs/ACCESSIBILITY/Scroll"]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 6
 theme_override_constants/separation = 6
 
-[node name="EnemiesStandOut" type="CheckButton" parent="ConfigTabs/Accessibility/Scroll/ConfigPanel"]
+[node name="EnemiesStandOut" type="CheckButton" parent="ConfigTabs/ACCESSIBILITY/Scroll/ConfigPanel"]
 visible = false
 layout_mode = 2
 tooltip_text = "Creates a red outline around enemies to make them easier to see"
 text = "ENEMIES STAND OUT"
 alignment = 1
 
-[node name="Photosens_Mode" type="CheckButton" parent="ConfigTabs/Accessibility/Scroll/ConfigPanel"]
+[node name="Photosens_Mode" type="CheckButton" parent="ConfigTabs/ACCESSIBILITY/Scroll/ConfigPanel"]
 layout_mode = 2
-text = "PHOTOSENSIBILITY MODE"
+text = "PHOTOSENSIBILITY_MODE"
 alignment = 1
 
-[node name="ScreenShake" type="CheckButton" parent="ConfigTabs/Accessibility/Scroll/ConfigPanel"]
+[node name="ScreenShake" type="CheckButton" parent="ConfigTabs/ACCESSIBILITY/Scroll/ConfigPanel"]
 layout_mode = 2
-text = "SCREEN SHAKE"
+text = "SCREEN_SHAKE"
 alignment = 1
 
 [node name="FrontGears" type="AnimatedSprite2D" parent="ConfigTabs"]
@@ -910,23 +986,25 @@ dialog_text = "Reset default keybinds?"
 
 [connection signal="visibility_changed" from="." to="." method="_on_options_visibility_changed"]
 [connection signal="tab_selected" from="ConfigTabs" to="." method="_on_config_tabs_tab_selected"]
-[connection signal="toggled" from="ConfigTabs/Main Options/Scroll/ConfigPanel/OptionsButtons/VolumeContainer/MasterVol/Master_Toggle" to="." method="_on_master_toggle_toggled"]
-[connection signal="drag_ended" from="ConfigTabs/Main Options/Scroll/ConfigPanel/OptionsButtons/VolumeContainer/MasterVol/Master_Toggle/Master_Slider" to="." method="_on_master_slider_drag_ended"]
-[connection signal="value_changed" from="ConfigTabs/Main Options/Scroll/ConfigPanel/OptionsButtons/VolumeContainer/MasterVol/Master_Toggle/Master_Slider" to="." method="_on_master_slider_value_changed"]
-[connection signal="toggled" from="ConfigTabs/Main Options/Scroll/ConfigPanel/OptionsButtons/VolumeContainer/MusicVol/Music_Toggle" to="." method="_on_music_toggle_toggled"]
-[connection signal="drag_ended" from="ConfigTabs/Main Options/Scroll/ConfigPanel/OptionsButtons/VolumeContainer/MusicVol/Music_Toggle/Music_Slider" to="." method="_on_music_slider_drag_ended"]
-[connection signal="value_changed" from="ConfigTabs/Main Options/Scroll/ConfigPanel/OptionsButtons/VolumeContainer/MusicVol/Music_Toggle/Music_Slider" to="." method="_on_music_slider_value_changed"]
-[connection signal="toggled" from="ConfigTabs/Main Options/Scroll/ConfigPanel/OptionsButtons/VolumeContainer/SoundEffectVol/Effect_Toggle" to="." method="_on_effect_toggle_toggled"]
-[connection signal="drag_ended" from="ConfigTabs/Main Options/Scroll/ConfigPanel/OptionsButtons/VolumeContainer/SoundEffectVol/Effect_Toggle/Effect_Slider" to="." method="_on_effect_slider_drag_ended"]
-[connection signal="value_changed" from="ConfigTabs/Main Options/Scroll/ConfigPanel/OptionsButtons/VolumeContainer/SoundEffectVol/Effect_Toggle/Effect_Slider" to="." method="_on_effect_slider_value_changed"]
-[connection signal="pressed" from="ConfigTabs/Main Options/Scroll/ConfigPanel/OptionsButtons/ToggleFiring" to="." method="_on_toggle_firing_pressed"]
-[connection signal="pressed" from="ConfigTabs/Controls/Scroll/ConfigPanel/ResetDefKeybind" to="." method="_on_reset_default_keybinds_button"]
-[connection signal="item_selected" from="ConfigTabs/Graphics/Scroll/ConfigPanel/ScreenMode/ScreenModeMenu" to="." method="_on_screen_mode_selected"]
-[connection signal="item_selected" from="ConfigTabs/Graphics/Scroll/ConfigPanel/VisualEffects/VisualEffectsMenu" to="." method="_on_visual_effect_selected"]
-[connection signal="pressed" from="ConfigTabs/Graphics/Scroll/ConfigPanel/GlowEffect" to="." method="_on_photosens_mode_pressed"]
-[connection signal="pressed" from="ConfigTabs/Accessibility/Scroll/ConfigPanel/EnemiesStandOut" to="." method="_on_photosens_mode_pressed"]
-[connection signal="pressed" from="ConfigTabs/Accessibility/Scroll/ConfigPanel/Photosens_Mode" to="." method="_on_photosens_mode_pressed"]
-[connection signal="pressed" from="ConfigTabs/Accessibility/Scroll/ConfigPanel/ScreenShake" to="." method="_on_screen_shake_pressed"]
+[connection signal="toggled" from="ConfigTabs/MAIN_OPTIONS/Scroll/ConfigPanel/OptionsButtons/VolumeContainer/MasterVol/Master_Toggle" to="." method="_on_master_toggle_toggled"]
+[connection signal="drag_ended" from="ConfigTabs/MAIN_OPTIONS/Scroll/ConfigPanel/OptionsButtons/VolumeContainer/MasterVol/Master_Toggle/Master_Slider" to="." method="_on_master_slider_drag_ended"]
+[connection signal="value_changed" from="ConfigTabs/MAIN_OPTIONS/Scroll/ConfigPanel/OptionsButtons/VolumeContainer/MasterVol/Master_Toggle/Master_Slider" to="." method="_on_master_slider_value_changed"]
+[connection signal="toggled" from="ConfigTabs/MAIN_OPTIONS/Scroll/ConfigPanel/OptionsButtons/VolumeContainer/MusicVol/Music_Toggle" to="." method="_on_music_toggle_toggled"]
+[connection signal="drag_ended" from="ConfigTabs/MAIN_OPTIONS/Scroll/ConfigPanel/OptionsButtons/VolumeContainer/MusicVol/Music_Toggle/Music_Slider" to="." method="_on_music_slider_drag_ended"]
+[connection signal="value_changed" from="ConfigTabs/MAIN_OPTIONS/Scroll/ConfigPanel/OptionsButtons/VolumeContainer/MusicVol/Music_Toggle/Music_Slider" to="." method="_on_music_slider_value_changed"]
+[connection signal="toggled" from="ConfigTabs/MAIN_OPTIONS/Scroll/ConfigPanel/OptionsButtons/VolumeContainer/SoundEffectVol/Effect_Toggle" to="." method="_on_effect_toggle_toggled"]
+[connection signal="drag_ended" from="ConfigTabs/MAIN_OPTIONS/Scroll/ConfigPanel/OptionsButtons/VolumeContainer/SoundEffectVol/Effect_Toggle/Effect_Slider" to="." method="_on_effect_slider_drag_ended"]
+[connection signal="value_changed" from="ConfigTabs/MAIN_OPTIONS/Scroll/ConfigPanel/OptionsButtons/VolumeContainer/SoundEffectVol/Effect_Toggle/Effect_Slider" to="." method="_on_effect_slider_value_changed"]
+[connection signal="pressed" from="ConfigTabs/MAIN_OPTIONS/Scroll/ConfigPanel/OptionsButtons/ToggleFiring" to="." method="_on_toggle_firing_pressed"]
+[connection signal="item_selected" from="ConfigTabs/MAIN_OPTIONS/Scroll/ConfigPanel/OptionsButtons/Language/LanguageMenu" to="." method="_on_language_menu_item_selected"]
+[connection signal="pressed" from="ConfigTabs/CONTROLS/Scroll/ConfigPanel/ResetDefKeybind" to="." method="_on_reset_default_keybinds_button"]
+[connection signal="pressed" from="ConfigTabs/UI/Scroll/ConfigPanel/HideBossBar" to="." method="_on_show_boss_bar_pressed"]
+[connection signal="item_selected" from="ConfigTabs/GRAPHICS/Scroll/ConfigPanel/ScreenMode/ScreenModeMenu" to="." method="_on_screen_mode_selected"]
+[connection signal="item_selected" from="ConfigTabs/GRAPHICS/Scroll/ConfigPanel/VisualEffects/VisualEffectsMenu" to="." method="_on_visual_effect_selected"]
+[connection signal="pressed" from="ConfigTabs/GRAPHICS/Scroll/ConfigPanel/GlowEffect" to="." method="_on_photosens_mode_pressed"]
+[connection signal="pressed" from="ConfigTabs/ACCESSIBILITY/Scroll/ConfigPanel/EnemiesStandOut" to="." method="_on_photosens_mode_pressed"]
+[connection signal="pressed" from="ConfigTabs/ACCESSIBILITY/Scroll/ConfigPanel/Photosens_Mode" to="." method="_on_photosens_mode_pressed"]
+[connection signal="pressed" from="ConfigTabs/ACCESSIBILITY/Scroll/ConfigPanel/ScreenShake" to="." method="_on_screen_shake_pressed"]
 [connection signal="pressed" from="ExitMenu" to="." method="_on_exit_menu_pressed"]
 [connection signal="canceled" from="OptionsControl/ExitCheck" to="." method="_on_exit_check_canceled"]
 [connection signal="confirmed" from="OptionsControl/ExitCheck" to="." method="_on_exit_check_confirmed"]

@@ -1,4 +1,4 @@
-extends "res://entities/entity_scripts/enemy.gd"
+extends Enemy
 
 @onready var top_slots_node = $TopSlots
 @onready var bottom_slots_node = $BottomSlots

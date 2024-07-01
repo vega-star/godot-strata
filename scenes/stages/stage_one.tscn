@@ -500,7 +500,7 @@ _data = {
 "open_delta": SubResource("Animation_rqt1c")
 }
 
-[node name="StageOne" type="Node2D" node_paths=PackedStringArray("stage_parallax")]
+[node name="StageOne" type="Node2D" node_paths=PackedStringArray("stage_parallax", "stage_camera")]
 light_mask = 2
 visibility_layer = 2
 script = ExtResource("1_r34yt")
@@ -509,7 +509,9 @@ stage_title = "STAGE ONE"
 stage_description = "FIRST CONTACT"
 stage_ending_text = "RETURNING TO STAGE SELECTION"
 next_stage_path = "res://scenes/ui/construction_notice.tscn"
+stage_songs = Array[String](["Nesquence"])
 stage_parallax = NodePath("FirstStageParallax")
+stage_camera = NodePath("StageCamera")
 
 [node name="CutsceneManager" type="Node" parent="."]
 

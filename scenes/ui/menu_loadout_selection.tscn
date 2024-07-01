@@ -4,7 +4,6 @@
 [ext_resource type="Texture2D" uid="uid://24sxb8icxn75" path="res://assets/textures/prototypes/loadout-menu-concept.png" id="2_31rtj"]
 [ext_resource type="Texture2D" uid="uid://tx5i7gpbrglt" path="res://assets/textures/static/loadout_cover.png" id="3_4v5ak"]
 [ext_resource type="Theme" uid="uid://b1a5sjt2xibwo" path="res://assets/themes/strata_theme/strata_theme.tres" id="3_sltso"]
-[ext_resource type="Texture2D" uid="uid://cqdy1oun853by" path="res://assets/themes/strata_theme/elements/misc/menu_big_button.png" id="4_lfkuq"]
 [ext_resource type="Texture2D" uid="uid://hjl4olh2i0su" path="res://assets/themes/strata_theme/elements/misc/save_button.png" id="5_dgc0q"]
 [ext_resource type="Texture2D" uid="uid://cumvt4pjvvpqj" path="res://assets/textures/static/red_button.png" id="6_f1of6"]
 [ext_resource type="Texture2D" uid="uid://bmij4op0c0avx" path="res://assets/themes/strata_theme/elements/misc/save_button_pressed.png" id="6_y7gwm"]
@@ -15,6 +14,7 @@
 [ext_resource type="Script" path="res://scenes/scripts/ui/ui_default_button.gd" id="7_k46rw"]
 [ext_resource type="Texture2D" uid="uid://by60mh5hr16dr" path="res://assets/themes/strata_theme/elements/misc/save_button_disabled.png" id="8_2x7y7"]
 [ext_resource type="BitMap" uid="uid://dupnmu3lriidv" path="res://assets/themes/strata_theme/elements/misc/save_button_click_mask.bmp" id="9_2o3y0"]
+[ext_resource type="PackedScene" uid="uid://os3hgx0i6vhv" path="res://scenes/ui/ui_big_button.tscn" id="15_m4w1q"]
 
 [sub_resource type="Animation" id="Animation_bs5cd"]
 length = 0.001
@@ -96,8 +96,6 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -8.0
-offset_bottom = -8.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -132,6 +130,7 @@ offset_right = 130.0
 offset_bottom = -131.0
 grow_vertical = 0
 tooltip_text = "Learn and test the basics"
+focus_neighbor_top = NodePath("../../ReturnToMainMenu")
 focus_neighbor_right = NodePath("../../../../ConfigButton")
 theme = ExtResource("3_sltso")
 text = "TUTORIAL"
@@ -148,6 +147,7 @@ offset_right = 232.0
 offset_bottom = -131.0
 grow_vertical = 0
 tooltip_text = "Simulate items and enemies present in codex"
+focus_neighbor_top = NodePath("../../ReturnToMainMenu")
 focus_neighbor_right = NodePath("../../../../ConfigButton")
 theme = ExtResource("3_sltso")
 disabled = true
@@ -218,7 +218,7 @@ offset_right = 210.0
 offset_bottom = -13.0
 theme = ExtResource("3_sltso")
 theme_override_font_sizes/font_size = 28
-text = "SELECT LOADOUT"
+text = "SELECT_LOADOUT"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -387,17 +387,13 @@ text = "ROLL"
 layout_mode = 2
 text = "|"
 
-[node name="ReturnToMainMenu" type="TextureButton" parent="."]
+[node name="ReturnToMainMenu" parent="." instance=ExtResource("15_m4w1q")]
 layout_mode = 1
-offset_left = 94.0
-offset_top = 11.0
-offset_right = 176.0
-offset_bottom = 93.0
-scale = Vector2(-1, 1)
-tooltip_text = "Return to main menu"
-theme = ExtResource("3_sltso")
-texture_normal = ExtResource("4_lfkuq")
-script = ExtResource("7_byckj")
+offset_left = -388.0
+offset_top = -449.0
+offset_right = -306.0
+offset_bottom = -367.0
+rotation = -3.14159
 
 [connection signal="pressed" from="Dashboard/StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="pressed" from="Dashboard/TutorialButton" to="." method="_on_tutorial_button_pressed"]

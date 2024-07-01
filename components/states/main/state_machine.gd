@@ -50,12 +50,13 @@ func _on_child_transition(state, new_state_name):
 	
 	var new_state = states.get(new_state_name.to_lower())
 	if !new_state: return
+	if debug: print('STATE MACHINE | {0} TRANSITIONING STATE FROM {1} TO {2}'.format({0: owner.name, 1:state.name.to_lower(), 2:new_state_name}))
 	
-	if current_state: current_state.exit()
+	if current_state: await current_state.exit()
 	
 	new_state.enter()
 	current_state = new_state
 
 func change_conditional(key, value):
-	if debug: print('{2} ||| CONDITION CHANGED: {0} | {1}'.format({0: key, 1: value, 2: owner.name}))
+	if debug: print('STATE MACHINE | {2} CONDITION CHANGED: {0} | {1}'.format({0: key, 1: value, 2: owner.name}))
 	state_conditions[key] = value

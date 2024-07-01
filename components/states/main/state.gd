@@ -7,7 +7,7 @@ class_name State
 # The foundations of it are explained wonderfully by Bitlytic, check its tutorial below:
 # Source: https://www.youtube.com/watch?v=ow_Lum-Agbs
 #
-# Remember to extend this script before using it on a node!
+# REMEMBER TO EXTEND THIS SCRIPT INSTEAD OF USING IT DIRECTLY ON A NODE!!!
 
 signal transitioned(current_state, new_state_name)
 

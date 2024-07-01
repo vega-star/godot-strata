@@ -15,6 +15,7 @@ func _pressed():
 func _input(event):
 	if(do_set):
 		if(event is InputEventKey):
+			self.focus_mode = Control.FOCUS_NONE
 			# | Erase old keys
 			var newkey = InputEventKey.new()
 			newkey.keycode = int(Options.key_dict[keybind])
@@ -27,9 +28,10 @@ func _input(event):
 			Options.key_dict[keybind] = event.keycode
 			# | Stop keybind process
 			do_set = false
+			self.focus_mode = Control.FOCUS_ALL
 
 func _emit_sound(sound_id : String):
-	AudioManager.emit_sound_effect(null, sound_id, false, true)
+	AudioManager.emit_sound_effect(null, sound_id)
 
 func _on_pressed():
 	_emit_sound(sound_when_pressed)

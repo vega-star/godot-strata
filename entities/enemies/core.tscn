@@ -1,8 +1,9 @@
-[gd_scene load_steps=13 format=3 uid="uid://bdh4k0v17f0wc"]
+[gd_scene load_steps=14 format=3 uid="uid://bdh4k0v17f0wc"]
 
 [ext_resource type="Texture2D" uid="uid://dxblkn3pbs3x6" path="res://assets/textures/entities/enemies/simple/small_core_animation.png" id="1_6123s"]
 [ext_resource type="Texture2D" uid="uid://dxt6px7kksixs" path="res://assets/textures/entities/enemies/simple/core_alternative.png" id="1_bm81x"]
 [ext_resource type="Script" path="res://entities/entity_scripts/core.gd" id="2_a1aoy"]
+[ext_resource type="Texture2D" uid="uid://dhpty07uboivr" path="res://assets/textures/static/2d_lights_and_shadows_neutral_point_light.webp" id="4_7nk55"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_spnhw"]
 atlas = ExtResource("1_bm81x")
@@ -74,9 +75,16 @@ animations = [{
 }]
 
 [node name="Core" type="AnimatedSprite2D"]
-modulate = Color(1.5, 1.5, 1.5, 1)
 sprite_frames = SubResource("SpriteFrames_qhuxy")
-animation = &"core_active"
+animation = &"small_core_active"
 autoplay = "small_core_active"
-frame_progress = 0.622369
+frame_progress = 0.438446
 script = ExtResource("2_a1aoy")
+
+[node name="CoreLight" type="PointLight2D" parent="."]
+light_mask = 2
+visibility_layer = 2
+shadow_enabled = true
+shadow_item_cull_mask = 2
+texture = ExtResource("4_7nk55")
+texture_scale = 0.5

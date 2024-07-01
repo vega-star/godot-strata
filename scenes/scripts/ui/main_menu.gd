@@ -1,4 +1,6 @@
-extends Control
+class_name Menu extends Control
+
+@export var menu_songs : Array[String] = []
 
 @onready var project_version = ProjectSettings.get_setting("application/config/version")
 @onready var version_label = $MenuPages/CentralPage/VersionLabel
@@ -16,6 +18,7 @@ const page_position_offset_y : int = 81
 
 func _ready():
 	if UI.UIOverlay.visible: UI.UIOverlay.visible = false
+	if get_tree().paused: UI.set_pause(false)
 	
 	Options.visibility_changed.connect(_on_options_visibility_changed)
 	
@@ -25,10 +28,17 @@ func _ready():
 	
 	version_label.text = "v%s" % project_version
 	screen_size = get_viewport_rect().size
+	play_music(0, false)
 	await UI.fade('IN')
 	$MenuPages/CentralPage/ButtonsCover/ButtonsContainer/StartButton.grab_focus()
-	
-	AudioManager.set_music("first_in_line-placeholder")
+
+func play_music(
+	music_id : int = 0,
+	fade : bool = true,
+	random : bool = false
+	):
+		var selected_music = menu_songs[music_id]
+		AudioManager.set_music(selected_music, fade, random, menu_songs)
 
 func set_focus(focus_position, direction):
 	var page = get_page_from_position(focus_position, direction)

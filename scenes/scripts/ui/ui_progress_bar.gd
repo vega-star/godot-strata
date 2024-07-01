@@ -7,6 +7,7 @@ const bar_fadeout_time : float = 3
 @onready var ui_animation_player = $"../../UIAnimations"
 @onready var progress_bar = $StageProgressBar/Bar
 @onready var boss_bar = $BossBar/Bar
+@onready var heat_bar = $"../Info/Elements/HeatBar"
 @onready var damage_bar = $BossBar/Bar/DamageBar
 @onready var boss_name = $BossBar/BossName
 @onready var progress_bar_frame = $StageProgressBar/ProgressBarFrame
@@ -54,6 +55,9 @@ func toggle_progress_bar(show : bool = true):
 	else: ui_animation_player.play_backwards("toggle_progress_bar")
 
 func set_boss_bar(new_boss_node):
+	var hide_boss_bar : bool = Options.config_file.get_value("UI_OPTIONS", "HIDE_BOSS_BAR")
+	if hide_boss_bar: return
+	
 	boss_node = new_boss_node
 	await boss_node.ready
 	boss_health_component = boss_node.health_component
@@ -108,11 +112,8 @@ func _update_boss_bar(_previous_value : int, new_value : int, _type : bool):
 	
 	## TODO: UPDATE BOSS STAGES
 	
-	if new_value <= 0:
-		boss_bar.set_value(0)
-		close_boss_bar()
-	else:
-		boss_bar.set_value(new_value)
+	if new_value <= 0: boss_bar.set_value(0); close_boss_bar()
+	else: boss_bar.set_value(new_value)
 	
 	damage_bar._set_health(new_value)
 

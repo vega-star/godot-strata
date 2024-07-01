@@ -1,6 +1,6 @@
 extends State
 
-@export var timeout : float
+@export_range(0, 10) var timeout : float
 @export var next_state : State
 
 ## TimedIdle

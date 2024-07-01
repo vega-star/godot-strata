@@ -53,6 +53,7 @@ func _physics_process(_delta):
 				heal_frames = 0
 				
 				if target.health_component.current_health == target.health_component.max_health:
+					add_exception(target)
 					target_health_at_max.emit()
 					target_missed.emit()
 					deactivate(2)
@@ -121,3 +122,4 @@ func deactivate(urgency_factor : float = 1):
 	laser_tween.kill()
 	
 	laser_line.visible = false
+	clear_exceptions()

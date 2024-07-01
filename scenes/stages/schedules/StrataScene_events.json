@@ -344,13 +344,14 @@
         "set_timer": true,
         "has_rules": true,
         "event_properties": {
-            "enemy": "drone_1",
+            "enemy": "diver",
             "event_timer": {
                 "pause_stage_timer": false,
                 "timer_period": 8.0
             },
             "rules": {
-                "spawn_override": "center_forward", 
+                "spawn_override": "center_forward",
+                "rotated": 180,
                 "swarm": {
                     "method": 0, 
                     "separation": 80,

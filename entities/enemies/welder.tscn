@@ -50,7 +50,6 @@ texture = ExtResource("3_3m8sq")
 offset = Vector2(-2, 0)
 
 [node name="Core" parent="EnemySprite" node_paths=PackedStringArray("health_component") instance=ExtResource("4_5htw6")]
-animation = &"small_core_active"
 frame_progress = 0.369806
 health_component = NodePath("../../HealthComponent")
 

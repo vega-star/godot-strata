@@ -19,10 +19,8 @@ func _ready():
 		$ButtonsCover/ButtonsContainer/CodexButton.set_tooltip_text('W.I.P')
 
 func emit_button_sound(button_status):
-	if button_status:
-		AudioManager.emit_sound_effect(null, "error_select", false, true)
-	else:
-		AudioManager.emit_sound_effect(null, "select_sound_1", false, true)
+	if button_status: AudioManager.emit_sound_effect(null, "error_select")
+	else: AudioManager.emit_sound_effect(null, "select_sound_1")
 
 func _on_start_button_pressed(): 
 	message_player.close_message(true, abrupt_closure_speed)
@@ -57,7 +55,7 @@ func _on_youtube_link_pressed():
 ## Debug sign
 const message_timeout : float = 7
 const message_size : Vector2 = Vector2(200,280)
-const message_content : String = "You're playing an alpha version. There'll be weird things, have fun!"
+const message_content : String = "ALPHA_MESSAGE"
 func _on_sprite_zone_mouse_entered():
 	message_player.request_message(
 		message_content,

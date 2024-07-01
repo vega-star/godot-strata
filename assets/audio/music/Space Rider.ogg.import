@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://drl4qeekcnih4"
+path="res://.godot/imported/Space Rider.ogg-bfbcd4743657615695a9fea9be239804.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/audio/music/Space Rider.ogg"
+dest_files=["res://.godot/imported/Space Rider.ogg-bfbcd4743657615695a9fea9be239804.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

@@ -1,0 +1,9 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://do6x0uuo6jr1m"]
+
+[ext_resource type="Shader" path="res://assets/shaders/energy_shield_effect.gdshader" id="1_8xkms"]
+
+[resource]
+shader = ExtResource("1_8xkms")
+shader_parameter/wave_count = 20.0
+shader_parameter/speed = 5.0
+shader_parameter/height = 0.005

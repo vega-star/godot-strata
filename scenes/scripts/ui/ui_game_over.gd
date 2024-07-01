@@ -41,6 +41,7 @@ func _on_retry_button_pressed(): # Reloads scene directly
 	LoadManager.reload_scene()
 	game_over_animation.play("RESET")
 	
+	UI.UIOverlay.bars.clear_events()
 	UI.PauseMenu.lock(false)
 
 func _on_exit_button_pressed(): # Recieves signal from 'ExitButton', goes back to main menu

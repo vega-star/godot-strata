@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://3js2ufvdnk2k"]
+[gd_scene load_steps=32 format=3 uid="uid://3js2ufvdnk2k"]
 
 [ext_resource type="Script" path="res://scenes/scripts/ui/menu_central_page.gd" id="1_gad2b"]
 [ext_resource type="PackedScene" uid="uid://b5ek1g4fsmfqu" path="res://scenes/ui/ui_menu_effect.tscn" id="2_c4osj"]
@@ -13,7 +13,6 @@
 [ext_resource type="Texture2D" uid="uid://bivosg7gi3xsk" path="res://assets/textures/static/youtube_filled.png" id="9_4afs7"]
 [ext_resource type="Texture2D" uid="uid://dnidij0lsyxn2" path="res://assets/textures/static/zero_v2.png" id="9_7s7nh"]
 [ext_resource type="Texture2D" uid="uid://orwbsvnegv6d" path="res://assets/textures/static/github_small_filled.png" id="9_j4gts"]
-[ext_resource type="Texture2D" uid="uid://bxb1g0c8610w8" path="res://assets/textures/static/logo_dithering.png" id="9_rfkin"]
 [ext_resource type="Texture2D" uid="uid://cdphsx104dybi" path="res://assets/textures/static/youtube_focused.png" id="10_4rbs6"]
 [ext_resource type="BitMap" uid="uid://bs4gxxn1dsesg" path="res://assets/textures/static/github_small.bmp" id="10_aucim"]
 [ext_resource type="Texture2D" uid="uid://x4efkns1chvu" path="res://assets/textures/static/itchio_icon_small.png" id="11_ks4t0"]
@@ -278,7 +277,7 @@ theme = ExtResource("3_l8my2")
 text = "v0.0.0"
 
 [node name="RadishHoldingSign" type="AnimatedSprite2D" parent="."]
-position = Vector2(111, 485)
+position = Vector2(59, 461)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_62iot")
 animation = &"main"
@@ -301,14 +300,12 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="StrataLogo" type="Sprite2D" parent="."]
+self_modulate = Color(1.2, 1.2, 1.5, 1)
 position = Vector2(478, 138)
 texture = ExtResource("8_nw8rs")
 
-[node name="DitheringLayer" type="Sprite2D" parent="StrataLogo"]
-show_behind_parent = true
-texture = ExtResource("9_rfkin")
-
 [node name="Zero" type="Sprite2D" parent="StrataLogo"]
+self_modulate = Color(1, 2.5, 2, 1)
 position = Vector2(308, 130)
 scale = Vector2(0.757396, 0.757396)
 texture = ExtResource("9_7s7nh")
@@ -323,7 +320,7 @@ anchor_bottom = 1.0
 offset_left = 975.0
 offset_top = 395.0
 offset_right = 1035.0
-offset_bottom = 519.0
+offset_bottom = 519.001
 grow_horizontal = 0
 grow_vertical = 0
 theme_override_constants/separation = 4

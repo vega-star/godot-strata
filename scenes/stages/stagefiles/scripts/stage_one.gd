@@ -7,6 +7,7 @@ func start_stage_sequence(): # Starting animations, fade-in, etc.
 	# var player_move_to_action = get_tree().create_tween()
 	# player_move_to_action.tween_property(player, "position", player_spawn_pos.global_position, 0.99)	
 	var parallax_tween = get_tree().create_tween()
+	play_music(0, false)
 	stage_parallax.speed_factor = 3
 	parallax_tween.tween_property(stage_parallax, "speed_factor", 1, 3)
 	player.controls_lock(true)

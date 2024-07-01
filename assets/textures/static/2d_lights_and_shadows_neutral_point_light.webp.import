@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cqdy1oun853by"
-path="res://.godot/imported/menu_big_button.png-dfb72b973f5be57dbe9f0d5024dd1fc7.ctex"
+uid="uid://dhpty07uboivr"
+path="res://.godot/imported/2d_lights_and_shadows_neutral_point_light.webp-ff587ec5446c3e766f449ea2631f6999.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/themes/strata_theme/elements/misc/menu_big_button.png"
-dest_files=["res://.godot/imported/menu_big_button.png-dfb72b973f5be57dbe9f0d5024dd1fc7.ctex"]
+source_file="res://assets/textures/static/2d_lights_and_shadows_neutral_point_light.webp"
+dest_files=["res://.godot/imported/2d_lights_and_shadows_neutral_point_light.webp-ff587ec5446c3e766f449ea2631f6999.ctex"]
 
 [params]
 

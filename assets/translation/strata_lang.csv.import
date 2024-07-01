@@ -1,0 +1,17 @@
+[remap]
+
+importer="csv_translation"
+type="Translation"
+uid="uid://btb782o7plt3a"
+
+[deps]
+
+files=["res://assets/translation/strata_lang.en.translation", "res://assets/translation/strata_lang.pt.translation"]
+
+source_file="res://assets/translation/strata_lang.csv"
+dest_files=["res://assets/translation/strata_lang.en.translation", "res://assets/translation/strata_lang.pt.translation"]
+
+[params]
+
+compress=true
+delimiter=0

@@ -734,7 +734,6 @@ show_percentage = false
 [node name="DamageBar" parent="HUD/Bars/BossBar/Bar" node_paths=PackedStringArray("source_bar") instance=ExtResource("17_iuoyt")]
 layout_mode = 1
 source_bar = NodePath("..")
-debug = true
 
 [node name="Panel" type="Panel" parent="HUD/Bars/BossBar/Bar"]
 z_index = -2

@@ -43,3 +43,11 @@ motion_mirroring = Vector2(0, 707)
 [node name="MenuEffectRight" type="Sprite2D" parent="RightSide"]
 position = Vector2(708, 270)
 texture = ExtResource("3_1ruaw")
+
+[node name="Darken" type="ColorRect" parent="."]
+visible = false
+self_modulate = Color(1, 1, 1, 0.898039)
+offset_left = -1.0
+offset_right = 959.0
+offset_bottom = 540.0
+color = Color(0, 0, 0, 1)

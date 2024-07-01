@@ -30,7 +30,6 @@ const self_scene_path = "res://entities/projectiles/healing_laser.tscn"
 @onready var healing_laser = $HealingLaser
 @onready var player = get_tree().get_first_node_in_group('Player')
 
-
 ## Behavior
 @export var locked : bool = false
 @export var shoot_lock : bool = false
