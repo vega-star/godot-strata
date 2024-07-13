@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=3 uid="uid://cmqhgcn8ma7k5"]
+[gd_scene load_steps=50 format=3 uid="uid://cmqhgcn8ma7k5"]
 
 [ext_resource type="Script" path="res://entities/entity_scripts/composite_enemy.gd" id="1_sosx1"]
 [ext_resource type="PackedScene" uid="uid://cifxjpiop3cha" path="res://components/status/drop_component.tscn" id="2_hipol"]
@@ -37,7 +37,6 @@
 [ext_resource type="Texture2D" uid="uid://c6umsbmosn2j2" path="res://assets/textures/entities/enemies/lancer/lancer-gun-component-normal.png" id="17_abov4"]
 [ext_resource type="Texture2D" uid="uid://dykji6r43g5u0" path="res://assets/textures/entities/enemies/lancer/lancer-back-shielding-normal.png" id="20_jfyeb"]
 [ext_resource type="PackedScene" uid="uid://bdh4k0v17f0wc" path="res://entities/enemies/core.tscn" id="25_cmi1k"]
-[ext_resource type="PackedScene" uid="uid://x002al2q548f" path="res://scenes/ui/shader_test.tscn" id="38_5ow2f"]
 
 [sub_resource type="Animation" id="Animation_5b3dw"]
 length = 0.3
@@ -900,8 +899,6 @@ strength = 10.0
 [node name="Laser" parent="." instance=ExtResource("15_xg2si")]
 position = Vector2(54, 0)
 collision_mask = 1
-
-[node name="ShaderTest" parent="." instance=ExtResource("38_5ow2f")]
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="enemy_defeated" from="." to="DropComponent" method="_on_enemy_died"]

@@ -29,6 +29,7 @@ var stage_length_in_minutes : float = 0.0
 var challenge_enemy
 
 ## Dictionaries
+var group_dict : Dictionary
 var stage_dict : Dictionary
 var events_dict : Dictionary 
 
@@ -135,48 +136,50 @@ func preload_event(event, event_name = "UNNAMED_EVENT"):
 	UI.UIOverlay.display_event(event_data)
 
 func execute_event(event, event_name = "UNNAMED_EVENT"):
+	var gid : String = ''
 	var filler_time : float
 	var rule_override : Dictionary
+	var properties : Dictionary = event["event_properties"]
 	
 	if event["has_rules"]:
-		rule_override = event["event_properties"]["rules"]
+		rule_override = properties["rules"]
 		assert(rule_override is Dictionary)
 	
 	if debug: print("{0} EVENT LOADED | TYPE: {1}\n\tDESCRIPTION: {2}".format({0:event_name,1:event["event_type"],2:event["event_description"]}))
 	
 	match event["event_type"]:
 		"filler":
-			filler_time = $"../StageTimer".get_time_left() - float(event["event_properties"]["event_timer"]["filler_stop_before"])
+			filler_time = $"../StageTimer".get_time_left() - float(properties["event_timer"]["filler_stop_before"])
 			print('\tFILLER QUEUED | Filler timer/Real time remaining: {0}/{1}'.format({0:filler_time,1:$"../StageTimer".get_time_left()}))
 		"message":
-			var message_set : bool = event["event_properties"]["message_set"]
-			var message_timeout : float = event["event_properties"]["message_timeout"]
+			var message_set : bool = properties["message_set"]
+			var message_timeout : float = properties["message_timeout"]
 			if !message_set:
 				message_player.request_message(
-					int(event["event_properties"]["message_content"]),
+					int(properties["message_content"]),
 					message_timeout
 				)
 			else:
 				message_player.request_message(
-					str(event["event_properties"]["message_content"]),
+					str(properties["message_content"]),
 					message_timeout
 				)
 		"toggle_random":
-			var toggle_value = event["event_properties"]["active"]
+			var toggle_value = properties["active"]
 			owner.set_random_loop = toggle_value
-			if toggle_value: owner.set_random_loop_interval = event["event_properties"]["random_spawn_interval"]
+			if toggle_value: owner.set_random_loop_interval = properties["random_spawn_interval"]
 		"spawn_enemy":
-			threat_generator.generate_threat(event["event_properties"]["enemy"], rule_override)
+			threat_generator.generate_threat(properties["enemy"], rule_override)
 		"spawn_single_random_enemy":
 			var select_random = randi() % stage_allowed_random_enemies.size() # This array comes from the [Stage Name]_stage.json file
 			threat_generator.generate_threat(stage_allowed_random_enemies[select_random], rule_override)
 		"spawn_sequence":
-			spawn_sequence(event["event_properties"]["enemy_array"], event["event_properties"]["sequence_cooldown"], rule_override)
+			spawn_sequence(properties["enemy_array"], properties["sequence_cooldown"], rule_override)
 		"spawn_challenge":
-			threat_generator.generate_threat(event["event_properties"]["enemy"], rule_override)
+			threat_generator.generate_threat(properties["enemy"], rule_override)
 		"spawn_item":
-			var drop_dict = event["event_properties"]["item_selection"]
-			var override_drop : bool = event["event_properties"]["override_drop"]
+			var drop_dict = properties["item_selection"]
+			var override_drop : bool = properties["override_drop"]
 			var drop_position = $ThreatGenerator/ScreenArea/SpawnArea/CenterSpawnPos.global_position
 			
 			if override_drop:
@@ -237,6 +240,41 @@ func spawn_sequence(enemy_array, sequence_cooldown, rule_override = null): # Pla
 
 func pause_stage_timer(toggle : bool):
 	stage_timer.set_paused(toggle)
+
+func _on_enemy_defeated(enemy_node, enemy_group): # After every enemy is defeated, will check if entire group is defeated, then will give reward based on that group
+	const container_check_delay : float = 0.4
+	var group_defeated : bool = false
+	var position : Vector2 = Vector2.ZERO
+	
+	if debug: print('SIGNAL RECEIVED | {0} defeated and is part of {1} group'.format({0: enemy_node.name, 1: enemy_group}))
+	if is_instance_valid(enemy_node): position = enemy_node.global_position
+	
+	await get_tree().create_timer(container_check_delay, false, true).timeout
+	for e in enemy_container.get_children():
+		if e is Enemy and e.is_in_group(enemy_group): return # Found an enemy inside the group, group not defeated yet
+		else: group_defeated = true # Group defeated
+	
+	if group_defeated:
+		if debug: print('GROUP DEFEATED | Last {0} group entity defeated on {1}'.format({0: enemy_group, 1: position}))
+		if !group_dict.has(enemy_group): push_error('Group detected as defeated, but do not exist in group_dict. Something went wrong'); return
+		var type = int(group_dict[enemy_group]["reward_type"])
+		var value = group_dict[enemy_group]["reward_value"]
+		process_reward(position, type, value)
+		group_dict.erase(enemy_group)
+
+## Process Reward
+## Spawns items, buffs and give score based on full group annihilation
+# Reward types:
+# 0: Score | Integer; total score addition
+# 1: Item | Dictionary; a filled dictionary to drop items
+func process_reward(position, type : int, value):
+	## Reset to center of the screen if enemy was freed before its position were captured
+	if position == Vector2.ZERO: position = Vector2(get_viewport().get_visible_rect().size.x / 2, get_viewport().get_visible_rect().size.y / 2)
+	match type:
+		0: #? Score
+			var integer_value = int(value)
+			Profile.add_run_data("STATISTICS", "SCORE", integer_value)
+			UI.InfoHUD.summon_volatile_message(position, str(value))
 
 func _exit_tree():
 	# UI.InfoHUD.toggle_message_layer(false)

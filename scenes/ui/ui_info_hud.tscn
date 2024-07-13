@@ -17,9 +17,9 @@ position = Vector2(512, 47)
 
 [node name="InfoContainer" type="Node2D" parent="InfoLayer"]
 
-[node name="MessagePlayer" parent="InfoLayer" node_paths=PackedStringArray("default_position_marker") instance=ExtResource("2_tkq24")]
+[node name="MessagePlayer" parent="InfoLayer" node_paths=PackedStringArray("info_container", "default_position_marker") instance=ExtResource("2_tkq24")]
 process_mode = 3
-visible = false
+info_container = NodePath("../InfoContainer")
 default_position_marker = NodePath("../Default")
 
 [node name="DangerPlayer" parent="InfoLayer" instance=ExtResource("3_51jvq")]

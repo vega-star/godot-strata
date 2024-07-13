@@ -184,7 +184,7 @@ scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_mwkpm")
 animation = &"main"
 autoplay = "main"
-frame_progress = 0.557049
+frame_progress = 0.232037
 
 [node name="MAIN_OPTIONS" type="TabBar" parent="ConfigTabs"]
 layout_mode = 2
@@ -940,7 +940,7 @@ scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_mwkpm")
 animation = &"main"
 autoplay = "main"
-frame_progress = 0.243996
+frame_progress = 0.784232
 
 [node name="ExitMenu" type="Button" parent="."]
 custom_minimum_size = Vector2(50, 50)
@@ -999,6 +999,7 @@ dialog_text = "Reset default keybinds?"
 [connection signal="item_selected" from="ConfigTabs/MAIN_OPTIONS/Scroll/ConfigPanel/OptionsButtons/Language/LanguageMenu" to="." method="_on_language_menu_item_selected"]
 [connection signal="pressed" from="ConfigTabs/CONTROLS/Scroll/ConfigPanel/ResetDefKeybind" to="." method="_on_reset_default_keybinds_button"]
 [connection signal="pressed" from="ConfigTabs/UI/Scroll/ConfigPanel/HideBossBar" to="." method="_on_show_boss_bar_pressed"]
+[connection signal="pressed" from="ConfigTabs/UI/Scroll/ConfigPanel/HideStageBar" to="." method="_on_hide_stage_bar_pressed"]
 [connection signal="item_selected" from="ConfigTabs/GRAPHICS/Scroll/ConfigPanel/ScreenMode/ScreenModeMenu" to="." method="_on_screen_mode_selected"]
 [connection signal="item_selected" from="ConfigTabs/GRAPHICS/Scroll/ConfigPanel/VisualEffects/VisualEffectsMenu" to="." method="_on_visual_effect_selected"]
 [connection signal="pressed" from="ConfigTabs/GRAPHICS/Scroll/ConfigPanel/GlowEffect" to="." method="_on_photosens_mode_pressed"]

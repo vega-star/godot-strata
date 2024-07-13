@@ -6,6 +6,7 @@
 
 [node name="StageManager" type="Node" groups=["stage_manager"]]
 script = ExtResource("1_7rybp")
+debug = true
 
 [node name="DropComponent" parent="." instance=ExtResource("2_s1ebf")]
 stage_dropper = true

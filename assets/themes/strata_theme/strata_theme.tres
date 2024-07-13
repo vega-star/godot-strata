@@ -153,10 +153,10 @@ bg_color = Color(0.498039, 0.439216, 0.541176, 1)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_eamb5"]
 texture = ExtResource("22_yq80r")
-texture_margin_left = 7.0
-texture_margin_top = 7.0
-texture_margin_right = 15.0
-texture_margin_bottom = 7.0
+texture_margin_left = 8.0
+texture_margin_top = 8.0
+texture_margin_right = 10.0
+texture_margin_bottom = 8.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_02j73"]
 bg_color = Color(0.0862745, 0.352941, 0.298039, 1)
@@ -417,6 +417,8 @@ TabContainer/styles/tab_unselected = SubResource("StyleBoxTexture_8pckt")
 TextEdit/styles/focus = SubResource("StyleBoxTexture_f7ofq")
 TextEdit/styles/normal = SubResource("StyleBoxTexture_b36d3")
 TextEdit/styles/read_only = SubResource("StyleBoxTexture_angwa")
+TooltipLabel/colors/font_shadow_color = Color(0.180392, 0.133333, 0.184314, 1)
+TooltipLabel/font_sizes/font_size = 26
 TooltipPanel/styles/panel = ExtResource("31_lhwq2")
 Tree/icons/checked = ExtResource("7_y08fa")
 Tree/icons/unchecked = ExtResource("13_otq7b")

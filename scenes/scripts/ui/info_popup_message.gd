@@ -2,6 +2,7 @@ extends Control
 
 signal message_displayed
 
+const volatile_message_scene : PackedScene = preload("res://scenes/ui/volatile_message.tscn")
 const cursor_point_scene : PackedScene = preload("res://scenes/ui/cursor_point.tscn")
 const default_growth : Vector2 = Vector2(400, 120)
 const growth_speed : float = 0.5
@@ -24,9 +25,10 @@ const text_dict : Dictionary = {
 }
 
 @onready var message_timer = $MessageTimer
-@onready var text_node = $MessageText
+@onready var message_node = $MessageText
 @onready var keybinds_dict : Dictionary = {}
 
+@export var info_container : Node2D
 @export var default_position_marker : Marker2D
 var message_ready : bool = true
 var message_closing : bool = false
@@ -77,7 +79,7 @@ func open_message(new_size = default_growth):
 	message_opening = true
 	
 	size = Vector2(0, 0)
-	visible = true
+	message_node.visible = true
 	
 	var size_tween = get_tree().create_tween()
 	size_tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
@@ -95,14 +97,14 @@ func close_message(force_close : bool = true, speed : float = growth_speed):
 	if !message_timer.is_stopped(): message_timer.stop()
 	
 	var size_tween = get_tree().create_tween()
-	text_node.set_text("")
+	message_node.set_text("")
 	size_tween = get_tree().create_tween()
 	size_tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
 	size_tween.tween_property(self, "size", Vector2(0, 0), speed).set_trans(Tween.TRANS_EXPO)
 	await size_tween.finished
 	size_tween.kill()
 	
-	visible = false
+	message_node.visible = false
 	message_ready = true
 	message_closing = false
 
@@ -110,7 +112,15 @@ func load_text(text_id):
 	var text = text_dict[text_id]
 	text = TranslationServer.tr(text, Options.config_file.get_value("MAIN_OPTIONS","LANGUAGE"))
 	text = text.format(keybinds_dict)
-	text_node.set_text(text)
+	message_node.set_text(text)
 
 func manual_set_text(text):
-	text_node.set_text(text)
+	message_node.set_text(text)
+
+func summon_volatile_message(message_position : Vector2, message_text : String):
+	print('VOLATILE MESSAGE SUMMONED')
+	var message = volatile_message_scene.instantiate()
+	message.global_position = message_position
+	info_container.call_deferred('add_child', message)
+	await message.ready
+	message.display(message_text)

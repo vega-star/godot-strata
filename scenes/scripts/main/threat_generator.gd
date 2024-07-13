@@ -70,7 +70,7 @@ func _process(delta):
 			load_available.emit()
 			set_process(false)
 
-func generate_threat(enemy, rule_override = null):
+func generate_threat(enemy, rule_override = null, gid = ''):
 	## Main variables
 	var rules : Dictionary
 	var container = enemies_container
@@ -124,6 +124,15 @@ func generate_threat(enemy, rule_override = null):
 				"rotated":
 					rotation_angle = rule_property
 					selected_enemy.set_rotation_degrees(rule_property)
+				"group": # TODO: MOVE THIS TO THREAT
+					gid = rule_property["gid"]
+					if gid: pass
+					else: gid = 'assigned_group_{0}-{1}'.format({0:randi_range(0, 999),1:randi_range(0, 9)})
+					
+					if !owner.group_dict.has(gid): owner.group_dict[gid] = {
+						"reward_type" = rule_property["reward_type"],
+						"reward_value" = rule_property["reward_value"]
+					}
 				"notify_danger":
 					print('notifying danger')
 					var modulate_color : Color = Color.WHITE
@@ -140,7 +149,8 @@ func generate_threat(enemy, rule_override = null):
 						rule_property["method"],
 						rule_property["separation"], 
 						rule_property["amount"], 
-						rule_property["delay"]
+						rule_property["delay"],
+						gid
 					)
 					return # Prevents spawning of an additional enemy that is not present in the swarm itself
 				"challenge":
@@ -164,17 +174,21 @@ func generate_threat(enemy, rule_override = null):
 		4: selected_enemy.add_to_group('boss') 
 		_: selected_enemy.add_to_group('unset')
 	
-	if invoke_challenge:
-		selected_enemy.enemy_defeated.connect(_on_challenge_completed)
+	if invoke_challenge: selected_enemy.enemy_defeated.connect(_on_challenge_completed)
 	
 	## Finish spawning entity and clear conditionals
+	if gid != '':
+		selected_enemy.enemy_group = gid
+		selected_enemy.add_to_group(gid)
+		enemy.enemy_died.connect(owner._on_enemy_defeated)
+	else: pass
 	container.call_deferred("add_child", selected_enemy)
 	
 	## Emit signal and resume spawning
 	enemy_spawned.emit(enemy,enemy_dict[enemy]["type"])
 	return selected_enemy
 
-func swarm_constructor(enemy_load, method, separation, amount, delay = 0):
+func swarm_constructor(enemy_load, method, separation, amount, delay = 0, gid = ''):
 	var distance : int = 1
 	var direction : bool = true
 	
@@ -182,6 +196,11 @@ func swarm_constructor(enemy_load, method, separation, amount, delay = 0):
 		var enemy = enemy_load.instantiate()
 		enemy.set_rotation_degrees(rotation_angle)
 		enemy.global_position = initial_global_position
+		
+		if gid != '': 
+			enemy.enemy_group = gid
+			enemy.add_to_group(gid)
+			enemy.enemy_died.connect(owner._on_enemy_defeated)
 		
 		match int(method): # Defines the format the swarm will be spawned
 			0: # Centralized vertical
@@ -209,9 +228,7 @@ func swarm_constructor(enemy_load, method, separation, amount, delay = 0):
 				print('No method for swarm spawning, they will spawn on top of each other')
 			
 			
-		if delay > 0:
-			await get_tree().create_timer(delay).timeout
-		
+		if delay > 0: await get_tree().create_timer(delay).timeout
 		enemies_container.call_deferred("add_child", enemy) # Adds enemy to EnemiesContainer
 	
 	## Reset previous values and conditionals

@@ -1,4 +1,4 @@
-[gd_scene load_steps=93 format=3 uid="uid://biim58k38oa7h"]
+[gd_scene load_steps=94 format=3 uid="uid://biim58k38oa7h"]
 
 [ext_resource type="Script" path="res://scenes/scripts/main/player.gd" id="1_hermy"]
 [ext_resource type="PackedScene" uid="uid://dvut4oj0nogn0" path="res://components/general/trail_component.tscn" id="2_ev3b1"]
@@ -6,6 +6,7 @@
 [ext_resource type="Gradient" uid="uid://c5kd3f3qroioy" path="res://components/general/player_trail_gradient.tres" id="3_mqeqd"]
 [ext_resource type="Gradient" uid="uid://cfxv6smisdawi" path="res://entities/player/burnout_gradient.tres" id="4_li0o3"]
 [ext_resource type="Material" uid="uid://bhxdepbofekt5" path="res://assets/shaders/entities/default_outline.tres" id="5_cmg0g"]
+[ext_resource type="Texture2D" uid="uid://3jbx5edyxhpk" path="res://assets/textures/particles/simple_particle.png" id="5_vwal1"]
 [ext_resource type="Texture2D" uid="uid://dym7sgg43j63f" path="res://assets/textures/entities/player/artemis/artemis-move-up.png" id="6_k2svw"]
 [ext_resource type="PackedScene" uid="uid://bocnfn48ib66i" path="res://components/modules/equipment_module.tscn" id="7_0klvy"]
 [ext_resource type="Texture2D" uid="uid://bho3m56k2aetn" path="res://assets/textures/entities/player/artemis/artemis.png" id="7_ewutv"]
@@ -909,6 +910,26 @@ parameters/conditions/front_roll = false
 parameters/conditions/idle = false
 parameters/conditions/moving = false
 parameters/Moving/blend_position = -0.00250626
+
+[node name="MuzzleParticles" type="CPUParticles2D" parent="."]
+self_modulate = Color(3, 3, 3, 1)
+position = Vector2(55, 4)
+emitting = false
+lifetime = 2.0
+texture = ExtResource("5_vwal1")
+spread = 90.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 10.0
+initial_velocity_max = 10.0
+orbit_velocity_min = 2.0
+orbit_velocity_max = 10.0
+linear_accel_max = 10.0
+radial_accel_min = 5.0
+radial_accel_max = 10.0
+tangential_accel_min = 5.0
+tangential_accel_max = 10.0
+angle_min = 10.0
+angle_max = 20.0
 
 [node name="MuzzleComponent" type="Node2D" parent="."]
 position = Vector2(1, 4)

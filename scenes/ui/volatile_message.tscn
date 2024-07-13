@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://dk4j22vofx02c"]
+
+[ext_resource type="Script" path="res://scenes/ui/volatile_message.gd" id="1_wiigr"]
+[ext_resource type="Theme" uid="uid://b1a5sjt2xibwo" path="res://assets/themes/strata_theme/strata_theme.tres" id="2_uivul"]
+[ext_resource type="FontFile" uid="uid://dtusi5ojlx75v" path="res://assets/themes/fonts/DePixelKlein.otf" id="3_ii0iq"]
+
+[node name="VolatileMessage" type="Node2D"]
+script = ExtResource("1_wiigr")
+flicker_frame = 3
+show_timeout = 1.5
+flicker_modulate = Color(0.2, 0.2, 0.2, 0.482353)
+
+[node name="Label" type="Label" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -34.0
+offset_right = 34.0
+offset_bottom = 23.0
+grow_horizontal = 2
+theme = ExtResource("2_uivul")
+theme_override_colors/font_color = Color(2, 2.5, 3, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_ii0iq")
+theme_override_font_sizes/font_size = 26
+text = "[0]"
+horizontal_alignment = 1

@@ -50,7 +50,7 @@ func _ready(): # Needed for random results
 	items_dict = JSON.parse_string(load_items_data.get_as_text())
 	assert(items_dict is Dictionary)
 
-func _on_enemy_died():
+func _on_enemy_died(_self_ref, _gid):
 	var enemy = owner.enemy_name
 	var enemy_has_drops = enemy_dict[enemy]["contain_items"]
 	

@@ -184,8 +184,7 @@ func add_run_data(section, statistic, value, bulk : bool = false): # Change one 
 			data = current_data + value
 	current_run_data.set_value(section, statistic, data)
 	
-	if !bulk:
-		save_active_data()
+	if !bulk: save_active_data()
 
 func add_bulk_data(data): # Change multiple values in one execution, save changes in file a single time after completion
 	assert(data is Dictionary)

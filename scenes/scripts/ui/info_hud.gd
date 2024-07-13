@@ -16,6 +16,9 @@ func display_title(title, title_description, title_timer : float = 3):
 func display_danger(direction : bool, horizontal : bool = true, timeout : float = 4, modulate_color : Color = Color.WHITE):
 	danger_player.display_danger(direction, horizontal, timeout, modulate_color)
 
+func summon_volatile_message(message_position : Vector2, message_text : String):
+	message_player.summon_volatile_message(message_position, message_text)
+
 func _on_message_displayed():
 	var visibility : bool = true
 	if !self.visible or !info_layer.visible: visibility = false

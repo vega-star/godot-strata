@@ -3,8 +3,9 @@ extends Control
 @onready var main_menu = get_parent().get_parent()
 @onready var primary_weapons_list = $Dashboard/CustomizeLoadoutContainer/LoadoutLists/PrimaryWeaponsList
 @onready var secondary_weapons_list = $Dashboard/CustomizeLoadoutContainer/LoadoutLists/SecondaryWeaponsList
-@onready var starter_items_list = $Dashboard/CustomizeLoadoutContainer/LoadoutLists/StarterItemsList
+@onready var starter_items_list = $Dashboard/CustomizeLoadoutContainer/LoadoutLists2/StarterItemsList
 
+@export var compact_format : bool = false
 @export var debug : bool = false
 
 var run_started : bool = false
@@ -27,8 +28,8 @@ var selected_item : String
 
 func _ready():
 	## Patch debug
-	if OS.is_debug_build():
-		$Dashboard/PracticeButton.disabled = false
+	#if OS.is_debug_build():
+	#	$Dashboard/PracticeButton.disabled = false
 	
 	Options.language_changed.connect(_on_language_changed)
 	
@@ -48,27 +49,12 @@ func load_items():
 	items_dict = JSON.parse_string(load_items_data.get_as_text())
 	items_dict = items_dict["items"]
 	
-	## Primary
-	for primary in weapons_dict["primary"]:
-		primary_weapons.append(primary)
-		primary_weapons_list.add_item(
-			TranslationServer.tr(primary)
-			# weapons_dict["primary"][primary]["weapon_properties"]["weapon_small_icon"]
-		)
+	construct_list(primary_weapons_list, primary_weapons, weapons_dict, "primary")
+	construct_list(secondary_weapons_list, secondary_weapons, weapons_dict, "secondary")
 	
-	## Secondary
-	for secondary in weapons_dict["secondary"]:
-		secondary_weapons.append(secondary)
-		secondary_weapons_list.add_item(
-			TranslationServer.tr(secondary)
-		)
-	
-	## Items
-	for item in items_dict:
+	for item in items_dict: ## Items list
 		starter_items.append(item)
-		starter_items_list.add_item(
-			items_dict[item]["item_name"]
-		)
+		starter_items_list.add_item(items_dict[item]["item_name"])
 	
 	## Pre-select items that were selected in the previous run
 	if Profile.profiles_data.has_section_key(Profile.selected_profile, "SAVED_LOADOUT"):
@@ -91,6 +77,21 @@ func load_items():
 		selected_primary = primary_weapons[0]
 		selected_secondary = secondary_weapons[0]
 		selected_item = starter_items[0]
+
+func construct_list(list_node, list_array : Array, source_dict : Dictionary, source_type : String):
+	if compact_format: 
+		list_node.set_icon_scale(3)
+		list_node.set_max_columns(0)
+	for i in source_dict[source_type]:
+		var status : bool = source_dict[source_type][i]["weapon_properties"]["unlocked"]; if !status: return # Not unlocked, ignore
+		var icon_path = source_dict[source_type][i]["weapon_properties"]["weapon_icon"]
+		var icon; if icon_path: icon = load(icon_path)
+		list_array.append(i)
+		if icon: 
+			if compact_format: list_node.add_item("", icon)
+			else: list_node.add_item(TranslationServer.tr(i).to_upper(), icon)
+		else: list_node.add_item(TranslationServer.tr(i).to_upper())
+		list_node.set_item_tooltip(secondary_weapons.find(i), TranslationServer.tr(source_dict[source_type][i]["weapon_properties"]["weapon_description"]))
 
 func set_focus():
 	$Dashboard/StartButton.grab_focus()

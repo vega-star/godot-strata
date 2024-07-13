@@ -2,6 +2,7 @@ extends CanvasLayer
 
 signal reset_focus
 
+var hide_progress_bar : bool
 var lock_pause : bool = false # Locks only input, functions can still pause/unpause game!
 @export var pause_state : bool = false
 @onready var unpause_button = $PauseMenu/ButtonsContainer/UnpauseButton
@@ -9,6 +10,7 @@ var lock_pause : bool = false # Locks only input, functions can still pause/unpa
 
 func _ready():
 	Options.visibility_changed.connect(_on_options_visibility_changed)
+	hide_progress_bar = Options.config_file.get_value("UI_OPTIONS", "HIDE_STAGE_BAR")
 
 func pause():
 	unpause_button.grab_focus()
@@ -16,7 +18,9 @@ func pause():
 	
 	UI.set_pause(true)
 	AudioManager.set_pause(true)
-	UI.UIOverlay.bars.toggle_progress_bar(true)
+	if !hide_progress_bar or UI.UIOverlay.bars.boss_bar_active: 
+		if UI.UIOverlay.bars.progress_bar_active: pass
+		else: UI.UIOverlay.bars.toggle_progress_bar(true)
 	show()
 
 func unpause():
@@ -24,7 +28,7 @@ func unpause():
 	
 	UI.set_pause(false)
 	AudioManager.set_pause(false)
-	UI.UIOverlay.bars.toggle_progress_bar(false)
+	if hide_progress_bar or UI.UIOverlay.bars.boss_bar_active: UI.UIOverlay.bars.toggle_progress_bar(false)
 	hide()
 
 func lock(lock_bool):
@@ -60,5 +64,6 @@ func _on_confirmation_dialog_confirmed():
 	unpause()
 
 func _on_options_visibility_changed():
+	hide_progress_bar = Options.config_file.get_value("UI_OPTIONS", "HIDE_STAGE_BAR")
 	if !Options.visible:
 		unpause_button.grab_focus()

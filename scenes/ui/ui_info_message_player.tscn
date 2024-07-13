@@ -25,6 +25,7 @@ script = ExtResource("2_6nf0b")
 [node name="MessageTimer" type="Timer" parent="."]
 
 [node name="MessageText" type="RichTextLabel" parent="."]
+visible = false
 clip_contents = false
 custom_minimum_size = Vector2(0, 7)
 layout_mode = 1

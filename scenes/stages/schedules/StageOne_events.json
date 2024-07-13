@@ -1,46 +1,4 @@
 {
-    "spawn_welder": {
-        "event_type": "spawn_enemy",
-        "event_description": "Spawn a cluster of enemies using the swarm rule set.",
-        "event_icon": true,
-        "set_timer": true,
-        "has_rules": true,
-        "event_properties": {
-            "enemy": "welder",
-            "event_timer": {
-                "pause_stage_timer": false,
-                "timer_period": 5.0
-            },
-            "rules": {
-                "spawn_override": "middle_top"
-            }
-        }
-    },
-    "test_miniboss": {
-        "event_type": "spawn_challenge",
-        "event_description": "Spawns a mini boss. Can pause stage timer if required, and only resumes when it recieves a signal from the enemy.",
-        "event_icon": true,
-        "set_timer": true,
-        "has_rules": true,
-        "event_properties": {
-            "enemy": "lancer",
-            "challenge_type": 1,
-            "event_timer": {
-                "pause_stage_timer": true,
-                "timer_period": 2.0
-            },
-            "rules": {
-                "spawn_override": "center",
-                "set_boss_bar": true,
-                "challenge": true,
-                "notify_danger": {
-                    "direction": false,
-                    "horizontal": true,
-                    "timeout": 3
-                }
-            }
-        }
-    },
     "spawn_few_enemies": {
         "event_type": "spawn_enemy",
         "event_description": "Spawn a cluster of enemies using the swarm rule set.",
@@ -54,6 +12,11 @@
                 "timer_period": 5.0
             },
             "rules": {
+                "group": {
+                    "gid": "group_1",
+                    "reward_type": 0,
+                    "reward_value": 100
+                },
                 "spawn_override": "center", 
                 "swarm": {
                     "method": 0, 
@@ -77,6 +40,11 @@
                 "timer_period": 5.0
             },
             "rules": {
+                "group": {
+                    "gid": false,
+                    "reward_type": 0,
+                    "reward_value": 50
+                },
                 "spawn_override": "top", 
                 "swarm": {
                     "method": 0, 
@@ -110,6 +78,23 @@
             }
         }
     },
+    "spawn_welder": {
+        "event_type": "spawn_enemy",
+        "event_description": "Spawn a cluster of enemies using the swarm rule set.",
+        "event_icon": true,
+        "set_timer": true,
+        "has_rules": true,
+        "event_properties": {
+            "enemy": "welder",
+            "event_timer": {
+                "pause_stage_timer": false,
+                "timer_period": 5.0
+            },
+            "rules": {
+                "spawn_override": "middle_top"
+            }
+        }
+    },
     "test_diver": {
         "event_type": "spawn_enemy",
         "event_description": "Spawn a cluster of enemies using the swarm rule set.",
@@ -135,6 +120,31 @@
             "event_timer": {
                 "pause_stage_timer": false,
                 "timer_period": 4.0
+            }
+        }
+    },
+    "test_miniboss": {
+        "event_type": "spawn_challenge",
+        "event_description": "Spawns a mini boss. Can pause stage timer if required, and only resumes when it recieves a signal from the enemy.",
+        "event_icon": true,
+        "set_timer": true,
+        "has_rules": true,
+        "event_properties": {
+            "enemy": "lancer",
+            "challenge_type": 1,
+            "event_timer": {
+                "pause_stage_timer": true,
+                "timer_period": 2.0
+            },
+            "rules": {
+                "spawn_override": "center",
+                "set_boss_bar": true,
+                "challenge": true,
+                "notify_danger": {
+                    "direction": false,
+                    "horizontal": true,
+                    "timeout": 3
+                }
             }
         }
     },

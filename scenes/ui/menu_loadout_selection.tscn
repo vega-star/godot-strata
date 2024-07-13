@@ -1,10 +1,13 @@
-[gd_scene load_steps=19 format=3 uid="uid://bpha3godigcg2"]
+[gd_scene load_steps=72 format=3 uid="uid://bpha3godigcg2"]
 
 [ext_resource type="Script" path="res://scenes/scripts/ui/menu_loadout_selection.gd" id="1_wywrc"]
 [ext_resource type="Texture2D" uid="uid://24sxb8icxn75" path="res://assets/textures/prototypes/loadout-menu-concept.png" id="2_31rtj"]
-[ext_resource type="Texture2D" uid="uid://tx5i7gpbrglt" path="res://assets/textures/static/loadout_cover.png" id="3_4v5ak"]
+[ext_resource type="Material" uid="uid://bhxdepbofekt5" path="res://assets/shaders/entities/default_outline.tres" id="3_0mxha"]
 [ext_resource type="Theme" uid="uid://b1a5sjt2xibwo" path="res://assets/themes/strata_theme/strata_theme.tres" id="3_sltso"]
+[ext_resource type="Texture2D" uid="uid://bho3m56k2aetn" path="res://assets/textures/entities/player/artemis/artemis.png" id="3_yaqdj"]
+[ext_resource type="Texture2D" uid="uid://vdotyl704dqi" path="res://assets/textures/entities/player/artemis/artemis-move-down.png" id="4_07lke"]
 [ext_resource type="Texture2D" uid="uid://hjl4olh2i0su" path="res://assets/themes/strata_theme/elements/misc/save_button.png" id="5_dgc0q"]
+[ext_resource type="Texture2D" uid="uid://dym7sgg43j63f" path="res://assets/textures/entities/player/artemis/artemis-move-up.png" id="5_yx08n"]
 [ext_resource type="Texture2D" uid="uid://cumvt4pjvvpqj" path="res://assets/textures/static/red_button.png" id="6_f1of6"]
 [ext_resource type="Texture2D" uid="uid://bmij4op0c0avx" path="res://assets/themes/strata_theme/elements/misc/save_button_pressed.png" id="6_y7gwm"]
 [ext_resource type="Texture2D" uid="uid://b4ebhxv8qnvmi" path="res://assets/themes/strata_theme/elements/misc/save_button_focus.png" id="7_4ibbr"]
@@ -12,8 +15,12 @@
 [ext_resource type="Texture2D" uid="uid://dl4w0noxrrtow" path="res://assets/textures/static/red_button_cover.png" id="7_amcjc"]
 [ext_resource type="Script" path="res://scenes/scripts/ui/ui_default_texture_button.gd" id="7_byckj"]
 [ext_resource type="Script" path="res://scenes/scripts/ui/ui_default_button.gd" id="7_k46rw"]
+[ext_resource type="Texture2D" uid="uid://fc40jb673qac" path="res://assets/textures/entities/player/artemis/artemis-roll-back.png" id="7_tnsqc"]
 [ext_resource type="Texture2D" uid="uid://by60mh5hr16dr" path="res://assets/themes/strata_theme/elements/misc/save_button_disabled.png" id="8_2x7y7"]
+[ext_resource type="Texture2D" uid="uid://csy8wcaaaiq2a" path="res://assets/textures/entities/player/artemis/artemis-roll-front.png" id="8_10j03"]
 [ext_resource type="BitMap" uid="uid://dupnmu3lriidv" path="res://assets/themes/strata_theme/elements/misc/save_button_click_mask.bmp" id="9_2o3y0"]
+[ext_resource type="Texture2D" uid="uid://cwutdm126a4mp" path="res://assets/textures/static/loadout_dashboard_v1.png" id="9_ftkej"]
+[ext_resource type="Texture2D" uid="uid://sauu2nci3jv4" path="res://assets/textures/static/red_button_slot.png" id="10_5fsv7"]
 [ext_resource type="PackedScene" uid="uid://os3hgx0i6vhv" path="res://scenes/ui/ui_big_button.tscn" id="15_m4w1q"]
 
 [sub_resource type="Animation" id="Animation_bs5cd"]
@@ -25,9 +32,9 @@ tracks/0/path = NodePath("Dashboard/StartButton:position:x")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(806, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(789, -0.25, 0, 0.25, 0, 789, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.001)
 }
 tracks/1/type = "bezier"
 tracks/1/imported = false
@@ -36,9 +43,9 @@ tracks/1/path = NodePath("Dashboard/StartButton:position:y")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(368, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(368, -0.25, 0, 0.25, 0, 368, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.001)
 }
 
 [sub_resource type="Animation" id="Animation_byw07"]
@@ -46,13 +53,13 @@ resource_name = "press_button"
 length = 0.3
 tracks/0/type = "bezier"
 tracks/0/imported = false
-tracks/0/enabled = true
+tracks/0/enabled = false
 tracks/0/path = NodePath("Dashboard/StartButton:position:x")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "handle_modes": PackedInt32Array(0, 0),
-"points": PackedFloat32Array(806, -0.25, 0, 0.25, 0, 806, -0.25, 0, 0.25, 0),
+"points": PackedFloat32Array(789, -0.25, 0, 0.25, 0, 789, -0.25, 0, 0.25, 0),
 "times": PackedFloat32Array(0, 0.3)
 }
 tracks/1/type = "bezier"
@@ -63,7 +70,7 @@ tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "handle_modes": PackedInt32Array(0, 0),
-"points": PackedFloat32Array(368, -0.25, 0, 0.1, 52.5, 368, -0.1, -23.5, 0.25, 0),
+"points": PackedFloat32Array(368, -0.25, 0, 0, 53.5, 368, -0.1, -19.5, 0.25, 0),
 "times": PackedFloat32Array(0, 0.3)
 }
 
@@ -72,6 +79,349 @@ _data = {
 "RESET": SubResource("Animation_bs5cd"),
 "press_button": SubResource("Animation_byw07")
 }
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_unxep"]
+atlas = ExtResource("4_07lke")
+region = Rect2(0, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v0ree"]
+atlas = ExtResource("4_07lke")
+region = Rect2(150, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sde6a"]
+atlas = ExtResource("4_07lke")
+region = Rect2(300, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_omnq3"]
+atlas = ExtResource("4_07lke")
+region = Rect2(450, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rhotl"]
+atlas = ExtResource("4_07lke")
+region = Rect2(600, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aq1dq"]
+atlas = ExtResource("4_07lke")
+region = Rect2(750, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q50gg"]
+atlas = ExtResource("4_07lke")
+region = Rect2(900, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2jl36"]
+atlas = ExtResource("5_yx08n")
+region = Rect2(0, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p2j1o"]
+atlas = ExtResource("5_yx08n")
+region = Rect2(150, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_21s24"]
+atlas = ExtResource("5_yx08n")
+region = Rect2(300, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7melh"]
+atlas = ExtResource("5_yx08n")
+region = Rect2(450, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5j2hf"]
+atlas = ExtResource("5_yx08n")
+region = Rect2(600, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fjcek"]
+atlas = ExtResource("5_yx08n")
+region = Rect2(750, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kcuhi"]
+atlas = ExtResource("5_yx08n")
+region = Rect2(900, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_symlp"]
+atlas = ExtResource("7_tnsqc")
+region = Rect2(0, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2l3qo"]
+atlas = ExtResource("7_tnsqc")
+region = Rect2(150, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_utovj"]
+atlas = ExtResource("7_tnsqc")
+region = Rect2(300, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d1p0i"]
+atlas = ExtResource("7_tnsqc")
+region = Rect2(450, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yy1xg"]
+atlas = ExtResource("7_tnsqc")
+region = Rect2(600, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_takra"]
+atlas = ExtResource("7_tnsqc")
+region = Rect2(750, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0cxfw"]
+atlas = ExtResource("7_tnsqc")
+region = Rect2(900, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ne3k6"]
+atlas = ExtResource("7_tnsqc")
+region = Rect2(1050, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_an1ww"]
+atlas = ExtResource("7_tnsqc")
+region = Rect2(1200, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l4j1a"]
+atlas = ExtResource("7_tnsqc")
+region = Rect2(1350, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xc1xj"]
+atlas = ExtResource("7_tnsqc")
+region = Rect2(1500, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cnmv5"]
+atlas = ExtResource("7_tnsqc")
+region = Rect2(1650, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hiiac"]
+atlas = ExtResource("7_tnsqc")
+region = Rect2(1800, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_70nia"]
+atlas = ExtResource("7_tnsqc")
+region = Rect2(1950, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8y46v"]
+atlas = ExtResource("7_tnsqc")
+region = Rect2(2100, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3wjui"]
+atlas = ExtResource("8_10j03")
+region = Rect2(0, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8n27j"]
+atlas = ExtResource("8_10j03")
+region = Rect2(150, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_35iao"]
+atlas = ExtResource("8_10j03")
+region = Rect2(300, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6yu2w"]
+atlas = ExtResource("8_10j03")
+region = Rect2(450, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_unrv8"]
+atlas = ExtResource("8_10j03")
+region = Rect2(600, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ruf6d"]
+atlas = ExtResource("8_10j03")
+region = Rect2(750, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cb8j1"]
+atlas = ExtResource("8_10j03")
+region = Rect2(900, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fqf70"]
+atlas = ExtResource("8_10j03")
+region = Rect2(1050, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d32cm"]
+atlas = ExtResource("8_10j03")
+region = Rect2(1200, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_balw5"]
+atlas = ExtResource("8_10j03")
+region = Rect2(1350, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8btmx"]
+atlas = ExtResource("8_10j03")
+region = Rect2(1500, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b1dy3"]
+atlas = ExtResource("8_10j03")
+region = Rect2(1650, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mxkhd"]
+atlas = ExtResource("8_10j03")
+region = Rect2(1800, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_37kn7"]
+atlas = ExtResource("8_10j03")
+region = Rect2(1950, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jh6qu"]
+atlas = ExtResource("8_10j03")
+region = Rect2(2100, 0, 150, 150)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_qu37e"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_unxep")
+}, {
+"duration": 1.5,
+"texture": SubResource("AtlasTexture_v0ree")
+}, {
+"duration": 1.2,
+"texture": SubResource("AtlasTexture_sde6a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_omnq3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rhotl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aq1dq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q50gg")
+}],
+"loop": false,
+"name": &"going_down",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2jl36")
+}, {
+"duration": 1.5,
+"texture": SubResource("AtlasTexture_p2j1o")
+}, {
+"duration": 1.2,
+"texture": SubResource("AtlasTexture_21s24")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7melh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5j2hf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fjcek")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kcuhi")
+}],
+"loop": false,
+"name": &"going_up",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_yaqdj")
+}],
+"loop": false,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_symlp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2l3qo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_utovj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d1p0i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yy1xg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_takra")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0cxfw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ne3k6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_an1ww")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l4j1a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xc1xj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cnmv5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hiiac")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_70nia")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8y46v")
+}],
+"loop": false,
+"name": &"roll_behind",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3wjui")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8n27j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_35iao")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6yu2w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_unrv8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ruf6d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cb8j1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fqf70")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d32cm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_balw5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8btmx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b1dy3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mxkhd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_37kn7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jh6qu")
+}],
+"loop": false,
+"name": &"roll_front",
+"speed": 12.0
+}]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8if50"]
+texture = ExtResource("9_ftkej")
+texture_margin_top = 45.0
 
 [node name="LoadoutPage" type="Control"]
 layout_mode = 3
@@ -88,8 +438,19 @@ libraries = {
 }
 
 [node name="MenuConcept" type="Sprite2D" parent="."]
+visible = false
 position = Vector2(480, 270)
 texture = ExtResource("2_31rtj")
+
+[node name="Artemis" type="AnimatedSprite2D" parent="."]
+material = ExtResource("3_0mxha")
+position = Vector2(480, 181)
+scale = Vector2(3, 3)
+sprite_frames = SubResource("SpriteFrames_qu37e")
+animation = &"going_up"
+autoplay = "idle"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Artemis"]
 
 [node name="Dashboard" type="Control" parent="."]
 layout_mode = 1
@@ -98,56 +459,81 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
-[node name="MenuFrame" type="Sprite2D" parent="Dashboard"]
-position = Vector2(480, 432)
-scale = Vector2(1, 1.03571)
-texture = ExtResource("3_4v5ak")
+[node name="Frame" type="Panel" parent="Dashboard"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -215.0
+offset_bottom = 23.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxTexture_8if50")
+
+[node name="SelectLoadout" type="Label" parent="Dashboard/Frame"]
+layout_mode = 0
+offset_left = 381.5
+offset_top = 10.0
+offset_right = 576.5
+offset_bottom = 43.0
+theme = ExtResource("3_sltso")
+theme_override_font_sizes/font_size = 28
+text = "SELECT_LOADOUT"
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
+[node name="RedButtonSlot" type="Sprite2D" parent="Dashboard"]
+position = Vector2(854, 464)
+texture = ExtResource("10_5fsv7")
 
 [node name="StartButton" type="TextureButton" parent="Dashboard"]
 layout_mode = 0
-offset_left = 806.0
+offset_left = 789.0
 offset_top = 368.0
-offset_right = 942.0
-offset_bottom = 534.001
+offset_right = 925.0
+offset_bottom = 534.0
 theme = ExtResource("3_sltso")
 texture_normal = ExtResource("6_f1of6")
 texture_click_mask = ExtResource("7_665qi")
 script = ExtResource("7_byckj")
 
 [node name="RedButtonCover" type="Sprite2D" parent="Dashboard"]
-position = Vector2(870, 498)
+position = Vector2(853, 500)
 texture = ExtResource("7_amcjc")
 
-[node name="TutorialButton" type="Button" parent="Dashboard"]
+[node name="AlternativeStart" type="VBoxContainer" parent="Dashboard"]
 layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 38.0
-offset_top = -174.0
-offset_right = 130.0
-offset_bottom = -131.0
-grow_vertical = 0
+anchors_preset = -1
+anchor_left = 1.0
+anchor_top = 0.613
+anchor_right = 1.0
+anchor_bottom = 0.613
+offset_left = -153.0
+offset_top = -293.02
+offset_right = -61.0
+offset_bottom = 26.98
+grow_horizontal = 0
+grow_vertical = 2
+alignment = 2
+
+[node name="TutorialButton" type="Button" parent="Dashboard/AlternativeStart"]
+layout_mode = 2
 tooltip_text = "Learn and test the basics"
-focus_neighbor_top = NodePath("../../ReturnToMainMenu")
+focus_neighbor_top = NodePath("../../../ReturnToMainMenu")
 focus_neighbor_right = NodePath("../../../../ConfigButton")
 theme = ExtResource("3_sltso")
 text = "TUTORIAL"
 script = ExtResource("7_k46rw")
 
-[node name="PracticeButton" type="Button" parent="Dashboard"]
-layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 140.0
-offset_top = -174.0
-offset_right = 232.0
-offset_bottom = -131.0
-grow_vertical = 0
+[node name="PracticeButton" type="Button" parent="Dashboard/AlternativeStart"]
+visible = false
+layout_mode = 2
 tooltip_text = "Simulate items and enemies present in codex"
-focus_neighbor_top = NodePath("../../ReturnToMainMenu")
+focus_neighbor_top = NodePath("../../../ReturnToMainMenu")
 focus_neighbor_right = NodePath("../../../../ConfigButton")
 theme = ExtResource("3_sltso")
 disabled = true
@@ -155,16 +541,17 @@ text = "PRACTICE"
 script = ExtResource("7_k46rw")
 
 [node name="LoadoutSelection" type="Control" parent="Dashboard"]
+visible = false
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -112.5
-offset_top = -171.0
-offset_right = 82.5
-offset_bottom = -147.0
+offset_left = 8.5
+offset_top = -173.0
+offset_right = 203.5
+offset_bottom = -149.0
 grow_horizontal = 2
 grow_vertical = 0
 
@@ -210,18 +597,6 @@ alignment = 1
 max_length = 20
 flat = true
 
-[node name="SelectLoadout" type="Label" parent="Dashboard/LoadoutSelection"]
-layout_mode = 0
-offset_left = 15.0
-offset_top = -46.0
-offset_right = 210.0
-offset_bottom = -13.0
-theme = ExtResource("3_sltso")
-theme_override_font_sizes/font_size = 28
-text = "SELECT_LOADOUT"
-horizontal_alignment = 1
-vertical_alignment = 1
-
 [node name="SaveLoadoutButton" type="TextureButton" parent="Dashboard/LoadoutSelection"]
 layout_mode = 1
 anchors_preset = 6
@@ -251,44 +626,45 @@ anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = -442.0
-offset_top = -127.0
+offset_top = -131.0
 offset_right = 266.0
+offset_bottom = -4.0
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="LoadoutLists" type="HBoxContainer" parent="Dashboard/CustomizeLoadoutContainer"]
+[node name="LoadoutLists2" type="HBoxContainer" parent="Dashboard/CustomizeLoadoutContainer"]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="PrimaryWeaponsList" type="ItemList" parent="Dashboard/CustomizeLoadoutContainer/LoadoutLists"]
-custom_minimum_size = Vector2(200, 100)
-layout_mode = 2
-mouse_filter = 1
-theme = ExtResource("3_sltso")
-item_count = 3
-item_0/text = "MINIGUN"
-item_1/text = "BURST LASER"
-item_2/text = "RAILGUN"
-
-[node name="SecondaryWeaponsList" type="ItemList" parent="Dashboard/CustomizeLoadoutContainer/LoadoutLists"]
-custom_minimum_size = Vector2(200, 100)
-layout_mode = 2
-mouse_filter = 1
-theme = ExtResource("3_sltso")
-item_count = 3
-item_0/text = "GUIDED MISSILES"
-item_1/text = "STASIS BOMB"
-item_2/text = "CHARGED LASER"
-
-[node name="StarterItemsList" type="ItemList" parent="Dashboard/CustomizeLoadoutContainer/LoadoutLists"]
+[node name="StarterItemsList" type="ItemList" parent="Dashboard/CustomizeLoadoutContainer/LoadoutLists2"]
+visible = false
 custom_minimum_size = Vector2(300, 100)
 layout_mode = 2
+size_flags_horizontal = 3
 mouse_filter = 1
 theme = ExtResource("3_sltso")
 item_count = 3
 item_0/text = "I.C. AMPLIFIER"
 item_1/text = "ADDITIONAL HARDPOINT"
 item_2/text = "PLASTEEL WING REINFORCEMENT"
+
+[node name="LoadoutLists" type="HBoxContainer" parent="Dashboard/CustomizeLoadoutContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="PrimaryWeaponsList" type="ItemList" parent="Dashboard/CustomizeLoadoutContainer/LoadoutLists"]
+custom_minimum_size = Vector2(200, 120)
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 1
+theme = ExtResource("3_sltso")
+
+[node name="SecondaryWeaponsList" type="ItemList" parent="Dashboard/CustomizeLoadoutContainer/LoadoutLists"]
+custom_minimum_size = Vector2(200, 80)
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 1
+theme = ExtResource("3_sltso")
 
 [node name="LoadoutLabels" type="HBoxContainer" parent="Dashboard/CustomizeLoadoutContainer"]
 layout_mode = 2
@@ -297,6 +673,7 @@ theme_override_constants/separation = 0
 [node name="PrimaryWeapon" type="Label" parent="Dashboard/CustomizeLoadoutContainer/LoadoutLabels"]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
+size_flags_horizontal = 3
 theme = ExtResource("3_sltso")
 text = "PRIMARY WEAPON"
 horizontal_alignment = 1
@@ -304,12 +681,14 @@ horizontal_alignment = 1
 [node name="SecondaryWeapon" type="Label" parent="Dashboard/CustomizeLoadoutContainer/LoadoutLabels"]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
+size_flags_horizontal = 3
 theme = ExtResource("3_sltso")
 text = "SECONDARY WEAPON
 "
 horizontal_alignment = 1
 
 [node name="StarterItem" type="Label" parent="Dashboard/CustomizeLoadoutContainer/LoadoutLabels"]
+visible = false
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 theme = ExtResource("3_sltso")
@@ -389,16 +768,24 @@ text = "|"
 
 [node name="ReturnToMainMenu" parent="." instance=ExtResource("15_m4w1q")]
 layout_mode = 1
-offset_left = -388.0
-offset_top = -449.0
-offset_right = -306.0
-offset_bottom = -367.0
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 8.0
+offset_top = 9.0
+offset_right = 90.0
+offset_bottom = 91.0
+grow_horizontal = 1
+grow_vertical = 1
 rotation = -3.14159
+pivot_offset = Vector2(41, 39.9998)
 
 [connection signal="pressed" from="Dashboard/StartButton" to="." method="_on_start_button_pressed"]
-[connection signal="pressed" from="Dashboard/TutorialButton" to="." method="_on_tutorial_button_pressed"]
-[connection signal="pressed" from="Dashboard/PracticeButton" to="." method="_on_practice_button_pressed"]
+[connection signal="pressed" from="Dashboard/AlternativeStart/TutorialButton" to="." method="_on_tutorial_button_pressed"]
+[connection signal="pressed" from="Dashboard/AlternativeStart/PracticeButton" to="." method="_on_practice_button_pressed"]
+[connection signal="item_selected" from="Dashboard/CustomizeLoadoutContainer/LoadoutLists2/StarterItemsList" to="." method="_on_starter_items_list_item_selected"]
 [connection signal="item_selected" from="Dashboard/CustomizeLoadoutContainer/LoadoutLists/PrimaryWeaponsList" to="." method="_on_primary_weapons_list_item_selected"]
 [connection signal="item_selected" from="Dashboard/CustomizeLoadoutContainer/LoadoutLists/SecondaryWeaponsList" to="." method="_on_secondary_weapons_list_item_selected"]
-[connection signal="item_selected" from="Dashboard/CustomizeLoadoutContainer/LoadoutLists/StarterItemsList" to="." method="_on_starter_items_list_item_selected"]
 [connection signal="pressed" from="ReturnToMainMenu" to="." method="_on_return_to_main_menu_pressed"]

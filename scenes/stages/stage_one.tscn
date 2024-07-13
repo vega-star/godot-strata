@@ -541,7 +541,6 @@ animation = &"idle"
 
 [node name="StageManager" parent="." node_paths=PackedStringArray("stage_timer") instance=ExtResource("2_0si3s")]
 stage_timer = NodePath("../StageTimer")
-debug = true
 debug_generator = true
 
 [node name="Player" parent="." instance=ExtResource("3_7g816")]

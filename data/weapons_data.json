@@ -16,10 +16,12 @@
                 "base_quick_cooling": 0.05
             },
             "weapon_properties": {
+                "unlocked": true,
+                "weapon_description": "BURST_LASER_DESCRIPTION",
                 "weapon_small_icon": null,
-                "weapon_icon": null
+                "weapon_icon": "res://assets/textures/projectiles/burst_laser_icon.png"
             }
-            },
+        },
         "MINIGUN": {
             "projectile_scene": "res://entities/projectiles/minigun.tscn",
             "base_muzzle_type": 0,
@@ -30,8 +32,10 @@
             "base_damage": 3,
             "heating": false,
             "weapon_properties": {
+                "unlocked": true,
+                "weapon_description": "MINIGUN_DESCRIPTION",
                 "weapon_small_icon": null,
-                "weapon_icon": null
+                "weapon_icon": "res://assets/textures/projectiles/minigun_capsule_icon.png"
             }
         },
         "SCATTER_GUN": {
@@ -50,8 +54,10 @@
                 "base_quick_cooling": 0.05
             },
             "weapon_properties": {
+                "unlocked": true,
+                "weapon_description": "SCATTER_GUN_DESCRIPTION",
                 "weapon_small_icon": null,
-                "weapon_icon": null
+                "weapon_icon": "res://assets/textures/projectiles/scatter_bullet_icon.png"
             }
         }
     },
@@ -64,6 +70,8 @@
             "base_regeneration": true,
             "base_regeneration_cooldown": 5,
             "weapon_properties": {
+                "unlocked": true,
+                "weapon_description": "GUIDED_MISSILE_DESCRIPTION",
                 "weapon_small_icon": null,
                 "weapon_icon": null
             }
@@ -75,6 +83,8 @@
             "base_amount": 1,
             "base_regeneration": false,
             "weapon_properties": {
+                "unlocked": true,
+                "weapon_description": "STASIS_BOMB_DESCRIPTION",
                 "weapon_small_icon": null,
                 "weapon_icon": null
             }

@@ -1,10 +1,11 @@
 class_name Enemy extends Area2D
 
-signal enemy_died
+signal enemy_died(self_ref, enemy_group)
 
 @export var enemy_name : String = "enemy"
 @export var enemy_id : String = "enemy"
 @export var enemy_title : String = "a intruder"
+@export var enemy_group : String = ''
 
 @export_category('Enemy Properties')
 @export var set_health_bar : bool = true
@@ -15,7 +16,6 @@ signal enemy_died
 @export var self_sprite : Sprite2D
 @export var outline_color_on_damage : Color = Color.WHITE
 @export var knockback_damping : float = 1.3
-
 
 @export_group('Enemy Behavior Controllers')
 @export var deployed : bool = true # Gives StateMachine information when enemy can start action or stays still until called
@@ -60,11 +60,11 @@ func request_deletion():
 	await get_tree().create_timer(outside_screen_timeout, false).timeout
 	
 	if !present_on_screen: 
-		enemy_died.emit()
+		enemy_died.emit(self, enemy_group)
 		queue_free()
 
 func die(_source): # Entity death sequence, called by HealthComponent when health <= 0
-	enemy_died.emit()
+	enemy_died.emit(self, enemy_group)
 	var bulk_dict = {
 		1: {section = "STATISTICS", stat = "ENEMIES_DEFEATED", value = 1},
 		2: {section = "STATISTICS", stat = "SCORE", value = score_value}

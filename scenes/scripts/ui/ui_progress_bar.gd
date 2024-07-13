@@ -18,6 +18,8 @@ const bar_fadeout_time : float = 3
 @export var debug : bool = false
 
 ## Properties
+var progress_bar_active : bool
+var boss_bar_active : bool
 var bar_health
 var bar_size
 var boss_node
@@ -48,6 +50,7 @@ func _ready():
 	bar_size = bar_start.position.distance_to(bar_end.position)
 
 func toggle_progress_bar(show : bool = true):
+	progress_bar_active = show
 	if ui_animation_player.is_playing(): 
 		return
 		# await ui_animation_player.animation_finished
@@ -55,6 +58,7 @@ func toggle_progress_bar(show : bool = true):
 	else: ui_animation_player.play_backwards("toggle_progress_bar")
 
 func set_boss_bar(new_boss_node):
+	boss_bar_active = true
 	var hide_boss_bar : bool = Options.config_file.get_value("UI_OPTIONS", "HIDE_BOSS_BAR")
 	if hide_boss_bar: return
 	
@@ -118,6 +122,7 @@ func _update_boss_bar(_previous_value : int, new_value : int, _type : bool):
 	damage_bar._set_health(new_value)
 
 func close_boss_bar():
+	boss_bar_active = false
 	if ui_animation_player.is_playing(): await ui_animation_player.animation_finished
 	ui_animation_player.play_backwards("toggle_boss_bar")
 	await ui_animation_player.animation_finished

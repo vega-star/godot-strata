@@ -14,7 +14,7 @@ config/name="Strata ZERO"
 config/description="Prototype game in Godot 4.2+ made to exemplify how to make and test scripts, modular composition, and integrate various nodes. 
 
 [https://github.com/vega-star/godot-strata]"
-config/version="0.5.2"
+config/version="0.5.3"
 config/tags=PackedStringArray("demo")
 run/main_scene="res://scenes/ui/intro.tscn"
 config/features=PackedStringArray("4.2", "GL Compatibility")

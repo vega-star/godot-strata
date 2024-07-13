@@ -24,7 +24,7 @@ jobs:
             
             - name: Install butler
               run: unzip butler.zip && chmod +x butler
-            
+
             # Butler check
             - name: Butler check
               run: ./butler -V
@@ -36,12 +36,18 @@ jobs:
                 BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
               run: ./butler login
             
+            # Patch index.html requirement
+            - id: 'patch_html'
+              name: 'Rename project.html to index.html'
+              run: |
+                echo "::warning file=app.py,line=10,col=5::Index file was not renamed after export, which is fine! Patched during upload."
+                mv exports/web/*.html exports/web/index.html
+
             # Upload with parameters
             - name: Upload
               env:
                 BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
-              run:
-                ./butler push exports/web nyeptun/strata-zero:web --userversion-file build_number.txt
+              run: ./butler push exports/web nyeptun/strata-zero:web --userversion-file build_number.txt
     
     upload_linux:
         name: 'Upload linux executable'
@@ -77,8 +83,7 @@ jobs:
             - name: Upload
               env:
                 BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
-              run:
-                ./butler push exports/linux nyeptun/strata-zero:linux --userversion-file build_number.txt
+              run: ./butler push exports/linux nyeptun/strata-zero:linux --userversion-file build_number.txt
     
     upload_windows:
         name: 'Upload windows executable'
@@ -114,5 +119,4 @@ jobs:
             - name: Upload
               env:
                 BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
-              run:
-                ./butler push exports/windows nyeptun/strata-zero:win64 --userversion-file build_number.txt
+              run: ./butler push exports/windows nyeptun/strata-zero:win64 --userversion-file build_number.txt

@@ -1,3 +1,4 @@
+@icon("res://assets/textures/nodeicons/config_menu_icon.png")
 extends CanvasLayer
 ## The Options controller is a modular component used to connect and distribute properties around a project, while containing a built-in menu to control them
 ## As a part of Strata, this node contains a lot of things that can be used in a multitute of other projects as well.
@@ -122,9 +123,11 @@ func _ready():
 
 func _load_data():
 	$"ConfigTabs/MAIN_OPTIONS/Scroll/ConfigPanel/OptionsButtons/Language/LanguageMenu".selected = lang_order.find(config_file.get_value("MAIN_OPTIONS","LANGUAGE"))
-	$ConfigTabs/ACCESSIBILITY/Scroll/ConfigPanel/Photosens_Mode.button_pressed = config_file.get_value("MAIN_OPTIONS","PHOTOSENS_MODE")
+	photosens_mode = config_file.get_value("MAIN_OPTIONS","PHOTOSENS_MODE"); $ConfigTabs/ACCESSIBILITY/Scroll/ConfigPanel/Photosens_Mode.button_pressed = photosens_mode
 	$ConfigTabs/ACCESSIBILITY/Scroll/ConfigPanel/ScreenShake.button_pressed = config_file.get_value("MAIN_OPTIONS","SCREEN_SHAKE")
 	$'ConfigTabs/MAIN_OPTIONS/Scroll/ConfigPanel/OptionsButtons/ToggleFiring'.button_pressed = config_file.get_value("MAIN_OPTIONS","TOGGLE_FIRE")
+	$ConfigTabs/UI/Scroll/ConfigPanel/HideBossBar.button_pressed = config_file.get_value("UI_OPTIONS", "HIDE_STAGE_BAR")
+	$ConfigTabs/UI/Scroll/ConfigPanel/HideStageBar.button_pressed = config_file.get_value("UI_OPTIONS", "HIDE_STAGE_BAR")
 	master_slider.value = config_file.get_value("MAIN_OPTIONS","MASTER_VOLUME")
 	music_slider.value = config_file.get_value("MAIN_OPTIONS","MUSIC_VOLUME")
 	effect_slider.value = config_file.get_value("MAIN_OPTIONS","EFFECTS_VOLUME")
@@ -278,6 +281,9 @@ func _on_screen_shake_pressed():
 func _on_show_boss_bar_pressed():
 	button_toggle($ConfigTabs/UI/Scroll/ConfigPanel/HideBossBar, "HIDE_BOSS_BAR", "UI_OPTIONS")
 
+func _on_hide_stage_bar_pressed():
+	button_toggle($ConfigTabs/UI/Scroll/ConfigPanel/HideStageBar, "HIDE_STAGE_BAR", "UI_OPTIONS")
+
 func button_toggle(button, config, section : String = "MAIN_OPTIONS"):
 	var button_status = bool(button.button_pressed)
 	
@@ -389,3 +395,4 @@ func _on_language_menu_item_selected(index):
 	lang = lang_order[index]
 	config_file.set_value("MAIN_OPTIONS","LANGUAGE", lang)
 	TranslationServer.set_locale(lang)
+

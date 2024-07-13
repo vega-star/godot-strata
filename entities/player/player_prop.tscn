@@ -352,12 +352,12 @@ animations = [{
 [node name="PlayerProp" type="AnimatedSprite2D"]
 material = ExtResource("6_imbw7")
 sprite_frames = SubResource("SpriteFrames_nixh0")
-animation = &"roll_behind"
+animation = &"going_up"
 autoplay = "idle"
 
-[node name="TrailNode" type="Node" parent="."]
+[node name="Trail" type="Node" parent="."]
 
-[node name="TrailComponent" parent="TrailNode" node_paths=PackedStringArray("source_node") instance=ExtResource("2_31qn6")]
+[node name="TrailComponent" parent="Trail" node_paths=PackedStringArray("source_node") instance=ExtResource("2_31qn6")]
 show_behind_parent = true
 light_mask = 2
 z_index = -50

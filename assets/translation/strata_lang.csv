@@ -60,15 +60,15 @@ PHOTOSENSIBILITY_MODE,Photosensibility Mode,Modo de Fotossensibilidade
 SCREEN_SHAKE,Screen Shake,Tremor de Tela
 SELECT_LOADOUT,Select Loadout,Selecione a Carga
 SCATTER_GUN,Scatter Cannon,Canhão de Dispersão
-SCATTER_GUN_DESCRIPTION,"Shoots unstable projectiles in a precisely divided conic trajectory, perfect for up close combat. Massive damage that decays wth time along with the bullet.","Atira projéteis instáveis em uma trajetória cônica precisa, perfeito pra combate de curto alcance. Dano massivo que decai com o tempo assim como o projétil."
+SCATTER_GUN_DESCRIPTION,"Shoots unstable projectiles in a conic trajectory, perfect for up close combat.\nMassive damage that decays wth time along with the bullet.","Atira projéteis instáveis em uma trajetória cônica, perfeito pra combate de curto alcance.\nDano massivo que decai com o tempo assim como o projétil."
 MINIGUN,Mounted Minigun,Metralhadora Montada
-MINIGUN_DESCRIPTION,A classic fighter-jet minigun that shoots high caliber bullets. Still does its job after all.,Uma metralhadora clássica de caças a jato que tira balas de alto calibre. Faz o seu trabalho bem.
+MINIGUN_DESCRIPTION,A classic fighter-jet minigun that shoots high caliber bullets.\nStill does its job after all.,Uma metralhadora clássica de caças a jato que tira balas de alto calibre.\nFaz o seu trabalho bem.
 BURST_LASER,Burst Laser,Laser de Rajada
 BURST_LASER_DESCRIPTION,Convert excess core energy into concentrated laser bursts.,Converte o excesso de energia do núcleo em rajadas de laser.
 GUIDED_MISSILE,Guided Missile,Míssil Guiado
-GUIDED_MISSILE_DESCRIPTION,Missiles with an internal guidance system. Tends to seek untargeted enemies.,Mísseis com sistema interno de orientação. Tendem a alvejar inimigos não marcados.
+GUIDED_MISSILE_DESCRIPTION,Missiles with an internal guidance system.\nTends to seek untargeted enemies.,Mísseis com sistema interno de orientação.\nTendem a alvejar inimigos não marcados.
 STASIS_BOMB,Stasis Bomb,Bomba de Estorvo
-STASIS_BOMB_DESCRIPTION,"Slows down on air until stopped, and explodes soon after. Also explodes if in contact with enemy. Inflicts Stasis.","Desacelera no ar até parar, e explode logo depois. Também explode se entrar em contato com o inimigo. Provoca Estorvo."
+STASIS_BOMB_DESCRIPTION,"Slows down on air until stopped, and explodes soon after.\nAlso explodes if in contact with enemy.\n\nInflicts Stasis.","Desacelera no ar até parar, e explode logo depois.\nTambém explode se entrar em contato com o inimigo.\n\nProvoca Estorvo."
 UNPAUSE,UNPAUSE,RESUMIR
 MAIN_MENU,MAIN MENU,MENU PRINCIPAL
 VERSION,Version,Versão

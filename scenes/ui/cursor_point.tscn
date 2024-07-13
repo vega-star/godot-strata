@@ -85,8 +85,8 @@ scale = Vector2(3, 3)
 sprite_frames = SubResource("SpriteFrames_mlqaf")
 animation = &"cursor_pointing"
 autoplay = "cursor_pointing"
-frame_progress = 0.34363
-offset = Vector2(1, 12)
+frame_progress = 0.752461
+offset = Vector2(1, 14)
 script = SubResource("GDScript_x3kb2")
 
 [node name="CursorTimer" type="Timer" parent="."]
